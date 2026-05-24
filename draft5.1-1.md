@@ -525,7 +525,7 @@ weight_cap -= pulse_width × momentum × direction
 - **`pulse_width`** is the **update-time control**, encoding the share that arrived at this Scap after hierarchical diffusion. Functions as the per-Scap learning-rate / update magnitude.
 - **`momentum`** is the **per-Scap contribution history**, accumulated across the batch in Momentum_SRAM. Functions as the Scap's own importance signal.
 
-These two are not duplicates. The pulse_width is set at update time by the diffusion result; the momentum is set continuously during forward passes by EMA accumulation. They multiply because we want "Scaps that contributed a lot recently _and_ matter for this particular loss" to update most.
+These two are not duplicates. The pulse*width is set at update time by the diffusion result; the momentum is set continuously during forward passes by EMA accumulation. They multiply because we want "Scaps that contributed a lot recently \_and* matter for this particular loss" to update most.
 
 **Why `Forward_Sign_SRAM` instead of just `Sign_SRAM`:**
 

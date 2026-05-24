@@ -102,7 +102,7 @@ These rules govern every experiment, regardless of phase.
 
 **Rule 5: Failures are data.** A configuration that fails to converge is a result. Log it, report it, move on. Don't tune until it works — that's how you lie to yourself about what the architecture can do.
 
-**Rule 6: Defer all fallbacks until baseline is characterized.** Path 0 noise floor, adaptive decay, Adam-style v_t, anti-Hebbian gating — none of these go into Phase 2. They are tested as remediations _after_ the baseline failure mode is observed. Otherwise you can't distinguish "the baseline works" from "the fallbacks rescued it."
+**Rule 6: Defer all fallbacks until baseline is characterized.** Path 0 noise floor, adaptive decay, Adam-style v*t, anti-Hebbian gating — none of these go into Phase 2. They are tested as remediations \_after* the baseline failure mode is observed. Otherwise you can't distinguish "the baseline works" from "the fallbacks rescued it."
 
 **Rule 7: Defer PVT realism until the ideal model converges.** Phase 8 introduces PVT. Phases 1–7 use ideal deterministic operators. Otherwise you can't tell baseline failures from PVT-induced failures.
 
@@ -580,7 +580,7 @@ When does the architecture change based on data?
 **Promote to baseline (move from §21 Future Tracks to §1–19 spec):**
 
 - Tanh activation (§21): if Phase 2 shows ReLU works _but_ Forward_Sign benefits at only 9/29 Scaps — and Phase 3 shows tanh would benefit all 29 with no convergence cost.
-- Adam v_t per Scap (§21): if Phase 2 shows physical saturation alone produces > 5% ceiling-saturation _or_ fails to prevent winner-take-all (measured as: single Scap holds > 30% of total weight magnitude).
+- Adam v*t per Scap (§21): if Phase 2 shows physical saturation alone produces > 5% ceiling-saturation \_or* fails to prevent winner-take-all (measured as: single Scap holds > 30% of total weight magnitude).
 - Adaptive per-Scap weight decay (§21): if Phase 3 shows uniform decay produces > 10% dead-weight fraction even with floor-at-1 and residuals.
 - Per-neuron residuals (§21): if Phase 3 residual ablation shows L1→L4 bypass insufficient (dead-weight > 5% with bypass on).
 
