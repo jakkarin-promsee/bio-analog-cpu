@@ -1,0 +1,24 @@
+# Python (simulation phase)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+venv/
+.venv/
+.env
+
+# Simulation output (per draft5.1-2.md §20.19)
+runs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code personal settings
+.claude/settings.local.json
