@@ -3,10 +3,10 @@
 > A continuous-time analog substrate with on-chip hierarchical credit assignment.
 > Specification and experimental campaign.
 
-**Status:** Theory locked at draft 5.1. Simulation phase about to begin.
+**Status:** Theory locked at draft 5.1. Simulation phase started — a single-Ganglion prototype (SLICE-1) builds and runs; the formal Phase 2 campaign is pending.
 
 > [!NOTE]
-> This is a solo independent research project at the architecture-specification stage. No experimental data exists yet. The repository will grow as the simulation campaign progresses.
+> This is a solo independent research project. The architecture spec is locked; a single-Ganglion behavioural prototype now builds and runs, but no formal campaign data exists yet. The repository will grow as the simulation campaign progresses.
 
 ---
 
@@ -120,10 +120,11 @@ The distinguishing claim is the _combination_: continuous analog compute + on-ch
 │   ├── draft5.0.md, draft5.0.x1.md
 │   └── draft5.1-full.md               # Unsplit version of the canonical spec, kept for
 │                                      #   reference; split into draft5.1-{1,2}.md at root
-├── src/                               # Python simulator (to be created)
-├── tests/                             # pytest unit tests (to be created)
+├── skill/                             # Task skill-maps — start with project-explore.md
+├── src/                               # Python simulator — BUILT (SLICE-1 runs); library/ + example/ + docs/
+├── tests/                             # pytest unit tests (to be created — Phase 1)
 ├── reports/                           # Phase reports as experiments run (to be created)
-└── notes/                             # Working notes, ad-hoc analyses (to be created)
+└── notes/                             # Working notes & design rationale (e.g. ganglion-role-switching.md)
 ```
 
 The canonical spec was split into two files (`draft5.1-1.md` and `draft5.1-2.md`) only because the markdown-to-PDF tool fails on the unsplit length; there is no content difference. Section numbers are continuous across both parts. The unsplit version lives at `draft/draft5.1-full.md` for reference.
@@ -137,7 +138,7 @@ The canonical spec was split into two files (`draft5.1-1.md` and `draft5.1-2.md`
 
 ## Status
 
-**Phase: theoretical specification complete. Simulation about to begin.**
+**Phase: specification complete; simulation started (pre-campaign).**
 
 What exists:
 
@@ -147,14 +148,13 @@ What exists:
 - Continuous-invariant monitors specified (loss conservation, dead-weight fraction, ceiling saturation, T_max clip rate)
 - Negative-result protocols for each phase failure mode
 - Reproducibility infrastructure (locked seed list, configuration hashing, phase reports)
+- A **behavioural simulator** (`src/`) with the SLICE-1 build running end-to-end — one Ganglion, the §20.1 MVF harness (`python -m src.example.run_xor`) — stable with a first-pass supply-rail saturation
 
 What does not yet exist:
 
-- Python simulator
-- Phase 1 operator unit tests
-- The **Minimum Viable Falsification** test (§20.1 in the spec) — a 1-hour single-Ganglion XOR run that would catch infrastructure bugs before investing weeks in Phase 2
-- Any experimental data
-- Any results
+- The formal Phase 1 operator unit-test suite (the primitives exist as first-pass fills; pytest pinning is pending)
+- The Phase 2 single-Ganglion campaign — the make-or-break H1 test
+- Any formal experimental data or results (current single-Ganglion runs are pre-Phase-2 exploration, not a hypothesis verdict)
 
 This README will be updated as each phase completes. Phase reports will appear in `reports/`.
 
@@ -225,4 +225,4 @@ The architectural specification was developed iteratively with AI assistance for
 
 ---
 
-_Specification locked at draft 5.1 (split into Part 1 / Part 2 for layout, no content change). The Python phase begins next._
+_Specification locked at draft 5.1 (split into Part 1 / Part 2 for layout, no content change). The Python phase has begun: SLICE-1 runs; the Phase 2 campaign is next._

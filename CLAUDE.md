@@ -17,7 +17,7 @@ The four committed substrate properties: **online, sparse, continuous, resident-
 
 ## Where we are
 
-**Theory locked at draft 5.1. The Python simulation phase is the next action.**
+**Theory locked at draft 5.1. The Python simulation phase has started.** SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`python -m src.example.run_xor`); the author is currently exploring it pre-Phase-2 by hand. The formal Phase 1 / Phase 2 campaign is the next milestone, and there is **no H1 verdict yet**. See `skill/project-explore.md` (the concept entry point) for the full frame.
 
 The canonical specification is split across two files (split only for PDF-export length; no content difference):
 
@@ -38,12 +38,28 @@ The pre-split single-file version is kept at `draft/draft5.1-full.md` for refere
 
 ---
 
+## Task skill-maps (`skill/`)
+
+**Start with `skill/project-explore.md` — the concept entry point (read it first).** It teaches *how to read the project's concepts* (the Scap→Ganglion→Column→Lobe→Brainstem hierarchy, attribution-not-gradient, the direction) and front-loads the "corrections that are WRONG here." It is the front door; the four task-maps below are the rooms.
+
+Then, before non-trivial work, load the **mental-model map** for the task at hand. Each is a *router* — it tells you which docs to read (only the parts named), and installs the mindset and constraints for that side of the project. They are maps, not procedures; read what they point to.
+
+- **`skill/project-explore.md`** — **read first.** The concept entry point, the anti-correction frame, and the map of maps.
+- **`skill/simulator-code.md`** — editing the Python simulator (`src/library`, `src/example`).
+- **`skill/simulation-experiments.md`** — writing tests, running §20 phases / the MVF, interpreting results.
+- **`skill/architecture-research.md`** — proposing changes, triaging ideas, scope decisions.
+- **`skill/sureSkill.md`** — the index, plus an honest log of what is solid vs still unknown. **Read this to calibrate trust** before relying on the rest.
+
+> The deepest single onboarding doc is `src/docs/context.md` (the full journey + decisions + traps). The skill-maps are the task-specific lenses onto it and the spec.
+
+---
+
 ## The 14 locked decisions (§22 Protected List)
 
 These are **conclusions, not preferences**. Don't reopen without strong evidence (a phase report citing data). Each one is the survivor of at least one rejected alternative; the rejections are documented in `docs/draft/project-history.md`.
 
 1. **2-3-3-2 Ganglion topology, 29 Scaps** — path-diversity-per-scap optimum.
-2. **Attribution-based learning, not gradient descent.** Substrate measures `|a · W|` for free.
+2. **Attribution-based learning, not gradient descent.** Substrate measures `|a · W|` for free — and it's a **demonstrated candidate, not a risky bet**: a single Ganglion already trains on it (regression: noisy linear plane → near-perfect; nonlinear paraboloid → ~20× loss cut). The open question is *scale* (H1), not validity. Don't "correct" it back to gradients — but SGD stays the **comparison baseline** at scale (Phase 2 Cell D), not a replacement. See `skill/project-explore.md` §2.
 3. **Hierarchical diffusion** as the routing mechanism. Per-level normalized shares.
 4. **Five structural levels:** Scap → Ganglion → Column → Lobe → Limbic Loop.
 5. **Brainstem** as small central controller (~8–15k transistors). Not a CPU.
@@ -112,35 +128,28 @@ The full handoff is in `docs/draft/project-personal.md`. Shortest possible summa
 
 ---
 
-## The next concrete action
+## Where the code is, and the next concrete action
 
-**Write Python.** In this order, gated on each prior step.
+**The simulation has started.** SLICE-1 — one Ganglion, the §20.1 MVF harness — is **built and runs** end-to-end (`python -m src.example.run_xor`): boundary bridge, crossbar, Ganglion ALU, EMA momentum, backward broadcast, and a basic supply-rail saturation in the Scap (`W_RAIL`). It is stable. The author is currently **exploring it pre-Phase-2 by hand** (linearized data, cap-range and last-layer-activation experiments) — intentional play, **not** the formal hypothesis test and **not** an H1 verdict. (See `skill/project-explore.md` §7 and `src/docs/context.md` for the honest status.)
+
+The operator primitives exist in `src/library` as first-pass `[ALGO]` fills. What is **not** done: the formal Phase 1 pytest suite and the Phase 2 campaign. The next concrete steps, gated on each other:
 
 ### Step 1 — Phase 1: Operator Sanity (~1 week, §20.7)
 
-Implement these primitives as Python classes with pytest unit tests:
+Pin down the primitives (currently first-pass) with pytest unit tests, each against its ideal:
 
-- Add op-amp
-- Multiply op-amp
-- ReLU op-amp
+- Add op-amp · Multiply op-amp · ReLU op-amp
 - Capacitor charge dynamics (Euler integration of `dV/dt`)
 - Time-to-threshold measurement (clocks to cross A%/B% on a measurement cap)
 - PWM update (`weight_cap -= pulse_width × momentum × direction`)
 
-**Exit criterion:** each operator passes its tests with max error < 0.1% of expected output. Document worst-case error per operator.
+**Exit criterion:** each operator passes with max error < 0.1% of expected output; document worst-case error per operator. (The MVF harness already exercises these end-to-end; Phase 1 makes the correctness explicit and regression-checked.)
 
-### Step 2 — §20.1 Minimum Viable Falsification (~1 hour, the make-or-break sanity gate)
-
-Build the Scap class, build one Ganglion, run a single XOR training run with 1 seed in the full ideal configuration.
-
-- **Pass:** loss decreases monotonically; final loss < 50% of initial loss → proceed to Phase 2.
-- **Fail:** STOP. Debug operators (Phase 1) or the update equation (§6.3) before doing anything else. Most likely cause: a sign error or measurement-direction bug. The §3.3 / §3.7 XOR-convention bug almost killed Phase 2 before it was caught — be paranoid here.
-
-### Step 3 — Phase 2: Single Ganglion baseline (~2 weeks, §20.8)
+### Step 2 — Phase 2: Single Ganglion baseline (~2 weeks, §20.8)
 
 The central test of **H1, H7, H8, H10.** 60 runs across a 4-cell config matrix × 3 tasks (XOR, sine, two-moons) × 5 seeds.
 
-**Do not start Phase 2 before MVF passes. Do not add Phase 3+ variations to the Phase 2 runs.** One-thing-changed discipline starts on day one.
+**Do not start Phase 2 until the operators are trusted. Do not add Phase 3+ variations to the Phase 2 runs.** One-thing-changed discipline from day one. Be paranoid about the §3.3 / §3.7 XOR-convention bug — a sign or measurement-direction error is the most likely killer.
 
 ---
 
@@ -178,10 +187,14 @@ From §20.2. Internalize these — they govern every run, every phase.
 │       └── project-personal.md        collaboration handoff
 ├── draft/                             historical drafts (1.0 → 5.0.x1)
 │   └── draft5.1-full.md               unsplit version of the canonical spec (reference only)
-├── src/                               Python simulator (to be created)
-├── tests/                             pytest unit tests (to be created)
+├── skill/                             task skill-maps — START: project-explore.md (the front door)
+├── src/                               Python simulator — BUILT; SLICE-1 runs
+│   ├── library/                       reusable element classes (Scap, ALU, ControlUnit, wires, …)
+│   ├── example/                       reference builds + run_xor.py (the MVF harness)
+│   └── docs/                          code-side mental model (context, concept, core_logic, …)
+├── tests/                             pytest unit tests (to be created — Phase 1)
 ├── reports/                           phase reports as runs complete (to be created)
-└── notes/                             working notes (to be created)
+└── notes/                             working notes & design rationale (e.g. ganglion-role-switching.md)
 ```
 
 ---
@@ -190,7 +203,9 @@ From §20.2. Internalize these — they govern every run, every phase.
 
 | When the user asks…                       | Look in                                                                          |
 | ----------------------------------------- | -------------------------------------------------------------------------------- |
+| "How do I read / onboard this project?"    | `skill/project-explore.md` — the concept entry point (read first)                |
 | Architecture question (modules, mechanism) | `draft5.1-1.md` — §2 for mechanism, §6–§13 for modules                          |
+| Why the Ganglion *works* (atomic region-multiplexer / axon rationale) | `notes/ganglion-role-switching.md`                          |
 | Simulation plan / phase / metric question  | `draft5.1-2.md` — §20                                                            |
 | "Why did we decide X?"                     | `docs/draft/project-history.md`                                                  |
 | "How do I talk to this user about Y?"      | `docs/draft/project-personal.md`                                                 |

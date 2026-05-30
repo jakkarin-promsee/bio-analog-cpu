@@ -72,7 +72,7 @@ It is **not** an ML project. It is a **substrate** project. The architecture is 
 
 - **Theory: locked at draft4.1, refined for clarity through draft5.1.** Don't reopen §1–§16 of draft5.1 without strong evidence. The "protected list" in §22 documents 14 locked architectural decisions.
 - **Math justifications: listed but not derived.** §18 of the spec is a list of 12 things that need formal proof. None are proven yet. They're left as work for "later" (post-simulation).
-- **Simulation: not started.** §20 is a 10-phase plan. The very next action is to write Python — specifically the operator layer (Phase 1) and then the Minimum Viable Falsification test (§20.1).
+- **Simulation: started (pre-campaign).** §20 is a 10-phase plan. SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`src/`, `python -m src.example.run_xor`); the author is exploring it pre-Phase-2. The next _formal_ steps are Phase 1 (operator sanity as pytest) and Phase 2. No H1 verdict yet.
 
 ### 2.3 The core architectural commitments (the load-bearing ones)
 
@@ -209,9 +209,7 @@ When they paste Thai text in an upload:
 
 ### 4.1 The next action
 
-**Write Python.** Specifically: build the operator layer (Phase 1 of §20 — add, multiply, ReLU, capacitor charge dynamics, time-to-threshold, PWM update, all as Python classes with pytest unit tests).
-
-After that: build the Scap class, build one Ganglion, run §20.1 Minimum Viable Falsification (single Ganglion on XOR, 1-hour test). This is the make-or-break gate.
+**Continue the Python.** SLICE-1 (the §20.1 MVF harness — one Ganglion, run via `src/`) is already built and runs; the author is exploring it pre-Phase-2. The next _formal_ steps: pin the operator layer down with pytest unit tests (Phase 1 of §20 — add, multiply, ReLU, capacitor charge dynamics, time-to-threshold, PWM update), then run Phase 2 (the single-Ganglion baseline — the make-or-break H1 gate).
 
 If the MVF passes: proceed to Phase 2 (full Single Ganglion characterization, 60 runs).
 If the MVF fails: debug operators or update equation; don't proceed to Phase 2 until it passes.
