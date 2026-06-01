@@ -17,7 +17,7 @@ The four committed substrate properties: **online, sparse, continuous, resident-
 
 ## Where we are
 
-**Theory locked at draft 5.1. The Python simulation phase has started.** SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`python -m src.example.run_xor`); the author is currently exploring it pre-Phase-2 by hand. The formal Phase 1 / Phase 2 campaign is the next milestone, and there is **no H1 verdict yet**. See `skill/project-explore.md` (the concept entry point) for the full frame.
+**Theory locked at draft 5.1. The Python simulation phase has started.** SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`python -m src.example.run_xor`); the author is currently exploring it pre-Phase-2 by hand. The plan is being re-drafted phase-by-phase in `draft5.1-2.verify.md` (current: **Phase 1 — Ganglion Personality**), and there is **no H1 verdict yet**. See `skill/project-explore.md` (the concept entry point) for the full frame.
 
 The canonical specification is split across two files (split only for PDF-export length; no content difference):
 
@@ -26,7 +26,7 @@ The canonical specification is split across two files (split only for PDF-export
 
 The pre-split single-file version is kept at `draft/draft5.1-full.md` for reference only.
 
-**If you have time for three sections only:** §2 (the mechanism), §3 (the worked example), §20.1 (Minimum Viable Falsification — the one-hour test that can falsify H1).
+**If you have time for three sections only:** §2 (the mechanism), §3 (the worked example), and `draft5.1-2.verify.md` Phase 1 (what we're doing now).
 
 ---
 
@@ -132,24 +132,12 @@ The full handoff is in `docs/draft/project-personal.md`. Shortest possible summa
 
 **The simulation has started.** SLICE-1 — one Ganglion, the §20.1 MVF harness — is **built and runs** end-to-end (`python -m src.example.run_xor`): boundary bridge, crossbar, Ganglion ALU, EMA momentum, backward broadcast, and a basic supply-rail saturation in the Scap (`W_RAIL`). It is stable. The author is currently **exploring it pre-Phase-2 by hand** (linearized data, cap-range and last-layer-activation experiments) — intentional play, **not** the formal hypothesis test and **not** an H1 verdict. (See `skill/project-explore.md` §7 and `src/docs/context.md` for the honest status.)
 
-The operator primitives exist in `src/library` as first-pass `[ALGO]` fills. What is **not** done: the formal Phase 1 pytest suite and the Phase 2 campaign. The next concrete steps, gated on each other:
+**The plan is re-drafted intuition-first, phase by phase, in `draft5.1-2.verify.md` — that is the single source of truth for what we're doing now.** (`draft5.1-2.md` §20 is the older rough scaffold.) Don't restate the phase plan here; read it there. As of now:
 
-### Step 1 — Phase 1: Operator Sanity (~1 week, §20.7)
+- **Phase 1 (current) — Ganglion Personality.** Characterize the atom: what shapes one 2-3-3-2 Ganglion can make and its limits — sweep inputs/weights, plot the output surface up a realism ladder (ideal → activation-variant → cap-ceiling → saturation), ×2 for residual. The old "operator-sanity" check folds in as rung 0. **Work it in `src/experiment/phase1/`** (enter via its `README.md`; log via `experiment-{n}.md`).
+- **Phase 2 (sketch) — Ganglion-network characterization**, once the atom is known. Re-derived from Phase 1 data, not pre-committed.
 
-Pin down the primitives (currently first-pass) with pytest unit tests, each against its ideal:
-
-- Add op-amp · Multiply op-amp · ReLU op-amp
-- Capacitor charge dynamics (Euler integration of `dV/dt`)
-- Time-to-threshold measurement (clocks to cross A%/B% on a measurement cap)
-- PWM update (`weight_cap -= pulse_width × momentum × direction`)
-
-**Exit criterion:** each operator passes with max error < 0.1% of expected output; document worst-case error per operator. (The MVF harness already exercises these end-to-end; Phase 1 makes the correctness explicit and regression-checked.)
-
-### Step 2 — Phase 2: Single Ganglion baseline (~2 weeks, §20.8)
-
-The central test of **H1, H7, H8, H10.** 60 runs across a 4-cell config matrix × 3 tasks (XOR, sine, two-moons) × 5 seeds.
-
-**Do not start Phase 2 until the operators are trusted. Do not add Phase 3+ variations to the Phase 2 runs.** One-thing-changed discipline from day one. Be paranoid about the §3.3 / §3.7 XOR-convention bug — a sign or measurement-direction error is the most likely killer.
+The methodological rules below still govern every run (one-thing-changed, reproducible seeds, failures-are-data), and stay paranoid about the §3.3 / §3.7 XOR-convention sign bug — still the most likely silent killer.
 
 ---
 
@@ -179,7 +167,8 @@ From §20.2. Internalize these — they govern every run, every phase.
 ├── README.md                          public-facing overview
 ├── CLAUDE.md                          this file (always loaded)
 ├── draft5.1-1.md                      canonical spec, Part 1
-├── draft5.1-2.md                      canonical spec, Part 2
+├── draft5.1-2.md                      canonical spec, Part 2 — ROUGH pre-plan (see its banner)
+├── draft5.1-2.verify.md               live plan — re-drafted phase by phase (the whiteboard)
 ├── docs/
 │   └── draft/
 │       ├── draft.heirachy.md          file-by-file draft map
@@ -191,7 +180,8 @@ From §20.2. Internalize these — they govern every run, every phase.
 ├── src/                               Python simulator — BUILT; SLICE-1 runs
 │   ├── library/                       reusable element classes (Scap, ALU, ControlUnit, wires, …)
 │   ├── example/                       reference builds + run_xor.py (the MVF harness)
-│   └── docs/                          code-side mental model (context, concept, core_logic, …)
+│   ├── docs/                          code-side mental model (context, concept, core_logic, …)
+│   └── experiment/                    per-phase experiment workspace (scripts + figures + logs; enter via phaseN/README.md)
 ├── tests/                             pytest unit tests (to be created — Phase 1)
 ├── reports/                           phase reports as runs complete (to be created)
 └── notes/                             working notes & design rationale (e.g. ganglion-role-switching.md)
@@ -206,7 +196,8 @@ From §20.2. Internalize these — they govern every run, every phase.
 | "How do I read / onboard this project?"    | `skill/project-explore.md` — the concept entry point (read first)                |
 | Architecture question (modules, mechanism) | `draft5.1-1.md` — §2 for mechanism, §6–§13 for modules                          |
 | Why the Ganglion *works* (atomic region-multiplexer / axon rationale) | `notes/ganglion-role-switching.md`                          |
-| Simulation plan / phase / metric question  | `draft5.1-2.md` — §20                                                            |
+| Simulation plan / what we're doing now      | `draft5.1-2.verify.md` (live, phase-by-phase); `draft5.1-2.md` §20 is the rough scaffold |
+| Where experiments + their logs live        | `src/experiment/` — enter a phase via its `phaseN/README.md`                     |
 | "Why did we decide X?"                     | `docs/draft/project-history.md`                                                  |
 | "How do I talk to this user about Y?"      | `docs/draft/project-personal.md`                                                 |
 | Glossary lookup                            | `draft5.1-1.md` §23                                                              |

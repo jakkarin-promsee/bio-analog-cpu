@@ -40,7 +40,7 @@ Don't re-read the whole spec for a code change — pull only the section a doc p
 - **ids on wires are ints** (`group_id`, `weight_model_id`, `target_group`); `alu_id` is a `str` dict key.
 - **Don't import ML/backprop instincts.** No gradient routing, no weight transport. A Scap is a wire.
 
-## Where the build is now (2026-05)
+## Where the build is now (2026-06)
 
 - **SLICE-1 (one Ganglion) is built and runs** end-to-end: boundary bridge, crossbar, Ganglion ALU,
   EMA momentum, backward broadcast, basic supply-rail saturation (`W_RAIL`). `python -m src.example.run_xor`.

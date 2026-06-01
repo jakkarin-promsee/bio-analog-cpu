@@ -13,8 +13,9 @@ characterize it across configs, move on. (The XOR collapse was *reported*, never
 
 ## Read these first, in order — only the parts named
 
-1. **`draft5.1-2.md §20`** — the campaign: the phases, the MVF (§20.1), and especially **§20.2 the
-   methodological rules** (one-thing-changed, multi-seed, invariants-everywhere). These govern every run.
+1. **`draft5.1-2.verify.md`** — the **live plan** (re-drafted intuition-first, phase by phase). Start with
+   the current phase. `draft5.1-2.md §20` is the **rough scaffold** (kept for reference) — but still read
+   its **§20.2 methodological rules** (one-thing-changed, multi-seed, invariants), which govern every run.
 2. **`draft5.1-1.md §17`** — the 11 hypotheses. Every experiment tests one. **H1** (does attribution
    converge) is load-bearing; the rest matter only conditional on H1.
 3. **`src/docs/context.md §7`** — how to read early results: the two caveats (the supply-rail saturation
@@ -42,17 +43,30 @@ baseline, conservation is trivial — it becomes meaningful once per-level diffu
   it needs a phase report citing data — not a hunch.
 - Don't change the architecture to make a test pass. A test that fails is a result.
 
-## Where the work is now (2026-05)
+## Where to work — the experiment space
 
-- **MVF harness (SLICE-1, one Ganglion) is built and runs** — stable with the supply-rail saturation.
-  But **no formal phase has run yet**: the current `run_xor` is the author's pre-Phase-2 play on a
-  *linearized* task, **not** the discrete-XOR / substantive test, so there is **no H1 verdict**. (The lean
-  baseline has no hidden-layer credit *by construction* — the recorded §22 #3/#6 deviation, and the reason
-  per-level diffusion is the remediation if Phase 2 stalls.)
-- Per §20, **Phase 1** (operator sanity, as pytest) and **Phase 2** (single-Ganglion baseline: H1/H7/H8/H10)
-  are the next formal phases.
-- **No `reports/` written yet.** The first real phase report comes from Phase 2, not the pre-Phase-2 play
-  (config hash + seeds + honest outcome, per §20.19).
+- **Plan vs record.** `draft5.1-2.verify.md` = the *whiteboard* (intent, what we're doing now).
+  `src/experiment/phaseN/` = the *record* (what we ran + found). Update **status** in the verify doc; put
+  the **detail** in the experiment folder.
+- **Enter a phase via its `README.md`**, then read its `experiment-{n}.md` in order — one experiment per
+  file (question → setup → run → result/figures → read → decision). See `src/experiment/README.md`.
+- **`library/` is frozen**: experiment scripts import it unchanged; changing it is a `simulator-code` task.
+- **Figures:** commit the summary plots the logs reference; raw sweeps → git-ignored `runs/` (§20.19).
+- **Write-boundary:** an experiment touches only `draft5.1-2.verify.md` (status) and inside
+  `src/experiment/`. The locked spec and the frozen `library/` are off-limits to an experiment.
+
+## Where the work is now (2026-06)
+
+- **The plan is being re-drafted intuition-first** in `draft5.1-2.verify.md`. **Phase 1 is now "Ganglion
+  Personality"** — characterize the atom's expressive shape/limits by sweeping inputs/weights and plotting
+  the output surface up a realism ladder — **superseding the old "operator sanity"** (which folds in as
+  rung 0). Workspace: `src/experiment/phase1/` (not started).
+- **MVF harness (SLICE-1, one Ganglion) is built and runs**, stable with the supply-rail saturation. The
+  mechanism *trains* (regression: linear near-perfect, paraboloid ~20×), but **no formal phase has run**
+  and there is **no H1 verdict** yet. The lean baseline has no hidden-layer credit *by construction* (the
+  recorded §22 #3/#6 deviation).
+- **No phase logs written yet.** The first lives in `src/experiment/phase1/` (its `README.md` summary + the
+  `experiment-{n}.md` files), per the convention above.
 
 ## Traps
 
@@ -65,4 +79,5 @@ baseline, conservation is trivial — it becomes meaningful once per-level diffu
 
 - The run obeys §20.2 (one variable, multi-seed, invariants logged).
 - A failure is *recorded as data* (multi-config characterization), not tuned away.
-- If it's a phase, a `reports/` report exists with the config hash, seeds, and the honest result.
+- If it's a phase, its `src/experiment/phaseN/` record exists — the `README.md` summary + the
+  `experiment-{n}.md` logs (config, seeds, figures, honest result).

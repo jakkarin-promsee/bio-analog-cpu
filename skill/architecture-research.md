@@ -40,7 +40,7 @@ And **triage every new idea** — catching scope-creep is your job.
 - **A Scap is a wire, not a neuron** (this pushback was a real save; respect it).
 - Don't confuse a *fluid* code-architecture choice with a *locked* §22 decision, or vice versa.
 
-## Where the work is now (2026-05)
+## Where the work is now (2026-06)
 
 - Theory locked at draft 5.1. The simulation phase has started: SLICE-1 built and runs (the author is
   exploring it pre-Phase-2; **no H1 verdict yet**). The lean baseline has no hidden-layer credit *by

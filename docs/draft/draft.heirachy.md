@@ -35,6 +35,7 @@ For the narrative version of the same arc (mind stones, breakthroughs, why each 
 | `draft5.1-full.md`  | Main (ref)  | Final polish — §1.4 bio narrative, §3 XOR-convention bug fix, §3.6 ambiguity resolved (unsplit)    |
 | `draft5.1-1.md`     | Main (Part) | Canonical spec Part 1 — §0–§19, §22–§23. **Lives at repo root, not in `draft/`.**                 |
 | `draft5.1-2.md`     | Main (Part) | Canonical spec Part 2 — §20 simulation, §21 future tracks. **Lives at repo root.**                |
+| `draft5.1-2.verify.md` | Plan (live) | Re-draft of the §20 plan, intuition-first, phase by phase. Supersedes 5.1-2's phase *schedule*; lives at repo root. |
 
 > The split into `draft5.1-1.md` / `draft5.1-2.md` exists only because the markdown-to-PDF tool fails on the unsplit length. Content is identical to `draft/draft5.1-full.md`. Section numbers are continuous across both parts.
 
@@ -274,8 +275,8 @@ Split only because the markdown-to-PDF tool fails on the unsplit length. Section
 
 ## Current State
 
-**Latest: `draft5.1-1.md` + `draft5.1-2.md`** (split for PDF) — canonical specification, theoretical work locked.
+**Latest spec: `draft5.1-1.md` + `draft5.1-2.md`** (split for PDF) — canonical, theoretical work locked. **Beyond the drafts**, the repo now also holds the Python simulator (`src/`), the agent skill-maps (`skill/`), design notes (`notes/`), and the per-phase experiment workspace (`src/experiment/`) — see `CLAUDE.md` for the full file map.
 
-**Next:** Python simulation. Phase 1 (operator sanity, pytest) and §20.1 Minimum Viable Falsification (single Ganglion XOR, 1-hour run) are the make-or-break gate before Phase 2.
+**State (2026-06): the Python simulation phase has started.** SLICE-1 (one Ganglion) builds and runs; the author is exploring it pre-Phase-2 (no H1 verdict yet). The **plan is being re-drafted intuition-first, phase by phase, in `draft5.1-2.verify.md`** — the current phase is **Phase 1 — Ganglion Personality** (characterize the atom), superseding the old "operator sanity" framing (that folds in as its first rung). `draft5.1-2.md` §20 is now a rough scaffold (see its banner).
 
 The §22 protected list (14 items) documents the locked architectural decisions. Open questions are tiered in §19: four architecture-critical items the simulation must answer, ~19 tuning items that don't threaten the architecture either way.

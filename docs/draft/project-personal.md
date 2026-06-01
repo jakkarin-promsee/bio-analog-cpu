@@ -72,7 +72,7 @@ It is **not** an ML project. It is a **substrate** project. The architecture is 
 
 - **Theory: locked at draft4.1, refined for clarity through draft5.1.** Don't reopen §1–§16 of draft5.1 without strong evidence. The "protected list" in §22 documents 14 locked architectural decisions.
 - **Math justifications: listed but not derived.** §18 of the spec is a list of 12 things that need formal proof. None are proven yet. They're left as work for "later" (post-simulation).
-- **Simulation: started (pre-campaign).** §20 is a 10-phase plan. SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`src/`, `python -m src.example.run_xor`); the author is exploring it pre-Phase-2. The next _formal_ steps are Phase 1 (operator sanity as pytest) and Phase 2. No H1 verdict yet.
+- **Simulation: started (pre-campaign).** §20 was a 10-phase sketch; the plan is now being **re-drafted phase-by-phase in `draft5.1-2.verify.md`** (current: **Phase 1 — Ganglion Personality**, characterize the atom). SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`src/`, `python -m src.example.run_xor`); the author is exploring it pre-Phase-2. No H1 verdict yet.
 
 ### 2.3 The core architectural commitments (the load-bearing ones)
 
@@ -209,7 +209,7 @@ When they paste Thai text in an upload:
 
 ### 4.1 The next action
 
-**Continue the Python.** SLICE-1 (the §20.1 MVF harness — one Ganglion, run via `src/`) is already built and runs; the author is exploring it pre-Phase-2. The next _formal_ steps: pin the operator layer down with pytest unit tests (Phase 1 of §20 — add, multiply, ReLU, capacitor charge dynamics, time-to-threshold, PWM update), then run Phase 2 (the single-Ganglion baseline — the make-or-break H1 gate).
+**Continue the Python.** SLICE-1 (one Ganglion, run via `src/`) is built and runs; the author is exploring it pre-Phase-2. The plan is now **re-drafted phase-by-phase in `draft5.1-2.verify.md`** — the current phase is **Phase 1 — Ganglion Personality** (map the atom's shape/limits); work it in `src/experiment/phase1/`. (The old "operator sanity" folds in as its first rung; the verify doc is the source of truth for the running order.)
 
 If the MVF passes: proceed to Phase 2 (full Single Ganglion characterization, 60 runs).
 If the MVF fails: debug operators or update equation; don't proceed to Phase 2 until it passes.

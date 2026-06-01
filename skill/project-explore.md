@@ -187,7 +187,7 @@ campaign. That play is *intentional* — not the hypothesis test, and not bugs.
 
 **Where we're going.** The §20 ten-phase campaign. **H1 — *does attribution-based hierarchical diffusion
 converge on substantive tasks?* — is the load-bearing question;** H2–H11 only matter if H1 holds. The
-next *formal* phases are Phase 1 (operator sanity) and Phase 2 (single-Ganglion baseline). §22 is locked;
+current phase is **Phase 1 — Ganglion Personality** (characterize the atom — the old "operator sanity" folds in as rung 0), re-drafted in `draft5.1-2.verify.md`. §22 is locked;
 §19 lists what's still open — those are what simulation resolves, not argument.
 
 **Calibrate your trust before you rely on anything:**
@@ -250,7 +250,8 @@ are load-bearing.
 | You are about to… | Read |
 | --- | --- |
 | Edit the simulator (`src/library`, `src/example`) | `skill/simulator-code.md` → `src/docs/{core_logic,code_concept,context}.md` |
-| Write a test / run a phase or the MVF / read a result | `skill/simulation-experiments.md` → `draft5.1-2.md §20` |
+| Understand the live plan / what we're doing now | `draft5.1-2.verify.md` (re-drafted phase by phase; `draft5.1-2.md §20` is the rough scaffold) |
+| Write a test / run a phase / log a result | `skill/simulation-experiments.md` → `draft5.1-2.verify.md` + `src/experiment/phaseN/` |
 | Propose a change / triage an idea / make a scope call | `skill/architecture-research.md` → `project-history.md`, `§22`, `§20.17` |
 | Why a Ganglion *works* — the atomic region-multiplexer / axon rationale | `notes/ganglion-role-switching.md` |
 | Calibrate what's solid vs still unknown | `skill/sureSkill.md` |
