@@ -4,6 +4,10 @@
 > Specification and experimental campaign.
 > **Part 2 of 2.** See `draft5.1-1.md` for Part 1 (architecture, mechanism, hypotheses, math targets, open questions, protected list, glossary).
 
+> **⚠ Status (2026-06-01) — this is a _rough pre-plan_, not the committed campaign.** The §20/§21 phases below were sketched with Opus 4.7 to picture what the whole project _could_ look like end-to-end. The author's committed intuition lives in `draft5.1-1.md` (the locked architecture); this Part 2 is being **re-drafted intuition-first, phase by phase**, in `draft5.1-2.verify.md` — each phase shaped by the previous phase's data, and expected to keep shifting. Treat the phases / run-counts / effort here as an _illustrative scaffold_, not fixed targets. **For the live plan, read `draft5.1-2.verify.md`.** This file stays for reference.
+>
+> **Scope of "rough":** it's the *phase schedule* (§20.0–§20.16 — which phases, run-counts, order) that's being re-drafted. The *methodology* sections here remain the working reference until re-drafted: **§20.2** (rules), **§20.17** (promotion), **§20.18** (negative-result protocols), **§20.19** (reproducibility), and all of **§21** (future tracks).
+
 ---
 
 ## About this part
