@@ -54,6 +54,12 @@ Then, before non-trivial work, load the **mental-model map** for the task at han
 
 ---
 
+## Workflow commands (soft skills)
+
+Recurring moves have thin `/command` triggers in `.claude/commands/` — **`/orient`** (re-read & re-sync), **`/checkpoint`** (record progress after a step), **`/commit-progress`** (categorized conventional commits), **`/double-check`** (the 3-lens consistency audit). The actual steps live in **`skill/workflows.md`**; the commands just fire them, and they work just as well if the user asks in plain words ("commit it", "double-check this"). Add a move there when a manual ritual repeats 3+ times.
+
+---
+
 ## The 14 locked decisions (§22 Protected List)
 
 These are **conclusions, not preferences**. Don't reopen without strong evidence (a phase report citing data). Each one is the survivor of at least one rejected alternative; the rejections are documented in `docs/draft/project-history.md`.
@@ -194,6 +200,7 @@ From §20.2. Internalize these — they govern every run, every phase.
 | When the user asks…                       | Look in                                                                          |
 | ----------------------------------------- | -------------------------------------------------------------------------------- |
 | "How do I read / onboard this project?"    | `skill/project-explore.md` — the concept entry point (read first)                |
+| Fire a recurring move (commit / re-sync / audit / checkpoint) | `skill/workflows.md` (+ `/command` triggers in `.claude/commands/`)              |
 | Architecture question (modules, mechanism) | `draft5.1-1.md` — §2 for mechanism, §6–§13 for modules                          |
 | Why the Ganglion *works* (atomic region-multiplexer / axon rationale) | `notes/ganglion-role-switching.md`                          |
 | Simulation plan / what we're doing now      | `draft5.1-2.verify.md` (live, phase-by-phase); `draft5.1-2.md` §20 is the rough scaffold |

@@ -13,6 +13,7 @@
 | Map (`skill/`) | Use it when… | Status |
 | --- | --- | --- |
 | `project-explore.md` | **read first** — the concept entry point: how to read the project + the corrections that are wrong here | ✅ done |
+| `workflows.md` | the recurring moves (orient / checkpoint / commit-progress / double-check); thin `/command` triggers in `.claude/commands/` | ✅ done |
 | `simulator-code.md` | editing `src/library` / `src/example` | ✅ done |
 | `simulation-experiments.md` | writing tests, running §20 phases / the MVF, interpreting results | ✅ done |
 | `architecture-research.md` | proposing changes, triaging ideas, scope/scope-creep calls | ✅ done |

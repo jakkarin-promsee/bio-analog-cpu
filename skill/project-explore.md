@@ -255,6 +255,7 @@ are load-bearing.
 | Propose a change / triage an idea / make a scope call | `skill/architecture-research.md` → `project-history.md`, `§22`, `§20.17` |
 | Why a Ganglion *works* — the atomic region-multiplexer / axon rationale | `notes/ganglion-role-switching.md` |
 | Calibrate what's solid vs still unknown | `skill/sureSkill.md` |
+| Fire a recurring move (orient / checkpoint / commit / double-check) | `skill/workflows.md` (+ `/command` triggers in `.claude/commands/`) |
 | Understand **why** a decision was made | `docs/draft/project-history.md` |
 | Understand **how to talk to the author** | `docs/draft/project-personal.md` |
 | Look up a term | `draft5.1-1.md §23` (glossary) |
