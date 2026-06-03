@@ -22,3 +22,6 @@ desktop.ini
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# For Social Post Drafting
+post
