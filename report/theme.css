@@ -1,0 +1,144 @@
+/* =============================================================================
+   theme.css — A4 report style for the Bio-Analog CPU spec.
+   Brand carried over from post/p8.content.html (accent #1f7a8c, Segoe UI).
+   Pagination, page numbers, running headers and the TOC leaders are produced
+   by Paged.js (loaded at the bottom of the generated HTML).
+   ========================================================================== */
+
+:root {
+  --ink: #1b2330;
+  --muted: #5b6675;
+  --accent: #1f7a8c;
+  --accent-soft: #eaf3f5;
+  --line: #e3e7ee;
+  --code-bg: #f5f7f9;
+}
+
+/* ---- page furniture (Paged.js margin boxes) ------------------------------ */
+@page {
+  size: A4;
+  margin: 22mm 18mm 18mm;
+  @bottom-center { content: counter(page); color: var(--muted); font: 9pt "Segoe UI", sans-serif; }
+  @top-right     { content: string(sectiontitle); color: var(--muted); font: 8.5pt "Segoe UI", sans-serif; }
+}
+@page cover  { margin: 0; @bottom-center { content: none; } @top-right { content: none; } }
+@page toc    { @top-right { content: none; } }
+
+/* ---- base ---------------------------------------------------------------- */
+html, body { margin: 0; padding: 0; }
+body {
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+
+/* ---- cover page ---------------------------------------------------------- */
+.cover {
+  page: cover;
+  break-after: page;
+  box-sizing: border-box;
+  width: 210mm; height: 297mm;
+  padding: 60mm 24mm 24mm;
+  display: flex; flex-direction: column;
+  border-top: 14mm solid var(--accent);
+}
+.cover .kicker {
+  font-size: 12pt; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent); margin: 0;
+}
+.cover-title {
+  font-size: 34pt; line-height: 1.08; font-weight: 800;
+  letter-spacing: -.01em; margin: 6mm 0 0;
+}
+.cover-sub { font-size: 14pt; color: var(--muted); margin: 8mm 0 0; max-width: 150mm; line-height: 1.45; }
+.cover-foot {
+  margin-top: auto; padding-top: 6mm; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between;
+  font-size: 10pt; color: var(--muted);
+}
+
+/* ---- table of contents --------------------------------------------------- */
+.toc { page: toc; break-after: page; }
+.toc-title { font-size: 22pt; font-weight: 800; margin: 0 0 8mm; }
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; }
+.toc a {
+  display: flex; align-items: baseline; text-decoration: none; color: var(--ink);
+  border-bottom: 1px dotted var(--line); padding: 1.6mm 0;
+}
+.toc a .t { flex: 0 1 auto; }
+.toc a::after {                       /* dotted leader + page number (Paged.js) */
+  content: target-counter(attr(href), page);
+  margin-left: auto; padding-left: 3mm; color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.toc .lvl2 { font-weight: 700; margin-top: 2mm; }
+.toc .lvl2 a { color: var(--accent); }
+.toc .lvl3 a { padding-left: 7mm; font-size: 9.7pt; color: var(--muted); }
+.toc .lvl3 a::after { color: var(--muted); }
+
+/* ---- prose --------------------------------------------------------------- */
+.prose { hyphens: none; }
+
+/* part divider (the in-document H1 of each source file) */
+.prose h1 {
+  break-before: page; string-set: sectiontitle content(text);
+  font-size: 24pt; font-weight: 800; line-height: 1.15;
+  color: var(--accent); margin: 0 0 6mm; padding-bottom: 4mm;
+  border-bottom: 3px solid var(--accent);
+}
+/* numbered sections */
+.prose h2 {
+  break-before: page; string-set: sectiontitle content(text);
+  font-size: 17pt; font-weight: 800; letter-spacing: -.01em;
+  margin: 0 0 4mm; padding-bottom: 2.5mm; border-bottom: 1.5px solid var(--line);
+}
+.prose h3 { font-size: 12.5pt; font-weight: 700; color: var(--accent); margin: 8mm 0 2mm; }
+.prose h4 { font-size: 11pt; font-weight: 700; margin: 6mm 0 1.5mm; }
+.prose h2 + h3 { margin-top: 3mm; }
+
+.prose p { margin: 0 0 3mm; }
+.prose strong { font-weight: 700; }
+.prose a { color: var(--accent); text-decoration: none; }
+.prose ul, .prose ol { margin: 0 0 3mm; padding-left: 6mm; }
+.prose li { margin: 0 0 1mm; }
+.prose hr { border: none; border-top: 1px solid var(--line); margin: 6mm 0; }
+.prose hr.partbreak { border: none; margin: 0; break-before: page; }
+
+/* ---- tables -------------------------------------------------------------- */
+.prose table {
+  border-collapse: collapse; width: 100%; margin: 0 0 4mm;
+  font-size: 9.4pt; break-inside: avoid;
+}
+.prose th, .prose td {
+  border: 1px solid var(--line); padding: 1.8mm 2.6mm; text-align: left; vertical-align: top;
+}
+.prose thead th { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.prose tbody tr:nth-child(even) { background: #fafbfc; }
+
+/* ---- code / ASCII diagrams ----------------------------------------------- */
+.prose code {
+  font-family: "Cascadia Code", "Consolas", ui-monospace, monospace;
+  font-size: 9pt; background: var(--code-bg); padding: .3mm 1.4mm; border-radius: 3px;
+}
+.prose pre {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 5px;
+  padding: 3.5mm 4mm; margin: 0 0 4mm; overflow: visible;
+  break-inside: avoid; white-space: pre;
+}
+.prose pre code {
+  background: none; padding: 0; font-size: 8.2pt; line-height: 1.4; white-space: pre;
+}
+
+/* ---- callout boxes (blockquotes -> the p8 .note look) -------------------- */
+.prose blockquote {
+  background: var(--accent-soft); border-left: 4px solid var(--accent);
+  border-radius: 4px; padding: 3mm 5mm; margin: 0 0 4mm; break-inside: avoid;
+}
+.prose blockquote > :last-child { margin-bottom: 0; }
+.prose blockquote p { font-size: 10pt; }
+
+/* keep headings with their following content */
+.prose h1, .prose h2, .prose h3, .prose h4 { break-after: avoid; }
+.prose img { max-width: 100%; }

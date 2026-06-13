@@ -1,0 +1,19 @@
+{
+  "name": "bio-analog-report",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Flatten the canonical spec markdown into an A4 print-to-PDF report (p8 brand).",
+  "scripts": {
+    "build": "node build.mjs",
+    "spec": "node build.mjs out=spec.html title=\"Bio-Inspired Analog CPU — Specification\" subtitle=\"Draft 5.1 · architecture, mechanism, hypotheses, experimental campaign\" ../draft5.1-1.md ../draft5.1-2.md",
+    "pdf": "node render.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "^14.2.0",
+    "markdown-it-anchor": "^9.2.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.0.0"
+  }
+}
