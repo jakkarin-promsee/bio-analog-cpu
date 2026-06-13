@@ -172,9 +172,11 @@ Whether it can is the project's first real open question.
    useless (asleep) — sliding them into place is what learning has to prove.
 
 That's the atom, fully characterized at its simplest ("rung 0", ideal) — and because everything here
-is noise-free, our fast stand-in matches the real circuit exactly, which is the clean baseline the
-next rungs perturb. Rung 1 onward adds the real chip's physical limits (a weight ceiling, then charge
-saturation) **and the first noise/variance tests**, asking how each one bends this picture.
+is noise-free, our fast stand-in matches the real circuit exactly, which is the clean baseline rung 1
+builds on. Rung 1 stops asking *what the atom could represent* and asks *whether its own learning rule
+can actually get there* — the chip's attribution rule vs textbook gradient descent, on these same
+shapes, **with a first taste of noise**. (The real-chip physical limits — weight ceiling, saturation —
+are parked as *Ideas* until that's settled.)
 
 ---
 

@@ -1,155 +1,189 @@
-# Rung 1 — The weight ceiling (why a cap can vanish the whole signal)
+# Rung 1 — Can it *learn* the shapes? (attribution vs gradient)
 
-> Read rung 0 first if you haven't — it shows what one Ganglion *is* (three lines, a flat ramp in
-> each piece). This page adds the first piece of real-chip physics and finds where it bites.
+> Read rung 0 first — it shows what one Ganglion *is* (creases + flat ramps) and what it *could*
+> represent (the oracle ceiling). This rung asks: can a **real learning rule** get there — the chip's
+> own attribution rule vs textbook gradient descent?
+
+## The one-line result
+
+> **Attribution learns any *monotonic* shape — a tilt, even a curved rise — but cannot carve an
+> *interior fold*.** The plane and a rising parabola it nails; the *same* parabola folded into a valley,
+> a gaussian bump, and xor it can't — it flattens them out. Gradient carves the folds (up to its own
+> seed-luck). And under **noise** the order inverts: gradient is precise-but-fragile, attribution
+> coarse-but-robust.
+
+The dividing line is **monotonic vs interior-fold**, not linear-vs-curved — that's the key, and it's
+clean evidence for *why the architecture needs a hierarchy*. See "How to read this."
 
 ## What changed since rung 0
 
-Rung 0 let weights be any size. A real chip can't: a weight is a charge on a tiny capacitor, and a
-capacitor has a **voltage ceiling** (~0–3V). So weights are **capped**. The obvious guess is "a cap
-just squashes the output a bit." The real story is sharper, and it comes from one fact about
-multiplication.
+Rung 0 used an **oracle** (TRF, free weights) — a ceiling, not a learner. Rung 1 swaps in two learners:
 
-## Step 1 — Multiply shrinks below 1, and three layers make it brutal
+- **Gradient descent (the reference).** Exact `∂loss/∂w` through all 3 layers. Not what the chip does.
+  **Numpy**, standalone (the analog lib can't do exact backprop). EMA momentum `v = βv + (1−β)g`
+  (NOT Adam — no `v_t` RMS term).
+- **Attribution (the chip's rule, the bet).** No routed gradient: each weight watches its own `|a·W|`
+  (an EMA = its momentum), the Brainstem broadcasts **one global pulse + one feedback sign**, each
+  weight nudges by `pulse × contribution × direction`. **Run on our own library**
+  (`Brainstem.train_step` → the Scap update). *(A verified pure-numpy replica `AttributionNP` exists for
+  fast experiments — identical to the lib to ~1e-15.)*
 
-Here's the whole intuition. Addition is gentle; **multiplication is not**:
+## Two setup details that turned out load-bearing
 
-```
-2 × 2 = 4     (grows)
-0.2 × 0.2 = 0.04   (shrinks — and it's 0.04, not 0.4!)
-```
+- **Positive inputs.** A negative input flips an L2 wire's `sign(x·W)` sample-to-sample, so its updates
+  cancel and the layer dies to a flat sheet (`0·x + b`). With inputs `[0,2]`, `sign(x·W)=sign(W)` is
+  constant per wire → coherent L2 learning. (This is why an early `[-1,1]` run couldn't even learn the
+  plane.) Some shapes are then **centered** so their fold sits inside the positive domain.
+- **monotonic vs fold.** A rising `x1²` over `[0,2]` is *monotonic* (no interior crease) — attribution
+  learns it. Center it to `(x1−1)²` and it's a *fold* — attribution can't. Same base shape; the crease
+  is the whole difference.
 
-A Ganglion pushes its signal through **three** layers, each a multiply-and-sum. So the output is
-roughly the **weight size cubed**. If the cap forces every weight below 1, the signal doesn't just
-dim — it **collapses cubically** with depth. Three layers, gone.
+## The honest caveat
 
-We measured it directly — sweep the cap, watch the output amplitude (the "gain"):
+This is the **lean baseline**: one global pulse, one feedback sign, no per-level normalized diffusion
+(the §22 #3/#6 deviation; `context.md §7`). The "can't fold" result is a property of *this* baseline —
+the gap the spec's hierarchical credit is meant to fill — not a verdict on attribution-the-architecture.
 
-![gain curve](figures/step1/1_gain_curve.png)
+## The five shapes (spanning the dividing line)
 
-That's a log-log plot, so the straight collapsing line **is** the cube law (slope ≈ 3). The canonical
-Ganglion (blue) is fine while the cap is loose, then falls off a cliff around a cap of **~0.6** — the
-*knee*. Below it, the signal is gone.
+| shape | kind | attribution | gradient | oracle |
+| --- | --- | --- | --- | --- |
+| **plane** | monotonic (linear) | **0.00** ✅ | 0.00 | 0.00 |
+| **parabola** | monotonic (curved rise) | **0.25** ✅ learns it | 0.09 | 0.04 |
+| **valley** | interior fold (parabola, centered) | **1.00** ✗ | 0.26 | 0.09 |
+| **gaussian** | interior bump (fold) | **1.00** ✗ | 0.75 (hard local min) | 0.27 |
+| **xor** | quadrants (fold) | **1.00** ✗ | 0.81 (the wall) | 0.47 |
 
-Two things worth staring at:
+*(scale-free shape residual: 0 = nailed, ~1 = flat. 5 seeds, median. `parabola` vs `valley` — same base
+shape, 0.25 vs 1.00 — is the crispest statement of the line.)*
 
-- The green band is the "healthy" gain zone. **Below the knee you drop out the bottom of it.**
-- The orange line is a **random fresh Ganglion** (rung 0's `seed42`). It sits at gain ≈ 0.03 *at every
-  cap* — it never even reaches the healthy band. A small-random start is **already** in the vanished
-  zone, cap or no cap. (That's rung 0's "fresh draws whisper," now with a number on it.)
+---
 
-And here's the same Ganglion as the cap tightens — the three lines slide inward **and** the surface
-flattens to a dead, uniform color at the same time:
+## Step 1 — Watch the surface form (the film) ★ the headline
 
-![cap panels](figures/step1/2_cap_panels.png)
+Both learners from the **same** init; surface snapshotted 0 → 250, shown as **heatmap + 3-D** (4 rows:
+attribution heat/3-D, gradient heat/3-D), display-normalized (shape).
 
-So the ceiling does two things at once: it **moves the lines** (it clips big weights, which shifts the
-`−b/w` ratios that set line positions) and it **crushes the amplitude**. Below the knee, only the
-crush matters — there's nothing left to see.
+The **parabola** (monotonic) — attribution **learns it** (3-D rise, 0.25), gradient cleaner (0.09):
 
-### Why do two fresh chips get wildly different gain?
+![film — parabola (heatmap + 3-D)](figures/step1/film_parabola.png)
 
-Look back at that gain curve: `seed42` sits at 0.03, `seed137` at 0.60 — a **20× gap** between two
-random draws. You'd guess `seed42` just drew smaller weights. It didn't:
+The **valley** (same shape, folded) — attribution **un-folds it to a flat ramp**, gradient carves the
+trough. The contrast with the parabola above *is* the rung:
 
-![why seeds differ](figures/step1/3_why_seeds.png)
+![film — valley (heatmap + 3-D)](figures/step1/film_valley.png)
 
-Their per-layer weight **sizes are nearly identical** (the orange/blue/green bars are the same height
-for both) — yet one is 20× louder. The gain isn't set by weight *size*, it's set by **alignment**:
-whether the signed products line up (reinforce) or fight (cancel) as they pass through the three
-layers, plus whether the ReLU lines sit so signal actually flows. Same budget, different luck.
-(`canonical`, the hand-built one, has both bigger *and* aligned weights → gain 3.0.)
+(plane / gaussian / xor in the gallery.) **With momentum** the surfaces shift — it lets attribution
+*scratch* the valley fold and helps gradient slightly (`film_mom_*.png`, and Step 3).
 
-The lesson for later: a fresh chip's loudness is a coin-flip even when the weights look the same — so
-gain is something **learning will have to actively fix**, not something a good init guarantees.
+## Step 2 — The learning curves
 
-## Step 2 — The fix: the multiplier's own scale knob (and why it's not free)
+Shape residual vs epoch, multi-seed (median + IQR), oracle floor dashed.
 
-Real analog multipliers always carry a built-in scale `k` — a "decimal shift." Store `0.2`, let the
-multiply do `0.2 × 0.2 × 10 = 0.4`. Physically that's just choosing the transconductance; it moves
-where "unity gain" sits. Since gain grows like **(k · W_max)³**, cranking `k` pulls a vanished
-Ganglion right back up.
+![learning curves](figures/step2/curves.png)
 
-But it's a knob with two ends — too little `k` vanishes, too much `k` **saturates** (every signal
-slams the rail and you lose all resolution). There's a **window** between. We swept both knobs:
+The dividing line, in motion: **plane and parabola** both ride down (attribution included); **valley,
+gaussian, xor** show attribution flat at 1.0 while gradient descends (with real seed spread — valley's
+wide IQR, gaussian's local min, xor's wall).
 
-![the window](figures/step2/1_window.png)
+## Step 3 — Momentum (corrected: EMA, not heavy-ball)
 
-Dark = vanished, bright = saturated, and the cyan contours are the edges of the healthy band. Notice
-they're **straight diagonals** — that's `k · W_max = constant`, the cube law drawn as a map. The
-practical reading: **it's not the cap alone that matters, it's the product `k · W_max`.** Pick a
-physical cap, then set `k` to land on the healthy diagonal.
+Momentum on/off, both rules. Attribution = EMA of `|a·W|` (α); gradient = EMA velocity `v=βv+(1−β)g`
+(β). Same number 0.75, different mechanism — NOT Adam.
 
-Seen as a single rescue — take a cap that's dead at `k=1` and turn `k` up:
+![momentum on/off](figures/step3/momentum_onoff.png)
 
-![rescue](figures/step2/2_rescue.png)
+- **Momentum lets attribution scratch the easiest fold:** valley **1.00 → 0.79** (averaging accumulates
+  a weak crease signal). Still not a carve, and nothing for gaussian/xor — but the first fold-dent.
+- **Momentum helps gradient too** (valley 0.16 → 0.12), modestly. *(An earlier version used heavy-ball
+  `v=βv+g`, which secretly multiplies the step by ~1/(1−β)=4× and made gradient blow up — that was a
+  scale bug, not momentum. The EMA form fixes it.)*
 
-It climbs up through the healthy band and then keeps going into saturation. You want to stop in the
-green.
+## Step 4 — The gap to the oracle
 
-## Step 3 — So what does the cap actually cost? (the rung-0 shapes again)
+Final residual, three bars: oracle | gradient | attribution.
 
-We brought back parabola, gaussian, and xor from rung 0 and re-fit them with the weights **bounded by
-the cap**, asking two different questions.
+![gap to oracle](figures/step4/gap_to_oracle.png)
 
-**Can the output reach the target's height?** (amplitude — the "gain cost")
+Plane and parabola: attribution near the others. Every fold: attribution's bar **at 1.0**, gradient
+between oracle and 1.0. The picture is the verdict.
 
-![gain cost](figures/step3/1_gain_cost.png)
+## Step 5 — Noise: precise-fragile vs coarse-robust ★
 
-Below the knee, *every* shape flatlines at "no better than the mean" — a too-tight cap can't
-represent **anything**, because there's no amplitude left.
+Same analog jitter (gaussian on every stored weight, every step) into both, dialed up. Compared on the
+shapes both learn (plane, parabola) + a fold (valley).
 
-**Can it still carve the right shape, if we ignore height?** (the "shape cost")
+![noise sweep](figures/step5/noise_sweep.png)
 
-![shape cost](figures/step3/2_shape_cost.png)
+**The order inverts under noise.** At σ=0 gradient is ahead; as noise rises **gradient collapses fast**
+(→~1.0 by σ≈0.05) while **attribution degrades gently** — on the parabola attribution is actually the
+*better* learner for σ ≈ 0.02–0.1. *The rule that was never precise to begin with shrugs off the noise
+that makes exact-gradient thrash* — the analog bet, visible. (On the valley attribution is flat with or
+without noise; noise just erases gradient's win.)
 
-Flat lines — and they sit right at rung 0's scores (parabola ~0.1, gaussian ~0.23, xor ~0.45). Even a
-brutally tight cap keeps the **shape**; it just can't make it **loud**.
+![noise — plane surfaces](figures/step5/noise_surfaces.png)
 
-Put those two pictures together and you get the headline of the whole rung:
+> Caveat: at high σ both are bad — a crossover in *who's less wrong*, not a win. But precision-vs-
+> robustness is clearly a real axis, which is the whole reason to be analog.
 
-> **The weight ceiling is a gain limit, not a shape limit. It makes the Ganglion quiet, not dumb.**
+---
 
-Which is exactly what the architecture expects: the later layers are *amplifiers*, and a sub-1 cap is
-an attack on their volume, not on the three lines that do the deciding.
+## The takeaway
 
-And here it is as the **real shape**, not a residual number — the capped hardware's actual best attempt
-at the gaussian, then the parabola, as the cap tightens left to right:
+1. **Attribution sets level and learns monotonic shapes** (plane 0.00, rising parabola 0.25) — even
+   curved ones. The earlier "tilt only" was too narrow.
+2. **It cannot carve an interior fold** (valley/gaussian/xor → 1.0). Robust to **lr** (swept to 0.001 at
+   1500 epochs), to **init** (uniform/xavier alike), and unmoved by momentum beyond a scratch. One
+   global feedback sign can't give a crease its "push-left-vs-right" credit — the §22 #3/#6 gap made
+   visible, the case for the hierarchy.
+3. **Gradient is a real, imperfect learner** — seed spread, a hard gaussian min, the xor wall; momentum
+   (done right) helps it a little.
+4. **Precision vs robustness is real.** Under noise, gradient (precise/fragile) and attribution
+   (coarse/robust) cross over — the first glimpse of the analog payoff.
 
-![gaussian under caps](figures/step3/3_gaussian_under_caps.png)
+## How to read this (don't over-claim)
 
-![parabola under caps](figures/step3/3_parabola_under_caps.png)
+Per §22 #2 attribution's open question is **scale/hierarchy, not validity**. Rung 1 states it cleanly: a
+single Ganglion with no hierarchical credit learns monotonic shapes but can't fold. The next move is
+**not** to abandon it or tune this baseline until it folds (§20.2 #5) — it's to test whether the spec's
+per-level differentiated credit lets it carve. Later rung / Phase 2, with this as the baseline to beat.
 
-Read each as two rows. **Top** is real units on one shared color scale: the dome (and the valley) fade
-to a flat, dead wash as the cap tightens — **the gain dying, with your eyes**. **Bottom** rescales each
-panel on its own: the *same* dome and valley are still there at every cap — **the shape surviving**.
-Top row quiet, bottom row intact: gain limit, not shape limit, in one picture.
+---
 
-## The takeaway (what rung 1 nailed down)
+## What's built (all ✅, ran)
 
-1. **The danger is cascade collapse.** A sub-knee cap (~0.6 here) vanishes the signal cubically through
-   the three layers — and a random fresh Ganglion is already down there.
-2. **Loudness is luck, not weight size.** Two fresh draws with the same weight sizes differ 20× in gain
-   on alignment alone — so gain is something learning must fix, not something init hands you.
-3. **The cure is the multiplier scale `k`,** and the thing to control is the **product `k · W_max`** —
-   land it on the healthy diagonal (gain ~0.5–3). The "right ceiling" isn't one number; it's a product.
-4. **The cap costs volume, not smarts.** Shape reachability is nearly cap-proof; only amplitude dies —
-   seen as a number (Step 3 curves) and as the real shapes above.
+| piece | status |
+| --- | --- |
+| **attribution (lib)** | `Brainstem.train_step` → the Scap update. Source of truth; default in every step. |
+| **attribution (numpy)** | `AttributionNP` — wire-free replica for fast experiments, verified == lib (~1e-15). `run_pair(..., attr_backend="numpy")`. |
+| **gradient** | numpy `GradientMLP` on the 2-3-3-2 mirror. **EMA momentum `v=βv+(1−β)g`**, not Adam. |
+| **momentum toggle (attr)** | Scap `ALPHA` configurable (α=0 = off), behavior-preserving lib change. |
+| **init** | `make_inits(seed, "uniform"|"xavier")`. Default uniform (matches the lib / run_xor); Xavier available — both give the same fold finding. |
+| **per-learner lr** | `lr_attr` / `lr_grad` (decoupled; both tuned to 0.1). |
+| **positive-input setup** | `_target` over `[0,2]`, folds centered; the fix that lets attribution learn the tilt. |
+| **noise** | gaussian jitter on every stored weight each step, same model both learners. |
+| **steps** | `step1_film` (heatmap+3D, ±momentum) · `step2_curves` · `step3_momentum` · `step4_gap` · `step5_noise`. |
 
-Next rung adds **soft saturation** (the cap charges gently toward the rail instead of a hard clip) and,
-now that we have a clean operating window, brings in the **noise / variance tests** — asking how both
-reshape this picture.
+Learning runs on the real lib; pictures/residuals use the fast `reach.mirror_out0` (== ALU).
+
+## Methodology
+
+- **One thing changed:** the learning rule (each extra axis — momentum, noise, init — its own sweep).
+- **Fair-lr:** each rule frozen at its own multi-seed best (both 0.1), independent knobs, never re-tuned.
+- **Failures are data, robustly:** "can't fold" characterized across 5 shapes × 5 seeds, cross-checked
+  vs `run_xor`, and shown unmoved by **lr** (to 0.001 / 1500 ep) and **init** (uniform/xavier). Nothing
+  was tuned to make attribution fold.
+- **Multi-seed:** `[42, 137, 271, 314, 1729]` (3 for the heavier momentum/noise sweeps).
 
 ## Run it yourself
 
-From the repo root:
-
 ```bash
-python -m src.experiment.phase1_new.rung1.step1_vanishing   # the cascade collapse  (Step 1)
-python -m src.experiment.phase1_new.rung1.step2_window       # the k window          (Step 2)
-python -m src.experiment.phase1_new.rung1.step3_cost         # cost on the trio      (Step 3)
+python -m src.experiment.phase1_new.rung1.step1_film      # heatmap+3D film, ±momentum  (Step 1)
+python -m src.experiment.phase1_new.rung1.step2_curves    # loss vs epoch               (Step 2)
+python -m src.experiment.phase1_new.rung1.step3_momentum  # momentum on/off             (Step 3)
+python -m src.experiment.phase1_new.rung1.step4_gap       # final fit vs TRF oracle     (Step 4)
+python -m src.experiment.phase1_new.rung1.step5_noise     # noise sweep                 (Step 5)
 ```
 
-Figures land in `figures/step1|2|3/` (each with a `gallery.md`). The cap and the scale `k` are config
-switches on the shared `harness.GanglionProbe` one level up — no library change; they're the ALU's
-forward behavior as a harness stand-in (clamp-then-scale is identical to a per-multiply `k`).
+Figures → `figures/step1…5/` (+ `gallery.md`). Tools one level up: `trainers.py` (both learners + the
+numpy replica + the loop), `harness.py`, `reach.py`, `plots.py`.

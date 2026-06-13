@@ -15,20 +15,30 @@ So Phase 1 has one job:
 > break? We answer with **pictures** — region maps, surfaces, side-by-side fits — not single scores.
 > A number like "0.50" means nothing on its own; the *picture* of XOR failing is the real result.
 
-## How the phase is built (a ladder)
+## How the phase is built
 
-We start with the Ganglion in its simplest, most ideal form and add one real-world limit at a time.
-Each "rung" of the ladder = one more piece of physical reality, asked as: *how does this bend the
-picture from the rung below?*
+Two questions, in order. First **what shapes can the atom even make** (rung 0), then **can its own
+learning rule actually find them** (rung 1). Everything past that — the real-chip physical limits — is
+parked in *Ideas* below until these two are solid.
 
-| Rung | What's added | Status |
+### The actual plan (what we're doing)
+
+| Rung | The question | Status |
 | --- | --- | --- |
-| **[Rung 0 — ideal](rung0/README.md)** | nothing — the pure `y = ax + b` Ganglion | ✅ **done — start here** |
-| **[Rung 1 — weight ceiling](rung1/README.md)** | weights can't grow past a cap (a real capacitor limit) | ✅ done |
-| Rung 2 — saturation | weights charge softly toward a rail, not a hard stop | planned |
+| **[Rung 0 — what can it represent?](rung0/README.md)** | the ideal `y = ax + b` Ganglion — which shapes can the carve reach, and where's the wall (xor)? Measured with an *oracle* (a free-weight best-fit, not the chip learning). | ✅ **done — start here** |
+| **[Rung 1 — can it learn it?](rung1/README.md)** | swap the oracle for two real learners — the chip's **attribution** rule (our lib) vs textbook **gradient descent** (numpy) — over five shapes, per epoch, with momentum and **noise**. **Finding:** the lean rule learns *monotonic* shapes (plane, rising parabola) but can't carve an *interior fold* (valley/gaussian/xor) — a credit limit robust to lr **and** init; gradient carves; under noise they cross over (gradient precise-fragile, attribution coarse-robust). | ✅ **done** |
 
-*(Later we also vary the activation type and the residual bypass — those are separate axes, added
-once the weight-limit ladder is understood.)*
+### Ideas (not done yet — the real-chip limits to layer on later)
+
+Once rung 1 is solid, we add physical reality one piece at a time — each asked as *how does this bend
+the picture from the clean rung?* None of these is committed; it's the backlog.
+
+| Idea | What it adds |
+| --- | --- |
+| weight ceiling | weights can't grow past a cap (a real capacitor limit) — an earlier draft found it's a *gain* limit, not a shape limit (kept in git history) |
+| soft saturation | weights charge *softly* toward a rail, not a hard clip |
+| activation variant | swap the L2/L3 activation (an Axis-2 `simulator-code` change) |
+| residual bypass | the §7.7 L1→L4 skip connection (Axis-3) |
 
 ## Start here → [Rung 0: What *is* one Ganglion?](rung0/README.md)
 

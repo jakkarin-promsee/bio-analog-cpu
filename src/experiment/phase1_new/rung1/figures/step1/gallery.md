@@ -1,13 +1,41 @@
-# Rung-1 · Step-1 vanishing wall
+# Rung-1 · Step-1 film (heatmap + 3-D; no-mom and momentum)
 
-### 1_gain_curve.png
+### film_gaussian.png
 
-![1_gain_curve.png](1_gain_curve.png)
+![film_gaussian.png](film_gaussian.png)
 
-### 2_cap_panels.png
+### film_mom_gaussian.png
 
-![2_cap_panels.png](2_cap_panels.png)
+![film_mom_gaussian.png](film_mom_gaussian.png)
 
-### 3_why_seeds.png
+### film_mom_parabola.png
 
-![3_why_seeds.png](3_why_seeds.png)
+![film_mom_parabola.png](film_mom_parabola.png)
+
+### film_mom_plane.png
+
+![film_mom_plane.png](film_mom_plane.png)
+
+### film_mom_valley.png
+
+![film_mom_valley.png](film_mom_valley.png)
+
+### film_mom_xor.png
+
+![film_mom_xor.png](film_mom_xor.png)
+
+### film_parabola.png
+
+![film_parabola.png](film_parabola.png)
+
+### film_plane.png
+
+![film_plane.png](film_plane.png)
+
+### film_valley.png
+
+![film_valley.png](film_valley.png)
+
+### film_xor.png
+
+![film_xor.png](film_xor.png)

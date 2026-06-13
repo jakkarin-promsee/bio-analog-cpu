@@ -1,9 +1,5 @@
-# Rung-1 · Step-2 window
+# Rung-1 · Step-2 learning curves
 
-### 1_window.png
+### curves.png
 
-![1_window.png](1_window.png)
-
-### 2_rescue.png
-
-![2_rescue.png](2_rescue.png)
+![curves.png](curves.png)
