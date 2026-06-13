@@ -352,6 +352,108 @@ def shape_under_caps(name, raw_row, norm_row, col_labels, xs, ys, path):
     plt.close(fig)
 
 
+def film_strip(name, panels_top, panels_bottom, col_labels, row_labels, xs, ys, path, suptitle=None):
+    """Rung-1 'film': two rows of heatmaps on a SHARED color scale, watching a surface form over epochs.
+    `panels_top`/`panels_bottom` = lists of 2-D arrays (same length as `col_labels`); `row_labels` =
+    (top, bottom). Panels should be display-normalized (trainers.display_norm) so SHAPE is comparable
+    and a flat/asleep frame reads uniform."""
+    ncol = len(col_labels)
+    allp = list(panels_top) + list(panels_bottom)
+    vmin = min(float(p.min()) for p in allp)
+    vmax = max(float(p.max()) for p in allp)
+    ext = [xs[0], xs[-1], ys[0], ys[-1]]
+    fig, axes = plt.subplots(2, ncol, figsize=(2.5 * ncol, 5.4))
+    axes = np.atleast_2d(axes)
+    im = None
+    for r, (row_label, panels) in enumerate(zip(row_labels, (panels_top, panels_bottom))):
+        for c in range(ncol):
+            ax = axes[r, c]
+            im = ax.imshow(panels[c], origin="lower", extent=ext, vmin=vmin, vmax=vmax,
+                           cmap="viridis", aspect="auto")
+            if r == 0:
+                ax.set_title(col_labels[c], fontsize=9)
+            ax.set_xticks([]); ax.set_yticks([])
+        axes[r, 0].set_ylabel(row_label, fontsize=11, fontweight="bold")
+    fig.colorbar(im, ax=list(axes.ravel()), fraction=0.012, pad=0.01, label="shape (display-normalized)")
+    fig.suptitle(suptitle or f"{name}: watching the surface form (shape, shared scale)", y=1.0)
+    fig.savefig(path, dpi=110, bbox_inches="tight")
+    plt.close(fig)
+
+
+def film_strip_hd(name, panels_top, panels_bottom, col_labels, row_labels, xs, ys, path, suptitle=None):
+    """Film with BOTH views — per learner a heatmap row AND a 3-D surface row (4 rows total:
+    top-heat, top-3D, bottom-heat, bottom-3D). Panels are display-normalized (shape, shared scale), so
+    the heatmap shows *where* the creases are and the 3-D shows the *shape* the model actually makes —
+    together they show all of what happened to the model across epochs."""
+    X1, X2 = np.meshgrid(xs, ys)
+    ncol = len(col_labels)
+    allp = list(panels_top) + list(panels_bottom)
+    vmin = min(float(p.min()) for p in allp)
+    vmax = max(float(p.max()) for p in allp)
+    ext = [xs[0], xs[-1], ys[0], ys[-1]]
+    rows = [(row_labels[0], panels_top, "heat"), (row_labels[0], panels_top, "3d"),
+            (row_labels[1], panels_bottom, "heat"), (row_labels[1], panels_bottom, "3d")]
+    fig = plt.figure(figsize=(2.5 * ncol, 10.0))
+    im = None
+    for r, (rlab, panels, kind) in enumerate(rows):
+        for c in range(ncol):
+            idx = r * ncol + c + 1
+            if kind == "heat":
+                ax = fig.add_subplot(4, ncol, idx)
+                im = ax.imshow(panels[c], origin="lower", extent=ext, vmin=vmin, vmax=vmax,
+                               cmap="viridis", aspect="auto")
+                if r == 0:
+                    ax.set_title(col_labels[c], fontsize=9)
+                ax.set_xticks([]); ax.set_yticks([])
+            else:
+                ax = fig.add_subplot(4, ncol, idx, projection="3d")
+                ax.plot_surface(X1, X2, panels[c], cmap="viridis", vmin=vmin, vmax=vmax,
+                                rstride=4, cstride=4, linewidth=0, antialiased=True)
+                ax.set_zlim(vmin, vmax)
+                ax.set_xticks([]); ax.set_yticks([]); ax.set_zticks([])
+                ax.view_init(elev=30, azim=-60)
+    for yc, lab in zip((0.88, 0.66, 0.42, 0.20),
+                       (f"{row_labels[0]} · heatmap", f"{row_labels[0]} · 3-D",
+                        f"{row_labels[1]} · heatmap", f"{row_labels[1]} · 3-D")):
+        fig.text(0.015, yc, lab, rotation=90, va="center", ha="center", fontsize=9, fontweight="bold")
+    fig.suptitle(suptitle or f"{name}: forming the surface (heatmap + 3-D, shape)", y=1.0)
+    fig.savefig(path, dpi=100, bbox_inches="tight")
+    plt.close(fig)
+
+
+def panels_with_bands(data, panel_order, xlabel, ylabel, title, path, ncol=3,
+                      ylim=None, hlines=None):
+    """A grid of line-plots (one panel per item in `panel_order`). `data[item]` = list of
+    (label, x, med, lo, hi); each draws a median line + IQR band. `hlines[item]` = (label, y) draws a
+    dashed reference (e.g. the rung-0 oracle floor). Shared structure for the curves / momentum / noise
+    steps."""
+    n = len(panel_order)
+    nrow = (n + ncol - 1) // ncol
+    fig, axes = plt.subplots(nrow, ncol, figsize=(4.6 * ncol, 3.8 * nrow))
+    axes = np.atleast_1d(axes).ravel()
+    for ax, item in zip(axes, panel_order):
+        for (label, x, med, lo, hi) in data[item]:
+            line, = ax.plot(x, med, lw=2, label=label, marker="", zorder=3)
+            if lo is not None:
+                ax.fill_between(x, lo, hi, alpha=0.16, color=line.get_color(), zorder=1)
+        if hlines and item in hlines:
+            hlab, hy = hlines[item]
+            ax.axhline(hy, ls="--", color="0.35", lw=1.3, label=hlab, zorder=2)
+        ax.set_title(item)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        if ylim:
+            ax.set_ylim(*ylim)
+        ax.grid(True, alpha=0.3)
+        ax.legend(fontsize=7.5)
+    for ax in axes[n:]:
+        ax.axis("off")
+    fig.suptitle(title, y=1.005, fontsize=12)
+    fig.tight_layout()
+    fig.savefig(path, dpi=110, bbox_inches="tight")
+    plt.close(fig)
+
+
 def make_gallery(figdir, title=None):
     """Write gallery.md in figdir embedding every PNG (relative links), so you scroll one file."""
     pngs = sorted(f for f in os.listdir(figdir) if f.lower().endswith(".png"))

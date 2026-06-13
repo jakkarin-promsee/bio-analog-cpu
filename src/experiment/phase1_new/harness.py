@@ -67,9 +67,13 @@ def canonical_inits():
     return w
 
 
-def _make_build(inits):
+def _make_build(inits, alpha=None, _out=None):
     """A single-Ganglion ColumnGroup build that takes EXPLICIT inits (mirrors
-    example/column_group_xor.build, which only takes a seed)."""
+    example/column_group_xor.build, which only takes a seed).
+
+    `alpha` overrides the Scap momentum EMA factor (rung-1 Step-3 momentum toggle; None = arc default
+    0.75). `_out`, if a dict, receives the built Ganglion under "ganglion" — so a trainer can reach the
+    Scaps (e.g. to inject training-time weight noise, rung-1 Step-5)."""
     def build(parent_weight, parent_sign, in_start, out_start,
               run, done, reset, update_signal, feedback, seed=0):
         weight_bus   = AnalogWire("cg.weight", 80)
@@ -87,7 +91,9 @@ def _make_build(inits):
                 for i in range(4)]
 
         common = (weight_bus, sign_bus, target_group, feedback, get_weight, set_momentum, local_update)
-        Ganglion(1, *common, inits=list(inits))     # Scaps self-register; group id 1
+        gang = Ganglion(1, *common, inits=list(inits), alpha=alpha)   # Scaps self-register; group id 1
+        if _out is not None:
+            _out["ganglion"] = gang
 
         g_alu = GanglionALU("cg.g_alu", weight_bus, sign_bus, local_weight, local_sign)
         program = [Instr([0, 1], [2, 3], "g_alu", 1)]

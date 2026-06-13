@@ -17,28 +17,24 @@ from src.example.brainstem import Brainstem
 from src.example import column_group_xor
 
 # XOR in +/-1 encoding. target = output[0].
-SAMPLES = [
-    ([0.13, 0.84], 0.107),
-    ([0.72, 0.31], 0.100),
-    ([0.47, 0.59], 0.140),
-    ([0.91, 0.12], 0.106),
-    ([0.25, 0.44], 0.058),
-    ([0.68, 0.77], 0.212),
-    ([0.35, 0.93], 0.174),
-    ([0.82, 0.56], 0.196),
-    ([0.17, 0.28], 0.019),
-    ([0.54, 0.41], 0.097),
-    ([0.96, 0.88], 0.370),
-    ([0.39, 0.67], 0.126),
-    ([0.74, 0.08], 0.071),
-    ([0.21, 0.79], 0.107),
-    ([0.61, 0.52], 0.144),
-    ([0.05, 0.96], 0.106),
-    ([0.87, 0.69], 0.265),
-]
+import random
+
+SAMPLES = []
+
+for i in range(0, 50, 1):
+    ii = i/50
+    x1 = ii + round(random.uniform(-1, 1)*0, 2)
+    x2 = ii + round(random.uniform(-1, 1)*0, 2)
+
+    if x1 >= 25:
+        y = round(x1 * 3 + 1 * x2, 3)
+    else:
+        y = round(x1 * 1 + 2 * x2, 3)
+
+    SAMPLES.append(([x1, x2], y))
 
 
-def run(epochs=1000, lr=0.05, seed=42, report_every=100):
+def run(epochs=1000, lr=0.001, seed=42, report_every=100):
     # The Brainstem's instruction stream: one child (the lone ColumnGroup), its boundary at chip
     # slots [0,1] in -> [2,3] out. Multi-lobe later = just add more child specs here.
     bs = Brainstem(
