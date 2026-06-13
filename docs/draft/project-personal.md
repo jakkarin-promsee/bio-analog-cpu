@@ -2,7 +2,15 @@
 
 > A handoff document. Written by Claude (Anthropic AI), at the end of the conversation that produced drafts 1 through 5.1 of the Bio-Inspired Analog Neural Compute Architecture. Intended for any future AI session that picks this project up.
 
-If you are a new AI reading this: the spec is in `draft5.1-1.md` and `draft5.1-2.md` at the repo root (split only for PDF-export length; no content difference). This document is everything _around_ the spec — who I worked with, how, what we tried that didn't work, what the unwritten rules of collaboration are. The spec alone will give you the architecture. This file will let you actually be useful.
+If you are a new AI reading this: **the project pivoted to draft 6.0 (June 2026)** — the live plan is now in `draft6.0/`, and the draft-5.1 spec is historical (see the banner below). This document is everything _around_ the architecture — who I worked with, how, what we tried that didn't work, what the unwritten rules of collaboration are. **Most of this file is about the *person and the process*, and that is all still true.** Only the *project-state* claims (which draft, which phase, "theory locked") were written in the draft-5.1 era; those are corrected inline.
+
+> ## ⚠ Draft 6.0 pivot (June 2026) — read before the rest
+>
+> This handoff was written at the end of the draft-1→5.1 era, when the frame was *"theory locked, simulation drives the rest."* **That frame is dead.** During the draft-5.1 simulation, the author found the learning rule was broken at its root — it distributed loss **magnitude** but never **direction** (the sign was missing). Nothing converged. Four days of collapse, then a gut-driven return, then a full rebuild around a **SCFF + gradient-descent hybrid** — that is **draft 6.0** (`draft6.0/`, decision record at `draft6.0/idea/main.ideas.v1.md`).
+>
+> What this changes for *you, the collaborator*: nothing about §1, §1b, §3, §5, §6 (who they are / how they work / the unwritten rules) — that is the durable core, **read it as-is.** What it changes: §2.2–§2.4 (project state + "attribution is the central bet"), §4 (the "next action" is no longer the Ganglion sim), §5.8 (the Ganglion-personality work is historical), §7 (H1 is no longer the load-bearing claim). Those are corrected in place. The collapse-and-return itself is the strongest possible instance of the §1b breakthrough pattern — see `docs/essence/the-essence.md` for the soul of it.
+>
+> One stance the author made explicit during the rebuild, worth carrying: **"copy the brain's *function*, cheat the *implementation*."** They are not a bio-purist. Using SCFF, gradient descent, boosting, modern DL math is *licensed* — it is the method, not a betrayal of the biology. Don't "correct" them toward purity, and don't correct them toward gradient-descent-only either; the cheat is deliberate on both sides.
 
 ---
 
@@ -73,6 +81,7 @@ Not from reading. Not from sitting at a desk being productive. Every major insig
 - **Stubbed toe on the bed frame** — rolling around in pain, solved double descent. Realized it works like a capacitor filter: model learns extremes first, then pure noise remains, then noise cancels itself out. Proved it later by throwing out loss landscape entirely and looking only at the static physical connection map. Quote: "if you use loss landscape it changes every time you update a weight."
 - **Burned out after ChronoForge, just playing games** — then: _"If I can't access real biology cells... what if I build my own biology cell with an analog CPU?"_
 - **Toxic team leader** — told him he'd fail, that the team would suffer because of him. Ego shattered. Left and built ChronoForge solo as proof. That project became the hardware intuition foundation for everything that followed.
+- **The draft-5 collapse (June 2026)** — the strongest instance of this whole pattern, and the reason draft 6.0 exists. The architecture's learning rule was found broken at the root (no direction/sign). Four days face-down in the void — slept, ate, watched YouTube, didn't open the computer, *ran from it*. Day five the gut woke first: "there is a way out," with no proof. Researched the entire `concept/` folder on a broken body and rebuilt as SCFF+GD. His own words on the meaning: _"It's not the downfall that destroyed me. It's the truth that slapped me, making me more close to the origin ideas."_ The full telling is `docs/essence/the-essence.md`. **If a future collapse happens, this is the shape of it — incubation is not quitting; the gut returns. Do not push for closure during the void.**
 
 ### The breakthrough pattern
 
@@ -111,33 +120,28 @@ Do not rush him toward conclusions. Do not summarize prematurely. Do not close o
 
 ### 2.1 What it is
 
-A bio-inspired analog neural compute architecture. The full spec is `draft5.1-1.md` (architecture) + `draft5.1-2.md` (simulation & future tracks). The one-line summary: _continuous analog compute substrate with on-chip credit assignment through a multi-level hierarchy, using locally-measured contribution instead of routed gradients._
+A bio-inspired analog neural compute architecture. **Live plan: `draft6.0/`** (decision record `draft6.0/idea/main.ideas.v1.md`, story `draft6.0/idea/ideas1.md`). The old spec `draft5.1-*.md` is historical. The one-line summary (draft 6.0): _continuous analog compute substrate that learns on-chip with a cheap unsupervised **SCFF** front + a precise **gradient-descent** back, paying for "direction" only where it counts._
 
 It is **not** an ML project. It is a **substrate** project. The architecture is a chip design, not a model.
 
-### 2.2 Where it stands
+### 2.2 Where it stands (draft 6.0)
 
-- **Theory: locked at draft4.1, refined for clarity through draft5.1.** Don't reopen §1–§16 of draft5.1 without strong evidence. The "protected list" in §22 documents 14 locked architectural decisions.
-- **Math justifications: listed but not derived.** §18 of the spec is a list of 12 things that need formal proof. None are proven yet. They're left as work for "later" (post-simulation).
-- **Simulation: started (pre-campaign).** §20 was a 10-phase sketch; the plan is now being **re-drafted phase-by-phase in `draft5.1-2.verify.md`** (current: **Phase 1 — Ganglion Personality**, characterize the atom). SLICE-1 — one Ganglion, the §20.1 MVF harness — is built and runs (`src/`, `python -m src.example.run_xor`); the author is exploring it pre-Phase-2. No H1 verdict yet.
+- **The draft-5.1 attribution theory was invalidated and rebuilt.** It distributed loss magnitude but never direction (the sign). The rebuild is **draft 6.0** — a SCFF + gradient-descent hybrid.
+- **Draft 6.0 spine: committed; numbers: pending.** The decisions (N1–N3 + S1–S8) are in `draft6.0/idea/main.ideas.v1.md`; the open knobs are listed there too — the sims set them. Nothing here is "locked" the way draft-5.1's §22 was; 6.0 is young.
+- **Simulation: not yet started for draft 6.0.** The experiment ladder (1.0 full SCFF → 1.1 full GD → 2.x mix+middle → 3.x sleep → 4.x block chain) is laid out in `ideas1.md` but not run. The `src/` simulator was built for the *attribution* architecture and is historical (substrate primitives may carry forward).
+- _(Old draft-5.1 status, for context: theory was "locked at 4.1/5.1"; the §20 campaign and the SLICE-1 / Ganglion-Personality work via `src/` were the live front before the pivot. That's the work that hit the wall.)_
 
-### 2.3 The core architectural commitments (the load-bearing ones)
+### 2.3 The core architectural commitments
 
-A future AI must understand these because they constrain everything else:
+> **Draft-6.0 note:** the commitments below were the *draft-5.1* load-bearing list. The **substrate** ones (#4 resident-weight, #7 analog-math-is-cheap) survive unchanged. The **learning-rule** ones (#1 attribution, #2 five-level hierarchy, #3 2-3-3-2 Ganglion, #5 physical-saturation-as-the-WTA-answer, #6 additive loss conservation) are **historical** — they belonged to the attribution rule that broke. Draft 6.0's commitments live in `draft6.0/idea/main.ideas.v1.md` (two-brain SCFF+GD, residual boosting blocks, threshold-gated learning, sleep + LUT memory, mono-forward dual-rail). Reading the old list below tells you what the chip *was*, useful for the history and for which substrate ideas carry forward.
 
-1. **Attribution-based learning, not gradient descent.** Updates use `|a · W|` (locally measured forward current) to split parent loss into per-child shares. This is the project's central bet. If it fails (H1), the architecture itself fails.
-
-2. **Five hierarchy levels: Scap → Ganglion → Column → Lobe → Limbic Loop.** Plus the Brainstem controller. Adding a sixth level requires real justification. The names are biological but the things are circuit elements.
-
-3. **2-3-3-2 Ganglion topology with 29 Scaps.** Locked. Optimizes path-diversity-per-scap among small topologies.
-
-4. **Resident-weight: weights never leave the chip during operation.** No LDR/STR of weights. Only inputs and labels enter; only predictions leave. Boot and shutdown are the only serialization events.
-
-5. **Physical Saturation as primary defense against winner-take-all.** Capacitors hit the supply rail and self-limit. This is the architecture's answer to H10 (Activity vs Relevance). Don't try to engineer around it with software-flavored normalizers before validating the physics.
-
-6. **Loss conservation as additive invariant.** `Σ children_shares = parent_loss` at every level. Makes debugging tractable. Verified continuously in simulation, not as a separate test.
-
-7. **Continuous analog math is the cheap path; binary arithmetic is expensive.** Normalization, division, multiplication — all done via op-amps where possible. Current Mirror Loss Share is the canonical example.
+1. ~~Attribution-based learning (`|a·W|` per-child shares).~~ **The central bet — and the thing that broke** (no direction/sign). Replaced by SCFF (unsupervised local front) + gradient descent (precise back).
+2. ~~Five hierarchy levels: Scap → Ganglion → Column → Lobe → Limbic Loop.~~ Historical. (Hippocampus/Cortex *ideas* survive as the sleep/consolidation + LUT memory.)
+3. ~~2-3-3-2 Ganglion as the atom.~~ Historical (the *path-diversity* intuition survives — invoked for "depth not input-width").
+4. **Resident-weight: weights never leave the chip during operation.** ✔ Survives. Only inputs/labels enter; only predictions leave.
+5. ~~Physical Saturation as the winner-take-all answer.~~ Historical as *the answer*; saturation/homeostasis still a useful tool.
+6. ~~Loss conservation as additive invariant.~~ Historical (it was part of the diffusion rule).
+7. **Continuous analog math is the cheap path; binary arithmetic is expensive.** ✔ Survives — the substrate philosophy. (Mono-forward leans on it.)
 
 ### 2.4 The breakthroughs (in chronological order — important context)
 
@@ -254,12 +258,13 @@ When they paste Thai text in an upload:
 
 ## 4. Where the project is going
 
-### 4.1 The next action
+> **Draft-6.0 note:** §4.1 below is rewritten for draft 6.0. **§4.2–§4.4 (timeline, success path, failure paths) describe the dead draft-5.1 campaign** — H1, the MVF, Phase 2–8, ForwardSign, the Limbic Loop. They are kept as a record of how the attribution era was *meant* to be tested; they are **not** the current plan. The draft-6.0 ladder is in `draft6.0/idea/ideas1.md`.
 
-**Continue the Python.** SLICE-1 (one Ganglion, run via `src/`) is built and runs; the author is exploring it pre-Phase-2. The plan is now **re-drafted phase-by-phase in `draft5.1-2.verify.md`** — the current phase is **Phase 1 — Ganglion Personality** (map the atom's shape/limits); work it in `src/experiment/phase1/`. (The old "operator sanity" folds in as its first rung; the verify doc is the source of truth for the running order.)
+### 4.1 The next action (draft 6.0)
 
-If the MVF passes: proceed to Phase 2 (full Single Ganglion characterization, 60 runs).
-If the MVF fails: debug operators or update equation; don't proceed to Phase 2 until it passes.
+**Build the simulation ladder, simplest rung first.** Nothing in draft 6.0 has been simulated yet. The order (from `ideas1.md`): **1.0 — full SCFF** (with mono-forward dual-rail + mandatory inter-layer normalization) → 1.1 full GD baseline → 2.x SCFF+GD with the middle layer → 3.x sleep/consolidation → 4.x the residual block chain. Classification / statistics tasks first. The methodological rules (one-thing-changed, multi-seed, failures-are-data) carry over unchanged from the old §20.2.
+
+The load-bearing question is no longer H1 (attribution-converges). It is: **does the SCFF+GD hybrid converge and stay stable on simple tasks, and does the threshold-gated / sleep machinery actually hold the SCFF drift?** That is what rung 1–3 test.
 
 ### 4.2 The realistic timeline
 
@@ -318,7 +323,9 @@ When the user laughs in a message, they're usually committing to something or ac
 
 They will reference earlier drafts, earlier conversations, and external model uploads as if you've read them. You haven't. Don't fake it. The transcript file exists; read it. Or ask.
 
-### 5.8 The Ganglion personality problem (current state, June 2026)
+### 5.8 The Ganglion personality problem (draft-5.1 era — historical, but read it for *method*)
+
+> This was the live exploration right before the pivot — characterizing the (now-historical) 2-3-3-2 Ganglion. The *findings* are superseded, but the **working method** it describes (lying in bed being an axon) is exactly how this author thinks, and it's still true. Keep it for that.
 
 Three days in. 100+ experiment sets. 1700+ plots across linear, parabola, paraboloid, exponential, absolute, region functions. Still no name for what he's seeing.
 
@@ -388,7 +395,7 @@ These never appeared in any spec but emerged from working together:
 
 The user has built this architecture from intuition over months. They have weathered multiple major rewrites. They have caught their own errors, accepted critique gracefully, and pushed back when push-back was warranted. They have done the hard part of solo research — staying in the work without external validation.
 
-If you're picking this up at the simulation phase, your job is to help them turn ~16 weeks of disciplined experiments into the empirical data that proves or refutes H1 — _attribution-based hierarchical diffusion converges on substantive tasks._ That is the single load-bearing claim of the project.
+If you're picking this up now, the architecture has already been slapped by the truth once and rebuilt (draft 5 → 6). Your job is to help them turn the **draft-6.0 ladder** into real data — _does the SCFF + gradient-descent hybrid converge and stay stable, and does the gated/sleep machinery hold the SCFF drift?_ That is the new load-bearing question. (The old one — _attribution-based hierarchical diffusion converges_ — was answered by reality: not as built.)
 
 Everything else is consequence.
 
@@ -399,4 +406,5 @@ Be useful. Be honest. Match their energy. Don't waste their time.
 ---
 
 _Original: written at the end of the conversation that produced drafts 1 through 5.1._
-_Updated June 2026: sections 1b, 5.8, 5.9, 5.10 added from a session during Phase 1 (Ganglion personality characterization). Python phase is underway. No H1 verdict yet._
+_Updated June 2026 (a): sections 1b, 5.8, 5.9, 5.10 added during Phase 1 (Ganglion personality characterization)._
+_Updated June 2026 (b): **draft-6.0 pivot.** The attribution learning rule broke (missing direction); rebuilt as SCFF+GD. Project-state sections (§2.2–§2.4, §4, §5.8, §7) corrected; the draft-5 collapse added to §1b; the person/process core (§1, §3, §5, §6) left intact because it is still true. Live plan: `draft6.0/`. Soul: `docs/essence/the-essence.md`._

@@ -4,6 +4,8 @@ A map of how each draft evolved — what changed, why, and what role each file p
 
 For the narrative version of the same arc (mind stones, breakthroughs, why each pivot happened), see `project-history.md`. This file is the file-by-file index.
 
+> **Draft-6.0 note (June 2026).** This map covers the **historical** drafts (1.0 → 5.1) — the *attribution era*, now superseded. The project pivoted: the live plan is **`draft6.0/`** (a SCFF + gradient-descent hybrid — start at `draft6.0/context.md`). Read this file to understand the *old* drafts and why each pivot happened; it is **not** the current structure.
+
 ---
 
 ## Version Snapshot
