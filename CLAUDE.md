@@ -23,6 +23,8 @@ The guiding method, in the author's words: **copy the brain's *function*, cheat 
 
 The draft-5.1 learning rule — *attribution-based hierarchical diffusion*, splitting loss by locally-measured `|a·W|` — had a fatal flaw: it distributed loss **magnitude** but never **direction** (the sign). Nothing converged, and routing the sign back would have broken the locality the chip stands on. After a hard reset, the author rebuilt the learning rule around a **SCFF + gradient-descent hybrid**. **The substrate vision is intact; only the learning rule is new.**
 
+**The deeper lesson (two weeks on):** the missing sign was the *symptom*. The real error was assuming the brain is **homogeneous** — one rule everywhere. It isn't; a real axon can't be simulated 1:1; modern ML doesn't brute-force biology, it **cheats it by projecting into a computable dimension** (the project's own motto: *copy the function, cheat the implementation*). So 6.0 builds **organ by organ** — the first two being the cheap SCFF cortex and the precise GD namer. (Told in full in `draft6.0/README.md` and `ideas1.md`.)
+
 **The live plan lives in `draft6.0/`.** Not the `draft5.1-*` files, not `draft5.1-2.verify.md` — those are now history. Read in this order:
 
 - **`draft6.0/README.md`** — the pivot story: why 5.x died, what 6.0 is.
@@ -36,6 +38,15 @@ The draft-5.1 learning rule — *attribution-based hierarchical diffusion*, spli
 ### Draft 6.0 architecture in one breath
 
 Two brains. A cheap, unsupervised **SCFF** front (~80% — Self-Contrastive Forward-Forward, label-free, local, forward-only) that organizes the world for free, and a small, precise **gradient-descent** back (~20%) that maps features to real labels — because **direction is the one expensive thing in learning, so we pay for it once, where it counts.** The two are chained as **residual boosting blocks**; learning is **threshold-gated** (cheap local SCFF most steps, expensive GD only when the cheap path stalls) and **sleep-consolidated** (periodic full-batch GD over a **hippocampus LUT** prototype memory). It runs on the same analog substrate via **mono-forward** (one forward sweep carrying a positive + negative world side by side through a shared weight crossbar; only the cheap activation buffers double, not the Scaps).
+
+### Phase 1 — the build discipline (decided 2026-06-19)
+
+The current work is **Phase 1**: the behavioral-simulation ladder in `draft6.0/idea/ideas1.md` (1.0 full SCFF → 1.1 full GD → 2.x mix + middle → 3.x sleep → 4.x block chain), with the **codeable run-spec** in `draft6.0/src/phase1/` (its `README.md` + the locked first run-card `exp0/experiment-0.md`). The order to build it in:
+
+- **Walk one spine — the neocortex (SCFF + GD).** Build straight down the ladder; don't open a second track.
+- **The hippocampus LUT is a service, not a parallel brain.** It plugs in at two points: it feeds SCFF its *negatives* (stub it first — a random batch partner, no memory) and holds the *replay history* for sleep (where it becomes a real organ, **at 3.2**). Never build it as its own milestone.
+- **Test convergence, not theory.** SCFF + GD + boosting are settled; each rung's result is one picture, not an argument. The "so many papers" feeling is phase-2 (`future-ref/` 1–6) bleeding in — **keep that menu closed.**
+- **Next action:** rung **1.0 — full SCFF**, config locked in `draft6.0/src/phase1/exp0/experiment-0.md` (mono-forward dual-rail + mandatory inter-layer norm in from the first run; random-batch negative stub). Pass = goodness separates, layers grow more separable with depth.
 
 ### What is now historical (draft 5.x)
 
@@ -53,12 +64,14 @@ The draft-5.1 spec (`draft5.1-*.md`), the §20 simulation campaign, the Ganglion
 
 ## Task skill-maps (`skill/`)
 
-> **Migration note (June 2026):** the `skill/` maps were written for the draft-5.1 attribution world and are being updated to draft 6.0. `skill/project-explore.md` (the concept front door) has been reframed; the others (`simulator-code`, `simulation-experiments`, `architecture-research`, `sureSkill`, `workflows`) still describe the old simulator and campaign — trust them for the **code mental model and collaboration frame**, not for "what we're building now" (that's `draft6.0/`).
+> **Migration note (June 2026):** the `skill/` maps have been **migrated to draft 6.0 / Phase 1** (2026-06-19). `project-explore`, `architecture-research`, `simulation-experiments`, `workflows`, and `sureSkill` now point at `draft6.0/` and the Phase-1 ladder. **`simulator-code.md` is the one exception — banded HISTORICAL**, because it describes the old attribution `src/` simulator and the draft-6.0 Phase-1 simulator hasn't been written yet (a fresh code map comes when it is).
 
 - **`skill/project-explore.md`** — the concept entry point; the anti-correction frame and the map of maps.
 - **`skill/architecture-research.md`** — proposing changes, triaging ideas, scope decisions.
+- **`skill/simulation-experiments.md`** — writing tests, running a Phase-1 rung, interpreting results.
 - **`skill/workflows.md`** — the steps behind the `/orient`, `/checkpoint`, `/commit-progress`, `/double-check` commands.
-- `skill/simulator-code.md`, `skill/simulation-experiments.md`, `skill/sureSkill.md` — draft-5.1-era; read with the migration caveat above.
+- **`skill/sureSkill.md`** — the meta-map / confidence log (what's solid vs unknown in 6.0).
+- `skill/simulator-code.md` — **HISTORICAL** (the attribution-era `src/` simulator); read only for how the old build worked.
 
 ---
 
@@ -157,14 +170,15 @@ These predate draft 6.0 and still govern every run. Internalize them.
 │   │   └── ideas1.md                  full derivation, story form (every part + why)
 │   ├── concept/                       algorithm survey (the options; attribution = 5.1 history)
 │   ├── ref/                           paper stories behind 6.0 (scff, distance-forward, boostresnet, byol, llrd)
-│   └── future-ref/                    phase-2 research dossier (21 files) — free-time, not the live line
+│   ├── future-ref/                    phase-2 research dossier (21 files) — free-time, not the live line
+│   └── src/phase1/                    ★ the codeable Phase-1 run-spec (README + exp0 locked run-card)
 ├── docs/
 │   ├── essence/the-essence.md         ★ the project's soul (origin → collapse → return)
 │   └── draft/
 │       ├── project-personal.md        collaboration handoff (who/how)
 │       ├── project-history.md         narrative arc draft 1 → 5.1 (the attribution era)
 │       └── draft.heirachy.md          file-by-file draft map
-├── skill/                             task skill-maps (being migrated 5.1 → 6.0)
+├── skill/                             task skill-maps (migrated to 6.0; simulator-code = historical)
 ├── draft5.1-1.md / draft5.1-2.md      HISTORICAL spec (attribution era — reference only)
 ├── draft5.1-2.verify.md              HISTORICAL live-plan (draft 5.1 — superseded by draft6.0/)
 ├── draft/                             historical drafts (1.0 → 5.1-full)
@@ -180,6 +194,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 | ----------------------------------------- | -------------------------------------------------------------------------------- |
 | "Give me the whole picture / onboard cold" | `draft6.0/context.md` (the full dump — what / why / how / the person)            |
 | "What are we doing now / the plan?"        | `draft6.0/idea/main.ideas.v1.md` (decisions) + `ideas1.md` (the story)           |
+| "Code / run a Phase-1 experiment"          | `draft6.0/src/phase1/` (the run-spec README + `exp0/` locked run-card)           |
 | "Why did 5.x die / what's draft 6.0?"      | `draft6.0/README.md`                                                              |
 | The papers behind a 6.0 decision           | `draft6.0/ref/` (one story per paper)                                            |
 | The algorithm survey / learning-rule zoo   | `draft6.0/concept/summary.detail.md`                                             |

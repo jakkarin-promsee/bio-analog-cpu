@@ -7,7 +7,7 @@
 > skill maps and the project's discipline.
 >
 > New here? Read `skill/project-explore.md` first — these assume the project frame (chip-not-ML;
-> attribution-not-gradient; the locked spec vs the fluid code).
+> SCFF + GD, not the dead attribution rule; the committed draft-6.0 spine vs the open knobs the sims set).
 
 ---
 
@@ -16,9 +16,11 @@
 The "get me up to speed / re-think before we continue" move.
 
 1. Skim `CLAUDE.md` (already loaded) → `skill/project-explore.md` (the frame).
-2. Read the current phase in `draft5.1-2.verify.md` + its `src/experiment/phaseN/README.md` (status + findings).
-3. If a focus arg is given, also load that lens — **code** → `skill/simulator-code.md` (+ `src/docs/`);
-   **experiment** → `skill/simulation-experiments.md`; **arch** → `skill/architecture-research.md`.
+2. Read the live plan: `draft6.0/idea/main.ideas.v1.md` (decisions + "Status") and the experiment ladder
+   in `draft6.0/idea/ideas1.md` (which rung we're on). For the whole picture cold: `draft6.0/context.md`.
+3. If a focus arg is given, also load that lens — **code** → `skill/simulator-code.md` (historical `src/`;
+   the 6.0 sim isn't written yet); **experiment** → `skill/simulation-experiments.md`; **arch** →
+   `skill/architecture-research.md`.
 4. Report **tight**: where we are · the frame · what's solid vs open · what I'd watch next. Flag any doc
    drift you notice in passing.
 
@@ -29,13 +31,13 @@ Orient, don't lecture — don't restate the whole spec.
 The "we just finished something, write it down before it's lost" move. (This is the discipline that kept
 *slipping* — status not getting recorded — so fire it often.)
 
-1. Update **status** in `draft5.1-2.verify.md` (current phase) and the relevant `src/experiment/phaseN/`
-   log (README findings; a new `experiment-{n}.md` if a run happened).
-2. If the phase/plan shifted, sync the pointers that *name* it (CLAUDE.md "next action"; the skill maps'
-   "where the work is now"). Keep **one source of truth** — the verify doc — and let others point to it,
-   not restate it.
-3. **Write-boundary:** status in the verify doc, detail in `src/experiment/`. Never edit the locked spec
-   (`draft5.1-1.md`, §22) to record progress.
+1. Update **status** in `draft6.0/idea/main.ideas.v1.md` ("Status"). If a run happened, record it in the
+   experiment workspace (`draft6.0/src/phase1/` — see its `README.md` and `skill/simulation-experiments.md`).
+2. If the plan/rung shifted, sync the pointers that *name* it (CLAUDE.md "next action"; the skill maps'
+   "where the work is now"). Keep **one source of truth** — `main.ideas.v1.md` status — and let others
+   point to it, not restate it.
+3. **Write-boundary:** status in `main.ideas.v1.md`, run detail in the experiment workspace. Don't edit the
+   *derivation* chapters of `ideas1.md` to log a run — that's a decision, not a checkpoint.
 4. Then suggest `/commit-progress`.
 
 ## `/commit-progress` — the organized commit

@@ -37,7 +37,7 @@ For the narrative version of the same arc (mind stones, breakthroughs, why each 
 | `draft5.1-full.md`  | Main (ref)  | Final polish — §1.4 bio narrative, §3 XOR-convention bug fix, §3.6 ambiguity resolved (unsplit)    |
 | `draft5.1-1.md`     | Main (Part) | Canonical spec Part 1 — §0–§19, §22–§23. **Lives at repo root, not in `draft/`.**                 |
 | `draft5.1-2.md`     | Main (Part) | Canonical spec Part 2 — §20 simulation, §21 future tracks. **Lives at repo root.**                |
-| `draft5.1-2.verify.md` | Plan (live) | Re-draft of the §20 plan, intuition-first, phase by phase. Supersedes 5.1-2's phase *schedule*; lives at repo root. |
+| `draft5.1-2.verify.md` | Plan (superseded) | Re-draft of the §20 plan, intuition-first, phase by phase. Was the live plan before the draft-6.0 pivot; now history (live plan = `draft6.0/`). |
 
 > The split into `draft5.1-1.md` / `draft5.1-2.md` exists only because the markdown-to-PDF tool fails on the unsplit length. Content is identical to `draft/draft5.1-full.md`. Section numbers are continuous across both parts.
 
@@ -277,8 +277,21 @@ Split only because the markdown-to-PDF tool fails on the unsplit length. Section
 
 ## Current State
 
-**Latest spec: `draft5.1-1.md` + `draft5.1-2.md`** (split for PDF) — canonical, theoretical work locked. **Beyond the drafts**, the repo now also holds the Python simulator (`src/`), the agent skill-maps (`skill/`), design notes (`notes/`), and the per-phase experiment workspace (`src/experiment/`) — see `CLAUDE.md` for the full file map.
+> This file is the **historical draft map (1.0 → 5.1, the attribution era).** It is no longer the latest
+> plan.
 
-**State (2026-06): the Python simulation phase has started.** SLICE-1 (one Ganglion) builds and runs; the author is exploring it pre-Phase-2 (no H1 verdict yet). The **plan is being re-drafted intuition-first, phase by phase, in `draft5.1-2.verify.md`** — the current phase is **Phase 1 — Ganglion Personality** (characterize the atom), superseding the old "operator sanity" framing (that folds in as its first rung). `draft5.1-2.md` §20 is now a rough scaffold (see its banner).
+**Latest plan: `draft6.0/`** — the SCFF + gradient-descent rebuild (June 2026). The draft-5.1 spec
+(`draft5.1-1.md` + `draft5.1-2.md`) and the attribution-era simulator (`src/`) are kept as **reference for
+how the project worked before the pivot.** Start at `draft6.0/context.md` (the whole picture), or
+`draft6.0/README.md` (the pivot story). See `CLAUDE.md` for the full current file map.
 
-The §22 protected list (14 items) documents the locked architectural decisions. Open questions are tiered in §19: four architecture-critical items the simulation must answer, ~19 tuning items that don't threaten the architecture either way.
+**Why the pivot (2026-06):** the attribution rule (`§5` hierarchical diffusion) carried loss *magnitude*
+but never *direction* (the sign). Magnitude without direction can't descend anything; nothing converged at
+scale, and routing the sign back would have broken the locality the chip stands on. The architecture was
+rebuilt around SCFF + GD — **the substrate survived; only the learning rule was reborn.** The full story is
+in `project-history.md`; the rebuild is in `draft6.0/`.
+
+What this historical era achieved: the attribution mechanism *trained a single Ganglion* (regression near-
+perfect, a nonlinear paraboloid ~20×) before the scale flaw surfaced — a real result, recorded in git and
+`src/docs/`. The §22 protected list (14 items) and the §19 open questions belong to that dead architecture;
+the live decision record is `draft6.0/idea/main.ideas.v1.md`.

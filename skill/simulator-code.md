@@ -1,5 +1,17 @@
 # `skill/simulator-code.md` — editing the simulator: mental-model map
 
+> ## ⚠️ HISTORICAL — the attribution-era `src/` simulator (draft 5.1)
+> **This map describes the *old* simulator, built for the attribution chip — kept as a guideline for how
+> the previous build worked, not as the current task.** Draft 6.0 (June 2026) set the circuit/ALU/memory
+> aside to **stabilize the core math first**; the **draft-6.0 Phase-1 simulator has not been written yet.**
+> When it is, it will be a fresh behavioral sim of the SCFF + GD hybrid (ideal floats first) and will get
+> its own code map. Until then, read this only to understand the historical `src/` (the Ganglion,
+> broadcast + momentum, the lean baseline). The live plan is [`draft6.0/`](../draft6.0/idea/ideas1.md).
+>
+> ---
+>
+> *(Original 5.1-era content below, unchanged.)*
+>
 > **Use this when** you're about to change `src/library/*` (wires, capacitor, pwm, scap, banks, alu,
 > control) or `src/example/*` (the builds, brainstem, run_xor).
 >

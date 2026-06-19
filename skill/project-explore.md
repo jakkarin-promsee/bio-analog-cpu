@@ -130,7 +130,11 @@ residual blocks, gated learning, sleep+LUT, mono-forward). **No draft-6.0 simula
 
 **Where we're going.** The experiment ladder in `ideas1.md`: **1.0 full SCFF** (mono-forward + mandatory
 inter-layer norm) → 1.1 full GD → 2.x mix + middle layer → 3.x sleep → 4.x block chain. Simple
-classification / statistics tasks first.
+classification / statistics tasks first. **The build discipline (decided 2026-06-19):** walk one neocortex
+spine (SCFF + GD); the hippocampus LUT is a *service* that plugs in (negatives stubbed first, real at 3.2),
+not a parallel brain; test convergence, not theory; keep the phase-2 menu closed. The deeper lesson behind
+the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats* it by projection — so build
+**organ by organ**; 6.0 is the first two.
 
 **Calibrate your trust:**
 
@@ -196,5 +200,5 @@ Full version: `docs/draft/project-personal.md` — read it before any non-trivia
 
 _Keep this file alive — it is the first thing the next mind reads. When the concept frame shifts again
 (a rung simulated, the spine revised, Phase 2 finally specced), update this map first, because every other
-reading starts from it. Reframed for draft 6.0 on 2026-06-13; the draft-5.1 attribution version is in git
-history._
+reading starts from it. Reframed for draft 6.0 on 2026-06-13; Phase-1 build discipline + the heterogeneous-
+organ lesson added 2026-06-19; the draft-5.1 attribution version is in git history._

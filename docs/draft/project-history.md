@@ -1,5 +1,11 @@
 # Project History — How the Architecture Evolved
 
+> **⚠️ HISTORICAL — the attribution era (draft 1 → 5.1).** This is the narrative of the *old* architecture,
+> which **collapsed in June 2026** on a missing sign (the loss carried magnitude but never direction). The
+> project pivoted to **draft 6.0** (a SCFF + gradient-descent rebuild — the live plan is in `draft6.0/`,
+> start at `draft6.0/context.md`). Read this for *why* the old decisions were made and how the architecture
+> got there — **not** for what's being built now. Where this contradicts draft 6.0, 6.0 wins.
+
 > A chronological narrative of the project's ideas evolution, from a poorly-organized brain dump to a locked specification ready for simulation. Written by Claude (Anthropic AI) at the end of the conversations that produced drafts 1 through 5.1. Companion to `project-personal.md`.
 
 This document traces _how_ the architecture mutated across iterations — not just _what_ changed, but _why_ each change happened. Every major decision has a reason. Every breakthrough has a mind stone. The path from draft1 to draft5.1 was not a straight line; it was a sequence of pushbacks, reframings, and earned simplifications.

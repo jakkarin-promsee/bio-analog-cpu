@@ -1,83 +1,95 @@
 # `skill/simulation-experiments.md` — running experiments: mental-model map
 
-> **Use this when** you're about to write a test, run a simulation phase (the MVF or a §20 phase), or
+> **Use this when** you're about to write a test, run an experiment from the Phase-1 ladder, or
 > interpret/report a result. This is the **science** side.
 >
 > Router, not procedure. `CLAUDE.md` is always on; this adds the experiment layer.
 > **New here? Read `skill/project-explore.md` first** — the concept entry point.
+>
+> **Migrated to draft 6.0 (June 2026).** The old `§20` ten-phase campaign, the `H1` attribution
+> hypothesis, the MVF/Ganglion-Personality framing, and `draft5.1-2.verify.md` are **history.** The live
+> line is the **Phase-1 experiment ladder** in [`draft6.0/idea/ideas1.md`](../draft6.0/idea/ideas1.md).
 
 ## The one thing to internalize first
 
-**Failures are data. Do NOT tune until it works** — that's how you lie to yourself (§20.2 #5). Log it,
-characterize it across configs, move on. (The XOR collapse was *reported*, never hacked into passing.)
+**Failures are data. Do NOT tune until it works** — that's how you lie to yourself. Log it, characterize it
+across configs, move on. (In the old era the XOR collapse was *reported*, never hacked into passing — keep
+that bar.) And you are testing **convergence, not theory**: SCFF + GD + boosting are settled; each rung's
+result is one picture, not an argument.
 
 ## Read these first, in order — only the parts named
 
-1. **`draft5.1-2.verify.md`** — the **live plan** (re-drafted intuition-first, phase by phase). Start with
-   the current phase. `draft5.1-2.md §20` is the **rough scaffold** (kept for reference) — but still read
-   its **§20.2 methodological rules** (one-thing-changed, multi-seed, invariants), which govern every run.
-2. **`draft5.1-1.md §17`** — the 11 hypotheses. Every experiment tests one. **H1** (does attribution
-   converge) is load-bearing; the rest matter only conditional on H1.
-3. **`src/docs/context.md §7`** — how to read early results: the two caveats (the supply-rail saturation
-   is implemented but first-pass — full analog charge dynamics deferred; the lean baseline ≠ the spec's
-   normalized diffusion).
-4. **`draft5.1-1.md §2.4`** + **`draft5.1-2.md §20.18`** — known failure modes + negative-result protocols.
+1. **[`draft6.0/idea/ideas1.md`](../draft6.0/idea/ideas1.md) → "The experiment ladder."** The live plan:
+   1.0 full SCFF → 1.1 full GD → 2.x mix + middle → 3.x sleep → 4.x block chain, with the **build
+   discipline** and a **pass/fail picture per rung.** Start at the rung you're on.
+2. **[`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md) → "Open knobs."** What each
+   experiment is actually deciding (front:back plasticity ratio, gate threshold, sleep cadence, …).
+3. **[`draft6.0/ref/`](../draft6.0/ref/README.md)** — the paper behind whatever you're testing (SCFF,
+   Distance-Forward, BoostResNet, BYOL, LLRD), so you know what "working" looks like.
 
 ## The mindset (governs every run)
 
 - **One thing changed per experiment.** Exactly one variable between two runs. Multi-variable = uninterpretable.
 - **Multiple seeds.** Standard set: `[42, 137, 271, 314, 1729]`. Report **median + IQR**, not a single run.
-- **Defer fallbacks/PVT until the baseline is characterized.** No Path-0 noise floor, no Adam `v_t`, no
-  analog realism in baseline runs.
-- **The sim measures correctness, not speed.** No clock; the ALU charge-wait is invisible. "Sim fast" ≠
-  "chip fast."
+- **Ideal first.** Ideal deterministic operators (floats) until the rung converges; **defer fallbacks**
+  (EMA-view, margin loss, Adam accumulators) and **defer analog/PVT realism** until the baseline is
+  characterized — they're remediation tested *after* baseline behavior, not bolted on first.
+- **The sim measures correctness, not speed.** There's no clock; the analog charge-wait is invisible. "Sim
+  fast" ≠ "chip fast."
 
-## Invariants to log every run (§20.5)
+## Invariants to log every run
 
-Loss-conservation ε, dead-weight fraction, ceiling-saturation fraction, T_max clip rate. (In the lean
-baseline, conservation is trivial — it becomes meaningful once per-level diffusion is added.)
+For draft 6.0, watch: **convergence / loss-slope**, **dead-unit fraction**, **ceiling / goodness
+saturation**, and — once chained — **inter-block drift / SCFF cluster-churn.** A run that violates one is a
+finding, not a nuisance.
+
+## The build discipline (decided 2026-06-19)
+
+- **Walk one spine — the neocortex (SCFF + GD).** Build straight down the ladder; don't open a second track.
+- **The hippocampus LUT is a service, not a parallel brain.** It feeds SCFF its negatives (**stub it first**
+  — a random partner from the current batch, no memory) and holds the replay history for sleep (where it
+  becomes a real organ, **at 3.2**). Never build it as its own milestone.
+- **The phase-2 menu** ([`draft6.0/future-ref/`](../draft6.0/future-ref/README.md) topics 1–6) **stays
+  closed** — compass for later organs, not this build.
 
 ## Constraints
 
-- **§22** stands. **§20.17 promotion** is the *only* path from a §21 future-track into the baseline, and
-  it needs a phase report citing data — not a hunch.
 - Don't change the architecture to make a test pass. A test that fails is a result.
+- **Architecture changes are decisions, not experiments** — they move the spine only on a result, via
+  `skill/architecture-research.md`, not mid-run.
+- Don't re-import the dead 5.1 frame (attribution, `|a·W|` diffusion, H1) — it's not what's being tested.
 
-## Where to work — the experiment space
+## Where to record
 
-- **Plan vs record.** `draft5.1-2.verify.md` = the *whiteboard* (intent, what we're doing now).
-  `src/experiment/phaseN/` = the *record* (what we ran + found). Update **status** in the verify doc; put
-  the **detail** in the experiment folder.
-- **Enter a phase via its `README.md`**, then read its `experiment-{n}.md` in order — one experiment per
-  file (question → setup → run → result/figures → read → decision). See `src/experiment/README.md`.
-- **`library/` is frozen**: experiment scripts import it unchanged; changing it is a `simulator-code` task.
-- **Figures:** commit the summary plots the logs reference; raw sweeps → git-ignored `runs/` (§20.19).
-- **Write-boundary:** an experiment touches only `draft5.1-2.verify.md` (status) and inside
-  `src/experiment/`. The locked spec and the frozen `library/` are off-limits to an experiment.
+The experiment workspace is **`draft6.0/src/phase1/`** — its `README.md` is the codeable Phase-1 spec
+(0th probe → Exp 1–4, the online test-then-train frame, the metrics), and `exp0/experiment-0.md` has the
+first run-card **locked**. No code has run yet.
+
+- **Plan vs record.** The *plan/whiteboard* is `ideas1.md` (the ladder) + `main.ideas.v1.md` (status) + the
+  `phase1/README.md` (the experiment spec). The *record* (what we ran + found) lives in a folder per
+  experiment under `draft6.0/src/phase1/` (`exp0/`, `exp1/`, `exp2a/`, `exp2b/`, `exp2c/`, `exp3/`), each an
+  `experiment-{n}.md`: question → setup → run → result/figures → read → decision.
+- **Write-boundary.** Status in `main.ideas.v1.md` ("Status"); detail in the experiment folder. Don't edit
+  the *derivation* chapters of `ideas1.md` to record a run's outcome — that's a decision, not a log.
+- **Figures:** commit the summary plots the logs reference; git-ignore raw sweeps.
 
 ## Where the work is now (2026-06)
 
-- **The plan is being re-drafted intuition-first** in `draft5.1-2.verify.md`. **Phase 1 is now "Ganglion
-  Personality"** — characterize the atom's expressive shape/limits by sweeping inputs/weights and plotting
-  the output surface up a realism ladder — **superseding the old "operator sanity"** (which folds in as
-  rung 0). Workspace: `src/experiment/phase1/` (not started).
-- **MVF harness (SLICE-1, one Ganglion) is built and runs**, stable with the supply-rail saturation. The
-  mechanism *trains* (regression: linear near-perfect, paraboloid ~20×), but **no formal phase has run**
-  and there is **no H1 verdict** yet. The lean baseline has no hidden-layer credit *by construction* (the
-  recorded §22 #3/#6 deviation).
-- **No phase logs written yet.** The first lives in `src/experiment/phase1/` (its `README.md` summary + the
-  `experiment-{n}.md` files), per the convention above.
+- **Pivoted to draft 6.0.** Spine committed; **nothing simulated yet.** Next action: **1.0 — full SCFF**,
+  mono-forward dual-rail + mandatory inter-layer norm in from the first run, random-batch negative stub.
+- **1.0's pass picture:** goodness separates (`G_pos`↑, `G_neg`↓) and the layers grow more separable with
+  depth. That rung is the gate to everything else.
 
 ## Traps
 
-- Tuning hyperparameters until XOR passes (forbidden — §20.2 #5).
+- Tuning hyperparameters until a rung passes (forbidden — failures are data).
 - Single-seed conclusions.
 - Changing two things and not knowing which moved the result.
 - Reading a stable ideal sim as a working chip (no PVT yet).
+- Building the hippocampus LUT as a parallel track instead of stubbing its negative role until sleep (3.2).
 
 ## Done means
 
-- The run obeys §20.2 (one variable, multi-seed, invariants logged).
+- The run obeys the methodology (one variable, multi-seed, invariants logged).
 - A failure is *recorded as data* (multi-config characterization), not tuned away.
-- If it's a phase, its `src/experiment/phaseN/` record exists — the `README.md` summary + the
-  `experiment-{n}.md` logs (config, seeds, figures, honest result).
+- The result has a record (under `draft6.0/src/phase1/`) and `main.ideas.v1.md` status points to it.
