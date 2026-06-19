@@ -10,6 +10,25 @@ If you're reading this `draft6.0/`, know that this time I threw all the previous
 
 It cost me a burnout of about 3–4 days, but now I can stand again. The whole week I spent down actually made me see my target clearer. Now I'm back with a completely new plan.
 
+## Two weeks later — the deeper lesson
+
+The note above was written in the first days after the crash. Two weeks of sitting with it showed me the missing sign was only the _symptom_. The real hole was deeper — and the only "fix" for the sign was a trap: patching in full 1:1 directional backprop throws away the whole advantage and marches the chip straight back into the summation wall it exists to escape. "Just fix the sign" was never on the table.
+
+Here's what I actually got wrong. Draft 5.0 treated the brain as **homogeneous** — one structure repeated everywhere, running one simple rule: attribute-based backpropagation, a stack of linear regressions on axon behavior, and intelligence falls out the top. I was so sure of it that I decided _modern ML_ was the thing that was wrong — brute-forcing computation with an n×n transformer that does everything at once, when real intelligence (I thought) is continuous, in-chip, and just this one local rule repeated forever.
+
+And I wasn't wrong about the biology. The brain really does run attribute-based backprop, tracked by synapse-history hormones — I checked, it's real. The problem is we **can't simulate it.** The distribution is cheap; the _direction_ is brutally expensive, and to make my architecture converge I'd have had to compute the exact 1:1 directional backprop I was trying to escape. So none of it was usable. Eight months, and the architecture wouldn't move. I hadn't gotten anything wrong. I'd just been looking too shallow.
+
+Then it flipped. Modern ML was never trying to brute-force nature — **it's trying to cheat it.** You cannot simulate a real axon: one driver feeding many synapses that slide in 3D, where the distance itself multiplies and sums the signal; synapses and drivers created and destroyed on the fly; many hormones sharing one wire at the same instant; pulses whose phase shifts under the myelin sheath; extracellular fluid holding the entire history of every hormone spike; axons that grow and move themselves; hormones that broadcast. You can't compute that 1:1 across tens of billions of cells. So modern ML doesn't — it **projects** all of that down into a low dimension we _can_ compute. That projection isn't a betrayal of the biology; it's the only honest road to it. (Which is the project's own motto walking back to slap me — _copy the function, cheat the implementation._ I'd written it down. I just hadn't believed it all the way down.)
+
+And the brutal part: **the brain isn't homogeneous at all.** The more I read, the clearer it got — every region has its own structure and its own kind of learning. The one-rule-everywhere picture was the real mistake. The missing sign was just where it finally broke.
+
+So I'm taking many steps back. No in-chip memory, no analog ALU, no real circuit yet — all of it waits. **First I make the core math stable, one organ at a time, using most modern ml theory to cheat the biology:**
+
+- **Neocortex** → the SCFF + GD block (the rest of this page).
+- **Hippocampus** → a LUT prototype store. I don't have its real shape yet, so the LUT stands in as the default until the math tells me what it wants to be.
+
+The worldview I'm aiming at now — heterogeneous organs, each with its own job and its own learning rule — is the one mapped out in [`future-ref/`](future-ref/README.md), topics **1–6**. That's the _direction_. The line I actually walk first is still the smallest stable thing there is: get SCFF + GD to converge.
+
 ## What will I do now?
 
 ### Overview
@@ -107,11 +126,11 @@ But I'm not sure yet whether these in-between GD stages will hold or break. So: 
 
 ## Where things live in this folder
 
-| Path | What it is |
-| ---- | ---------- |
-| [`context.md`](context.md) | **the full context dump** — the whole picture (what / why / how / the person). Start here if you're cold. |
-| [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) | **the decision record** — N1–N3 + S1–S8, the live plan (spine committed, numbers pending). |
-| [`idea/ideas1.md`](idea/ideas1.md) | the full derivation, told as a story (every part + *why*). |
-| [`concept/`](concept/README.md) | survey of learning algorithms — the *options* considered (attribution here is draft-5.1 history). |
-| [`ref/`](ref/README.md) | plain-language stories of the papers **behind** the 6.0 design (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD). |
-| [`future-ref/`](future-ref/README.md) | the **phase-2** research dossier (21 files) — free-time reading, *not* the line to walk now. |
+| Path                                             | What it is                                                                                                        |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| [`context.md`](context.md)                       | **the full context dump** — the whole picture (what / why / how / the person). Start here if you're cold.         |
+| [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) | **the decision record** — N1–N3 + S1–S8, the live plan (spine committed, numbers pending).                        |
+| [`idea/ideas1.md`](idea/ideas1.md)               | the full derivation, told as a story (every part + _why_).                                                        |
+| [`concept/`](concept/README.md)                  | survey of learning algorithms — the _options_ considered (attribution here is draft-5.1 history).                 |
+| [`ref/`](ref/README.md)                          | plain-language stories of the papers **behind** the 6.0 design (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD). |
+| [`future-ref/`](future-ref/README.md)            | the **phase-2** research dossier (21 files) — free-time reading, _not_ the line to walk now.                      |

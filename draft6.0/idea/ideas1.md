@@ -1,6 +1,6 @@
 # Draft 6.0 — The Whole Idea, Told Start to End
 
-> A narrative walkthrough of the draft-6.0 architecture: every stage, *why* it exists, and the math we'll actually use. Read this top to bottom — each part only makes sense once you know the problem the part before it left behind.
+> The Phase-1 spec: every stage of the draft-6.0 architecture, *why* it exists, and the math we'll code. Read top to bottom — each chapter solves the problem the last one left behind (*derivation* order); build it in the order of the ladder at the end (*experiment* order). The two are mapped where they diverge. *Rev. 2026-06-19 — aligned to the Phase-1 build order.*
 
 ---
 
@@ -8,13 +8,19 @@
 
 Draft 5.0 died on one missing word: **direction**.
 
-The whole 5.x model distributed loss by *magnitude* — how much each neuron should be blamed — but never carried the *sign* of that blame. We were telling every neuron "you were wrong by this much" and never "wrong in which way." A network that knows the size of its error but not its direction cannot descend anything. Nothing converged, and the only honest fix — routing a signed error back through the network — would have broken the locality rules the whole chip is built on. So we threw 5.x out and kept only the ideas as reference.
+The whole 5.x model distributed loss by *magnitude* — how much each neuron should be blamed — but never carried the *sign* of that blame. We were telling every neuron "you were wrong by this much" and never "wrong in which way." A network that knows the size of its error but not its direction cannot descend anything. Nothing converged, and the only honest fix — routing a signed error back through the network — would have broken the locality the whole chip is built on. So we threw 5.x out and kept the ideas only as reference.
 
-But the failure taught us the thing draft 6.0 is built around:
+But two weeks of sitting with the wreckage showed the missing sign was just the *symptom*. The real mistake was older and deeper: **we had assumed the brain is homogeneous** — one structure repeated everywhere, running one simple rule (attribute-based credit, a stack of linear regressions on axon behavior, intelligence falling out the top). And the biology of that is *real*: the brain does run attribute-based learning, tracked by synapse-history hormones. The problem is we **can't simulate it.** A real axon is uncopyable — one driver feeding many synapses sliding in 3D, distance itself multiplying and summing the signal, synapses born and pruned on the fly, many hormones sharing one wire, pulses phase-shifting under myelin, extracellular fluid holding every spike's history, axons that grow and move themselves. You cannot compute that 1:1 across tens of billions of cells. To force draft 5 to converge you'd have to compute the exact 1:1 directional backprop you were trying to escape — and you'd be back at the summation wall the chip exists to avoid.
 
-**Direction is the expensive part of learning.** Magnitude is cheap — the substrate measures `|a·W|` for free. Direction is what costs you a backward pass, a transpose, a chain of dependencies. Every learning algorithm that works pays for direction somewhere. The ones that *don't* pay — pure Hebbian, pure local rules — are cheap precisely because they give up direction, and that's exactly why they stall on hard tasks.
+Here is the turn. Modern ML was never trying to *brute-force* nature — it **cheats** it. It takes that uncopyable, high-dimensional biology and **projects it into a low dimension we can actually compute.** That isn't a betrayal of the biology; it's the only honest road to it. *Copy the function, cheat the implementation* — the project's own motto, arrived at a second time, this time from the failure side.
 
-So draft 6.0 stops pretending direction is free. Instead: **pay for it once, in one place, and make everything else cheap.**
+And the part that reorganizes everything: **the brain isn't homogeneous at all.** Every region has its own structure and its own kind of learning. So we stop hunting for one universal rule and build **organ by organ**, each paid for with whatever is cheap on the substrate. Draft 6.0 is the first two organs — a cheap unsupervised cortex and a small precise namer — and the math has to stand before any circuit does.
+
+The one law that survived the fire, and that the two organs are built around:
+
+**Direction is the expensive part of learning.** Magnitude is cheap — the substrate measures `|a·W|` for free. Direction is what costs a backward pass, a transpose, a chain of dependencies. Every learning rule that works pays for direction somewhere; the ones that *don't* pay — pure Hebbian, pure local rules — are cheap precisely because they give up direction, which is exactly why they stall on hard tasks.
+
+So draft 6.0 stops pretending direction is free: **pay for it once, in one place, and make everything else cheap.** This file is that decision worked out in full — read it as the spec we open before coding Phase 1.
 
 ---
 
@@ -82,7 +88,7 @@ Three reasons this is the right structure:
 - **Store raw inputs, not features.** Features drift over training (that's Chapter 6's whole problem); raw input space is stable ground truth, so the store never silently rots.
 - **It builds itself.** A small winner-take-all layer *is* an online prototype store — winners get pulled toward the input, "no winner close enough" allocates a new entry, usage counters retire stale ones. The match is just a dot-product, which is a crossbar op. The LUT is one small content-addressable crossbar.
 
-And it pays off three times: negatives for SCFF now, replay history for sleep later (Chapter 9), and the seed of the "memory model" we want eventually. The hippocampus idea becomes "a learned, compressed version of this same store."
+And it pays off three times: negatives for SCFF now, replay history for sleep later (Chapter 8), and the seed of the "memory model" we want eventually. The hippocampus idea becomes "a learned, compressed version of this same store."
 
 ---
 
@@ -97,7 +103,7 @@ SCFF gives us clean clusters — but they're *unsupervised*. The cluster "all th
 GD actually shows up in **two sizes**, because it has two different jobs:
 
 - **Interface GD** — small (a layer or two) at a block's exit. Its job is *tracking*: keep the block's output in a fixed range and shape so the next block always sees something familiar. Tracking wants low latency and cheap frequent steps → plain SGD + momentum, simple squared-error.
-- **Output GD** — the real "name the world" brain at the very end. Its job is *precision*: the best possible map from features to labels. Here the modern machinery earns its keep → an Adam-class optimizer online, cross-entropy loss, and at sleep (Chapter 9) a full-batch solve to convergence.
+- **Output GD** — the real "name the world" brain at the very end. Its job is *precision*: the best possible map from features to labels. Here the modern machinery earns its keep → an Adam-class optimizer online, cross-entropy loss, and at sleep (Chapter 8) a full-batch solve to convergence.
 
 ---
 
@@ -140,32 +146,38 @@ A refinement worth testing: gate on the **loss slope**, not the absolute loss. W
 
 ---
 
-## Chapter 8 — Scaling up: the block concept
+## Chapter 8 — Sleep: covering the whole world again
 
-One SCFF→middle→GD stack is a **Block**. The block concept chains them:
-
-> [SCFF + middle + GD] → [SCFF + middle + GD] → … → [SCFF + middle + GD]
-
-Why chain instead of building one giant SCFF with a single GD at the end? Because a single GD at the very end has to absorb the drift of the *entire* SCFF stack — the most fragile possible arrangement. Putting a GD checkpoint between every block buys two things:
-
-1. **A fixed-range translation layer at every boundary.** No matter how Block 1's SCFF shifts, its Interface GD pulls the output back toward a stable, labeled shape — so Block 2 always receives something familiar. Each interface only has to absorb the drift of *one* block, not the whole stack.
-2. **Direction chains end-to-end.** The GD stages connect to each other, so the one thing SCFF can't provide — direction — links through the whole model, even though most layers are SCFF.
-
-To chain direction between blocks cheaply, we **don't** run a full backward pass through everything. We approximate each block as if it were a single linear layer with one effective weight — roughly `Block_out / Block_in` — and pass the delta block-to-block through that. This turns the backward cost from "length of the network" into "number of blocks." (A cleaner estimate keeps a running correlation instead of a raw ratio, so it stays warm even during long SCFF-only stretches — but the idea is the same: a cheap linear stand-in for each block.)
-
-This is where the gate from Chapter 7 meets the chain: below threshold every block runs **local-only**; above threshold we run the **chained delta** between blocks. It's less "discrete" in that moment — the blocks briefly talk to each other — but that's the price of handling genuinely hard tasks, and we only pay it when the cheap path has visibly stalled.
-
----
-
-## Chapter 9 — Sleep: covering the whole world again
-
-The gate creates a subtle problem. When loss spikes and GD fires, it only re-fits the **data that just spiked** — the last thing seen. Meanwhile SCFF's whole map has been drifting. If only ~10% of inputs ever trip the threshold, GD ends up correctly covering only ~10% of the *new* SCFF map. The other 90% — everything that wasn't recently surprising — quietly goes stale.
+The gate from Chapter 7 creates a subtle problem. When loss spikes and GD fires, it only re-fits the **data that just spiked** — the last thing seen. Meanwhile SCFF's whole map has been drifting. If only ~10% of inputs ever trip the threshold, GD ends up correctly covering only ~10% of the *new* SCFF map. The other 90% — everything that wasn't recently surprising — quietly goes stale.
 
 So we add a **sleep-like phase**: periodically, stop streaming and **retrain GD full-batch over the whole history** against the current SCFF map. This re-covers the entire data range, past to present, in one shot — the way sleep is thought to replay the day into long-term structure.
 
 Sleep is cheap *by construction*, which is the nice surprise: GD is only ~20% of the weights, and the SCFF body is frozen during sleep, so each replayed sample is just a forward pass into a small module being fit. That flips the design question from "can we afford sleep?" to "how *little* history do we need?" — which is exactly the knob we want to sweep.
 
 Where the history lives: the **LUT prototype store from Chapter 4.** It already holds deduplicated input types; tag them with labels and counts and it's a compact replay set. The "20% history" experiment becomes "*prototype* history" — principled compression, not an arbitrary subsample.
+
+Three things make the re-fit robust to SCFF's drift, and they cost nothing extra: **normalize the taps** (kills most gain/offset drift before GD ever sees it), **replay across the drift history** (so GD learns the *family* of representations, not one snapshot), and **jitter the replayed features** — where the analog joke isn't a joke, because the substrate makes Gaussian noise for free, so the thing every analog designer fights becomes drift-robustness training at zero cost.
+
+---
+
+## Chapter 9 — Scaling out: the block concept
+
+Everything so far builds *one* block and keeps it healthy over time. Scaling out means chaining them — and the chain is a **residual stream**, not a plain feedforward stack:
+
+> `r_k = r_{k-1} + (Block k's correction)`, and the final prediction reads the accumulated sum.
+
+Each block reads the running stream, does its SCFF feature work, and its GD checkpoint **adds a correction** to the stream. This is **boosting** (BoostResNet): each block only has to be a *weak corrector* of the residual its predecessors left — a little better than its input — and the training error then falls fast with depth. It is the author's own intuition stated exactly: *a block doesn't try to predict everything; it reduces the loss as much as it can, then passes the rest on.*
+
+Why chain this way instead of one giant SCFF with a single GD at the end? A single end-GD has to absorb the drift of the *entire* SCFF stack — the most fragile arrangement. The residual chain buys two things:
+
+1. **A fixed-range translation layer at every boundary.** No matter how Block 1's SCFF shifts, its Interface GD pulls the block's output back toward a stable, labeled shape — so Block 2 always receives something familiar. Each interface absorbs the drift of *one* block, not the whole stack.
+2. **Credit is mostly local.** Because the stream carries the running prediction, each block's target is just the *current residual* — the part its predecessors got wrong — available right at the block's exit. So most credit needs **no backward pass across blocks at all.** That locality is exactly what boosting buys, and it's why the chain stays cheap.
+
+For any *extra* direction you want to pass further back than the local residual, approximate each block as a single linear layer with one effective weight — roughly `Block_out / Block_in` — and chain the delta block-to-block through it, turning the backward cost from "length of the network" into "number of blocks." (A cleaner estimate keeps a running correlation instead of a raw ratio, so it stays warm even during long SCFF-only stretches.) This linear stand-in is the cheap **top-up**, not the main mechanism — the residual stream already does most of the work.
+
+**One guard, load-bearing twice.** A residual stream plus goodness can cheat: a block could inflate `‖h‖²` just by passing its input straight through the skip. The mandatory inter-layer normalization (Chapter 3) is what blocks that shortcut — so the norm earns its keep a second time here.
+
+This is where the gate from Chapter 7 meets the chain: below threshold every block runs **local-only** (fit its residual); above threshold we additionally run the **chained delta** between blocks. It's less "discrete" in that moment — the blocks briefly talk — but that's the price of genuinely hard tasks, and we only pay it when the cheap path has visibly stalled.
 
 Three things make the re-fit robust to SCFF's drift: **normalize the taps** (kills most gain/offset drift before GD ever sees it), **replay across the drift history** (so GD learns the *family* of representations, not one snapshot), and **jitter the replayed features** — and here's the analog joke that isn't a joke: our substrate makes Gaussian noise for *free*. The thing every analog designer fights becomes drift-robustness training at zero cost.
 
@@ -221,24 +233,31 @@ $$\underbrace{\eta_\text{read}\cdot \tau_\text{GD}}_{\text{drift between GD upda
 
 ## The experiment ladder
 
-We test on classification / statistics tasks only, simplest first, one thing changed at a time.
+The chapters above are the *why*, in derivation order. This is the *what*, in the order you actually build it. All of Phase 1 is classification / statistics tasks, ideal operators first, **one variable changed per run**, the standard seed set `[42, 137, 271, 314, 1729]`, reported median + IQR.
 
-**1 — the atoms**
-- 1.0 Full SCFF (with: mono-forward dual-rail, mandatory inter-layer norm; sub-cells: two-sided loss vs pure-contrast, and a cheaper forward-only rival as a bench check).
-- 1.1 Full gradient descent (the precision ceiling to quote against).
+**The build discipline (decided 2026-06-19):**
 
-**2 — putting them together**
-- 2.0 SCFF + GD (taps, no middle shaping).
-- 2.1 SCFF + middle + GD — and the key cell: **frozen vs slow vs fast read-layers**, which directly sets the plasticity gradient.
+- **Walk one spine — the neocortex (SCFF + GD).** Build straight down the ladder; don't open a second track.
+- **The hippocampus LUT is a service, not a parallel brain.** It plugs into the spine at exactly two points: it feeds SCFF its *negatives* (stub it first with a random partner from the current batch — no memory), and it holds the *replay history* for sleep (where it finally becomes a real organ, at 3.2). You never build it as its own milestone.
+- **Test convergence, not theory.** SCFF + GD + boosting are settled; each rung's result is one picture, not an argument.
+- **The phase-2 menu ([`future-ref/`](../future-ref/README.md) topics 1–6) stays closed.** It's the compass for later organs, not this build.
 
-**3 — staying alive over time (sleep)**
-- 3.0 No sleep (watch it rot — failure is data).
-- 3.1 Sleep, full-batch history.
-- 3.2 Sleep, **prototype-LUT** history.
-- 3.3 Sleep, with a learned memory model holding the history.
+**1 — the atoms** *(Chapters 1–5)*
+- **1.0 — full SCFF.** Locked from the first run: mono-forward dual-rail, mandatory inter-layer norm. Negatives = random-batch stub. Sub-cells: two-sided loss vs pure-contrast; a cheaper forward-only rival as a bench check. **Pass:** goodness separates (`G_pos`↑, `G_neg`↓) and the layers grow more separable with depth. This is the gate to everything else.
+- **1.1 — full gradient descent.** The precision ceiling to quote 1.0 and the 2.x cells against.
 
-**4 — scaling out**
-- Chain blocks: [SCFF+middle+GD] → … — gated on a stable init from steps 1–3.
+**2 — putting them together** *(Chapters 5–6)*
+- **2.0 — SCFF + GD** (taps, no middle shaping). **Pass:** GD on the tapped SCFF features beats 1.0's bare top layer and approaches 1.1's ceiling.
+- **2.1 — SCFF + middle + GD** — the key cell: **frozen vs slow vs fast read-layers**, which directly sets the plasticity gradient. **Pass:** a slowdown exists where GD keeps tracking SCFF without SCFF's own ceiling collapsing.
+
+**3 — staying alive over time (sleep)** *(Chapter 8)*
+- **3.0 — no sleep.** Watch it rot; the rot is the result.
+- **3.1 — sleep, full-batch history.** The upper bound on what sleep can recover.
+- **3.2 — sleep, prototype-LUT history.** The real hippocampus appears. **Pass:** LUT replay ≈ full-batch replay at a fraction of the store.
+- **3.3 — sleep, learned memory model.** The seed of the phase-2 hippocampus — kept as a probe, not a dependency.
+
+**4 — scaling out** *(Chapter 9)*
+- **Chain blocks:** [SCFF+middle+GD] → … — gated on a stable single block from steps 1–3. **Pass:** direction chains across blocks without the stack swinging when an early block updates. Open question: how many blocks before the linear block-delta stand-in strains.
 
 ---
 

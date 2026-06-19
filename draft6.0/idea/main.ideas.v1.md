@@ -61,3 +61,5 @@ GD breaks if SCFF drifts faster than GD can re-track. This is **not** a conteste
 ## Status
 
 Spine committed. Numbers pending. Next action: the experiment ladder in [ideas1.md](ideas1.md) (§ "The experiment ladder"), starting at **1.0 — full SCFF**, with mono-forward dual-rail and mandatory inter-layer normalization in from the first run.
+
+The codeable Phase-1 spec is [`../src/phase1/README.md`](../src/phase1/README.md) (0th probe → Exp 1–3, with Exp 4 = gate + sleep). **Note the reorder:** Phase 1 runs chaining (Exp 3 ≈ ladder 4.x) *before* the maintenance layer (Exp 4 ≈ ladder 3.x sleep + Ch 7 gate) — structure first, maintenance once Exp-3 drift shows how much is needed. **Resolution (Ch 9 vs N3):** Exp 3 makes **N3 residual boosting** the primary chaining mechanism; the Ch 9 linear inter-block delta is demoted to an optional, off-by-default top-up. **Phase-1 pass metric:** held-out generalization is the headline; the **train−held-out memorization gap** is the block-vs-GD comparison (not the online curve, not a single scalar).
