@@ -1,0 +1,47 @@
+{
+  "experiment": "p2_0-synth",
+  "git_commit": "b0a6a8eea0dcfb102dfc86468579024128617ec0",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "task": "synth",
+  "config": {
+    "n_train": 6000,
+    "n_test": 2000,
+    "scff_ep": 30,
+    "gd_ep": 60,
+    "decide_ep": 80,
+    "task": {
+      "dim": 20,
+      "grid": 4,
+      "n_active": 2,
+      "overlap": 0.3,
+      "label": "random",
+      "n_class": 2
+    }
+  },
+  "wall_config": {
+    "norm": "lengthnorm",
+    "goodness": "squared"
+  },
+  "L": 8,
+  "width": 64,
+  "batch": 32,
+  "results_median": {
+    "wall_slope": -0.0005476190476189791,
+    "envelope_gap": 0.23425000000000007,
+    "decide_scff": 0.918,
+    "decide_rand": 0.912,
+    "decide_raw": 0.961,
+    "decide_gap": 0.03599999999999992,
+    "decide_selectivity": 0.006000000000000005,
+    "decide_verdict": "ENTANGLED",
+    "wd_gap": 0.0004999999999999449
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 1817.5
+}

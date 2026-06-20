@@ -116,14 +116,22 @@ rung = the Phase-1 layer-norm degradation curve + the pure-GD ceiling. Pass-gate
 - **Pass gate.** Wall reproduced (depth-slope `< 0` under layer-norm); DECIDE returns an unambiguous
   lost/entangled verdict; the width×depth gap is a single number to close.
 
-### P2.1 — The normalization swap *(the make-or-break, sub-aim A)*
-- **Question.** Does per-layer separability **rise** with depth under a different normalization — and does the
-  **online (substrate-feasible)** version keep it?
-- **Varied (one per cell).** `layer-norm` (baseline) · `batch-norm` · **`online/streaming-BN`** · `group-norm`
-  · `no-norm` (cheat control — should fail).
-- **Mechanism / math.** LN: `ĥ_j=h_j/‖h‖`. BN: `ĥ_j=(h_j−μ_j)/√(σ_j²+ε)`, `μ_j,σ_j²` per feature over the
-  batch. **Online-BN:** `μ_j←(1−ρ)μ_j+ρh_j`, `σ_j²←(1−ρ)σ_j²+ρ(h_j−μ_j)²`, normalize with running stats —
-  **the chip's `⟨a²⟩` register *is* `σ_j²`.**
+### P2.1 — The normalization × goodness grid *(the make-or-break, sub-aim A)*
+- **Question.** Does per-layer separability **rise** with depth under a different normalization **and/or
+  goodness form** — and does the **online / per-sample (substrate-feasible)** version keep it? *(Widened from a
+  pure-norm sweep 2026-06-21: DeeperForward shows the norm and the goodness form are coupled — see
+  [`p2_0/experiment-0.md`](p2_0/experiment-0.md) + [`../../ref/deeperforward.md`](../../ref/deeperforward.md).)*
+- **Varied — the grid `{ goodness } × { norm }`, one cell at a time.** *Goodness:* `squared Σh²` (baseline) ·
+  **`linear Σh`** (DeeperForward — no `h`-factor in the update, so quiet units keep learning). *Norm:*
+  `length-norm h/‖h‖` (baseline wall) · **`layer-norm (h−μ)/σ`** (per-sample, **mean-zero** → linear goodness
+  decouples for free, **no batch stats** — the substrate-native cell) · `batch-norm` · **`online/streaming-BN`**
+  · `group-norm` · `no-norm` (cheat control — should fail). The two corners that matter: **length-norm+squared**
+  (the wall) vs **layer-norm+linear** (the substrate-native DeeperForward fix).
+- **Mechanism / math.** length-norm: `ĥ=h/‖h‖`. layer-norm: `ĥ_j=(h_j−μ)/√(σ²+ε)` per **sample** (mean-zero).
+  BN: `ĥ_j=(h_j−μ_j)/√(σ_j²+ε)` per **feature** over the batch. **Online-BN:** `μ_j←(1−ρ)μ_j+ρh_j`,
+  `σ_j²←(1−ρ)σ_j²+ρ(h_j−μ_j)²` (running stats — the chip's `⟨a²⟩` register *is* `σ_j²`). **Goodness:** squared
+  `dG/dz=2·gs·h` (the `h`-factor → deactivation cascade with depth) vs linear `dG/dz=gs·1[z>0]` (mask → no
+  deactivation). *(Smoke-confirmed 2026-06-21: squared → dead-units 0→0.39 over 8 layers; linear → ~0.05.)*
 - **Why.** The headline. If online-BN bends the curve up, the cheap-depth-on-chip thesis is alive.
 - **Pass gate (numeric, make-or-break).** At least one variant takes the **depth-slope from `< 0` (layer-norm)
   to `≥ 0`** (separability non-declining with depth), and the **substrate-feasible online-BN's final-layer
@@ -258,6 +266,7 @@ analog/PVT/SPICE realism (after the ideal depth-fix converges).
 ## 10. References (the canonical list)
 
 - **The Trifecta: three simple techniques for deeper FF** — [arXiv 2311.18130](https://arxiv.org/abs/2311.18130). BatchNorm + SymBa + OLU; layer-norm is the depth-killer. *The central paper.*
+- **DeeperForward: Enhanced Forward-Forward** — [ICLR 2025](https://proceedings.iclr.cc/paper_files/paper/2025/file/7dd309df03d37643b96f5048b44da798-Paper-Conference.pdf). *Counter-finding:* the depth-killer is **squared goodness** (deactivates neurons), not layer-norm — keep the per-sample norm, switch goodness squared→linear → 17-layer FF. The substrate-native route. Story: [`../../ref/deeperforward.md`](../../ref/deeperforward.md). **Co-central for Phase 2.**
 - **Layer Collaboration in the Forward-Forward Algorithm** — [arXiv 2305.12393](https://arxiv.org/abs/2305.12393) (AAAI 2024). Shared detached goodness γ.
 - **SymBa** (Lee & Song, 2023) — symmetric/separation loss = pure-contrast.
 - **Streaming Normalization** — [CBMM-057](https://cbmm.mit.edu/sites/default/files/publications/CBMM-Memo-057.pdf); **Online Normalization** (Chiley 2019); **Batch Renormalization** (Ioffe 2017) — running-stats norm at batch 1.
