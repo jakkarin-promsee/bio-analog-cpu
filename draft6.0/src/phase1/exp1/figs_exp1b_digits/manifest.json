@@ -1,0 +1,21 @@
+{
+  "experiment": "exp1b-digits",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "widths": [
+    16,
+    24,
+    32,
+    48,
+    64,
+    96
+  ],
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "n_train": 600,
+  "wall_clock_s": 56.0
+}

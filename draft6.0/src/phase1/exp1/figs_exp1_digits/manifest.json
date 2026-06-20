@@ -1,0 +1,36 @@
+{
+  "experiment": "exp1a-digits",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "dataset": "digits",
+  "config": {
+    "H": 64,
+    "scff_ep": 40,
+    "sup_ep": 60,
+    "n_train": 600,
+    "n_test": 600
+  },
+  "taps": "all-layers",
+  "theta": 2.0,
+  "lr_scff": 0.03,
+  "goodness": "sum",
+  "batch": 32,
+  "block_weights": 25194,
+  "gd_weights": 25450,
+  "results_median": {
+    "block_held": 0.9266666666666666,
+    "gd_held": 0.9683333333333334,
+    "block_gap": 0.046666666666666634,
+    "gd_gap": 0.03166666666666662,
+    "scff_bare_top": 0.7633333333333333,
+    "backprop_ratio": 0.33885350318471336
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 15.2
+}
