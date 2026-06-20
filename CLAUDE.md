@@ -195,6 +195,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 | "Give me the whole picture / onboard cold" | `draft6.0/context.md` (the full dump — what / why / how / the person)            |
 | "What are we doing now / the plan?"        | `draft6.0/idea/main.ideas.v1.md` (decisions) + `ideas1.md` (the story)           |
 | "Code / run a Phase-1 experiment"          | `draft6.0/src/phase1/` (the run-spec README + `exp0/` locked run-card)           |
+| "How do I draw figures / write up a result?" | `draft6.0/src/phase1/result-format.md` (house style + figure catalog + 6-slot summary) |
 | "Why did 5.x die / what's draft 6.0?"      | `draft6.0/README.md`                                                              |
 | The papers behind a 6.0 decision           | `draft6.0/ref/` (one story per paper)                                            |
 | The algorithm survey / learning-rule zoo   | `draft6.0/concept/summary.detail.md`                                             |
