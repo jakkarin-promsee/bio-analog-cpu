@@ -46,7 +46,7 @@ The current work is **Phase 1**: the behavioral-simulation ladder in `draft6.0/i
 - **Walk one spine — the neocortex (SCFF + GD).** Build straight down the ladder; don't open a second track.
 - **The hippocampus LUT is a service, not a parallel brain.** It plugs in at two points: it feeds SCFF its *negatives* (stub it first — a random batch partner, no memory) and holds the *replay history* for sleep (where it becomes a real organ, **at 3.2**). Never build it as its own milestone.
 - **Test convergence, not theory.** SCFF + GD + boosting are settled; each rung's result is one picture, not an argument. The "so many papers" feeling is phase-2 (`future-ref/` 1–6) bleeding in — **keep that menu closed.**
-- **Next action:** rung **1.0 — full SCFF**, config locked in `draft6.0/src/phase1/exp0/experiment-0.md` (mono-forward dual-rail + mandatory inter-layer norm in from the first run; random-batch negative stub). Pass = goodness separates, layers grow more separable with depth.
+- **✅ Phase 1 complete (2026-06-20, exp0 → exp4).** Read **`draft6.0/src/phase1/phase1-summarize.md`** (the synthesis) + **`RESULTS.md`** (ledger). Verdict: a cheap, *forgetting-robust* **continual** learner — generalizes better than backprop at ~10% backward cost and wins the continual regime via sleep (online backprop catastrophically forgets); *not* a deep static-accuracy competitor (SCFF weak, shallow-is-better, depth saturates). Spec corrections it forced: goodness = **sum ‖h‖²** (not mean), **tap all SCFF layers** (S3 "last n" was wrong), input-norm on, full residual ε=1. **Next:** Exp-4 follow-ups (Ch7 gate, sleep-cadence / LUT-vigilance sweep), or analog/PVT realism, or Phase 2.
 
 ### What is now historical (draft 5.x)
 
