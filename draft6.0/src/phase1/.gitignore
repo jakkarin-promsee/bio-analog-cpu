@@ -1,0 +1,4 @@
+# transient run artifacts (regenerable; not part of the result record)
+__pycache__/
+*.pyc
+*.log
