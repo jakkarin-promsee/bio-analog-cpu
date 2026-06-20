@@ -1,0 +1,22 @@
+{
+  "experiment": "exp3-mnist",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "n_blocks": 6,
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "config": {
+    "H": 128,
+    "scff_ep": 20,
+    "n_train": 3000,
+    "n_test": 3000,
+    "seeds": [
+      42,
+      137,
+      271
+    ]
+  },
+  "wall_clock_s": 386.0
+}

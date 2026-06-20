@@ -1,0 +1,26 @@
+{
+  "experiment": "exp3-digits",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "n_blocks": 6,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "config": {
+    "H": 64,
+    "scff_ep": 40,
+    "n_train": 600,
+    "n_test": 600,
+    "seeds": [
+      42,
+      137,
+      271,
+      314,
+      1729
+    ]
+  },
+  "wall_clock_s": 16.8
+}
