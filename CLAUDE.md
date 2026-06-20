@@ -45,8 +45,8 @@ The current work is **Phase 1**: the behavioral-simulation ladder in `draft6.0/i
 
 - **Walk one spine — the neocortex (SCFF + GD).** Build straight down the ladder; don't open a second track.
 - **The hippocampus LUT is a service, not a parallel brain.** It plugs in at two points: it feeds SCFF its *negatives* (stub it first — a random batch partner, no memory) and holds the *replay history* for sleep (where it becomes a real organ, **at 3.2**). Never build it as its own milestone.
-- **Test convergence, not theory.** SCFF + GD + boosting are settled; each rung's result is one picture, not an argument. The "so many papers" feeling is phase-2 (`future-ref/` 1–6) bleeding in — **keep that menu closed.**
-- **✅ Phase 1 complete (2026-06-20, exp0 → exp4).** Read **`draft6.0/src/phase1/phase1-summarize.md`** (the synthesis) + **`RESULTS.md`** (ledger). Verdict: a cheap, *forgetting-robust* **continual** learner — generalizes better than backprop at ~10% backward cost and wins the continual regime via sleep (online backprop catastrophically forgets); *not* a deep static-accuracy competitor (SCFF weak, shallow-is-better, depth saturates). Spec corrections it forced: goodness = **sum ‖h‖²** (not mean), **tap all SCFF layers** (S3 "last n" was wrong), input-norm on, full residual ε=1. **Next:** Exp-4 follow-ups (Ch7 gate, sleep-cadence / LUT-vigilance sweep), or analog/PVT realism, or Phase 2.
+- **Test convergence, not theory.** SCFF + GD + boosting are settled; each rung's result is one picture, not an argument. The "so many papers" feeling is the future-ref menu (`future-ref/` 1–6, the north-star dossier) bleeding in — **keep that menu closed.**
+- **✅ Phase 1 complete (2026-06-20, exp0 → exp4).** Read **`draft6.0/src/phase1/phase1-summarize.md`** (the synthesis) + **`RESULTS.md`** (ledger). Verdict: a cheap, *forgetting-robust* **continual** learner — generalizes better than backprop at ~10% backward cost and wins the continual regime via sleep (online backprop catastrophically forgets); *not* a deep static-accuracy competitor (SCFF weak, shallow-is-better, depth saturates). Spec corrections it forced: goodness = **sum ‖h‖²** (not mean), **tap all SCFF layers** (S3 "last n" was wrong), input-norm on, full residual ε=1. **Next (the renumbered phases):** **Phase 2** = make cheap SCFF earn *depth* + the GD interface (plan: `draft6.0/src/phase2/`); **Phase 3** = online maintenance — the Ch7 gate + sleep-*cadence* refinement (sleep itself is already built in exp4); analog/PVT realism in parallel. (The recurrent lifelong brain is the **north star**, beyond the numbered phases — see scope below.)
 
 ### What is now historical (draft 5.x)
 
@@ -107,7 +107,7 @@ What carried forward in *spirit* (realized differently in 6.0):
 
 - SPICE simulation. Real hardware fabrication.
 - External dataset benchmarking as the *claim* (small tasks are fine as probes).
-- **Phase 2 — the recurrent lifelong-learning brain** (a time-series, prefrontal↔hippocampus thinking loop where "correctness is a self-generated feeling"). This is the real long-term north star and the author knows it — but it is **deliberately not specced yet** ("simple intelligence first"). See `docs/essence/the-essence.md` for the why. **Do not pull it into the live plan or project docs without the author's direction.**
+- **The recurrent lifelong-learning brain — the north star, *beyond* the numbered phases** (a time-series, prefrontal↔hippocampus thinking loop where "correctness is a self-generated feeling"). The real long-term target, and the author knows it — but **deliberately not specced yet** ("simple intelligence first"). *(Phase-numbering note, 2026-06-20: **Phase 2** now = the depth + GD-interface work, **Phase 3** = online maintenance (gate + sleep-cadence); this recurrent brain used to be loosely called "Phase 2" — it's the north star beyond Phase 3.)* See `docs/essence/the-essence.md` for the why. **Do not pull it into the live plan or project docs without the author's direction.**
 
 **When the user surfaces a new idea, triage first:** does it test in the current sim ladder, or is it a later-phase / future track? Catching scope-creep early is one of your jobs — but note 6.0's spine is still settling, so "promotion" is lighter-weight than 5.1's frozen process.
 
@@ -170,7 +170,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 │   │   └── ideas1.md                  full derivation, story form (every part + why)
 │   ├── concept/                       algorithm survey (the options; attribution = 5.1 history)
 │   ├── ref/                           paper stories behind 6.0 (scff, distance-forward, boostresnet, byol, llrd)
-│   ├── future-ref/                    phase-2 research dossier (21 files) — free-time, not the live line
+│   ├── future-ref/                    north-star research dossier (21 files) — beyond the numbered phases, free-time, not the live line
 │   └── src/phase1/                    ★ the codeable Phase-1 run-spec (README + exp0 locked run-card)
 ├── docs/
 │   ├── essence/the-essence.md         ★ the project's soul (origin → collapse → return)
@@ -195,11 +195,12 @@ These predate draft 6.0 and still govern every run. Internalize them.
 | "Give me the whole picture / onboard cold" | `draft6.0/context.md` (the full dump — what / why / how / the person)            |
 | "What are we doing now / the plan?"        | `draft6.0/idea/main.ideas.v1.md` (decisions) + `ideas1.md` (the story)           |
 | "Code / run a Phase-1 experiment"          | `draft6.0/src/phase1/` (the run-spec README + `exp0/` locked run-card)           |
+| "Code / plan a Phase-2 experiment"         | `draft6.0/src/phase2/` (depth + GD interface — `README.md` plan + `result-format.md`) |
 | "How do I draw figures / write up a result?" | `draft6.0/src/phase1/result-format.md` (house style + figure catalog + 6-slot summary) |
 | "Why did 5.x die / what's draft 6.0?"      | `draft6.0/README.md`                                                              |
 | The papers behind a 6.0 decision           | `draft6.0/ref/` (one story per paper)                                            |
 | The algorithm survey / learning-rule zoo   | `draft6.0/concept/summary.detail.md`                                             |
-| Phase-2 / the recurrent-brain research     | `draft6.0/future-ref/` (21-file dossier — free-time reading, *not* the live plan) |
+| The recurrent-brain / north-star research  | `draft6.0/future-ref/` (21-file dossier — *beyond* the numbered phases, free-time reading, *not* the live plan) |
 | "What is this project really about / why?" | `docs/essence/the-essence.md`                                                    |
 | "How do I talk to this user?"              | `docs/draft/project-personal.md`                                                 |
 | "Why did we decide X (in the 5.1 era)?"    | `docs/draft/project-history.md`                                                  |

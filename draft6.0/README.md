@@ -133,4 +133,4 @@ But I'm not sure yet whether these in-between GD stages will hold or break. So: 
 | [`idea/ideas1.md`](idea/ideas1.md)               | the full derivation, told as a story (every part + _why_).                                                        |
 | [`concept/`](concept/README.md)                  | survey of learning algorithms — the _options_ considered (attribution here is draft-5.1 history).                 |
 | [`ref/`](ref/README.md)                          | plain-language stories of the papers **behind** the 6.0 design (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD). |
-| [`future-ref/`](future-ref/README.md)            | the **phase-2** research dossier (21 files) — free-time reading, _not_ the line to walk now.                      |
+| [`future-ref/`](future-ref/README.md)            | the **north-star** research dossier (21 files, beyond the numbered phases) — free-time reading, _not_ the line to walk now. |

@@ -94,7 +94,7 @@ The distinguishing claim is the *combination*: continuous analog compute + on-ch
 │   │   └── ideas1.md          #   the full derivation + the Phase-1 build plan
 │   ├── concept/               #   learning-rule survey (the options considered)
 │   ├── ref/                   #   paper stories behind 6.0 (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD)
-│   └── future-ref/            #   phase-2 research dossier (21 files) — compass, not the live line
+│   └── future-ref/            #   north-star research dossier (21 files, beyond the numbered phases) — compass, not the live line
 ├── docs/
 │   ├── essence/the-essence.md # the project's soul (origin → collapse → return)
 │   └── draft/                 # collaboration handoff + the draft 1→5.1 history

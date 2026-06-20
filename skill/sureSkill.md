@@ -65,8 +65,9 @@ High confidence — the *design reasoning* is solid and the docs capture it; I c
 
 ## Off-limits to over-eager building
 
-**Phase 2** — the recurrent lifelong-learning brain (correctness-as-a-feeling) — is the real north star but
-**deliberately not specced.** Hold it as direction (`draft6.0/future-ref/`, `docs/essence`), not a task.
+**The recurrent lifelong-learning brain** (correctness-as-a-feeling) — *beyond* the numbered phases (1 =
+structure/done, 2 = depth, 3 = maintenance) — is the real north star but **deliberately not specced.** Hold
+it as direction (`draft6.0/future-ref/`, `docs/essence`), not a task.
 
 ## The honest one-liner
 

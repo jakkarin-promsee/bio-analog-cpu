@@ -37,9 +37,10 @@ And still: **triage every new idea — catching scope-creep is your job.**
 ## The mindset
 
 - **Triage every idea into three bins:** (a) it tests on the **current ladder** (1.0 → 4.x) → it's a
-  Phase-1 experiment; (b) it's a **later-phase / future track** (the recurrent thinking brain) → it belongs
-  in [`draft6.0/future-ref/`](../draft6.0/future-ref/README.md), held as a compass, **not** pulled into the
-  plan without the author; (c) neither → name why and let it go.
+  Phase-1/2/3 experiment (structure / depth / maintenance — the live ladder); (b) it's the **north-star /
+  future track** (the recurrent thinking brain, *beyond* the numbered phases) → it belongs in
+  [`draft6.0/future-ref/`](../draft6.0/future-ref/README.md), held as a compass, **not** pulled into the plan
+  without the author; (c) neither → name why and let it go.
 - **Architecture changes are decisions, not experiments** — backed by a sim *result*, not a hunch. (6.0 is
   young, so this is lighter than 5.1's frozen process — but a *result*, not an argument, still moves the
   spine.)
@@ -53,8 +54,9 @@ And still: **triage every new idea — catching scope-creep is your job.**
 
 - Biological names are structural, not decorative — don't suggest renaming "to be rigorous" (rejected).
 - **A Scap is a wire, not a neuron** (this pushback was a real save; respect it).
-- **Don't pull Phase 2 forward.** The recurrent lifelong-learning brain (correctness-as-a-feeling) is the
-  real north star but is **deliberately not specced** — "simple intelligence first." Hold it as direction
+- **Don't pull the north star forward.** The recurrent lifelong-learning brain (correctness-as-a-feeling) is
+  the real north star — *beyond* the numbered phases (Phase 2 = depth, Phase 3 = maintenance) — and
+  **deliberately not specced**, "simple intelligence first." Hold it as direction
   ([`docs/essence/the-essence.md`](../docs/essence/the-essence.md)), not a task.
 - **When an old (5.1) doc contradicts draft 6.0, 6.0 wins.** The pivot is the most recent truth.
 

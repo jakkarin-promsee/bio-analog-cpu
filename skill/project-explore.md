@@ -100,7 +100,7 @@ Read `draft6.0/README.md` then `draft6.0/idea/ideas1.md`; the paper stories are 
   the bio-cleverness lives in SCFF; GD is the part we let be unapologetically precise. (`ref/boostresnet.md`)
 - **Grounding (the deep why).** A self-generated learning signal must stay tethered to reality (prediction
   error + occasional real labels) or it collapses to "everything is correct." This is the seed of the
-  Phase-2 north star (correctness as a *feeling*), but **that is not specced** — see `docs/essence`.
+  north-star (correctness as a *feeling*, *beyond* the numbered phases), but **that is not specced** — see `docs/essence`.
 
 What it does **NOT** do: it does not claim to be backprop, and it does not freeze at deploy (the whole
 point is online, lifelong learning). **Convergence is empirical** — nothing in draft 6.0 has been
@@ -143,7 +143,7 @@ the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats
 - **Unknown.** **Everything empirical.** Nothing in draft 6.0 is simulated. The convergence/stability of
   the hybrid, the drift fix, the gate, sleep — all unproven. The numbers in `main.ideas.v1.md` are the
   *plan's* knobs, not results.
-- **Off-limits to over-eager building.** **Phase 2** — the recurrent lifelong-learning brain — is the real
+- **Off-limits to over-eager building.** **The recurrent lifelong-learning brain** — *beyond* the numbered phases (Phase 2 now = depth, Phase 3 = maintenance) — is the real
   north star, but it is **deliberately not specced** ("simple intelligence first"). Hold it as direction
   (`docs/essence`), not as a task. Don't pull it into the plan without the author.
 
@@ -186,7 +186,8 @@ Full version: `docs/draft/project-personal.md` — read it before any non-trivia
 | Understand the live plan / what we're building | `draft6.0/idea/main.ideas.v1.md` + `ideas1.md` |
 | Understand a 6.0 decision's evidence | `draft6.0/ref/` (one story per paper) |
 | Browse the learning-rule zoo | `draft6.0/concept/summary.detail.md` |
-| Research phase-2 (the recurrent brain) | `draft6.0/future-ref/` (21-file dossier — free-time reading, *not* the live plan) |
+| Research the north-star / recurrent brain (beyond the numbered phases) | `draft6.0/future-ref/` (21-file dossier — free-time reading, *not* the live plan) |
+| Code / plan a Phase-2 experiment (depth) | `draft6.0/src/phase2/` (README plan + result-format) |
 | Understand the old attribution chip (history) | `draft5.1-1.md` + `docs/draft/project-history.md` |
 | Read the (historical) simulator code | `skill/simulator-code.md` → `src/docs/*` (attribution-era) |
 | Propose a change / make a scope call | `skill/architecture-research.md` |
