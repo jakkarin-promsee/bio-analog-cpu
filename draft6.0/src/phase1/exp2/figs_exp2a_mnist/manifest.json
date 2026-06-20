@@ -1,0 +1,23 @@
+{
+  "experiment": "exp2a-mnist",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "L": 4,
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "config": {
+    "H": 128,
+    "scff_ep": 25,
+    "sup_ep": 40,
+    "n_train": 3000,
+    "n_test": 3000,
+    "seeds": [
+      42,
+      137,
+      271
+    ]
+  },
+  "wall_clock_s": 723.7
+}

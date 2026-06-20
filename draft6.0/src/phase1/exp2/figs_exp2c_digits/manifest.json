@@ -1,0 +1,28 @@
+{
+  "experiment": "exp2c-digits",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "rhos": [
+    0.0,
+    0.1,
+    0.3,
+    1.0
+  ],
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "config": {
+    "H": 64,
+    "warm": 20,
+    "co": 40,
+    "n_train": 600,
+    "n_test": 600,
+    "seeds": [
+      42,
+      137,
+      271
+    ]
+  },
+  "wall_clock_s": 16.1
+}
