@@ -1,0 +1,36 @@
+{
+  "experiment": "exp1a-mnist",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "dataset": "mnist",
+  "config": {
+    "H": 128,
+    "scff_ep": 25,
+    "sup_ep": 40,
+    "n_train": 3000,
+    "n_test": 3000
+  },
+  "taps": "all-layers",
+  "theta": 2.0,
+  "lr_scff": 0.03,
+  "goodness": "sum",
+  "batch": 32,
+  "block_weights": 166762,
+  "gd_weights": 167266,
+  "results_median": {
+    "block_held": 0.8503333333333334,
+    "gd_held": 0.938,
+    "block_gap": 0.02733333333333332,
+    "gd_gap": 0.062000000000000055,
+    "scff_bare_top": 0.5176666666666667,
+    "backprop_ratio": 0.10020155485171321
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 343.4
+}

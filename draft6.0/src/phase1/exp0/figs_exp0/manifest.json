@@ -1,0 +1,48 @@
+{
+  "experiment": "exp0-full",
+  "git_commit": "463ff56516924b416217839288dc231293450ddb",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "task": "checkerboard_2d",
+  "check": [
+    4,
+    1.4,
+    0.3
+  ],
+  "dims": [
+    2,
+    64,
+    64,
+    64,
+    64
+  ],
+  "theta": 2.0,
+  "lr_scff": 0.03,
+  "goodness": "sum",
+  "normalize_input": true,
+  "taps": 2,
+  "stream": 50000,
+  "batch": 32,
+  "probe_C": 1.0,
+  "gd_width": 74,
+  "gd_weights": 17022,
+  "results_median": {
+    "gd_final": 0.9425,
+    "gd_gap": 0.0014999999999999458,
+    "scff_lin": 0.796,
+    "scff_mlp": 0.854,
+    "contrast_lin": 0.791,
+    "contrast_mlp": 0.8545,
+    "oja_lin": 0.7525,
+    "oja_mlp": 0.867,
+    "rp_lin": 0.8165,
+    "rp_mlp": 0.866
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 125.0
+}

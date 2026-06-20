@@ -85,6 +85,15 @@ $$G^l = \frac{1}{M^l}\sum_{m=1}^{M^l}\bigl(h_m^l\bigr)^2 = \frac{\|\mathbf{h}^l\
 
 The $1/M^l$ normalization makes the scalar comparable across layers of different widths. Goodness is the only signal each layer needs — it is computed entirely from that layer's own outputs.
 
+> **Draft-6.0 Phase-1 note (2026-06-20).** The *paper* uses this **mean** form, $\|h\|^2/M$. The project's
+> Phase-1 sim deliberately uses the **sum** form, $G=\|h\|^2$ (which is what `ideas1.md` and the run-spec
+> already write), for one substrate reason: under unit-norm inter-layer inputs the mean goodness is
+> $\approx 1/M\!\approx\!0.015$, so a fixed threshold like $\theta=2.0$ is unreachable under **plain online
+> SGD** (the paper only reaches it with Adam × many epochs). The sum form is $\approx 1$ at init,
+> *width-independent*, makes $\theta=2.0$ sane, and needs no per-weight optimizer state — substrate-faithful.
+> Verified in [`../src/phase1/exp0`](../src/phase1/exp0/experiment-0.md) (the gate run): mean starves the
+> deeper layers, sum separates them. The gradient simply drops the $1/M^l$ (becomes $2\,h^l(h^{l-1})^\top$).
+
 ---
 
 ## Loss function (two thresholds, dead zone)

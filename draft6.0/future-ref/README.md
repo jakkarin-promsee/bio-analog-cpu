@@ -1,6 +1,6 @@
-# `future-ref/` — the phase-2 research dossier
+# `future-ref/` — the north-star research dossier
 
-> **What this is.** Phase 2 is the real north star: a recurrent, lifelong-learning **thinking brain** — a prefrontal↔hippocampus loop where *correctness is a self-generated feeling*. It is **deliberately not specced** ("simple intelligence first"; see `docs/essence/the-essence.md`). This folder is the **map of the territory** for when we get there — every popular/trustable paper worth knowing, told as a story, with a **"For us"** line on each. Both the **ideas side** (theory, neuroscience, frames) and the **apply side** (concrete buildable methods).
+> **What this is.** The north star — *beyond* the numbered phases (Phase 1 = structure/done, Phase 2 = depth, Phase 3 = maintenance) — is a recurrent, lifelong-learning **thinking brain**: a prefrontal↔hippocampus loop where *correctness is a self-generated feeling*. It is **deliberately not specced** ("simple intelligence first"; see `docs/essence/the-essence.md`). This folder is the **map of the territory** for when we get there — every popular/trustable paper worth knowing, told as a story, with a **"For us"** line on each. Both the **ideas side** (theory, neuroscience, frames) and the **apply side** (concrete buildable methods).
 >
 > Nothing here is a decision. It's the menu, not the order. Read for orientation; argue with it.
 
@@ -35,7 +35,7 @@ And the deepest thread — **"correctness is a feeling"** — runs through [`4-s
 
 ## The files — two layers
 
-The dossier sits at **six layers (A–F) plus two cross-cutting files.** Files **1–6** (A) are the **cognitive system** (the phase-2 thinking brain). Files **7–10** (B) are the **substrate layer** (the *atom*, *encoding*, *composition*, *realtime*). Files **11–12** (C) are the **physical-organization layer** (connectivity and the ALU/dataflow wall). Files **13–14** (D) are the **compression layer** (why a model fits on-chip). Files **15–16** are **cross-cutting / far-future** (convolution; the vision front-end). Files **17–18** (E) are **durability** (surviving noise). Files **19–21** (F) are the **foundations** (why it converges, settles, and works at all — the floor under everything). Layers B–F **bite the current draft-6.0 build now**, not just phase 2.
+The dossier sits at **six layers (A–F) plus two cross-cutting files.** Files **1–6** (A) are the **cognitive system** (the north-star thinking brain). Files **7–10** (B) are the **substrate layer** (the *atom*, *encoding*, *composition*, *realtime*). Files **11–12** (C) are the **physical-organization layer** (connectivity and the ALU/dataflow wall). Files **13–14** (D) are the **compression layer** (why a model fits on-chip). Files **15–16** are **cross-cutting / far-future** (convolution; the vision front-end). Files **17–18** (E) are **durability** (surviving noise). Files **19–21** (F) are the **foundations** (why it converges, settles, and works at all — the floor under everything). Layers B–F **bite the current draft-6.0 build now**, not just the north star.
 
 **Layer A — the cognitive system (phase 2):**
 

@@ -195,6 +195,8 @@ $$h^l = \phi\!\left(W^l\,\hat h^{\,l-1}\right), \qquad \hat h^l = \frac{h^l}{\lV
 $$G^l = \lVert h^l\rVert^2, \qquad
 \mathcal{L}^l = \log\!\big(1+e^{-(G^l_\text{pos}-\theta)}\big) + \log\!\big(1+e^{+(G^l_\text{neg}-\theta)}\big)$$
 
+> *Goodness is the **sum** $\lVert h\rVert^2$, not the paper's mean $\lVert h\rVert^2/M$ — deliberate, and confirmed by the exp0 gate run (2026-06-20): the sum form is $\approx 1$ at init and width-independent, so $\theta=2.0$ works under plain online SGD; the mean form starves deeper layers to $\approx 1/M$. See [`../concept/SCFF.detail.md`](../concept/SCFF.detail.md) (draft-6.0 note) and [`../src/phase1/exp0/experiment-0.md`](../src/phase1/exp0/experiment-0.md).*
+
 **Local update (gradient through one layer only) with the plasticity gradient:**
 $$\Delta W^l = -\,\eta_l\,\frac{\partial \mathcal{L}^l}{\partial W^l}, \qquad
 \eta_l = \eta_0\,\rho^{\,d(l)} \ \ (\rho<1)$$

@@ -14,6 +14,14 @@
 
 ---
 
+> **✅ Phase 1 complete (2026-06-20, exp0 → exp4).** Read the synthesis of all findings first:
+> **[`phase1-summarize.md`](phase1-summarize.md)** (the story) + **[`RESULTS.md`](RESULTS.md)** (the ledger).
+> One-line verdict: *draft 6.0 is a cheap, forgetting-robust **continual** learner — it generalizes better
+> than backprop at ~10% backward cost and wins decisively in the continual regime (sleep recovers what
+> online backprop catastrophically forgets); it is not a deep static-accuracy competitor, and that's the point.*
+
+---
+
 ## 0. How we evaluate — read this first
 
 The model **never stops learning**, so there is no clean train-then-freeze boundary. But that creates a
@@ -96,6 +104,12 @@ For Exp 1–3: **SCFF updates locally every step; GD updates on the taps every s
 > *separate variable.* Test it on its own later; folding it in here would confound the structural question.
 
 ## 3. Metrics (logged every run)
+
+> **How these are drawn and written up is the [`result-format.md`](result-format.md) standard** — the house
+> style (consistent encoding + IQR bands), the figure catalog (F1–F9 + invariant strip), and the six-slot
+> summary template. This section is *what* we log; that file is *what a result looks like.*
+> **Map:** primary = **F1** (+ F1′ secondary) · forward = **F3 + F4** · backward = **F7** · reachability =
+> **F6** · invariants = **INV**.
 
 - **Primary (the shape):** the **held-out generalization curve** (val accuracy vs samples-seen — the
   headline, measures *understanding*) plus the **online adaptation curve** (prequential loss/acc —
@@ -296,6 +310,10 @@ maintenance is needed. Build it when that data is in, not before.
 
 One folder per experiment under `draft6.0/src/phase1/` (`exp0/`, `exp1/`, `exp2a/`, `exp2b/`, `exp2c/`,
 `exp3/`), each with an `experiment-{n}.md`: **question → setup → run → result/figures → read → decision.**
+**The result/figures and read sections follow [`result-format.md`](result-format.md)** — the figure catalog
+and the six-slot summary template — so every run is comparable and deep enough to cite. The phase-wide
+synthesis lives in one place: the **[`RESULTS.md`](RESULTS.md) ledger** (one row per experiment: scalar → knob
+set → decision fed) — fill a row the moment a run's decision is made.
 The first one — [`exp0/experiment-0.md`](exp0/experiment-0.md) — has its config **locked and ready to run.** Status pointer lives in
 [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md); don't log runs in the `ideas1.md` derivation
 chapters.

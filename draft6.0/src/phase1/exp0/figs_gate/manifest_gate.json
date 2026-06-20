@@ -1,0 +1,33 @@
+{
+  "experiment": "exp0-gate",
+  "task": "checkerboard_2d",
+  "seed": 42,
+  "dims": [
+    2,
+    64,
+    64,
+    64,
+    64
+  ],
+  "theta": 2.0,
+  "lr_scff": 0.03,
+  "n_stream": 50000,
+  "batch": 32,
+  "check_grid": 4,
+  "check_spacing": 1.4,
+  "check_overlap": 0.3,
+  "taps": 2,
+  "probe_C": 1.0,
+  "n_weights": 12672,
+  "goodness": "sum_of_squares",
+  "normalize_input": true,
+  "readout_acc": 0.7695,
+  "verdict": {
+    "goodness_separates": true,
+    "class_separable": true,
+    "gate_pass": true,
+    "rises_with_depth_diag": -0.07150000000000001
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 4.8
+}

@@ -24,7 +24,7 @@ This is a **bio-inspired analog compute substrate that learns on-chip** — a *c
 
 **The scope** (what's in / out):
 - *In:* Python behavioral simulation of the draft-6.0 hybrid on simple classification/statistics tasks; ideal model first, analog/PVT realism after it converges.
-- *Out (near term):* SPICE, real fabrication, external-benchmark-chasing as the *claim* (small tasks are fine as probes), and **Phase 2** (the recurrent thinking brain — the real north star, deliberately deferred: "simple intelligence first").
+- *Out (near term):* SPICE, real fabrication, external-benchmark-chasing as the *claim* (small tasks are fine as probes), and **the recurrent thinking brain** (the real north star, *beyond* the numbered phases — Phase 1 structure/done, Phase 2 depth, Phase 3 maintenance — deliberately deferred: "simple intelligence first").
 
 **Naming discipline:** biological names (Ganglion, Hippocampus, Brainstem, Cortex) are **structural, not decorative** — they're a semantic system that lets the author reason by analogy. Default usage = the circuit element; prefix `biological-` for actual biology, `analog-` for explicit circuit framing in mixed context. **Do not suggest renaming "to be more rigorous"** — already considered and rejected, repeatedly, against external critics.
 
@@ -165,7 +165,7 @@ The canonical decisions live in `idea/main.ideas.v1.md` (snapshot v1). The spine
 
 ---
 
-## PART 6 — The north star (phase 2): the thinking brain
+## PART 6 — The north star (beyond the numbered phases): the thinking brain
 
 **Deliberately NOT specced and NOT in any other project doc** — the author chose to hold it as direction only ("it has no cons yet"). It is included here because this file is the explicit "dump everything" request. **Do not pull it into the live plan or public docs without the author's direction.**
 
@@ -265,7 +265,7 @@ These ran through the whole conversation and are the real "soul" — the things 
 - **Triage new ideas:** does it test in the current sim ladder, or is it a later-phase / future track? Catch scope-creep early — but note 6.0's spine is *young*, so "promotion" is lighter-weight than 5.1's frozen process.
 - **Stay paranoid about signs/direction.** It's the project's recurring silent killer (the XOR bug, the whole draft-5 collapse). Run the arithmetic of any worked example.
 - **Match the energy and the "we."** Honor the commit-signals. Be honest about what you (the AI) don't know — it builds trust, doesn't lose it.
-- **Hold the north star gently.** Phase 2 (the thinking brain, correctness-as-feeling) is real and deeply his, but deliberately not specced and not in public docs. Don't pull it forward without his direction.
+- **Hold the north star gently.** The thinking brain (correctness-as-feeling) — *beyond* the numbered phases (Phase 2 now = depth, Phase 3 = maintenance) — is real and deeply his, but deliberately not specced and not in public docs. Don't pull it forward without his direction.
 
 ---
 
@@ -283,7 +283,7 @@ draft6.0/
     ideas1.md          — the full derivation, story form
   concept/             — the learning-rule survey (SCFF, SGR, EqProp, predictive coding, … .detail.md)
   ref/                 — paper stories behind 6.0 (scff, distance-forward, boostresnet, byol, llrd)
-  future-ref/          — the phase-2 research dossier (21 files, 6 layers + README)
+  future-ref/          — the north-star research dossier (21 files, 6 layers + README; beyond the numbered phases)
 docs/
   essence/the-essence.md   — the soul (origin → collapse → return)
   draft/
