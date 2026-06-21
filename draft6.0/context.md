@@ -2,7 +2,7 @@
 
 > **What this is.** Everything one collaborating mind (Claude) holds about this project after a long working conversation — the architecture, the math, the history, the person, the research, and the deep patterns under all of it. Written because the author asked: *"you're the second one in the world who understands what I think."* This is that understanding, dumped in full, detail first. It is not a spec and not a summary — it is the **context** a third mind would need to be as useful as the second one. Read it whole once; it is meant to be long.
 >
-> If you are an AI picking this up cold: read this, then `README.md` (the pivot), `idea/main.ideas.v1.md` (the decisions), `idea/ideas1.md` (the story), and `../docs/essence/the-essence.md` (the soul). The `future-ref/` folder is the phase-2 research library (21 files). The author is **Jakkrin** (GitHub: Jakkarin-Promsee).
+> If you are an AI picking this up cold: read this, then `README.md` (the pivot), `idea/main.ideas.v1.md` (the decisions), `idea/ideas1.md` (the story), and `../docs/essence/the-essence.md` (the soul). The `future-ref/` folder is the north-star research library (21 files; "phase-2" in its old loose sense = the recurrent brain, **not** the now-done depth Phase 2). The author is **Jakkrin** (GitHub: Jakkarin-Promsee).
 
 ---
 
@@ -24,7 +24,7 @@ This is a **bio-inspired analog compute substrate that learns on-chip** — a *c
 
 **The scope** (what's in / out):
 - *In:* Python behavioral simulation of the draft-6.0 hybrid on simple classification/statistics tasks; ideal model first, analog/PVT realism after it converges.
-- *Out (near term):* SPICE, real fabrication, external-benchmark-chasing as the *claim* (small tasks are fine as probes), and **the recurrent thinking brain** (the real north star, *beyond* the numbered phases — Phase 1 structure/done, Phase 2 depth, Phase 3 maintenance — deliberately deferred: "simple intelligence first").
+- *Out (near term):* SPICE, real fabrication, external-benchmark-chasing as the *claim* (small tasks are fine as probes), and **the recurrent thinking brain** (the real north star, *beyond* the numbered phases — Phase 1 structure/done, **Phase 2 depth/done (2026-06-21 — see `src/phase2/phase2-summarize.md`)**, Phase 3 maintenance — deliberately deferred: "simple intelligence first").
 
 **Naming discipline:** biological names (Ganglion, Hippocampus, Brainstem, Cortex) are **structural, not decorative** — they're a semantic system that lets the author reason by analogy. Default usage = the circuit element; prefix `biological-` for actual biology, `analog-` for explicit circuit framing in mixed context. **Do not suggest renaming "to be more rigorous"** — already considered and rejected, repeatedly, against external critics.
 
@@ -183,7 +183,7 @@ The real long-term target (present since the original Phase-0 brain dump — the
 - threshold gate → think-until-the-feeling-crosses-θ
 - GD output brain → the working-state read-out
 
-Phase 2 ≈ **re-wire the existing learning organs to run recurrently at inference.** And the recurrence itself is **analog-native**: the "think many times until it settles" that LSTM (one step) and transformer (parallel) both miss is **equilibrium relaxation**, which the substrate does *for free*. The synthesis: **analog equilibrium = thinking; LUT crossbar = memory recall (attention's good part); LSTM-style gate = cross-time memory.** Don't adopt LSTM or transformer wholesale — harvest one organ from each. And the answer to "is two brains enough?" — **no, think ~4–6 roles** (LeCun's H-JEPA has six: configurator, perception, world-model, cost/critic, short-term memory, actor — and the author already has ~five; the missing one is the *Actor*, which is fine because phase 2 is thinking, not acting).
+*(Naming note: this section uses the **old** "Phase 2" = the recurrent north-star brain; the renumbered Phase 2 = depth, done 2026-06-21. The vision below is the north star, beyond the numbered phases.)* The north-star loop ≈ **re-wire the existing learning organs to run recurrently at inference.** And the recurrence itself is **analog-native**: the "think many times until it settles" that LSTM (one step) and transformer (parallel) both miss is **equilibrium relaxation**, which the substrate does *for free*. The synthesis: **analog equilibrium = thinking; LUT crossbar = memory recall (attention's good part); LSTM-style gate = cross-time memory.** Don't adopt LSTM or transformer wholesale — harvest one organ from each. And the answer to "is two brains enough?" — **no, think ~4–6 roles** (LeCun's H-JEPA has six: configurator, perception, world-model, cost/critic, short-term memory, actor — and the author already has ~five; the missing one is the *Actor*, which is fine because phase 2 is thinking, not acting).
 
 ---
 

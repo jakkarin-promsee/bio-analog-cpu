@@ -1,8 +1,12 @@
 # Phase 2 — Make cheap SCFF earn *depth* (and the GD interface that reads it)
 
-> **Status: planning. Experiment *aims* only** — candidate mechanisms kept wide on purpose, no architecture
-> locked. (Pruning math is cheap *later*; at the research phase, where everything is unstable, we keep the
-> full option set.) Builds on the Phase-1 verdict in
+> **Status: ✅ COMPLETE (2026-06-21, P2.0 → P2.6).** This README is the original **plan** (kept as the record of
+> what was proposed); the **results + verdict** live in [`phase2-summarize.md`](phase2-summarize.md) (the
+> synthesis), the `expN/experiment-N.md` cards, and [`RESULTS.md`](RESULTS.md) (ledger). **Verdict in one line:
+> depth is not SCFF's lever** (deep SCFF can't earn depth — P2.1 transmission + P2.2 objective, oracle-proof);
+> depth comes cheaply from **boosted shallow blocks + small GD readouts** (P2.5, `read` not `write`), and that
+> recipe **preserves the continual win** (P2.6 veto). **P2.3/P2.4 were skipped** (moot — no `exp3/`/`exp4/`).
+> Read the plan below for the *aims*; read the summary for *what happened*. Builds on the Phase-1 verdict in
 > [`../phase1/phase1-summarize.md`](../phase1/phase1-summarize.md).
 >
 > **Reporting is decided up front:** [`result-format.md`](result-format.md) — pinned metrics (probe · CKA ·
@@ -243,7 +247,7 @@ keep their period usage on purpose):
 | phase | scope | status |
 | --- | --- | --- |
 | **Phase 1** | structure: SCFF, block, chain, **+ sleep** (the continual win) | **done** (exp0–exp4) |
-| **Phase 2** | *this* — make cheap SCFF earn depth + the GD interface | planning |
+| **Phase 2** | *this* — make cheap SCFF earn depth + the GD interface | **done** (P2.0/1/2/5/6; P2.3/4 skipped) — see [`phase2-summarize.md`](phase2-summarize.md) |
 | **Phase 3** | **online maintenance** — the **Ch7 gate** (in-time GD trigger) + **sleep-*cadence* refinement** + the lifelong loop | future |
 | **north star** | the recurrent lifelong-learning brain (prefrontal↔hippocampus) | beyond the numbers; deliberately unspecced |
 
