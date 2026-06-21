@@ -1,0 +1,56 @@
+{
+  "experiment": "exp5-synth",
+  "git_commit": "5d7b0805b147cd22e3a4c7703387c591ea8e72da",
+  "seeds": [
+    42,
+    137
+  ],
+  "task": "synth",
+  "config": {
+    "n_train": 6000,
+    "n_test": 2000,
+    "scff_ep": 30,
+    "gd_ep": 60,
+    "task": {
+      "dim": 20,
+      "grid": 4,
+      "n_active": 2,
+      "overlap": 0.3,
+      "label": "random",
+      "n_class": 2
+    }
+  },
+  "cell": {
+    "norm": "layernorm",
+    "goodness": "linear",
+    "objective": "contrast"
+  },
+  "total_depth": 8,
+  "configs": [
+    "pure_N1",
+    "read_N2",
+    "write_N2",
+    "read_N4",
+    "write_N4",
+    "read_N8",
+    "write_N8"
+  ],
+  "results_median": {
+    "pure_scff": 0.92325,
+    "gd_ceiling": 0.9625,
+    "best": "pure_N1",
+    "best_acc": 0.92325,
+    "acc": {
+      "pure_N1": 0.92325,
+      "read_N2": 0.91925,
+      "write_N2": 0.9055,
+      "read_N4": 0.91425,
+      "write_N4": 0.8975,
+      "read_N8": 0.9065000000000001,
+      "write_N8": 0.8895
+    },
+    "winners_vs_pure": []
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 377.6
+}
