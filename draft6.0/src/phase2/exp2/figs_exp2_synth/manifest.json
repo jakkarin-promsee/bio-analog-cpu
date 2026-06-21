@@ -1,0 +1,68 @@
+{
+  "experiment": "exp2-synth",
+  "git_commit": "e5769ca4d1cfa17f73fa0e014a0b29195c571128",
+  "seeds": [
+    42,
+    137
+  ],
+  "task": "synth",
+  "config": {
+    "n_train": 6000,
+    "n_test": 2000,
+    "scff_ep": 30,
+    "gd_ep": 60,
+    "task": {
+      "dim": 20,
+      "grid": 4,
+      "n_active": 2,
+      "overlap": 0.3,
+      "label": "random",
+      "n_class": 2
+    }
+  },
+  "transmission": {
+    "norm": "layernorm",
+    "goodness": "linear",
+    "objective": "contrast"
+  },
+  "L": 8,
+  "width": 64,
+  "neg_cells": [
+    {
+      "key": "random",
+      "label": "random (P2.1 base)"
+    },
+    {
+      "key": "hard_oracle",
+      "label": "hard-oracle (diff TRUE class)"
+    },
+    {
+      "key": "hard_proto",
+      "label": "hard-proto (diff class MEAN)"
+    },
+    {
+      "key": "hard_unsup",
+      "label": "hard-unsup (diff KMeans cluster)"
+    }
+  ],
+  "results_median": {
+    "cluster_purity": 0.5630833333333334,
+    "cell_slopes": {
+      "random": 0.0034255952380952788,
+      "hard_oracle": 0.007651785714285743,
+      "hard_proto": 0.00418154761904764,
+      "hard_unsup": 0.007047619047619055
+    },
+    "cell_final": {
+      "random": 0.70275,
+      "hard_oracle": 0.73,
+      "hard_proto": 0.69425,
+      "hard_unsup": 0.70775
+    },
+    "oracle_probe_lift": 0.027249999999999996,
+    "oracle_disjoint_iqr": 0.01287499999999997,
+    "verdict": "OBJECTIVE IS THE LEVER (oracle bends slope>=0) -> test unsup feasibility"
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 86.6
+}

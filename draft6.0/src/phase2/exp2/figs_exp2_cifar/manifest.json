@@ -1,0 +1,64 @@
+{
+  "experiment": "exp2-cifar",
+  "git_commit": "e5769ca4d1cfa17f73fa0e014a0b29195c571128",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "task": "cifar",
+  "config": {
+    "n_train": 5000,
+    "n_test": 2000,
+    "scff_ep": 20,
+    "gd_ep": 40,
+    "task": null
+  },
+  "transmission": {
+    "norm": "layernorm",
+    "goodness": "linear",
+    "objective": "contrast"
+  },
+  "L": 8,
+  "width": 64,
+  "neg_cells": [
+    {
+      "key": "random",
+      "label": "random (P2.1 base)"
+    },
+    {
+      "key": "hard_oracle",
+      "label": "hard-oracle (diff TRUE class)"
+    },
+    {
+      "key": "hard_proto",
+      "label": "hard-proto (diff class MEAN)"
+    },
+    {
+      "key": "hard_unsup",
+      "label": "hard-unsup (diff KMeans cluster)"
+    }
+  ],
+  "results_median": {
+    "cluster_purity": 0.2262,
+    "cell_slopes": {
+      "random": -0.01997619047619046,
+      "hard_oracle": -0.02161309523809523,
+      "hard_proto": -0.014458333333333321,
+      "hard_unsup": -0.02165476190476188
+    },
+    "cell_final": {
+      "random": 0.179,
+      "hard_oracle": 0.1815,
+      "hard_proto": 0.195,
+      "hard_unsup": 0.184
+    },
+    "oracle_probe_lift": 0.0025000000000000022,
+    "oracle_disjoint_iqr": -0.010000000000000009,
+    "verdict": "even ORACLE fails (no lift, slope<0) -> DEPTH IS NOT THE LEVER -> Phase-1 fallback (P2.5)"
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 1098.4
+}
