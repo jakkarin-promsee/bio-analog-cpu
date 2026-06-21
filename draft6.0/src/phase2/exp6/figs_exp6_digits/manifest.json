@@ -1,0 +1,67 @@
+{
+  "experiment": "exp6-digits",
+  "git_commit": "1d611d7e0fc05c6d1c54955d0e66f3440c61933e",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "tasks": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      8,
+      9
+    ]
+  ],
+  "cell": {
+    "norm": "layernorm",
+    "goodness": "linear",
+    "objective": "contrast"
+  },
+  "conds": [
+    "gd",
+    "single_sleep",
+    "boosted_sleep",
+    "boosted_nosleep"
+  ],
+  "results_median": {
+    "gd": {
+      "final": 0.18620689655172412,
+      "bwt": -0.9916482986637278,
+      "forget": 0.9916482986637278
+    },
+    "single_sleep": {
+      "final": 0.9379503725115012,
+      "bwt": -0.026376689533037484,
+      "forget": 0.026376689533037484
+    },
+    "boosted_sleep": {
+      "final": 0.9322184671142786,
+      "bwt": -0.03362804956344009,
+      "forget": 0.03362804956344009
+    },
+    "boosted_nosleep": {
+      "final": 0.33183900414708345,
+      "bwt": -0.8023369209576845,
+      "forget": 0.8023369209576845
+    }
+  },
+  "veto": "PASS \u2014 boosted-read PRESERVES the continual win",
+  "numpy": "2.3.5",
+  "wall_clock_s": 23.0
+}
