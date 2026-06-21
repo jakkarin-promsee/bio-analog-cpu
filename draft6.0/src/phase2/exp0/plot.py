@@ -4,7 +4,7 @@ Emits: F3+ (the wall + GD-hidden envelope), DECIDE (lost/entangled), F6+ (width 
 (dead-units + effective-rank + goodness-gap per layer). House style: median line + IQR band, fixed dpi,
 reference lines, caption = the one-sentence takeaway.
 
-Run standalone:  python plot_p2_0.py figs_p2_0_synth
+Run standalone:  python plot.py figs_exp0_synth
 """
 from __future__ import annotations
 import os, sys
@@ -116,4 +116,4 @@ def draw_all(A, name, OUT):
 
 if __name__ == "__main__":
     d = sys.argv[1]
-    draw_all(np.load(os.path.join(d, "arrays.npz")), os.path.basename(d).replace("figs_p2_0_", ""), d)
+    draw_all(np.load(os.path.join(d, "arrays.npz")), os.path.basename(d).replace("figs_exp0_", ""), d)

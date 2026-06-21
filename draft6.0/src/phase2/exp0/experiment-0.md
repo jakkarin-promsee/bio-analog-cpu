@@ -55,8 +55,8 @@ DeeperForward deactivation/collapse diagnostics, first-class here because they a
 
 Foundation built 2026-06-21: the pluggable-norm/goodness SCFF [`../p2lib.py`](../p2lib.py) (refactored from
 `../../phase1/exp0/scff_gate.py`; reproduces the wall config exactly where modes coincide) + `make_tierb` (the
-high-D dial task). Full `run_p2_0.py` (depth scan + GD ceiling + DECIDE + width×depth) and `plot_p2_0.py`
-pending. A **smoke pass** ([`smoke_p2_0.py`](smoke_p2_0.py), L=8, 2 seeds, 25k stream) ran first to de-risk the
+high-D dial task). Full `run_exp0.py` (depth scan + GD ceiling + DECIDE + width×depth) and `plot.py`
+pending. A **smoke pass** ([`smoke_exp0.py`](smoke_exp0.py), L=8, 2 seeds, 25k stream) ran first to de-risk the
 task and the code.
 
 **Smoke findings (pre-run; two of them changed the plan — methodology rule #5, failures are data):**
@@ -77,15 +77,15 @@ task and the code.
    envelope) while the synthetic task carries the tunable F6⁺ surface. Locked into the setup table above as a
    correction.
 
-_Next: `run_p2_0.py` — adds the pure-GD ceiling + DECIDE readout + the width×depth grid, on CIFAR-10-flat
-(headline) and the corrected synthetic dial task, 5 seeds + IQR, manifest + arrays + `plot_p2_0.py`._
+_Next: `run_exp0.py` — adds the pure-GD ceiling + DECIDE readout + the width×depth grid, on CIFAR-10-flat
+(headline) and the corrected synthetic dial task, 5 seeds + IQR, manifest + arrays + `plot.py`._
 
 ## Result / figures
 
 **Run 2026-06-21**, 5 seeds `[42,137,271,314,1729]`, median + IQR. Two tasks: **synth** (the high-D dial /
 code sanity) and **CIFAR-10-flat** (the headline wall). Figures per `result-format.md` in
-[`figs_p2_0_synth/`](figs_p2_0_synth) and [`figs_p2_0_cifar/`](figs_p2_0_cifar) (F3⁺ · DECIDE · F6⁺ · REPR/INV);
-`manifest.json` + `arrays.npz` saved; regenerate with `python plot_p2_0.py figs_p2_0_<task>` (no retrain).
+[`figs_exp0_synth/`](figs_exp0_synth) and [`figs_exp0_cifar/`](figs_exp0_cifar) (F3⁺ · DECIDE · F6⁺ · REPR/INV);
+`manifest.json` + `arrays.npz` saved; regenerate with `python plot.py figs_exp0_<task>` (no retrain).
 
 | scalar (n=5 median [IQR]) | synth (dial) | **CIFAR-flat (headline)** |
 | --- | --- | --- |
@@ -115,10 +115,10 @@ sanity, not the headline; the verdict rests on CIFAR.*
    0.10). DECIDE: SCFF **0.294** [0.291,0.296] ≈ RAND **0.298** [0.296,0.303] → **selectivity −0.005**
    [−0.008,−0.005] (negative, tight); RAW **0.389** → the stack lost **0.104** of readout-recoverable accuracy
    vs raw. gap-vs-ceiling **+0.067** [+0.058,+0.067]. n=5.
-3. **Figures.** [F3⁺](figs_p2_0_cifar/F3plus_wall.png) (declining wall + GD envelope) ·
-   [DECIDE](figs_p2_0_cifar/DECIDE.png) (SCFF≈RAND<RAW — the 4-bar selectivity read) ·
-   [REPR/INV](figs_p2_0_cifar/REPR_INV.png) (dead-units 0.02→0.47, erank 39→11) ·
-   [F6⁺](figs_p2_0_cifar/F6plus_widthdepth.png) (width×depth +0.003).
+3. **Figures.** [F3⁺](figs_exp0_cifar/F3plus_wall.png) (declining wall + GD envelope) ·
+   [DECIDE](figs_exp0_cifar/DECIDE.png) (SCFF≈RAND<RAW — the 4-bar selectivity read) ·
+   [REPR/INV](figs_exp0_cifar/REPR_INV.png) (dead-units 0.02→0.47, erank 39→11) ·
+   [F6⁺](figs_exp0_cifar/F6plus_widthdepth.png) (width×depth +0.003).
 4. **Mechanism.** The DeeperForward + Trifecta failure, confirmed on our substrate: **squared goodness
    deactivates units** (dead 0.02→0.47 — the `h`-factor freezes quiet units) and **length-norm forces each
    layer to re-separate from scratch**, so the representation **collapses in rank** (39→11) and sheds class
@@ -230,7 +230,7 @@ load-bearing reads:
 probe has **low selectivity** (Hewitt & Liang 2019, the probing-classifier critique): a high accuracy on
 frozen features can mean the *probe* solved the task, not that SCFF *encoded* the class — and our 2-seed preview
 sat right on the line (gap **+0.049** vs the 0.05 lost/entangled threshold), so the verdict that **routes the
-whole phase** was too fragile to trust bare. The fix (now in [`run_p2_0.py`](run_p2_0.py)): run the *same*
+whole phase** was too fragile to trust bare. The fix (now in [`run_exp0.py`](run_exp0.py)): run the *same*
 max-power MLP on three feature sets + the GD ceiling —
 
 - **SCFF** (frozen all-tap, under test) · **RANDOM** (frozen random-projection, *identical shape, untrained* —
@@ -261,7 +261,7 @@ the depth — here it is one named "DeeperForward-style" preview, not a controll
 **Data note — CIFAR source (2026-06-21).** `fetch_openml("CIFAR_10")` is **broken on this machine**: the
 download truncates (~26k of 60k rows) so the md5 never matches sklearn's metadata and it errors out (consistent
 with the known npm/cert/network quirks here). The cached `.arff.gz` *decompresses cleanly* and its ~25.7k rows
-are **class-balanced over all 10 classes** (~2.5k each, verified), so [`run_p2_0.py`](run_p2_0.py)'s
+are **class-balanced over all 10 classes** (~2.5k each, verified), so [`run_exp0.py`](run_exp0.py)'s
 `load_cifar_local()` parses that cache **directly** (bypassing the md5 check) and draws the 5k/2k split from it.
 This is sound for P2.0: CIFAR-10-flat is an explicit **depth probe, not a benchmark claim** (README §2), and a
 balanced 25.7k pool is ample. The manifest records the run; reproducers on another machine can point

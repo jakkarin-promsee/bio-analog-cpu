@@ -12,10 +12,10 @@ Per seed, per task:
                   readout held-out: the substrate-collision gap = one number to close.
 
 5 seeds [42,137,271,314,1729], median + IQR. Reuses p2lib (pluggable SCFF) + phase1 models_extra (MLP,
-match_width). Saves arrays.npz + manifest.json; plot_p2_0.py regenerates every figure.
+match_width). Saves arrays.npz + manifest.json; plot.py regenerates every figure.
 
-Run:  python run_p2_0.py synth        (default; fast, no network)
-      python run_p2_0.py cifar        (CIFAR-10 flat-MLP, the documented wall; fetch via openml ~170MB)
+Run:  python run_exp0.py synth        (default; fast, no network)
+      python run_exp0.py cifar        (CIFAR-10 flat-MLP, the documented wall; fetch via openml ~170MB)
       add --quick for 2 seeds.
 """
 from __future__ import annotations
@@ -247,11 +247,11 @@ def main():
     print(f"  WIDTHxDEPTH      : wide-shallow {np.median(st('ws_acc')):.3f} (w={runs[0]['ws_width']}) vs "
           f"narrow-deep {np.median(st('nd_acc')):.3f}  gap {np.median(st('wd_gap')):+.3f}")
 
-    OUT = os.path.join(_HERE, f"figs_p2_0_{name}"); os.makedirs(OUT, exist_ok=True)
+    OUT = os.path.join(_HERE, f"figs_exp0_{name}"); os.makedirs(OUT, exist_ok=True)
     saved = {k: st(k) for k in runs[0].keys() if k != "decide_verdict"}
     saved["seeds"] = np.array(seeds); saved["L"] = L; saved["width"] = WIDTH
     np.savez(os.path.join(OUT, "arrays.npz"), **{k: np.array(v) for k, v in saved.items()})
-    manifest = {"experiment": f"p2_0-{name}", "git_commit": _git(), "seeds": list(seeds),
+    manifest = {"experiment": f"exp0-{name}", "git_commit": _git(), "seeds": list(seeds),
                 "task": name, "config": {k: v for k, v in CFG[name].items()},
                 "wall_config": WALL, "L": L, "width": WIDTH, "batch": BATCH,
                 "results_median": {"wall_slope": slope, "envelope_gap": env_gap,
@@ -266,8 +266,8 @@ def main():
     json.dump(manifest, open(os.path.join(OUT, "manifest.json"), "w"), indent=2)
 
     try:
-        import plot_p2_0
-        plot_p2_0.draw_all(np.load(os.path.join(OUT, "arrays.npz")), name, OUT)
+        import plot
+        plot.draw_all(np.load(os.path.join(OUT, "arrays.npz")), name, OUT)
     except Exception as e:
         print(f"  [plot skipped: {e}]")
     print(f"  ({time.time()-t0:.0f}s) -> {OUT}  (git {manifest['git_commit'][:8]})")

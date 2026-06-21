@@ -120,7 +120,7 @@ rung = the Phase-1 layer-norm degradation curve + the pure-GD ceiling. Pass-gate
 - **Question.** Does per-layer separability **rise** with depth under a different normalization **and/or
   goodness form** — and does the **online / per-sample (substrate-feasible)** version keep it? *(Widened from a
   pure-norm sweep 2026-06-21: DeeperForward shows the norm and the goodness form are coupled — see
-  [`p2_0/experiment-0.md`](p2_0/experiment-0.md) + [`../../ref/deeperforward.md`](../../ref/deeperforward.md).)*
+  [`exp0/experiment-0.md`](exp0/experiment-0.md) + [`../../ref/deeperforward.md`](../../ref/deeperforward.md).)*
 - **Varied — the grid `{ goodness } × { norm }`, one cell at a time.** *Goodness:* `squared Σh²` (baseline) ·
   **`linear Σh`** (DeeperForward — no `h`-factor in the update, so quiet units keep learning). *Norm:*
   `length-norm h/‖h‖` (baseline wall) · **`layer-norm (h−μ)/σ`** (per-sample, **mean-zero** → linear goodness
@@ -228,7 +228,7 @@ New primitives this phase introduces (so an agent can pick it up cold):
 
 ## 7. Where to record results
 
-One folder per experiment under `draft6.0/src/phase2/` (`p2_0/`, `p2_1/`, …), each an `experiment-N.md` with
+One folder per experiment under `draft6.0/src/phase2/` (`exp0/`, `exp1/`, …), each an `experiment-N.md` with
 the spine **question → setup → run → result → read → decision** (the *read* uses `result-format.md`'s
 6+2-slot template). The phase-wide synthesis lives in a **`RESULTS.md` ledger** (one row per rung: scalar →
 lever set → decision fed), filled the moment a rung's decision is made — exactly the Phase-1 discipline.

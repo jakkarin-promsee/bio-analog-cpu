@@ -7,7 +7,7 @@ on a high-D compositional task, train one L=8 SCFF stack and read the per-layer 
   (layernorm,  linear )  = the DeeperForward cell -> does it decline less / hold / rise?
 Also print dead-unit fraction per layer (the deactivation mechanism).
 
-Run:  python smoke_p2_0.py
+Run:  python smoke_exp0.py
 """
 from __future__ import annotations
 import os
