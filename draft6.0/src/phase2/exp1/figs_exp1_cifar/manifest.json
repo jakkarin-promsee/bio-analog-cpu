@@ -1,0 +1,116 @@
+{
+  "experiment": "exp1-cifar",
+  "git_commit": "3c7cbd0ff8937953b81696a34d3fd7736fb88523",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "task": "cifar",
+  "config": {
+    "n_train": 5000,
+    "n_test": 2000,
+    "scff_ep": 20,
+    "gd_ep": 40,
+    "task": null
+  },
+  "L": 8,
+  "width": 64,
+  "batch": 32,
+  "loss": "contrast",
+  "cells": [
+    {
+      "key": "c1_lensq",
+      "label": "len+sq (wall)",
+      "norm": "lengthnorm",
+      "goodness": "squared"
+    },
+    {
+      "key": "c2_lenlin",
+      "label": "len+lin",
+      "norm": "lengthnorm",
+      "goodness": "linear"
+    },
+    {
+      "key": "c3_layerlin",
+      "label": "layer+lin (HERO)",
+      "norm": "layernorm",
+      "goodness": "linear"
+    },
+    {
+      "key": "c4_layersq",
+      "label": "layer+sq",
+      "norm": "layernorm",
+      "goodness": "squared"
+    },
+    {
+      "key": "c5_grouplin",
+      "label": "group+lin",
+      "norm": "groupnorm",
+      "goodness": "linear"
+    },
+    {
+      "key": "c6_obnlin",
+      "label": "onlineBN+lin (HERO)",
+      "norm": "online_bn",
+      "goodness": "linear"
+    },
+    {
+      "key": "c7_bbnlin",
+      "label": "batchBN+lin (ref)",
+      "norm": "batchnorm",
+      "goodness": "linear"
+    },
+    {
+      "key": "c8_bbnsq",
+      "label": "batchBN+sq (Trifecta)",
+      "norm": "batchnorm",
+      "goodness": "squared"
+    },
+    {
+      "key": "c9_nonelin",
+      "label": "none+lin (cheat)",
+      "norm": "none",
+      "goodness": "linear"
+    }
+  ],
+  "results_median": {
+    "cell_slopes": {
+      "c1_lensq": -0.01030952380952379,
+      "c2_lenlin": -0.019416666666666662,
+      "c3_layerlin": -0.020309523809523805,
+      "c4_layersq": 6.587617620616115e-18,
+      "c5_grouplin": -0.01745238095238094,
+      "c6_obnlin": -0.020833333333333308,
+      "c7_bbnlin": -0.025869047619047614,
+      "c8_bbnsq": 6.587617620616115e-18,
+      "c9_nonelin": -0.0005476190476190393
+    },
+    "cell_final_probe": {
+      "c1_lensq": 0.221,
+      "c2_lenlin": 0.175,
+      "c3_layerlin": 0.197,
+      "c4_layersq": 0.1,
+      "c5_grouplin": 0.1325,
+      "c6_obnlin": 0.191,
+      "c7_bbnlin": 0.1665,
+      "c8_bbnsq": 0.1,
+      "c9_nonelin": 0.1755
+    },
+    "wall_ref_slope": -0.0156845238095238,
+    "envelope_gap": 0.18724999999999997,
+    "q2_online_minus_batch": 0.024499999999999994,
+    "slope_pass_cells": [],
+    "winner": null,
+    "collapsed_cells": [
+      "c4_layersq",
+      "c8_bbnsq"
+    ],
+    "verdict": "FAIL -> STOP/rethink (README s5): no LEARNING cell reaches slope>=0"
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 1385.8,
+  "note_correction": "winner/pass re-derived 2026-06-21 excluding COLLAPSED cells (squared-goodness+mean-zero-norm died to chance; flat slope is degenerate, not a pass). Arrays unchanged."
+}
