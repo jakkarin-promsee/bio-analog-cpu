@@ -38,23 +38,29 @@ sys.path.insert(0, _EXP0)
 from scff_gate import relu, EPS  # noqa: E402  (the exact tested primitives)
 
 GOODNESS_MODES = ("squared", "linear")
-NORM_MODES = ("lengthnorm", "layernorm", "none")  # batchnorm/online_bn/groupnorm: P2.1
+NORM_MODES = ("lengthnorm", "layernorm", "groupnorm", "batchnorm", "online_bn", "none")
+STATELESS_NORMS = ("lengthnorm", "layernorm", "groupnorm", "none")  # per-sample; carry no running state
 PROBE_C = 1.0
 
 
 # ----------------------------------------------------------------------------- normalization (pluggable)
-def normalize(a, mode):
-    """Normalize the representation passed to the next layer. Per-sample modes only here
-    (P2.0/the wall + the DeeperForward cell are all per-sample; batch modes land in P2.1)."""
-    if mode == "lengthnorm":
+def normalize(a, mode, groups=8):
+    """Per-sample normalization of the rep passed forward (the STATELESS modes — no batch stats).
+    The batch modes (batchnorm / online_bn) carry per-feature running registers and so live as
+    SCFF2 methods (_norm_pair / _norm_one), not here. P2.1 (norm x goodness grid)."""
+    if mode == "lengthnorm":                          # FF/SCFF/Phase-1 baseline (the WALL); keeps the mean
         return a / (np.linalg.norm(a, axis=1, keepdims=True) + EPS)
-    if mode == "layernorm":
+    if mode == "layernorm":                           # per-sample, MEAN-ZERO -> linear goodness decouples free
         mu = a.mean(axis=1, keepdims=True)
         var = a.var(axis=1, keepdims=True)
         return (a - mu) / np.sqrt(var + EPS)
-    if mode == "none":
+    if mode == "groupnorm":                            # per-sample, split features into `groups` groups
+        parts = np.array_split(a, min(groups, a.shape[1]), axis=1)   # array_split -> uneven OK (synth dim=20)
+        out = [(p - p.mean(1, keepdims=True)) / np.sqrt(p.var(1, keepdims=True) + EPS) for p in parts]
+        return np.concatenate(out, axis=1)
+    if mode == "none":                                 # cheat / fail control
         return a
-    raise ValueError(f"norm mode {mode!r} not available in p2lib (P2.1 adds batch/online/group)")
+    raise ValueError(f"norm mode {mode!r} is not a STATELESS mode (batch modes are SCFF2 methods)")
 
 
 # ----------------------------------------------------------------------------- goodness (pluggable)
@@ -78,7 +84,7 @@ class SCFF2:
 
     def __init__(self, dims, *, theta=2.0, lr=0.03, seed=0, objective="two_sided",
                  goodness="squared", norm="lengthnorm", goodness_scale="sum",
-                 normalize_input=True, init_gain=1.0):
+                 normalize_input=True, init_gain=1.0, groups=8, bn_rho=0.05):
         rng = np.random.default_rng(seed)
         self.W = [init_gain * rng.normal(0, np.sqrt(2.0 / dims[i]), (dims[i + 1], dims[i]))
                   for i in range(len(dims) - 1)]
@@ -86,53 +92,98 @@ class SCFF2:
         self.theta, self.lr = theta, lr
         self.objective = objective            # "two_sided" | "contrast" (SymBa-style gap)
         self.goodness = goodness              # "squared" | "linear"
-        self.norm = norm                      # "lengthnorm" | "layernorm" | "none"
+        self.norm = norm                      # see NORM_MODES (stateless or batch)
         self.goodness_scale = goodness_scale  # "sum" (gs=1, width-indep) | "mean" (gs=1/M)
         self.normalize_input = normalize_input
+        self.groups = groups                  # group-norm group count
+        self.bn_rho = bn_rho                  # batch/online-BN running-register EMA rate
         self.L = len(self.W)
+        # per-site running per-feature stats (batch modes only); site 0 = input, 1..L = inter-layer
+        self.run_mu = [None] * (self.L + 1)
+        self.run_var = [None] * (self.L + 1)
 
     def _gs(self, M):
         return 1.0 if self.goodness_scale == "sum" else 1.0 / M
 
-    def _in(self, X):
-        return normalize(X, self.norm) if self.normalize_input else X
+    def _ema(self, site, mu, var):
+        r = self.bn_rho
+        self.run_mu[site] = (1 - r) * self.run_mu[site] + r * mu
+        self.run_var[site] = (1 - r) * self.run_var[site] + r * var
+
+    def _norm_pair(self, hp, hn, site, training):
+        """Normalize pos & neg reps for the NEXT layer. Batch modes: stats from hp (real rail), ONE
+        EMA update per site/step, applied to both rails. batchnorm@train uses the batch stat (GPU
+        leak); online_bn@train uses the running stat (substrate lag). Stateless: each rail alone."""
+        if self.norm in STATELESS_NORMS:
+            return normalize(hp, self.norm, self.groups), normalize(hn, self.norm, self.groups)
+        bmu, bvar = hp.mean(0), hp.var(0)
+        if self.run_mu[site] is None:                          # cold start: seed the register
+            self.run_mu[site], self.run_var[site] = bmu.copy(), bvar.copy()
+        if training:
+            self._ema(site, bmu, bvar)
+        if self.norm == "batchnorm" and training:
+            umu, uvar = bmu, bvar                              # GPU: normalize by THIS batch
+        else:
+            umu, uvar = self.run_mu[site], self.run_var[site]  # online (train+eval) & batchnorm (eval)
+        den = np.sqrt(uvar + EPS)
+        return (hp - umu) / den, (hn - umu) / den
+
+    def _norm_one(self, a, site, training):
+        """Single-rail normalize (infer / eval diagnostics). Batch modes use frozen running stats
+        (batch fallback if this site was never trained)."""
+        if self.norm in STATELESS_NORMS:
+            return normalize(a, self.norm, self.groups)
+        if self.run_mu[site] is None:
+            mu, var = a.mean(0), a.var(0)
+        else:
+            mu, var = self.run_mu[site], self.run_var[site]
+        return (a - mu) / np.sqrt(var + EPS)
 
     # ---- inference: real sample, returns the normalized rep per layer (the probe features) ----
     def infer(self, X):
-        a, reps = self._in(X), []
-        for W, b in zip(self.W, self.b):
-            a = normalize(relu(a @ W.T + b), self.norm)
+        a = self._norm_one(X, 0, False) if self.normalize_input else X
+        reps = []
+        for l, (W, b) in enumerate(zip(self.W, self.b)):
+            a = self._norm_one(relu(a @ W.T + b), l + 1, False)
             reps.append(a)
         return reps
 
     def dead_fraction(self, X):
         """Per-layer fraction of units never active across the eval set (the deactivation read)."""
-        a, fr = self._in(X), []
-        for W, b in zip(self.W, self.b):
+        a = self._norm_one(X, 0, False) if self.normalize_input else X
+        fr = []
+        for l, (W, b) in enumerate(zip(self.W, self.b)):
             h = relu(a @ W.T + b)
             fr.append(float((h.max(0) <= EPS).mean()))
-            a = normalize(h, self.norm)
+            a = self._norm_one(h, l + 1, False)
         return np.array(fr)
 
     def goodness_gap(self, X, seed=0):
-        """Per-layer mean (G_pos - G_neg) on the model's real dual-rail path (INV/F4)."""
+        """Per-layer mean (G_pos - G_neg) on the model's real dual-rail path (INV/F4). Eval: both
+        rails use frozen stats."""
         rng = np.random.default_rng(seed)
         perm = rng.permutation(len(X))
-        ap, an = self._in(2.0 * X), self._in(X + X[perm])
+        ap = self._norm_one(2.0 * X, 0, False) if self.normalize_input else 2.0 * X
+        an = self._norm_one(X + X[perm], 0, False) if self.normalize_input else X + X[perm]
         gap = []
-        for W, b in zip(self.W, self.b):
+        for l, (W, b) in enumerate(zip(self.W, self.b)):
             hp, hn = relu(ap @ W.T + b), relu(an @ W.T + b)
             M = hp.shape[1]; gs = self._gs(M)
             Gp, _ = goodness_of(hp, self.goodness, gs)
             Gn, _ = goodness_of(hn, self.goodness, gs)
             gap.append(float((Gp - Gn).mean()))
-            ap, an = normalize(hp, self.norm), normalize(hn, self.norm)
+            ap, an = self._norm_one(hp, l + 1, False), self._norm_one(hn, l + 1, False)
         return np.array(gap)
 
     def train_step(self, Xb, rng):
-        """One online step: single forward (both worlds), local update at every layer."""
+        """One online step: single forward (both worlds), local update at every layer. The gradient
+        is the closed-form local SCFF rule (unchanged from P2.0); only the norm calls thread state."""
         perm = rng.permutation(len(Xb))
-        ap, an = self._in(2.0 * Xb), self._in(Xb + Xb[perm])
+        Xp, Xn = 2.0 * Xb, Xb + Xb[perm]
+        if self.normalize_input:
+            ap, an = self._norm_pair(Xp, Xn, 0, True)
+        else:
+            ap, an = Xp, Xn
         B = len(Xb)
         for l in range(self.L):
             W, b = self.W[l], self.b[l]
@@ -148,7 +199,7 @@ class SCFF2:
             cp, cn = dGp[:, None] * fp, dGn[:, None] * fn   # [B,M]  chain to z
             self.W[l] -= self.lr * (cp.T @ ap + cn.T @ an) / B
             self.b[l] -= self.lr * (cp.sum(0) + cn.sum(0)) / B
-            ap, an = normalize(hp, self.norm), normalize(hn, self.norm)
+            ap, an = self._norm_pair(hp, hn, l + 1, True)
 
 
 # ----------------------------------------------------------------------------- per-layer linear probe
