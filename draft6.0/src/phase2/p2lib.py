@@ -175,11 +175,16 @@ class SCFF2:
             ap, an = self._norm_one(hp, l + 1, False), self._norm_one(hn, l + 1, False)
         return np.array(gap)
 
-    def train_step(self, Xb, rng):
+    def train_step(self, Xb, rng, neg_partner=None):
         """One online step: single forward (both worlds), local update at every layer. The gradient
-        is the closed-form local SCFF rule (unchanged from P2.0); only the norm calls thread state."""
-        perm = rng.permutation(len(Xb))
-        Xp, Xn = 2.0 * Xb, Xb + Xb[perm]
+        is the closed-form local SCFF rule (unchanged from P2.0); only the norm calls thread state.
+
+        x_pos = 2*x_k (coherent) ; x_neg = x_k + partner (a mixture). `neg_partner` selects the partner:
+        None -> a random in-batch sample (the P2.1 / SCFF baseline, exact); else a caller-supplied
+        partner [B,D] (P2.2 hard negatives: a different-class / different-cluster sample, so the mixture
+        is a *between-class* blend -> goodness separates classes, not density)."""
+        partner = Xb[rng.permutation(len(Xb))] if neg_partner is None else neg_partner
+        Xp, Xn = 2.0 * Xb, Xb + partner
         if self.normalize_input:
             ap, an = self._norm_pair(Xp, Xn, 0, True)
         else:
