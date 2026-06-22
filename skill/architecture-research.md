@@ -37,7 +37,7 @@ And still: **triage every new idea — catching scope-creep is your job.**
 ## The mindset
 
 - **Triage every idea into three bins:** (a) it tests on the **current ladder** (1.0 → 4.x) → it's a
-  Phase-1/2/3/4 experiment (structure / depth round 1 / depth round 2 / maintenance — the live ladder); (b) it's the **north-star /
+  Phase experiment (1 structure / 2 depth round 1 / 3 depth round 2 / 4 characterization — **all done**; 5 = optimization, upcoming); (b) it's the **north-star /
   future track** (the recurrent thinking brain, *beyond* the numbered phases) → it belongs in
   [`draft6.0/future-ref/`](../draft6.0/future-ref/README.md), held as a compass, **not** pulled into the plan
   without the author; (c) neither → name why and let it go.
@@ -55,7 +55,7 @@ And still: **triage every new idea — catching scope-creep is your job.**
 - Biological names are structural, not decorative — don't suggest renaming "to be rigorous" (rejected).
 - **A Scap is a wire, not a neuron** (this pushback was a real save; respect it).
 - **Don't pull the north star forward.** The recurrent lifelong-learning brain (correctness-as-a-feeling) is
-  the real north star — *beyond* the numbered phases (Phase 2/3 = depth, Phase 4 = maintenance) — and
+  the real north star — *beyond* the numbered phases (Phase 2/3 = depth, Phase 4 = characterization/done, Phase 5 = optimization) — and
   **deliberately not specced**, "simple intelligence first." Hold it as direction
   ([`docs/essence/the-essence.md`](../docs/essence/the-essence.md)), not a task.
 - **When an old (5.1) doc contradicts draft 6.0, 6.0 wins.** The pivot is the most recent truth.

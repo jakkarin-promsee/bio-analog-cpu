@@ -125,12 +125,15 @@ This causes more accidental "fixes" than anything else.
 
 ## 6. Where we are, what to trust
 
-**Where we are.** Pivoted to **draft 6.0**. The spine is committed (`main.ideas.v1.md`: two-brain SCFF+GD,
-residual blocks, gated learning, sleep+LUT, mono-forward). **No draft-6.0 simulation has run yet.**
+**Where we are.** Pivoted to **draft 6.0**, and **the numbered phases 1–4 have all run and closed
+(2026-06-20 → 22)**: Phase 1 (structure — the continual win), Phase 2 (depth round 1 — energy-goodness can't),
+Phase 3 (depth round 2 — contrast + coordination ADOPTED), Phase 4 (characterization — the capability map: a
+substrate-native *continual* learner, not a static-accuracy competitor; `draft6.0/src/phase4/phase4-summarize.md`).
 
-**Where we're going.** The experiment ladder in `ideas1.md`: **1.0 full SCFF** (mono-forward + mandatory
-inter-layer norm) → 1.1 full GD → 2.x mix + middle layer → 3.x sleep → 4.x block chain. Simple
-classification / statistics tasks first. **The build discipline (decided 2026-06-19):** walk one neocortex
+**Where we're going.** **Phase 5 — optimization:** tune the maintenance loop (sleep cadence + Ch7 gate) against
+*this* cell's measured drift, plus the train-with-noise (hardware-aware) and natural-data multi-class follow-ups
+Phase 4 flagged. *(The original Phase-1 ladder in `ideas1.md` — 1.0 full SCFF → 1.1 full GD → 2.x mix → 3.x sleep
+→ 4.x block chain — is the history of how we got here.)* Simple classification / statistics tasks first. **The build discipline (decided 2026-06-19):** walk one neocortex
 spine (SCFF + GD); the hippocampus LUT is a *service* that plugs in (negatives stubbed first, real at 3.2),
 not a parallel brain; test convergence, not theory; keep the phase-2 menu closed. The deeper lesson behind
 the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats* it by projection — so build
@@ -143,7 +146,7 @@ the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats
 - **Unknown.** **Everything empirical.** Nothing in draft 6.0 is simulated. The convergence/stability of
   the hybrid, the drift fix, the gate, sleep — all unproven. The numbers in `main.ideas.v1.md` are the
   *plan's* knobs, not results.
-- **Off-limits to over-eager building.** **The recurrent lifelong-learning brain** — *beyond* the numbered phases (Phase 2/3 = depth, Phase 4 = maintenance) — is the real
+- **Off-limits to over-eager building.** **The recurrent lifelong-learning brain** — *beyond* the numbered phases (Phase 2/3 = depth, Phase 4 = characterization/done, Phase 5 = optimization) — is the real
   north star, but it is **deliberately not specced** ("simple intelligence first"). Hold it as direction
   (`docs/essence`), not as a task. Don't pull it into the plan without the author.
 

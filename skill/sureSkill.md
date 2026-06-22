@@ -20,11 +20,12 @@
 | `simulation-experiments.md` | writing tests, running a Phase-1 rung, interpreting results | ✅ 6.0 |
 | `workflows.md` | the recurring moves (orient / checkpoint / commit-progress / double-check) | ✅ 6.0 |
 | `sureSkill.md` | this meta-map / index | ✅ 6.0 |
-| `simulator-code.md` | editing the simulator | ⚠️ **historical** — describes the old `src/` attribution sim; the 6.0 Phase-1 sim isn't written yet |
+| `simulator-code.md` | editing the simulator | ⚠️ **historical** — describes the old `src/` attribution sim; the **6.0 behavioral sim is now written** in `draft6.0/src/phase{1,2,3,4}/` (numpy SCFF+GD+probes), but this map still points at the old one |
 
-Maps to add **when 6.0 Phase 1 starts coding:** a **6.0 simulator-code** map (for the fresh SCFF+GD
-behavioral sim), and later a **docs-maintenance** map. The hardware/RTL-handoff map waits until the design
-re-freezes (6.0 deliberately set the circuit aside to stabilize the math first).
+Maps to add: a **6.0 simulator-code** map (the fresh SCFF+GD behavioral sim now exists across `src/phase1-4/` —
+`p4lib.py` + the per-phase `pNlib`/run/plot scripts — and deserves its own code map), and later a
+**docs-maintenance** map. The hardware/RTL-handoff map waits until the design re-freezes (6.0 deliberately set
+the circuit aside to stabilize the math first).
 
 ---
 
@@ -47,34 +48,45 @@ High confidence — the *design reasoning* is solid and the docs capture it; I c
   same mechanism that rebuilt it). `docs/essence/the-essence.md`.
 - **The collaboration model.** `docs/draft/project-personal.md` — mechanism-first, no hedging, incubation,
   the commit-signals, the "we."
+- **The empirical spine (Phases 1–4 ran, 2026-06-20 → 22).** The hybrid converges and the **continual win is
+  real and robust** (sleep recovers what online-BP catastrophically forgets — Phase 1 exp4, P3.3, P4.5 across
+  difficulty). **Energy-goodness can't earn depth** (Phase 2), but **contrast (InfoNCE) + cross-layer
+  coordination can** and is the **adopted** objective (Phase 3, supersedes `Σh²`). The **capability map**
+  (Phase 4) places it: a *substrate-native continual learner, not a static-accuracy competitor* — wins
+  continual / nuisance-dim / depth-composition / depth-is-cheap (80/20 **depth-gated**), trails static
+  difficulty / class-count, honest **negative** on eval-time noise. Full reads: `src/phase{1,2,3,4}/*-summarize.md`.
 
 ## What I still do NOT know — the honest gaps
 
-**Everything empirical. Nothing in draft 6.0 has been simulated.** Don't mistake confidence about the
-*design* for confidence about whether it *works*.
+**The core spine is now simulated (Phases 1–4); the gaps moved.** What's *designed-and-confirmed* vs *still open*:
 
-- **Does the SCFF + GD hybrid converge and stay stable?** Unproven — this is what rung 1.0 → 2.x exist to find.
-- **Does the gated/sleep machinery actually hold the SCFF drift?** The plasticity gradient, the threshold
-  gate, sleep replay — all reasoned, none run (rungs 2.1, 3.x).
-- **Does direction chain across blocks** without the stack swinging (rung 4.x)? Open — including how many
-  blocks before the linear block-delta stand-in strains.
-- **All the open knobs** in `main.ideas.v1.md` (front:back plasticity ratio, gate threshold absolute-vs-
-  slope, sleep cadence, LUT vigilance, margin-vs-log loss, two-sided-vs-pure-contrast). The sims set them.
-- **All analog / PVT behavior.** Phase 1 is ideal floats; noise/drift/charge-dynamics realism is deferred
-  until the ideal converges.
+- **Phase 5 optimization — unrun.** The maintenance loop (Ch7 gate + sleep-*cadence* / LUT-vigilance) was run
+  at a *fixed default* in Phase 4; tuning it against *this* cell's measured drift is the next phase's job.
+- **Noise robustness *during learning* — untested (the A7 follow-up).** Phase 4 found OURS is *not* eval-time
+  weight-noise-robust (a layernorm tradeoff); the substrate-relevant **train-with-noise / hardware-aware**
+  test — where the forward-only robustness claim actually lives — has not been run.
+- **Natural-data / scale.** The wins are on controlled synthetic + small probes (digits ✅, CIFAR-flat ⚠️);
+  depth-composition is on a *built* headroom task. Confirming on natural, depth-needing data is open.
+- **Direct-feedback (global top-down coordination)** — the window (w=2) sufficed; whether global is cheaper is untested.
+- **Remaining knobs** in `main.ideas.v1.md` not yet swept (margin-vs-log loss; in-batch negatives → the LUT pool).
+- **All analog / PVT behavior.** Phases 1–4 are ideal floats; full noise/drift/charge-dynamics realism is the
+  deferred substrate layer (Phase 4's A7 cracked the door — it's now on the table per the "ideal converged" rule).
 
 ## Off-limits to over-eager building
 
 **The recurrent lifelong-learning brain** (correctness-as-a-feeling) — *beyond* the numbered phases (1 =
-structure/done, 2 = depth, 3 = maintenance) — is the real north star but **deliberately not specced.** Hold
-it as direction (`draft6.0/future-ref/`, `docs/essence`), not a task.
+structure/done, 2 = depth round 1/done, 3 = depth round 2/done, 4 = characterization/done, 5 = optimization/
+upcoming) — is the real north star but **deliberately not specced.** Hold it as direction (`draft6.0/future-ref/`,
+`docs/essence`), not a task.
 
 ## The honest one-liner
 
-I hold the **full design intuition of draft 6.0 and why each piece is there** — that's transferable. What
-does **not** yet exist is **any simulation evidence**: the spine is committed, the numbers are pending, and
-the next real move is rung **1.0 — full SCFF.** (The previous build *did* earn a real result — see below —
-but that was the attribution chip, now history.)
+I hold the **full design intuition of draft 6.0 and why each piece is there**, **and the empirical spine now
+exists**: Phases 1–4 ran (2026-06-20 → 22) and the cell is characterized — a substrate-native **continual**
+learner that composes depth cheaply, not a static-accuracy competitor (`src/phase4/phase4-summarize.md`). What's
+**not** yet done is **Phase 5 — optimization** (tune the sleep/gate maintenance loop against the measured drift)
+plus the train-with-noise and natural-data follow-ups Phase 4 flagged. (The attribution chip — a separate earned
+result — is now history, see below.)
 
 ---
 

@@ -33,7 +33,7 @@ natural-data multi-class) before optimizing. **The cell is sound; no algorithm b
 | --- | --- | --- | --- |
 | **A1 difficulty** | Bayes error 0.02→0.37 | **trail** (cost of the gap) | gap doesn't open (+0.05→+0.01, uptick at chance); **capture** 0.92→0.68 is the real read |
 | **A2 ambient-dim** | nuisance dim 8→500 | **WIN** | OURS **crosses above** BP by dim 500 (gap −0.029); **Mono collapses** (0.75→0.41) |
-| **A3 depth × difficulty** | headroom task, overlap 0.4→1.2 | **WIN** | depth-composition **generalizes** (w2 slope >0 all difficulties); OURS **out-composes BP** in the hard regime (crossover ≈0.6) |
+| **A3 depth × difficulty** | headroom task, overlap 0.4→1.2 | **WIN (composes)** *(representation, not task-acc)* | depth-composition **generalizes** (w2 per-layer-probe slope >0 all difficulties); OURS **out-composes BP** in the hard regime (crossover ≈0.6) |
 | **A4 width × depth** | iso-budget L2→L8 | **WIN (cost)** | OURS backward **flat in depth** (~45k) vs BP **linear** (52→124k); depth cheap + accretive on headroom |
 | **A5 class count** | C 2→20 | **trail** (difficulty-gated) | synth gap +0.06→+0.23; **real digits +0.03** — harshness, not a many-class penalty |
 | **A6 continual** | class-incremental × difficulty | **DECISIVE WIN** | OURS+sleep BWT −0.02→−0.18 vs online-BP −0.83→−0.99; robust across difficulty |
