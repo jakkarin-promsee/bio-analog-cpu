@@ -103,8 +103,8 @@ Read `draft6.0/README.md` then `draft6.0/idea/ideas1.md`; the paper stories are 
   north-star (correctness as a *feeling*, *beyond* the numbered phases), but **that is not specced** — see `docs/essence`.
 
 What it does **NOT** do: it does not claim to be backprop, and it does not freeze at deploy (the whole
-point is online, lifelong learning). **Convergence is empirical** — nothing in draft 6.0 has been
-simulated yet (§6).
+point is online, lifelong learning). **Convergence is empirical** — and Stage 1 (Phases 1–4) has now run
+and confirmed it (§6).
 
 ---
 
@@ -113,7 +113,7 @@ simulated yet (§6).
 This causes more accidental "fixes" than anything else.
 
 - **The live plan** (`draft6.0/`) is what we build now. `main.ideas.v1.md` is the decision record; its
-  spine is committed but its numbers are open.
+  spine is committed and Stage 1 (Phases 1–4) set most of its numbers — the open knobs that remain are Phase 5's.
 - **The historical world** (`draft5.1-*.md`, `draft5.1-2.verify.md`, `src/`) is the **attribution chip** —
   the design that broke. The `src/` simulator implemented *that* chip (the Ganglion, broadcast + momentum,
   the lean baseline). Its substrate primitives may carry forward; its learning rule does not. **Don't
@@ -129,6 +129,8 @@ This causes more accidental "fixes" than anything else.
 (2026-06-20 → 22)**: Phase 1 (structure — the continual win), Phase 2 (depth round 1 — energy-goodness can't),
 Phase 3 (depth round 2 — contrast + coordination ADOPTED), Phase 4 (characterization — the capability map: a
 substrate-native *continual* learner, not a static-accuracy competitor; `draft6.0/src/phase4/phase4-summarize.md`).
+The whole arc is now written up reader-facing in `draft6.0/src/stage1-report.md` + each `phaseN/phaseN-report.md`,
+with `draft6.0/src/ref-report/` as the glossary.
 
 **Where we're going.** **Phase 5 — optimization:** tune the maintenance loop (sleep cadence + Ch7 gate) against
 *this* cell's measured drift, plus the train-with-noise (hardware-aware) and natural-data multi-class follow-ups
@@ -143,9 +145,12 @@ the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats
 
 - **Solid.** The *design reasoning* is internally consistent and grounded in real published work (each
   decision has a paper story in `ref/`). The *why* (the substrate, the 80/20, the grounding) is coherent.
-- **Unknown.** **Everything empirical.** Nothing in draft 6.0 is simulated. The convergence/stability of
-  the hybrid, the drift fix, the gate, sleep — all unproven. The numbers in `main.ideas.v1.md` are the
-  *plan's* knobs, not results.
+- **Now proven (Stage 1, Phases 1–4).** The hybrid converges; the **continual win** (sleep recovers what
+  online-BP catastrophically forgets) is real and robust; **contrast + coordination** earns depth where
+  energy-goodness can't (adopted). The numbers that were the *plan's* knobs are now largely **set** by the sims.
+- **Still open.** The **Ch7 threshold gate** and a tuned **sleep cadence** are unbuilt (Phase 5); noise
+  robustness *during* learning (hardware-aware), natural-data multi-class scale, and all analog/PVT realism
+  remain untested.
 - **Off-limits to over-eager building.** **The recurrent lifelong-learning brain** — *beyond* the numbered phases (Phase 2/3 = depth, Phase 4 = characterization/done, Phase 5 = optimization) — is the real
   north star, but it is **deliberately not specced** ("simple intelligence first"). Hold it as direction
   (`docs/essence`), not as a task. Don't pull it into the plan without the author.

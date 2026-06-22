@@ -32,7 +32,7 @@ The "we just finished something, write it down before it's lost" move. (This is 
 *slipping* — status not getting recorded — so fire it often.)
 
 1. Update **status** in `draft6.0/idea/main.ideas.v1.md` ("Status"). If a run happened, record it in the
-   experiment workspace (`draft6.0/src/phase1/` — see its `README.md` and `skill/simulation-experiments.md`).
+   experiment workspace (`draft6.0/src/phaseN/` — see its `README.md` and `skill/simulation-experiments.md`).
 2. If the plan/rung shifted, sync the pointers that *name* it (CLAUDE.md "next action"; the skill maps'
    "where the work is now"). Keep **one source of truth** — `main.ideas.v1.md` status — and let others
    point to it, not restate it.

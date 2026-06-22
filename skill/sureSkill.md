@@ -9,7 +9,8 @@
 >
 > **Migrated to draft 6.0 (June 2026).** The old confidence log below was about the *attribution* build
 > (the `src/` simulator, draft 5.1). It's kept, banded, as a record of what the previous build achieved —
-> not as the current state. The current state is: **spine committed, nothing simulated.**
+> not as the current state. The current state is: **Stage 1 (Phases 1–4) simulated, complete, and written
+> up** (see below) — the live line is now **Phase 5 = optimization.**
 
 ## The maps, and their status
 
@@ -54,7 +55,8 @@ High confidence — the *design reasoning* is solid and the docs capture it; I c
   coordination can** and is the **adopted** objective (Phase 3, supersedes `Σh²`). The **capability map**
   (Phase 4) places it: a *substrate-native continual learner, not a static-accuracy competitor* — wins
   continual / nuisance-dim / depth-composition / depth-is-cheap (80/20 **depth-gated**), trails static
-  difficulty / class-count, honest **negative** on eval-time noise. Full reads: `src/phase{1,2,3,4}/*-summarize.md`.
+  difficulty / class-count, honest **negative** on eval-time noise. Full reads: `src/phase{1,2,3,4}/*-summarize.md`
+  (synthesis) + the reader-facing report set `src/stage1-report.md` + `phaseN/phaseN-report.md` + `src/ref-report/` (glossary).
 
 ## What I still do NOT know — the honest gaps
 

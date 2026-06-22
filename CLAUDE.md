@@ -60,6 +60,10 @@ The current work is **Phase 1**: the behavioral-simulation ladder in `draft6.0/i
 
 **✅ Phase 4 complete.** Read **`draft6.0/src/phase4/phase4-summarize.md`** (the synthesis) + **`draft6.0/src/phase4/RESULTS.md`** (ledger) + the one-glance **`draft6.0/src/phase4/figs_summary/CAPABILITY_MAP.png`**. **Phase 4 was reframed (with the author) from "maintenance" → *characterization*: a gap-to-backprop capability map of the adopted cell across seven controlled axes, vs a *genuinely-tuned* backprop ceiling + a Mono-Forward reference — "characterize before optimize."** **Verdict: a substrate-native *continual* learner, not a static-accuracy competitor.** It **WINS** continual (A6, decisive — BWT −0.02→−0.18 vs online-BP's catastrophic −0.83→−0.99, robust across difficulty), nuisance-dimension input (A2 — crosses *above* tuned BP in high-D while Mono collapses), depth-composition (A3 — generalizes; out-composes BP in the hard regime; a *representation* win, not task-acc), and depth-is-cheap (A4 — backward cost flat-in-depth vs BP's linear; **the 80/20 cost advantage is depth-gated**, null shallow, ~2.6× deep). It **TRAILS** on static difficulty (A1 — *capture*, not raw gap, is the read) and class count (A5 — difficulty-gated; real digits far kinder than synthetic). And it returned an **honest NEGATIVE** on eval-time weight noise (A7 — OURS is *least* robust; the per-sample layernorm that wins A2 costs A7, a real tradeoff; the substrate-relevant *train-with-noise* test is untested → P5). The breadth caught a latent OOM bug (fixed) and refuted the plan's optimistic noise-win — the pre-flight gate working as intended. **Spec it set:** capture > raw gap as the difficulty read; cost is *depth-gated* (meter cost-vs-depth, not one number); layernorm is a tunable nuisance-robustness↔noise-sensitivity knob; Mono-Forward is an unreliable reference (collapses high-D, catches up high-C). **Next → Phase 5 = optimization** (the maintenance loop the *old* "Phase 4" named — sleep cadence + Ch7 gate, tuned against *this* cell's measured drift — plus the train-with-noise and natural-data follow-ups).
 
+### Stage 1 written up — the report set (2026-06-23)
+
+The four-phase arc (Phases 1–4) is now documented **reader-facing for an outside researcher**: **`draft6.0/src/stage1-report.md`** (the executive narrative + the N1–N3/S1–S8 decision-provenance table), one **`draft6.0/src/phaseN/phaseN-report.md`** per phase (the story, figures inline), and the **`draft6.0/src/ref-report/`** glossary (`methods.md` · `metrics.md` · `papers.md`) the reports link into. These are the **narrative**; the `phaseN-summarize.md` + `RESULTS.md` ledgers remain the terser source they were built from. Stage 1 (Phases 1–4) is closed; **Phase 5 = optimization** is the live line.
+
 ### What is now historical (draft 5.x)
 
 The draft-5.1 spec (`draft5.1-*.md`), the §20 simulation campaign, the Ganglion-Personality / MVF work, and the `src/` simulator were built for the **attribution** architecture. The substrate primitives (Scap = capacitor weight storage, the crossbar) may carry forward, but the *learning rule* and *Ganglion-hierarchy-as-the-thing* are superseded. `docs/draft/project-history.md` is the narrative of the 1→5.1 era — read it for *why* old decisions were made, not for what we're doing now.
@@ -183,7 +187,10 @@ These predate draft 6.0 and still govern every run. Internalize them.
 │   ├── concept/                       algorithm survey (the options; attribution = 5.1 history)
 │   ├── ref/                           paper stories behind 6.0 (scff, distance-forward, boostresnet, byol, llrd)
 │   ├── future-ref/                    north-star research dossier (21 files) — beyond the numbered phases, free-time, not the live line
-│   └── src/phase1/                    ★ the codeable Phase-1 run-spec (README + exp0 locked run-card)
+│   └── src/                           ★ Stage-1 report set + run-specs (Phases 1–4)
+│       ├── stage1-report.md           executive narrative — the four-phase arc + decision provenance
+│       ├── ref-report/                glossary the reports link into (methods · metrics · papers)
+│       └── phase{1..4}/               per phase: phaseN-report.md (narrative) · phaseN-summarize.md · RESULTS.md · expK cards · figs
 ├── docs/
 │   ├── essence/the-essence.md         ★ the project's soul (origin → collapse → return)
 │   └── draft/
@@ -206,6 +213,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 | ----------------------------------------- | -------------------------------------------------------------------------------- |
 | "Give me the whole picture / onboard cold" | `draft6.0/context.md` (the full dump — what / why / how / the person)            |
 | "What are we doing now / the plan?"        | `draft6.0/idea/main.ideas.v1.md` (decisions) + `ideas1.md` (the story)           |
+| "Read the written results / the Stage-1 story" | `draft6.0/src/stage1-report.md` (exec narrative) → `draft6.0/src/phaseN/phaseN-report.md` (per-phase, figures inline) → `draft6.0/src/ref-report/` (glossary). The reader-facing write-up; `phaseN-summarize.md`/`RESULTS.md` are the terser source. |
 | "Code / run a Phase-1 experiment"          | `draft6.0/src/phase1/` (the run-spec README + `exp0/` locked run-card)           |
 | "What did Phase 2 (depth) find?"           | `draft6.0/src/phase2/phase2-summarize.md` (the synthesis) + `RESULTS.md` (ledger) — **Phase 2 = depth round 1, done** |
 | "Code / read a Phase-2 experiment"         | `draft6.0/src/phase2/` (`exp0/1/2/5/6` cards; `README.md` = the original plan; no `exp3/4` — P2.3/4 skipped) |

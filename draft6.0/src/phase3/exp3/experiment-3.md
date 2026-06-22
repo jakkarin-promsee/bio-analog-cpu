@@ -81,9 +81,9 @@ P3.2 (with depth headroom, contrast + coordination *composes* depth — rises, m
 > sleep-consolidated GD readout** — forward-only, per-sample, continual-safe by construction; the only new cost
 > vs energy-SCFF is an in-batch / LUT negative pool.
 
-**This supersedes energy-goodness as the SCFF objective for draft 6.0.** Hand-off: the Phase-4 maintenance work
-(Ch7 gate + sleep-cadence) now tunes against *this* cell's drift; the natural-data / larger-scale and
-direct-feedback questions are open follow-ups, not blockers.
+**This supersedes energy-goodness as the SCFF objective for draft 6.0.** Hand-off: the **Phase-5** maintenance work
+(Ch7 gate + sleep-cadence) now tunes against *this* cell's drift (Phase 4 characterized the cell first); the
+natural-data / larger-scale and direct-feedback questions are open follow-ups, not blockers.
 
 ## References
 

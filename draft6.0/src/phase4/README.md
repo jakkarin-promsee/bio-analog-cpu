@@ -231,8 +231,9 @@ evening"). Failures/weaknesses are the point: a clean "here the cheap brain lose
 - ✅ **Cost claim scoped** to backward credit-assignment work, never "energy."
 
 **Still open:**
-- **The phase renumber** (P4 = characterize, P5 = optimize) — endorsed by the author; **not yet synced** to
-  `CLAUDE.md` / `context.md` / `main.ideas.v1.md` (they still read "Phase 4 = maintenance"). Sync after the plan settles.
+- ✅ **The phase renumber** (P4 = characterize, P5 = optimize) — endorsed by the author and **synced 2026-06-23**
+  to `CLAUDE.md` / `context.md` / `main.ideas.v1.md`. The phase-2/3 plan READMEs are left period-correct (the
+  renumber is narrated in `phase2-summarize.md`).
 - **Sample-efficiency axis** (acc vs #training samples) — a genuine field gap (SCFF/FF papers don't measure it) and
   core to a brain-like online learner; held as an **optional add** inside A5/A6's rungs, run if the evenings allow.
 - **Mono-Forward in every cell** — kept as the third racer everywhere (cheap; it's the *strongest* forward-only

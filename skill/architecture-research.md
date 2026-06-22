@@ -12,9 +12,11 @@
 
 ## The one thing to internalize first
 
-**The spine is committed; the numbers are open — and 6.0 is *young*.** Draft 6.0 has a committed shape
-(`main.ideas.v1.md`: N1–N3 + S1–S8) but **no simulation has run.** So unlike the frozen 5.1 spec, promotion
-here is **light-weight**: the spine holds, but the listed *open knobs* are explicitly the sims' to set.
+**The spine is committed and Stage 1 set many of its numbers — but 6.0 is still *young*.** Draft 6.0 has a
+committed shape (`main.ideas.v1.md`: N1–N3 + S1–S8), and **Phases 1–4 have run** — confirming the spine,
+adopting contrast + coordination, and setting most Phase-1–4 knobs; the *open knobs* that remain are Phase 5's
+(the gate, sleep cadence). So unlike the frozen 5.1 spec, promotion here stays **light-weight**: decisions move
+on a *result*, and what's still open is explicitly the sims' to set.
 Don't treat a 6.0 decision as immovable the way 5.1's "14 locked decisions" were presented — and don't
 re-defend a *dead* 5.1 decision (attribution, hierarchical diffusion) as if it were live.
 

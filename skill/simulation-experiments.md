@@ -24,8 +24,13 @@ result is one picture, not an argument.
    discipline** and a **pass/fail picture per rung.** Start at the rung you're on.
 2. **[`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md) → "Open knobs."** What each
    experiment is actually deciding (front:back plasticity ratio, gate threshold, sleep cadence, …).
-3. **[`draft6.0/ref/`](../draft6.0/ref/README.md)** — the paper behind whatever you're testing (SCFF,
-   Distance-Forward, BoostResNet, BYOL, LLRD), so you know what "working" looks like.
+3. **[`draft6.0/ref/`](../draft6.0/ref/README.md)** (+ **[`ref2/`](../draft6.0/ref2/README.md)** for the
+   Phase-3 depth-direction survey) — the paper behind whatever you're testing (SCFF, Distance-Forward,
+   BoostResNet, BYOL, LLRD; GIM/CLAPP/Mono-Forward), so you know what "working" looks like.
+4. **[`draft6.0/src/phase1/result-format.md`](../draft6.0/src/phase1/result-format.md)** — the house style for
+   *reporting* a result (figure catalog, median+IQR, the "calling a difference real" rule, the 6-slot read);
+   applies to every phase. For *finished* results, read the narratives: `draft6.0/src/stage1-report.md` + each
+   `phaseN/phaseN-report.md`, with `draft6.0/src/ref-report/` as the glossary.
 
 ## The mindset (governs every run)
 
@@ -61,9 +66,10 @@ finding, not a nuisance.
 
 ## Where to record
 
-The experiment workspace is **`draft6.0/src/phase1/`** — its `README.md` is the codeable Phase-1 spec
-(0th probe → Exp 1–4, the online test-then-train frame, the metrics), and `exp0/experiment-0.md` has the
-first run-card **locked**. No code has run yet.
+The experiment workspace is **`draft6.0/src/phaseN/`** (one folder per phase). Each phase carries a `README.md`
+(the codeable spec), `expK/experiment-K.md` run-cards (the 6-slot reads), a `phaseN-summarize.md` (synthesis) +
+`RESULTS.md` (the scalar ledger), and a reader-facing `phaseN-report.md` (the narrative, figures inline). The
+figure/table house style is pinned in **`draft6.0/src/phase1/result-format.md`** (applies to every phase).
 
 - **Plan vs record.** The *plan/whiteboard* is `ideas1.md` (the ladder) + `main.ideas.v1.md` (status) + the
   `phase1/README.md` (the experiment spec). The *record* (what we ran + found) lives in a folder per
@@ -73,12 +79,17 @@ first run-card **locked**. No code has run yet.
   the *derivation* chapters of `ideas1.md` to record a run's outcome — that's a decision, not a log.
 - **Figures:** commit the summary plots the logs reference; git-ignore raw sweeps.
 
-## Where the work is now (2026-06)
+## Where the work is now (2026-06-23)
 
-- **Pivoted to draft 6.0.** Spine committed; **nothing simulated yet.** Next action: **1.0 — full SCFF**,
-  mono-forward dual-rail + mandatory inter-layer norm in from the first run, random-batch negative stub.
-- **1.0's pass picture:** goodness separates (`G_pos`↑, `G_neg`↓) and the layers grow more separable with
-  depth. That rung is the gate to everything else.
+- **Stage 1 (Phases 1–4) is complete and written up.** Phase 1 (the cell + its continual home), Phase 2
+  (energy-SCFF can't earn depth), Phase 3 (the objective reframe — contrast + coordination, **adopted**),
+  Phase 4 (the capability map). Synthesis in each `phaseN-summarize.md` + `RESULTS.md`; reader-facing write-up
+  in `draft6.0/src/stage1-report.md` + `phaseN/phaseN-report.md` + the `ref-report/` glossary.
+- **Verdict so far:** a substrate-native **continual** learner that composes depth cheaply — **not** a
+  static-accuracy competitor. Adopted cell = `[contrast (InfoNCE) + coordination w≥2] SCFF bulk +
+  sleep-consolidated GD readout`.
+- **The live line is Phase 5 = optimization** (the sleep-cadence + Ch7-gate maintenance loop, tuned against
+  *this* cell's measured drift; + the train-with-noise and natural-data follow-ups Phase 4 flagged).
 
 ## Traps
 

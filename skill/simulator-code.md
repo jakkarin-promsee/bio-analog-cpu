@@ -3,10 +3,11 @@
 > ## ⚠️ HISTORICAL — the attribution-era `src/` simulator (draft 5.1)
 > **This map describes the *old* simulator, built for the attribution chip — kept as a guideline for how
 > the previous build worked, not as the current task.** Draft 6.0 (June 2026) set the circuit/ALU/memory
-> aside to **stabilize the core math first**; the **draft-6.0 Phase-1 simulator has not been written yet.**
-> When it is, it will be a fresh behavioral sim of the SCFF + GD hybrid (ideal floats first) and will get
-> its own code map. Until then, read this only to understand the historical `src/` (the Ganglion,
-> broadcast + momentum, the lean baseline). The live plan is [`draft6.0/`](../draft6.0/idea/ideas1.md).
+> aside to **stabilize the core math first**. **Update (2026-06-23):** the draft-6.0 behavioral sim has since
+> been written and run across `draft6.0/src/phase{1,2,3,4}/` (numpy SCFF + GD + probes; `p4lib.py` + per-phase
+> run/plot scripts) — Stage 1 (Phases 1–4) is complete. A fresh draft-6.0 code map is still TODO; until it
+> exists, read this only to understand the historical `src/` (the Ganglion, broadcast + momentum, the lean
+> baseline). The live plan is [`draft6.0/`](../draft6.0/idea/ideas1.md).
 >
 > ---
 >
