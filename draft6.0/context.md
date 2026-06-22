@@ -24,7 +24,7 @@ This is a **bio-inspired analog compute substrate that learns on-chip** — a *c
 
 **The scope** (what's in / out):
 - *In:* Python behavioral simulation of the draft-6.0 hybrid on simple classification/statistics tasks; ideal model first, analog/PVT realism after it converges.
-- *Out (near term):* SPICE, real fabrication, external-benchmark-chasing as the *claim* (small tasks are fine as probes), and **the recurrent thinking brain** (the real north star, *beyond* the numbered phases — Phase 1 structure/done, **Phase 2 depth round 1/done (2026-06-21)**, **Phase 3 depth round 2/active (the objective reframe — `src/phase3/README.md` + `ref2/`)**, Phase 4 maintenance — deliberately deferred: "simple intelligence first").
+- *Out (near term):* SPICE, real fabrication, external-benchmark-chasing as the *claim* (small tasks are fine as probes), and **the recurrent thinking brain** (the real north star, *beyond* the numbered phases — Phase 1 structure/done, **Phase 2 depth round 1/done (2026-06-21)**, **Phase 3 depth round 2/done (2026-06-22 — the objective reframe ADOPTED: contrast + cross-layer coordination supersedes energy-goodness; `src/phase3/phase3-summarize.md` + `ref2/`)**, Phase 4 maintenance — deliberately deferred: "simple intelligence first").
 
 **Naming discipline:** biological names (Ganglion, Hippocampus, Brainstem, Cortex) are **structural, not decorative** — they're a semantic system that lets the author reason by analogy. Default usage = the circuit element; prefix `biological-` for actual biology, `analog-` for explicit circuit framing in mixed context. **Do not suggest renaming "to be more rigorous"** — already considered and rejected, repeatedly, against external critics.
 
