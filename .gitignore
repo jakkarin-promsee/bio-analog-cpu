@@ -25,3 +25,5 @@ desktop.ini
 
 # For Social Post Drafting
 post
+# scratch run logs (the run-cards + RESULTS.md are the record)
+**/_*.log

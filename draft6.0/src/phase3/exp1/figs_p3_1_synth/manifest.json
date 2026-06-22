@@ -1,0 +1,21 @@
+{
+  "experiment": "p3_1-synth",
+  "git_commit": "97077fcd628236bc97b13df68f7115a29fe2389e",
+  "seeds": [
+    42,
+    137
+  ],
+  "task": "synth",
+  "windows": [
+    1,
+    2,
+    4
+  ],
+  "L": 8,
+  "width": 64,
+  "batch": 32,
+  "verdict": "PASS - coordination w=4 flattens the slope to +0.0084 (sel +0.103) -> unsupervised forward-only depth EARNED -> route P3.3 (continual veto)",
+  "baseline_w1_slope": -0.005342261904761885,
+  "numpy": "2.3.5",
+  "wall_clock_s": 119.9
+}

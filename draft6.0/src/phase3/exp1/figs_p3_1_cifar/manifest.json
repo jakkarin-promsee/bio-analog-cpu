@@ -1,0 +1,24 @@
+{
+  "experiment": "p3_1-cifar",
+  "git_commit": "97077fcd628236bc97b13df68f7115a29fe2389e",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "task": "cifar",
+  "windows": [
+    1,
+    2,
+    4
+  ],
+  "L": 8,
+  "width": 64,
+  "batch": 32,
+  "verdict": "PARTIAL - coordination w=2 improves slope -0.0158->-0.0105 (sel +) but not yet flat -> try direct-feedback / bigger window, else Mono-Forward (P3.2)",
+  "baseline_w1_slope": -0.015803571428571417,
+  "numpy": "2.3.5",
+  "wall_clock_s": 948.3
+}

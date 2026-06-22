@@ -1,0 +1,71 @@
+{
+  "experiment": "p3_0-synth",
+  "git_commit": "97077fcd628236bc97b13df68f7115a29fe2389e",
+  "seeds": [
+    42,
+    137
+  ],
+  "task": "synth",
+  "config": {
+    "n_train": 6000,
+    "n_test": 2000,
+    "ep": 30,
+    "gd_ep": 60,
+    "task": {
+      "dim": 20,
+      "grid": 4,
+      "n_active": 2,
+      "overlap": 0.3,
+      "label": "random",
+      "n_class": 2
+    }
+  },
+  "energy_cell": {
+    "norm": "layernorm",
+    "goodness": "linear",
+    "objective": "contrast"
+  },
+  "L": 8,
+  "width": 64,
+  "batch": 32,
+  "mask_ratio": 0.5,
+  "results_median": {
+    "energy": {
+      "slope": 0.002898809523809527,
+      "peak_l": 4.0,
+      "peak": 0.75475,
+      "com": 4.571115654202937,
+      "decline": 0.020843750000000022,
+      "tail_ret": 0.9455117588592971,
+      "neff": 7.959299799700551
+    },
+    "recon": {
+      "slope": 0.014071428571428573,
+      "peak_l": 6.0,
+      "peak": 0.8042499999999999,
+      "com": 4.772538621164504,
+      "decline": 0.0030312499999999853,
+      "tail_ret": 0.9849238420876781,
+      "neff": 7.902409068965934
+    },
+    "contrast": {
+      "slope": -0.0054315476190475625,
+      "peak_l": 2.0,
+      "peak": 0.83975,
+      "com": 4.401425947929393,
+      "decline": 0.04103124999999998,
+      "tail_ret": 0.9086037511153218,
+      "neff": 7.970508614654639
+    },
+    "env_gap": 0.24162499999999998,
+    "select_recon_mean": 0.08662500000000001,
+    "select_contrast_mean": 0.10484375000000001,
+    "select_contrast_peak": 0.14325000000000004,
+    "gd_held": 0.9625,
+    "slope_gate": false,
+    "select_gate": true,
+    "verdict": "PARTIAL - selectivity>0 (class info preserved) but still declining -> coordination (P3.1)"
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 70.6
+}

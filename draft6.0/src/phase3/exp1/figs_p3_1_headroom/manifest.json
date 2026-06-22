@@ -1,0 +1,24 @@
+{
+  "experiment": "p3_1-headroom",
+  "git_commit": "97077fcd628236bc97b13df68f7115a29fe2389e",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "task": "headroom",
+  "windows": [
+    1,
+    2,
+    4
+  ],
+  "L": 8,
+  "width": 64,
+  "batch": 32,
+  "verdict": "PASS - coordination w=4 flattens the slope to +0.0220 (sel +0.181) -> unsupervised forward-only depth EARNED -> route P3.3 (continual veto)",
+  "baseline_w1_slope": 0.0009682539682539897,
+  "numpy": "2.3.5",
+  "wall_clock_s": 250.2
+}
