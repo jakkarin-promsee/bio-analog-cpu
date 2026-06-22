@@ -14,9 +14,10 @@
 > REPR, DECIDE, BLOCK, continual-veto…), and the 6+2-slot summary. Every run follows it as the baseline;
 > override only when the data demands.
 >
-> **Phase numbering (renumbered 2026-06-20, see §8):** Phase 1 = structure + sleep (**done**). **Phase 2 =
-> *this*, the depth + GD-interface work.** Phase 3 = online maintenance (the Ch7 gate + sleep-cadence
-> refinement). The recurrent lifelong brain is the **north star**, beyond the numbered phases.
+> **Phase numbering (re-renumbered 2026-06-21, see §8):** Phase 1 = structure + sleep (**done**). **Phase 2 =
+> *this*, depth round 1 — the *energy-goodness can't* negative (**done**).** **Phase 3 = depth round 2 — the
+> objective reframe** (`../phase3/`, active). **Phase 4** = online maintenance (the Ch7 gate + sleep-cadence —
+> *was* "Phase 3"). The recurrent lifelong brain is the **north star**, beyond the numbered phases.
 
 ---
 
@@ -247,14 +248,15 @@ keep their period usage on purpose):
 | phase | scope | status |
 | --- | --- | --- |
 | **Phase 1** | structure: SCFF, block, chain, **+ sleep** (the continual win) | **done** (exp0–exp4) |
-| **Phase 2** | *this* — make cheap SCFF earn depth + the GD interface | **done** (P2.0/1/2/5/6; P2.3/4 skipped) — see [`phase2-summarize.md`](phase2-summarize.md) |
-| **Phase 3** | **online maintenance** — the **Ch7 gate** (in-time GD trigger) + **sleep-*cadence* refinement** + the lifelong loop | future |
+| **Phase 2** | *this* — depth round 1: can a deep *energy-goodness* SCFF stack earn depth? (no) | **done** (P2.0/1/2/5/6; P2.3/4 skipped) — see [`phase2-summarize.md`](phase2-summarize.md) |
+| **Phase 3** | depth round 2 — **the objective reframe** (energy → masked-feature reconstruction; the wall is intrinsic to the *energy objective*, not locality) | **active** — see [`../phase3/README.md`](../phase3/README.md) + [`../../ref2/`](../../ref2/README.md) |
+| **Phase 4** | **online maintenance** — the **Ch7 gate** (in-time GD trigger) + **sleep-*cadence* refinement** + the lifelong loop (*was "Phase 3"*) | future |
 | **north star** | the recurrent lifelong-learning brain (prefrontal↔hippocampus) | beyond the numbers; deliberately unspecced |
 
-**Sleep is already built and validated (Phase-1 exp4) — it is *not* Phase-3 work.** Phase 3 *refines its
-cadence* (how little/often) and *adds the gate*; it does not invent sleep. The gate is deferred to Phase 3
-because it is a *temporal* mechanism whose tuning depends on the drift each Phase-2 algorithm produces —
-Phase 2 only **measures** that drift (P2.6).
+**Sleep is already built and validated (Phase-1 exp4) — it is *not* maintenance-phase work.** The maintenance
+phase (now **Phase 4**) *refines its cadence* (how little/often) and *adds the gate*; it does not invent sleep.
+The gate is deferred to Phase 4 because it is a *temporal* mechanism whose tuning depends on the drift each
+depth-phase algorithm produces — Phase 2 only **measures** that drift (P2.6).
 
 **Out of Phase 2:** the Ch7 gate (→ Phase 3) · final architecture decisions (options-open research) ·
 analog/PVT/SPICE realism (after the ideal depth-fix converges).

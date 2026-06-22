@@ -143,7 +143,7 @@ the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats
 - **Unknown.** **Everything empirical.** Nothing in draft 6.0 is simulated. The convergence/stability of
   the hybrid, the drift fix, the gate, sleep — all unproven. The numbers in `main.ideas.v1.md` are the
   *plan's* knobs, not results.
-- **Off-limits to over-eager building.** **The recurrent lifelong-learning brain** — *beyond* the numbered phases (Phase 2 now = depth, Phase 3 = maintenance) — is the real
+- **Off-limits to over-eager building.** **The recurrent lifelong-learning brain** — *beyond* the numbered phases (Phase 2/3 = depth, Phase 4 = maintenance) — is the real
   north star, but it is **deliberately not specced** ("simple intelligence first"). Hold it as direction
   (`docs/essence`), not as a task. Don't pull it into the plan without the author.
 
@@ -187,7 +187,8 @@ Full version: `docs/draft/project-personal.md` — read it before any non-trivia
 | Understand a 6.0 decision's evidence | `draft6.0/ref/` (one story per paper) |
 | Browse the learning-rule zoo | `draft6.0/concept/summary.detail.md` |
 | Research the north-star / recurrent brain (beyond the numbered phases) | `draft6.0/future-ref/` (21-file dossier — free-time reading, *not* the live plan) |
-| Code / plan a Phase-2 experiment (depth) | `draft6.0/src/phase2/` (README plan + result-format) |
+| Code / plan a Phase-2 experiment (depth round 1, done) | `draft6.0/src/phase2/` (README plan + result-format) |
+| Code / plan a Phase-3 experiment (depth round 2, the objective reframe) | `draft6.0/src/phase3/` (README plan + result-format) + `draft6.0/ref2/` (survey) |
 | Understand the old attribution chip (history) | `draft5.1-1.md` + `docs/draft/project-history.md` |
 | Read the (historical) simulator code | `skill/simulator-code.md` → `src/docs/*` (attribution-era) |
 | Propose a change / make a scope call | `skill/architecture-research.md` |
