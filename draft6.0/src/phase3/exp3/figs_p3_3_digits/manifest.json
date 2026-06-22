@@ -1,0 +1,64 @@
+{
+  "experiment": "p3_3-digits",
+  "git_commit": "d81573eab3cbcc0b7fd2fe9001eefc8ea99ed7f6",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "tasks": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      8,
+      9
+    ]
+  ],
+  "L": 4,
+  "window": 2,
+  "conds": [
+    "gd",
+    "energy_sleep",
+    "contrast_sleep",
+    "contrast_nosleep"
+  ],
+  "results_median": {
+    "gd": {
+      "final": 0.18620689655172412,
+      "bwt": -0.9916482986637278,
+      "forget": 0.9916482986637278
+    },
+    "energy_sleep": {
+      "final": 0.9379503725115012,
+      "bwt": -0.026376689533037484,
+      "forget": 0.026376689533037484
+    },
+    "contrast_sleep": {
+      "final": 0.9538513057862351,
+      "bwt": -0.01707962691569248,
+      "forget": 0.01707962691569248
+    },
+    "contrast_nosleep": {
+      "final": 0.2135721529991307,
+      "bwt": -0.9542795566502463,
+      "forget": 0.9542795566502463
+    }
+  },
+  "veto": "PASS - contrast+coord RE-EARNS the continual win",
+  "numpy": "2.3.5",
+  "wall_clock_s": 16.7
+}

@@ -1,8 +1,14 @@
 # Phase 3 — Make the cheap forward-only bulk earn depth by changing *what each layer optimizes*
 
-> **Status: 🟡 ROUGH PLAN v2 (2026-06-21).** Skeleton — purpose, the sub-experiment ladder, build steps.
-> **Numbers and locked knobs are pending; the metric/figure catalog is now written** —
-> [`result-format.md`](result-format.md) (the house-style contract every rung follows).
+> **Status: ✅ COMPLETE (2026-06-22, P3.0 → P3.3) — ADOPT the objective reframe.** The arc: the objective
+> *family* is the lever (P3.0 — contrast preserves class info, energy/reconstruction don't); cross-layer
+> coordination (Direction 1) eases the decline (P3.1) and, **given depth headroom, makes `contrast +
+> coordination` *compose* depth — rising, matching/beating GD (P3.2), overturning P2.2's "depth intrinsic to
+> forward-only locality"**; and it **re-earns and *improves* the Phase-1 continual win** (P3.3 veto: BWT −0.017 vs
+> energy −0.026, SCFF-probe flat). **Verdict: `[contrast (InfoNCE) + coordination w≥2] bulk + sleep-consolidated
+> readout` is a strict upgrade over energy-goodness and supersedes it as the SCFF objective.** Synthesis pending
+> ([`RESULTS.md`](RESULTS.md) is the ledger); the metric/figure contract is [`result-format.md`](result-format.md).
+> → **Phase 4** (maintenance: Ch7 gate + sleep-cadence) tunes against this cell.
 > Builds on Phase 2's bench (`../phase2/p2lib.py`, the P2.1 healthy cell, the exp4 continual harness) and the
 > survey in [`../../ref2/`](../../ref2/README.md).
 >
