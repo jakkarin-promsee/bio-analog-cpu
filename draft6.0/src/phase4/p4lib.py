@@ -1,0 +1,202 @@
+"""
+p4lib — the Phase-4 characterization apparatus: a controlled generator (known Bayes error), the three racers
+(OURS = contrast+coordination+readout, BP-ceiling = tuned MLP, Mono-Forward = supervised-local), and a measured
+backward-cost meter (credit-distance x weights).
+
+The characterization frame (Bartunov 2018; Spyra 2025): fix a TUNED backprop baseline, dial a difficulty/scale
+axis, watch where the gap-to-backprop opens; report the gap + a MEASURED cost Pareto (not theoretical). Difficulty
+is principled via the Bayes error (synthetic-with-known-Bayes-error) — computed EXACTLY here from the known
+Gaussian-mixture posterior (no classifier needed).
+
+numpy only; reuses p3lib (SCFFContrastOLU + layernorm VJP) and the phase-1 MLP/Adam.
+"""
+from __future__ import annotations
+import os, sys
+import numpy as np
+from scipy.special import softmax, logsumexp
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_HERE, "..", "phase3"))                # p3lib
+sys.path.insert(0, os.path.join(_HERE, "..", "phase2"))                # p2lib (normalize/relu/EPS)
+sys.path.insert(0, os.path.join(_HERE, "..", "phase1", "exp0"))        # models_extra (MLP)
+from p3lib import SCFFContrastOLU, _layernorm_fwd, _layernorm_vjp      # noqa: E402
+from p2lib import normalize, relu, EPS                                 # noqa: E402
+from models_extra import MLP, match_width                              # noqa: E402
+
+
+# ============================================================ controlled generator (known Bayes error)
+def make_gauss(n, rng, *, dim=40, n_class=4, n_clusters=16, overlap=0.6, sep=2.4, seed_centers=12345):
+    """`n_clusters` isotropic Gaussian clusters (std=overlap) on a sep-spaced grid in a low-active subspace of
+    `dim`, each cluster assigned a fixed random class in {0..n_class-1}. Difficulty rises with `overlap`.
+    Returns X [n,dim], Y [n], and the generative params (centers, cluster_class, overlap) for EXACT Bayes error."""
+    crng = np.random.default_rng(seed_centers)
+    side = int(np.ceil(n_clusters ** (1.0 / 2)))                       # 2-active-dim grid
+    coords = [(i, j) for i in range(side) for j in range(side)][:n_clusters]
+    off = (side - 1) / 2.0
+    centers = np.zeros((n_clusters, dim))
+    for k, (i, j) in enumerate(coords):
+        centers[k, 0] = (i - off) * sep; centers[k, 1] = (j - off) * sep
+    cluster_class = crng.integers(0, n_class, size=n_clusters)
+    counts = np.full(n_clusters, n // n_clusters); counts[: n - counts.sum()] += 1
+    Xs, Ys = [], []
+    for k in range(n_clusters):
+        Xs.append(rng.normal(centers[k], overlap, (counts[k], dim)))
+        Ys.append(np.full(counts[k], cluster_class[k]))
+    X = np.concatenate(Xs); Y = np.concatenate(Ys).astype(np.int64)
+    Q, _ = np.linalg.qr(np.random.default_rng(seed_centers + 1).normal(size=(dim, dim)))   # fixed rotation
+    X = X @ Q
+    p = rng.permutation(len(X))
+    params = dict(centers=centers @ Q, cluster_class=cluster_class, overlap=overlap, dim=dim, n_class=n_class)
+    return X[p].astype(np.float64), Y[p], params
+
+
+def bayes_error(params, rng, n=40000):
+    """EXACT (Monte-Carlo over the TRUE generative posterior) Bayes error. For x ~ the mixture, the optimal
+    classifier picks argmax_c P(c|x); Bayes err = 1 - E[max_c P(c|x)]. Isotropic equal-variance Gaussians ->
+    posterior ∝ sum over clusters-in-class of exp(-||x-center||^2/(2σ^2)). Σ cancels in the argmax-softmax."""
+    C, cc, sig, dim, ncl = params["centers"], params["cluster_class"], params["overlap"], params["dim"], params["n_class"]
+    # draw a fresh sample from the mixture
+    K = len(C); counts = np.full(K, n // K); counts[: n - counts.sum()] += 1
+    X = np.concatenate([rng.normal(C[k], sig, (counts[k], dim)) for k in range(K)])
+    # log p(x|cluster k) = -||x-C_k||^2 / (2σ^2)  (+const, cancels)
+    # ||x-c||^2 = ||x||^2 - 2 x·c + ||c||^2  -> [n,K] directly, no [n,K,dim] tensor (memory-safe to dim~1000s)
+    d2 = (X * X).sum(1)[:, None] - 2.0 * X @ C.T + (C * C).sum(1)[None, :]    # [n, K]
+    logpk = -d2 / (2 * sig * sig)
+    # aggregate clusters into classes: logsumexp over clusters of each class
+    logpc = np.full((len(X), ncl), -np.inf)
+    for c in range(ncl):
+        mk = (cc == c)
+        if mk.any():
+            logpc[:, c] = logsumexp(logpk[:, mk], axis=1)
+    post = softmax(logpc, axis=1)
+    return float(1.0 - post.max(1).mean())
+
+
+# ============================================================ Mono-Forward (supervised-local racer)
+class MonoForward:
+    """Per-layer local cross-entropy on a projection M_l (classes x width) — forward-only, gradient-isolated
+    between layers (the ref2 Mono-Forward). Layer-norm forward (matched to OURS). Predict = sum of per-layer
+    logits."""
+    def __init__(self, dims, C, *, lr=0.02, seed=0):
+        rng = np.random.default_rng(seed)
+        self.W = [rng.normal(0, np.sqrt(2.0 / dims[i]), (dims[i + 1], dims[i])) for i in range(len(dims) - 1)]
+        self.b = [np.zeros(dims[i + 1]) for i in range(len(dims) - 1)]
+        self.M = [rng.normal(0, np.sqrt(1.0 / dims[i + 1]), (C, dims[i + 1])) for i in range(len(dims) - 1)]
+        self.mc = [np.zeros(C) for _ in range(len(dims) - 1)]
+        self.lr = lr; self.L = len(self.W); self.C = C
+
+    def _fwd_logits(self, X):
+        a = normalize(X, "layernorm"); logits = np.zeros((len(X), self.C))
+        for W, b, M, mc in zip(self.W, self.b, self.M, self.mc):
+            h = relu(a @ W.T + b); a = normalize(h, "layernorm")
+            logits = logits + a @ M.T + mc
+        return logits
+
+    def predict(self, X):
+        return self._fwd_logits(X).argmax(1)
+
+    def train_step(self, Xb, Yb):
+        a = normalize(Xb, "layernorm"); B = len(Xb)
+        oh = np.zeros((B, self.C)); oh[np.arange(B), Yb] = 1.0
+        for l in range(self.L):
+            z = a @ self.W[l].T + self.b[l]; h = relu(z)
+            an, ln = _layernorm_fwd(h)
+            logits = an @ self.M[l].T + self.mc[l]
+            dlog = (softmax(logits, axis=1) - oh) / B
+            self.M[l] -= self.lr * (dlog.T @ an); self.mc[l] -= self.lr * dlog.sum(0)
+            dan = dlog @ self.M[l]
+            dz = _layernorm_vjp(dan, ln) * (z > 0)
+            self.W[l] -= self.lr * (dz.T @ a); self.b[l] -= self.lr * dz.sum(0)
+            a = an                                                     # detached forward to next layer
+
+
+# ============================================================ readout (for OURS)
+def fit_readout(F, Y, C, seed, epochs=60, lr=2e-3, batch=32):
+    ro = MLP([F.shape[1], 32, C], seed, lr=lr); rng = np.random.default_rng(seed)
+    for _ in range(epochs):
+        idx = rng.permutation(len(F))
+        for s in range(0, len(F), batch):
+            ro.train_step(F[idx[s:s + batch]], Y[idx[s:s + batch]])
+    return ro
+
+
+# ============================================================ measured backward-cost meter (credit-dist x weights)
+def _mlp_cost(dims):                                                   # full backprop: W_l reached at distance L-l
+    Ln = len(dims) - 1
+    return sum((Ln - l) * (dims[l] + 1) * dims[l + 1] for l in range(Ln))
+
+
+def cost_ours(D, Wd, Lb, w, C):
+    dims = [D] + [Wd] * Lb; bulk = 0; s = 0
+    while s < Lb:
+        ww = min(w, Lb - s)
+        for j in range(ww):
+            l = s + j; bulk += ww * (dims[l] + 1) * dims[l + 1]        # window backprops ww deep (local)
+        s += ww
+    readout = _mlp_cost([Lb * Wd, 32, C])                             # all-tap readout (full but tiny)
+    return bulk + readout
+
+
+def cost_bp(dims):
+    return _mlp_cost(dims)
+
+
+def cost_mono(dims, C):                                                # each layer: 1-deep local backprop + proj
+    return sum((dims[l] + 1) * dims[l + 1] + (dims[l + 1] + 1) * C for l in range(len(dims) - 1))
+
+
+# ============================================================ the three racers (train + eval + cost)
+def race_ours(Xtr, Ytr, Xte, Yte, C, *, L=4, Wd=64, w=2, ep=25, seed=0, batch=32):
+    m = SCFFContrastOLU([Xtr.shape[1]] + [Wd] * L, seed=seed, window=w, mask_ratio=0.5, temp=0.5)
+    rng = np.random.default_rng(seed)
+    for _ in range(ep):
+        idx = rng.permutation(len(Xtr))
+        for s in range(0, len(Xtr), batch):
+            xb = Xtr[idx[s:s + batch]]
+            if len(xb) >= 4:
+                m.train_step(xb, rng)
+    Ftr = np.concatenate(m.infer(Xtr), 1); Fte = np.concatenate(m.infer(Xte), 1)
+    ro = fit_readout(Ftr, Ytr, C, seed)
+    return dict(acc_tr=float((ro.predict(Ftr) == Ytr).mean()), acc_te=float((ro.predict(Fte) == Yte).mean()),
+                bwd=cost_ours(Xtr.shape[1], Wd, L, w, C))
+
+
+def race_bp(Xtr, Ytr, Xte, Yte, C, *, total, in_dim, depths=(2, 3, 4),
+            lrs=(1e-2, 3e-3, 1e-3, 3e-4), wds=(0.0, 1e-3), ep=60, seed=0, batch=32):
+    """GENUINELY-tuned BP ceiling (Bartunov/Spyra fairness): search {depth-shape × lr × weight-decay} at the
+    MATCHED weight budget, pick best held-out, return the chosen config. Not exhaustive Optuna, but well past a
+    single lr grid -- the whole gap-to-BP headline rides on this being a real ceiling, not a strawman. Cost is
+    the chosen shape's backward credit-assignment work."""
+    best = None; seen = set()
+    for nh in depths:
+        bw, _ = match_width(total, in_dim, C, nh)
+        if (nh, bw) in seen:                                            # skip degenerate duplicate shapes
+            continue
+        seen.add((nh, bw))
+        dims = [in_dim] + [bw] * nh + [C]
+        for lr in lrs:
+            for wd in wds:
+                m = MLP(dims, seed, lr=lr, l2=wd); rng = np.random.default_rng(seed)
+                for _ in range(ep):
+                    idx = rng.permutation(len(Xtr))
+                    for s in range(0, len(Xtr), batch):
+                        m.train_step(Xtr[idx[s:s + batch]], Ytr[idx[s:s + batch]])
+                te = float(m.accuracy(Xte, Yte))
+                if best is None or te > best["acc_te"]:
+                    best = dict(acc_te=te, acc_tr=float(m.accuracy(Xtr, Ytr)),
+                                bwd=cost_bp(dims), lr=lr, wd=wd, depth=nh, width=bw)
+    return best
+
+
+def race_mono(Xtr, Ytr, Xte, Yte, C, *, dims, ep=40, seed=0, batch=32):
+    m = MonoForward(dims, C, seed=seed); rng = np.random.default_rng(seed)
+    for _ in range(ep):
+        idx = rng.permutation(len(Xtr))
+        for s in range(0, len(Xtr), batch):
+            m.train_step(Xtr[idx[s:s + batch]], Ytr[idx[s:s + batch]])
+    return dict(acc_tr=float((m.predict(Xtr) == Ytr).mean()), acc_te=float((m.predict(Xte) == Yte).mean()),
+                bwd=cost_mono(dims, C))
+
+
+def n_w(dims):
+    return sum((dims[i] + 1) * dims[i + 1] for i in range(len(dims) - 1))

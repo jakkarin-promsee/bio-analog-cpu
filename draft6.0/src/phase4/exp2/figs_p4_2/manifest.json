@@ -1,0 +1,29 @@
+{
+  "experiment": "p4_2",
+  "git_commit": "60faf046109044cf7c2f2d7c00ce06fa4955f538",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "overlaps": [
+    0.4,
+    0.6,
+    0.8,
+    1.0,
+    1.2
+  ],
+  "task": {
+    "grid": 4,
+    "n_active": 3,
+    "dim": 40,
+    "label": "random",
+    "n_class": 4
+  },
+  "L": 8,
+  "window": 2,
+  "numpy": "2.3.5",
+  "wall_clock_s": 624.6
+}

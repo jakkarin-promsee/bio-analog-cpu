@@ -1,0 +1,19 @@
+{
+  "experiment": "p4_4",
+  "git_commit": "60faf046109044cf7c2f2d7c00ce06fa4955f538",
+  "classes": [
+    2,
+    4,
+    10,
+    20
+  ],
+  "n_clusters": 40,
+  "dim": 40,
+  "overlap": 0.6,
+  "reals": [
+    "digits",
+    "cifar"
+  ],
+  "numpy": "2.3.5",
+  "wall_clock_s": 2849.8
+}

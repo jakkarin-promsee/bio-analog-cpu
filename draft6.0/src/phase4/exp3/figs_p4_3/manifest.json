@@ -1,0 +1,27 @@
+{
+  "experiment": "p4_3",
+  "git_commit": "60faf046109044cf7c2f2d7c00ce06fa4955f538",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "depths": [
+    2,
+    3,
+    4,
+    6,
+    8
+  ],
+  "regimes": [
+    "flat",
+    "headroom"
+  ],
+  "budget_weights": 23460,
+  "dim": 40,
+  "n_class": 4,
+  "numpy": "2.3.5",
+  "wall_clock_s": 2026.6
+}

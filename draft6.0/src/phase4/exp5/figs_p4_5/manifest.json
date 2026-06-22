@@ -1,0 +1,25 @@
+{
+  "experiment": "p4_5",
+  "git_commit": "60faf046109044cf7c2f2d7c00ce06fa4955f538",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "overlaps": [
+    0.4,
+    0.7,
+    1.0
+  ],
+  "conds": [
+    "gd",
+    "contrast_sleep",
+    "contrast_nosleep"
+  ],
+  "n_class": 10,
+  "n_clusters": 40,
+  "dim": 40,
+  "digits": true,
+  "numpy": "2.3.5",
+  "wall_clock_s": 151.8
+}

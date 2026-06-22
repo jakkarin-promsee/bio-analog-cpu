@@ -1,0 +1,23 @@
+{
+  "experiment": "p4_6",
+  "git_commit": "60faf046109044cf7c2f2d7c00ce06fa4955f538",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "sigmas": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "noise": "multiplicative weight",
+  "reps": 5,
+  "task": "make_gauss flat 4-class",
+  "numpy": "2.3.5",
+  "wall_clock_s": 104.3
+}
