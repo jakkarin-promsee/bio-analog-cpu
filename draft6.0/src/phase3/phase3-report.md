@@ -1,13 +1,11 @@
 # Phase 3 — the objective reframe: how forward-only learning earns depth (the report)
 
-> **Status:** Complete (2026-06-21 → 22, P3.0 → P3.3). **Voice:** first-person "we" research log.
-> **What this is:** the reader-facing narrative of Phase 3 — Phase 2 closed the wrong thing; we swap the
-> objective, add the user's coordination idea, and win depth (forward-only, unsupervised), then prove it
-> doesn't cost the continual win. **Adopted; supersedes energy-goodness.**
-> **Draws from:** [`phase3-summarize.md`](phase3-summarize.md) · [`RESULTS.md`](RESULTS.md) · the
-> `expK/experiment-K.md` cards · [`result-format.md`](result-format.md) · literature
-> [`../../ref2/`](../../ref2/README.md).
-> **Terms & metrics:** [`../ref-report/`](../ref-report/README.md).
+> The reader-facing narrative of Phase 3 (P3.0 → P3.3, June 2026): Phase 2 closed the wrong thing; we swap the
+> objective, add the user's coordination idea, and win depth (forward-only, unsupervised), then prove it doesn't
+> cost the continual win — **adopted; it supersedes energy-goodness.** A first-person research log, figures and
+> tables inline. Terms and metrics are defined in [`../ref-report/`](../ref-report/README.md); the literature
+> behind the reframe is [`../../ref2/`](../../ref2/README.md); the terser source it draws from is the
+> [summary](phase3-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
 
 ---
 

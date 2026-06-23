@@ -1,12 +1,10 @@
 # Phase 1 — building the cell, and finding where it wins (the report)
 
-> **Status:** Complete (2026-06-20, exp0 → exp4). **Voice:** first-person "we" research log.
-> **What this is:** the reader-facing narrative of Phase 1 — why we ran each rung, what broke, what the sim
-> said (often overruling the plan), and the decision it set. Figures and scalar tables inline.
-> **Draws from:** [`phase1-summarize.md`](phase1-summarize.md) · [`RESULTS.md`](RESULTS.md) · the
-> `expK/experiment-K.md` cards · house style [`result-format.md`](result-format.md).
-> **Terms & metrics:** [`../ref-report/`](../ref-report/README.md). **Plan/decisions:**
-> [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md).
+> The reader-facing narrative of Phase 1 (exp0 → exp4, June 2026): why we ran each rung, what broke, what the
+> simulation said — often overruling the plan — and the decision each set. A first-person research log, with
+> figures and scalar tables inline. Terms and metrics are defined in [`../ref-report/`](../ref-report/README.md);
+> the terser source it draws from is the [summary](phase1-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger,
+> and the `expK/experiment-K.md` cards.
 
 ---
 

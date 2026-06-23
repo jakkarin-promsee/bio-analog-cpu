@@ -1,12 +1,11 @@
 # Phase 4 — the capability map: characterizing the adopted cell (the report)
 
-> **Status:** Complete (2026-06-22, P4.0 → P4.7). **Voice:** first-person "we" research log.
-> **What this is:** the reader-facing narrative of Phase 4 — we stop improving the cell and **characterize** it,
-> mapping the gap to a genuinely-tuned backprop ceiling across seven controlled axes. The map says exactly what
-> the project always claimed: a substrate-native **continual** learner, not a static-accuracy competitor.
-> **Draws from:** [`phase4-summarize.md`](phase4-summarize.md) · [`RESULTS.md`](RESULTS.md) · the
-> `expK/experiment-K.md` cards · [`result-format.md`](result-format.md).
-> **Terms & metrics:** [`../ref-report/`](../ref-report/README.md).
+> The reader-facing narrative of Phase 4 (P4.0 → P4.7, June 2026): we stop improving the cell and
+> **characterize** it, mapping the gap to a genuinely-tuned backprop ceiling across seven controlled axes. The
+> map says exactly what the project always claimed — a substrate-native **continual** learner, not a
+> static-accuracy competitor. A first-person research log, figures and tables inline. Terms and metrics are
+> defined in [`../ref-report/`](../ref-report/README.md); the terser source it draws from is the
+> [summary](phase4-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
 
 ---
 

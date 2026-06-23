@@ -1,13 +1,13 @@
 # Stage 1 — the cheap brain, built and characterized (the report)
 
-> **Status:** Stage 1 complete (2026-06-20 → 22, Phases 1–4). **Voice:** first-person "we" research log.
-> **What this is:** the executive narrative of Stage 1 of draft 6.0 — the four-phase arc that built the first
-> organ (the SCFF+GD neocortex cell), found where it wins, failed to make it deep, found *how* it can be deep,
-> and characterized the result. Each phase has its own detailed report; this is the spine that connects them.
-> **The four phase reports:** [Phase 1](phase1/phase1-report.md) · [Phase 2](phase2/phase2-report.md) ·
-> [Phase 3](phase3/phase3-report.md) · [Phase 4](phase4/phase4-report.md).
-> **Terms & metrics:** [`ref-report/`](ref-report/README.md). **Decision record:**
-> [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md). **The soul:** [`../../docs/essence/the-essence.md`](../../docs/essence/the-essence.md).
+> The executive narrative of Stage 1 of draft 6.0 (Phases 1–4, June 2026) — the four-phase arc that built the
+> first organ (the SCFF + GD neocortex cell), found where it wins, failed to make it deep, found *how* it can be
+> deep, and characterized the result. Each phase has its own detailed report; this is the spine that connects
+> them, written as a first-person research log. The four reports: [Phase 1](phase1/phase1-report.md) ·
+> [Phase 2](phase2/phase2-report.md) · [Phase 3](phase3/phase3-report.md) · [Phase 4](phase4/phase4-report.md).
+> Terms and metrics are defined in [`ref-report/`](ref-report/README.md); the committed design is the
+> [decision record](../idea/main.ideas.v1.md); the project's origin is told in
+> [`the-essence`](../../docs/essence/the-essence.md).
 
 ---
 

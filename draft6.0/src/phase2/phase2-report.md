@@ -1,11 +1,10 @@
 # Phase 2 — depth is not SCFF's lever (the report)
 
-> **Status:** Complete (2026-06-21, P2.0 → P2.6). **Voice:** first-person "we" research log.
-> **What this is:** the reader-facing narrative of Phase 2 — the depth question, every closed escape hatch,
-> and the cheap survivor. The sims said *no*, decisively, and proving that **is** the result.
-> **Draws from:** [`phase2-summarize.md`](phase2-summarize.md) · [`RESULTS.md`](RESULTS.md) · the
-> `expK/experiment-K.md` cards · [`result-format.md`](result-format.md).
-> **Terms & metrics:** [`../ref-report/`](../ref-report/README.md).
+> The reader-facing narrative of Phase 2 (P2.0 → P2.6, June 2026): the depth question, every closed escape
+> hatch, and the cheap survivor. The sims said *no*, decisively — and proving that **is** the result. A
+> first-person research log, figures and tables inline. Terms and metrics are defined in
+> [`../ref-report/`](../ref-report/README.md); the terser source it draws from is the
+> [summary](phase2-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
 
 ---
 
