@@ -75,7 +75,7 @@ def bayes_error(params, rng, n=40000):
 # ============================================================ Mono-Forward (supervised-local racer)
 class MonoForward:
     """Per-layer local cross-entropy on a projection M_l (classes x width) — forward-only, gradient-isolated
-    between layers (the ref2 Mono-Forward). Layer-norm forward (matched to OURS). Predict = sum of per-layer
+    between layers (the Mono-Forward reference). Layer-norm forward (matched to OURS). Predict = sum of per-layer
     logits."""
     def __init__(self, dims, C, *, lr=0.02, seed=0):
         rng = np.random.default_rng(seed)

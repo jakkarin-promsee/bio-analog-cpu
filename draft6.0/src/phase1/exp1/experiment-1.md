@@ -3,7 +3,7 @@
 > The first real test of the thesis: a single **block** = `[SCFF feature layers → GD checkpoint]`
 > vs a **pure-GD MLP at the same total weights**. Not "who wins" — *the difference*, forward and
 > backward, and the **memorization gap**. Spec: [`../README.md`](../README.md) (Exp 1); reporting:
-> [`../result-format.md`](../result-format.md); the *why*: [`../../idea/ideas1.md`](../../idea/ideas1.md).
+> [`../result-format.md`](../result-format.md); the *why*: [`../../../idea/ideas1.md`](../../../idea/ideas1.md).
 
 ## Question
 

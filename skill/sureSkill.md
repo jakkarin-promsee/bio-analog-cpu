@@ -37,7 +37,7 @@ High confidence — the *design reasoning* is solid and the docs capture it; I c
 - **The thesis and the shape.** Direction is the one expensive thing in learning → pay for it once (GD),
   keep the rest cheap (SCFF). Two brains: a label-free local SCFF front (~80%), a small precise GD back
   (~20%), chained as residual boosting blocks, threshold-gated, sleep-consolidated over a hippocampus LUT.
-  Each call has a paper behind it (`draft6.0/ref/`), and the internal logic is consistent (`ideas1.md`
+  Each call has a paper behind it (`draft6.0/research/papers/`), and the internal logic is consistent (`ideas1.md`
   chapters each solve the prior one's problem).
 - **The substrate (unchanged across the pivot).** The Scap (a *wire*, not a neuron), the crossbar MAC,
   mono-forward dual-rail (two worlds through one shared weight crossbar; only the cheap activation buffers
@@ -78,7 +78,7 @@ High confidence — the *design reasoning* is solid and the docs capture it; I c
 
 **The recurrent lifelong-learning brain** (correctness-as-a-feeling) — *beyond* the numbered phases (1 =
 structure/done, 2 = depth round 1/done, 3 = depth round 2/done, 4 = characterization/done, 5 = optimization/
-upcoming) — is the real north star but **deliberately not specced.** Hold it as direction (`draft6.0/future-ref/`,
+upcoming) — is the real north star but **deliberately not specced.** Hold it as direction (`draft6.0/research/north-star/`,
 `docs/essence`), not a task.
 
 ## The honest one-liner

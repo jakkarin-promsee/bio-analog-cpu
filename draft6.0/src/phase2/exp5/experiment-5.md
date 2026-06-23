@@ -166,7 +166,7 @@ real home is the *continual* regime, not static depth** (Phase-1's verdict, neve
 - **Phase-1 exp3** ([`../../phase1/exp3/run_exp3.py`](../../phase1/exp3/run_exp3.py)) — the residual boosting
   chain; found chain > single block but **saturates ~2 blocks**. P2.5 re-tests under the substrate framing + adds
   the write mode.
-- **BoostResNet** ([`../../ref/boostresnet.md`](../../ref/boostresnet.md)) — boosting wants *diverse* weak
+- **BoostResNet** ([`../../../research/papers/phase1-2/boostresnet.md`](../../../research/papers/phase1-2/boostresnet.md)) — boosting wants *diverse* weak
   learners; full residual ε=1 (Phase-1 confirmed). The write mode's rationale.
 - **P2.1/P2.2** — the decisive negatives that route here; the healthy shallow-SCFF cell carried as the per-block
   front.

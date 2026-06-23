@@ -197,7 +197,7 @@ SCFF-layer-count.** Contrast > two-sided θ. Drift measured for the Phase-5 gate
 - **CIFAR-flat is the wall, but a hard regime** — a flat MLP on raw pixels with no class structure for an
   unsupervised rule to compose; the wall reproduces there, the dial (synth) has none.
 - **P2.2's "intrinsic to forward-only locality" is one word too strong.** This is the load-bearing caveat: the
-  ref2 literature pass (and Phase 3) narrow it to "intrinsic to the *energy* objective." Every energy-goodness
+  literature pass in `research/papers/` (and Phase 3) narrow it to "intrinsic to the *energy* objective." Every energy-goodness
   result here still stands — Phase 3 tests a different objective *family*, not a re-run.
 - **The literature earns depth with *supervised* per-layer CE on *CNNs*** — a genuinely different regime from our
   unsupervised flat-MLP; reading their success as a refutation of our wall would be a category error.

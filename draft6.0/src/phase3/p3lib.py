@@ -3,7 +3,7 @@ p3lib — the Phase-3 substrate: SCFF with a PLUGGABLE OBJECTIVE (energy vs info
 
 Phase 2 closed the *energy-goodness* family (G=Sum h^2 / Sum h): a deep stack can't earn depth, transmission
 (P2.1) and objective-within-energy (P2.2, oracle-proof) both fail. The wall is intrinsic to the ENERGY
-objective, NOT to forward-only locality (ref2/the-objective-reframe.md): Greedy InfoMax / CLAPP / greedy
+objective, NOT to forward-only locality (research/papers/phase3/the-objective-reframe.md): Greedy InfoMax / CLAPP / greedy
 layer-wise denoising-AE pretraining are forward-only, gradient-isolated, unsupervised, AND depth-composing,
 because their objective is information-PRESERVING / predictive.
 

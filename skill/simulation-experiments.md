@@ -24,7 +24,7 @@ result is one picture, not an argument.
    discipline** and a **pass/fail picture per rung.** Start at the rung you're on.
 2. **[`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md) → "Open knobs."** What each
    experiment is actually deciding (front:back plasticity ratio, gate threshold, sleep cadence, …).
-3. **[`draft6.0/ref/`](../draft6.0/ref/README.md)** (+ **[`ref2/`](../draft6.0/ref2/README.md)** for the
+3. **[`draft6.0/research/papers/`](../draft6.0/research/papers/README.md)** (+ **[`research/papers/`](../draft6.0/research/papers/README.md)** for the
    Phase-3 depth-direction survey) — the paper behind whatever you're testing (SCFF, Distance-Forward,
    BoostResNet, BYOL, LLRD; GIM/CLAPP/Mono-Forward), so you know what "working" looks like.
 4. **[`draft6.0/src/phase1/result-format.md`](../draft6.0/src/phase1/result-format.md)** — the house style for
@@ -54,7 +54,7 @@ finding, not a nuisance.
 - **The hippocampus LUT is a service, not a parallel brain.** It feeds SCFF its negatives (**stub it first**
   — a random partner from the current batch, no memory) and holds the replay history for sleep (where it
   becomes a real organ, **at 3.2**). Never build it as its own milestone.
-- **The phase-2 menu** ([`draft6.0/future-ref/`](../draft6.0/future-ref/README.md) topics 1–6) **stays
+- **The phase-2 menu** ([`draft6.0/research/north-star/`](../draft6.0/research/north-star/README.md) topics 1–6) **stays
   closed** — compass for later organs, not this build.
 
 ## Constraints

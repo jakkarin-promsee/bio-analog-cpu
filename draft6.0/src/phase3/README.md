@@ -10,9 +10,9 @@
 > ([`RESULTS.md`](RESULTS.md) is the ledger); the metric/figure contract is [`result-format.md`](result-format.md).
 > → **Phase 4** (maintenance: Ch7 gate + sleep-cadence) tunes against this cell.
 > Builds on Phase 2's bench (`../phase2/p2lib.py`, the P2.1 healthy cell, the exp4 continual harness) and the
-> survey in [`../../ref2/`](../../ref2/README.md).
+> survey in [`../../research/papers/`](../../research/papers/README.md).
 >
-> **Read [`../../ref2/the-objective-reframe.md`](../../ref2/the-objective-reframe.md) first.** v2 changes from v1:
+> **Read [`../../research/papers/phase3/the-objective-reframe.md`](../../research/papers/phase3/the-objective-reframe.md) first.** v2 changes from v1:
 > the prediction target is **decided** (masked-feature reconstruction), the ladder is **reordered to lead with
 > the make-or-break objective swap**, and the phase numbering is **resolved** (this is Phase 3; maintenance → 4).
 
@@ -76,7 +76,7 @@ belongs as the *coordination* lever (= your Direction 1) in P3.1.
 
 ---
 
-## 1. The levers (carried from ref2)
+## 1. The levers (carried from the Phase-3 survey)
 
 | lever | source | what it changes | unsupervised? | substrate note |
 | --- | --- | --- | --- | --- |
@@ -244,7 +244,7 @@ the live next phase.
 
 ## 9. References
 
-Full survey + verdicts: [`../../ref2/`](../../ref2/README.md). Core: Greedy InfoMax
+Full survey + verdicts: [`../../research/papers/`](../../research/papers/README.md). Core: Greedy InfoMax
 [1905.11786](https://arxiv.org/abs/1905.11786) · CLAPP [2010.08262](https://arxiv.org/abs/2010.08262) ·
 SCFF-named benchmark [2601.21683](https://arxiv.org/abs/2601.21683) · OLU/Trifecta
 [2311.18130](https://arxiv.org/abs/2311.18130) · Mono-Forward [2501.09238](https://arxiv.org/abs/2501.09238) ·

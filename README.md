@@ -78,7 +78,7 @@ The full, reader-facing write-up lives in **[`draft6.0/src/stage1-report.md`](dr
 | The Stage-1 results — narrative + figures | [`draft6.0/src/stage1-report.md`](draft6.0/src/stage1-report.md) → the four `phaseN-report.md` |
 | The committed design decisions | [`draft6.0/idea/main.ideas.v1.md`](draft6.0/idea/main.ideas.v1.md) |
 | The simulation code (per phase, regenerable) | [`draft6.0/src/`](draft6.0/src/) (`phase1..4/`) |
-| The papers behind it | [`draft6.0/ref/`](draft6.0/ref/) · [`draft6.0/ref2/`](draft6.0/ref2/) |
+| The papers behind it | [`draft6.0/research/papers/`](draft6.0/research/papers/) |
 | The soul of the project — why it exists | [`docs/essence/the-essence.md`](docs/essence/the-essence.md) |
 | The superseded draft-5 (attribution) era — *pre-pivot history, not the current design* | [`draft5.0/`](draft5.0/) |
 

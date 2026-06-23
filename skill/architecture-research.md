@@ -29,7 +29,7 @@ And still: **triage every new idea — catching scope-creep is your job.**
 2. **[`draft6.0/idea/ideas1.md`](../draft6.0/idea/ideas1.md)** — the full derivation (each chapter solves
    the previous one's problem) **and the Phase-1 build plan** (the experiment ladder). A new idea must land
    somewhere on that ladder, or it's a future track.
-3. **[`draft6.0/ref/`](../draft6.0/ref/README.md)** — the paper behind each decision (one story per paper).
+3. **[`draft6.0/research/papers/`](../draft6.0/research/papers/README.md)** — the paper behind each decision (one story per paper).
    Read the relevant one before second-guessing a call it backs.
 4. **[`docs/draft/project-personal.md`](../docs/draft/project-personal.md)** — how to collaborate (no
    hedging; pick a position; when the user pushes back, **slow down and re-read before reasserting**).
@@ -41,7 +41,7 @@ And still: **triage every new idea — catching scope-creep is your job.**
 - **Triage every idea into three bins:** (a) it tests on the **current ladder** (1.0 → 4.x) → it's a
   Phase experiment (1 structure / 2 depth round 1 / 3 depth round 2 / 4 characterization — **all done**; 5 = optimization, upcoming); (b) it's the **north-star /
   future track** (the recurrent thinking brain, *beyond* the numbered phases) → it belongs in
-  [`draft6.0/future-ref/`](../draft6.0/future-ref/README.md), held as a compass, **not** pulled into the plan
+  [`draft6.0/research/north-star/`](../draft6.0/research/north-star/README.md), held as a compass, **not** pulled into the plan
   without the author; (c) neither → name why and let it go.
 - **Architecture changes are decisions, not experiments** — backed by a sim *result*, not a hunch. (6.0 is
   young, so this is lighter than 5.1's frozen process — but a *result*, not an argument, still moves the
@@ -86,4 +86,4 @@ And still: **triage every new idea — catching scope-creep is your job.**
 
 - A new idea is triaged into **current-ladder / future-track / rejected** — explicitly, with the reason.
 - A proposed change to the spine cites a sim result (or is flagged as "needs a run first"), not a hunch.
-- You read the relevant `ref/` story (and `project-history.md` for old calls) before reopening anything.
+- You read the relevant `research/papers/` story (and `project-history.md` for old calls) before reopening anything.

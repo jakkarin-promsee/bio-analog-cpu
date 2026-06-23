@@ -77,7 +77,7 @@ curve — and keeps the per-layer features *visualizable*, which is the whole po
 - **The complexity dial is an experiment axis** — sweep it for the reachability surface (defined once in §3).
 - **Later (a probe, not the claim).** Once the ideal converges, confirm on **one small real dataset** (a
   small tabular set, or MNIST as a flat-MLP probe) so the result isn't synthetic-only. External benchmark
-  *chasing* (CIFAR/ImageNet, conv front-ends) stays out of scope — that's `future-ref` territory.
+  *chasing* (CIFAR/ImageNet, conv front-ends) stays out of scope — that's `research/north-star/` territory.
 
 ## 2. The mechanics, resolved
 
@@ -236,7 +236,7 @@ for is the error-reduction *shape* and the *gap*, not raw victory.)
 
 **Setup.** Control = a deeper pure-GD MLP, same total weights. Treatment = **N blocks on a residual stream**
 (`r_k = r_{k-1} +` Block *k*'s correction; the final prediction reads the accumulated sum — **N3 boosting
-telescoping sum**, [`../../ref/boostresnet.md`](../../ref/boostresnet.md)).
+telescoping sum**, [`../../research/papers/phase1-2/boostresnet.md`](../../research/papers/phase1-2/boostresnet.md)).
 Each block = SCFF feature work + an **Interface GD** checkpoint that fits the **residual its predecessor
 left** (the weak corrector), with one **Output GD** namer at the end. The **linear inter-block delta**
 (ideas1 Ch 9) is available as the optional O(blocks) direction top-up, **off by default** (boosting makes

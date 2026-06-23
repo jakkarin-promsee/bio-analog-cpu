@@ -1,7 +1,7 @@
 # Methods — the mechanisms the reports name
 
-> Report-altitude definitions, grouped into four bands. Full stories: [`../../ref/`](../../ref/README.md) ·
-> [`../../ref2/`](../../ref2/README.md) · detail: [`../../concept/`](../../concept/README.md).
+> Report-altitude definitions, grouped into four bands. Full stories: [`../../research/papers/`](../../research/papers/README.md) ·
+> detail: [`../../research/survey/`](../../research/survey/README.md).
 > Decision record: [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md).
 
 ---
@@ -15,7 +15,7 @@ single coherent thing, or a mash-up?"* — with no labels, no backward pass, and
 activity (local, derivative-free, forward-only). Our **sum** reformulation (one weight on `x_pos + x_neg`) equals
 the paper's concatenation form exactly because `W₁ = W₂`, and is what makes mono-forward possible. It clusters by
 **density, not class** — the through-line wound.
-- **Onward:** [`../../ref/scff.md`](../../ref/scff.md) · [`../../concept/SCFF.detail.md`](../../concept/SCFF.detail.md) · [`papers.md#scff`](papers.md#scff)
+- **Onward:** [`../../research/papers/phase1-2/scff.md`](../../research/papers/phase1-2/scff.md) · [`../../research/survey/SCFF.detail.md`](../../research/survey/SCFF.detail.md) · [`papers.md#scff`](papers.md#scff)
 - **Used in:** Phase 1, 2, 3, 4
 
 ### Forward-Forward (FF) — the ancestor
@@ -59,7 +59,7 @@ A candidate Phase-3 objective: each layer reconstructs held-out input dimensions
 info-preserving target — single-sample, no negatives). It preserves *all* the input information — i.e. **density** —
 which sits *below* a random projection on class separability, so it was **rejected** (P3.0): preservation alone
 preserves the wrong thing.
-- **Onward:** [`../../ref2/the-objective-reframe.md`](../../ref2/the-objective-reframe.md)
+- **Onward:** [`../../research/papers/phase3/the-objective-reframe.md`](../../research/papers/phase3/the-objective-reframe.md)
 - **Used in:** Phase 3 (P3.0, the rejected arm)
 
 ### Contrast objective (InfoNCE, two-mask views)
@@ -67,7 +67,7 @@ The **adopted** Phase-3 objective: each layer is trained with a local InfoNCE lo
 (close for the same sample, far for others; temperature 0.5), preserving the **discriminative (class)** part of the
 information rather than all of it (density). This is why every depth-composing local learner (GIM/CLAPP) is
 contrastive, not an autoencoder. It supersedes energy goodness.
-- **Onward:** [`../../ref2/the-objective-reframe.md`](../../ref2/the-objective-reframe.md) · [`papers.md#clapp`](papers.md#clapp)
+- **Onward:** [`../../research/papers/phase3/the-objective-reframe.md`](../../research/papers/phase3/the-objective-reframe.md) · [`papers.md#clapp`](papers.md#clapp)
 - **Used in:** Phase 3 (adopted), 4 (the cell under test)
 
 ### Coordination window `w` (OLU / Direction 1)
@@ -75,7 +75,7 @@ The user's "Direction 1": a layer learns to help the *next* layer's discriminati
 as a window of `w` layers trained in joint groups (gradient shared inside the window, then detached at the
 boundary), forward-only. It converts contrast's preserved-but-myopic features into **composed** ones — the
 cross-layer coordination P2.2 named as missing. `w ≥ 2`; larger windows help more where headroom is large.
-- **Onward:** [`../../ref2/direction-1-cross-layer-goodness.md`](../../ref2/direction-1-cross-layer-goodness.md)
+- **Onward:** [`../../research/papers/phase3/direction-1-cross-layer-goodness.md`](../../research/papers/phase3/direction-1-cross-layer-goodness.md)
 - **Used in:** Phase 3 (P3.1/P3.2), 4 (A3 lever)
 
 ## Band 3 — chain + maintenance
@@ -85,7 +85,7 @@ GD checkpoints arranged as residual blocks, each fitting the **residual** the pr
 (BoostResNet), so each block is a *weak corrector*, not a full predictor. The boosting guarantee lives on the
 *labels* → in the GD heads, not the unsupervised SCFF. Full residual ε=1 (per-block features individually degrade)
 gives the most diverse, best ensemble; in practice error saturates after ~2 blocks.
-- **Onward:** [`../../ref/boostresnet.md`](../../ref/boostresnet.md) · [`papers.md#boostresnet`](papers.md#boostresnet)
+- **Onward:** [`../../research/papers/phase1-2/boostresnet.md`](../../research/papers/phase1-2/boostresnet.md) · [`papers.md#boostresnet`](papers.md#boostresnet)
 - **Used in:** Phase 1 (exp3), 2 (P2.5)
 
 ### Plasticity gradient / slow read-layers (N2)
@@ -133,5 +133,5 @@ goodness-as-logits → *local* cross-entropy, with no signal crossing layers; fl
 some image MLPs. We race it as the strongest forward-only-supervised bar — but it's an *unreliable* reference: it
 collapses in high-D (A2) and only catches up at high class count (A5).
 - **Note:** not "mono-forward" (Band 1, the dual-rail scheme).
-- **Onward:** [`../../ref2/direction-3-forward-only-alternatives.md`](../../ref2/direction-3-forward-only-alternatives.md) · [`papers.md#mono-forward`](papers.md#mono-forward)
+- **Onward:** [`../../research/papers/phase3/direction-3-forward-only-alternatives.md`](../../research/papers/phase3/direction-3-forward-only-alternatives.md) · [`papers.md#mono-forward`](papers.md#mono-forward)
 - **Used in:** Phase 4 (the third racer)

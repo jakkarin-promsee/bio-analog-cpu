@@ -66,7 +66,7 @@ record). The shape:
   precise **gradient-descent** back (~20%) maps features to real labels. *Direction is the one expensive
   thing in learning, so pay for it once.*
 - **Residual boosting blocks.** The two brains chain as blocks — each block a *weak corrector* on a
-  residual stream (boosting; `ref/boostresnet.md`), SCFF doing feature work inside, a GD checkpoint at the
+  residual stream (boosting; `research/papers/phase1-2/boostresnet.md`), SCFF doing feature work inside, a GD checkpoint at the
   exit. This is what makes blocks "discrete."
 - **The middle layer = stability + coordination.** A *plasticity-gradient slowdown* (slow the late SCFF
   layers GD reads — mirrored LLRD) keeps the interface still; *overlapping blocks* (DF-O) coordinate.
@@ -88,16 +88,16 @@ record). The shape:
 
 ## 4. The learning mechanism (draft 6.0) — SCFF + gradient descent
 
-Read `draft6.0/README.md` then `draft6.0/idea/ideas1.md`; the paper stories are in `draft6.0/ref/`.
+Read `draft6.0/README.md` then `draft6.0/idea/ideas1.md`; the paper stories are in `draft6.0/research/papers/`.
 
 - **SCFF (the cheap brain).** Label-free, forward-only, local. Build a **positive** = a sample paired with
   itself, a **negative** = a sample paired with a different sample; train each layer so its *goodness*
   (`‖h‖²`) is high on positives, low on negatives. No backward pass, no labels. It is the only rule that is
   local + derivative-free + forward-only + unsupervised at once. *Where SCFF's accuracy gap opens (hard
-  tasks) is exactly where the GD brain takes over.* (`ref/scff.md`)
+  tasks) is exactly where the GD brain takes over.* (`research/papers/phase1-2/scff.md`)
 - **GD (the precise brain).** A small modern optimizer (Adam-class online, full-batch at sleep) maps SCFF
   features to real labels via the residual boosting checkpoints. It is **licensed to be fully modern** —
-  the bio-cleverness lives in SCFF; GD is the part we let be unapologetically precise. (`ref/boostresnet.md`)
+  the bio-cleverness lives in SCFF; GD is the part we let be unapologetically precise. (`research/papers/phase1-2/boostresnet.md`)
 - **Grounding (the deep why).** A self-generated learning signal must stay tethered to reality (prediction
   error + occasional real labels) or it collapses to "everything is correct." This is the seed of the
   north-star (correctness as a *feeling*, *beyond* the numbered phases), but **that is not specced** — see `docs/essence`.
@@ -144,7 +144,7 @@ the pivot: the brain isn't homogeneous and can't be simulated 1:1 — ML *cheats
 **Calibrate your trust:**
 
 - **Solid.** The *design reasoning* is internally consistent and grounded in real published work (each
-  decision has a paper story in `ref/`). The *why* (the substrate, the 80/20, the grounding) is coherent.
+  decision has a paper story in `research/papers/`). The *why* (the substrate, the 80/20, the grounding) is coherent.
 - **Now proven (Stage 1, Phases 1–4).** The hybrid converges; the **continual win** (sleep recovers what
   online-BP catastrophically forgets) is real and robust; **contrast + coordination** earns depth where
   energy-goodness can't (adopted). The numbers that were the *plan's* knobs are now largely **set** by the sims.
@@ -192,11 +192,11 @@ Full version: `docs/draft/project-personal.md` — read it before any non-trivia
 | You are about to… | Read |
 | --- | --- |
 | Understand the live plan / what we're building | `draft6.0/idea/main.ideas.v1.md` + `ideas1.md` |
-| Understand a 6.0 decision's evidence | `draft6.0/ref/` (one story per paper) |
-| Browse the learning-rule zoo | `draft6.0/concept/summary.detail.md` |
-| Research the north-star / recurrent brain (beyond the numbered phases) | `draft6.0/future-ref/` (21-file dossier — free-time reading, *not* the live plan) |
+| Understand a 6.0 decision's evidence | `draft6.0/research/papers/` (one story per paper) |
+| Browse the learning-rule zoo | `draft6.0/research/survey/summary.detail.md` |
+| Research the north-star / recurrent brain (beyond the numbered phases) | `draft6.0/research/north-star/` (21-file dossier — free-time reading, *not* the live plan) |
 | Code / plan a Phase-2 experiment (depth round 1, done) | `draft6.0/src/phase2/` (README plan + result-format) |
-| Code / plan a Phase-3 experiment (depth round 2, the objective reframe) | `draft6.0/src/phase3/` (README plan + result-format) + `draft6.0/ref2/` (survey) |
+| Code / plan a Phase-3 experiment (depth round 2, the objective reframe) | `draft6.0/src/phase3/` (README plan + result-format) + `draft6.0/research/papers/` (survey) |
 | Understand the old attribution chip (history) | `draft5.0/draft5.1-1.md` + `docs/draft/project-history.md` |
 | Read the (historical) simulator code | `skill/simulator-code.md` → `draft5.0/src/docs/*` (attribution-era) |
 | Propose a change / make a scope call | `skill/architecture-research.md` |

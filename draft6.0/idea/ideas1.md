@@ -195,7 +195,7 @@ $$h^l = \phi\!\left(W^l\,\hat h^{\,l-1}\right), \qquad \hat h^l = \frac{h^l}{\lV
 $$G^l = \lVert h^l\rVert^2, \qquad
 \mathcal{L}^l = \log\!\big(1+e^{-(G^l_\text{pos}-\theta)}\big) + \log\!\big(1+e^{+(G^l_\text{neg}-\theta)}\big)$$
 
-> *Goodness is the **sum** $\lVert h\rVert^2$, not the paper's mean $\lVert h\rVert^2/M$ — deliberate, and confirmed by the exp0 gate run (2026-06-20): the sum form is $\approx 1$ at init and width-independent, so $\theta=2.0$ works under plain online SGD; the mean form starves deeper layers to $\approx 1/M$. See [`../concept/SCFF.detail.md`](../concept/SCFF.detail.md) (draft-6.0 note) and [`../src/phase1/exp0/experiment-0.md`](../src/phase1/exp0/experiment-0.md).*
+> *Goodness is the **sum** $\lVert h\rVert^2$, not the paper's mean $\lVert h\rVert^2/M$ — deliberate, and confirmed by the exp0 gate run (2026-06-20): the sum form is $\approx 1$ at init and width-independent, so $\theta=2.0$ works under plain online SGD; the mean form starves deeper layers to $\approx 1/M$. See [`../research/survey/SCFF.detail.md`](../research/survey/SCFF.detail.md) (draft-6.0 note) and [`../src/phase1/exp0/experiment-0.md`](../src/phase1/exp0/experiment-0.md).*
 
 **Local update (gradient through one layer only) with the plasticity gradient:**
 $$\Delta W^l = -\,\eta_l\,\frac{\partial \mathcal{L}^l}{\partial W^l}, \qquad
@@ -242,7 +242,7 @@ The chapters above are the *why*, in derivation order. This is the *what*, in th
 - **Walk one spine — the neocortex (SCFF + GD).** Build straight down the ladder; don't open a second track.
 - **The hippocampus LUT is a service, not a parallel brain.** It plugs into the spine at exactly two points: it feeds SCFF its *negatives* (stub it first with a random partner from the current batch — no memory), and it holds the *replay history* for sleep (where it finally becomes a real organ, at 3.2). You never build it as its own milestone.
 - **Test convergence, not theory.** SCFF + GD + boosting are settled; each rung's result is one picture, not an argument.
-- **The phase-2 menu ([`future-ref/`](../future-ref/README.md) topics 1–6) stays closed.** It's the compass for later organs, not this build.
+- **The phase-2 menu ([`research/north-star/`](../research/north-star/README.md) topics 1–6) stays closed.** It's the compass for later organs, not this build.
 
 **1 — the atoms** *(Chapters 1–5)*
 - **1.0 — full SCFF.** Locked from the first run: mono-forward dual-rail, mandatory inter-layer norm. Negatives = random-batch stub. Sub-cells: two-sided loss vs pure-contrast; a cheaper forward-only rival as a bench check. **Pass:** goodness separates (`G_pos`↑, `G_neg`↓) and the layers grow more separable with depth. This is the gate to everything else.

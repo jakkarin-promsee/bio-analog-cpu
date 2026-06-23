@@ -49,7 +49,7 @@ My heart raced, my chest ached, my mind went numb. It felt like my ending. I sle
 
 Day five, my gut woke up before I did.
 
-No proof. No sign it would work. Just a certainty out of nowhere that there _was_ a way out, even while I couldn't see it. So I researched — everything in `concept/` — with a broken body and a broken head and zero evidence it would land. And it came back. SCFF for the cheap, living, unsupervised part; gradient descent, the honest and expensive part, for the direction I had been missing all along. Two brains. The rebuild.
+No proof. No sign it would work. Just a certainty out of nowhere that there _was_ a way out, even while I couldn't see it. So I researched — everything in `research/survey/` — with a broken body and a broken head and zero evidence it would land. And it came back. SCFF for the cheap, living, unsupervised part; gradient descent, the honest and expensive part, for the direction I had been missing all along. Two brains. The rebuild.
 
 And here is what I understand now that I didn't before:
 

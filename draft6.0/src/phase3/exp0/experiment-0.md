@@ -18,7 +18,7 @@
 > — swap the per-layer goodness from energy `Σh²` to **masked-feature reconstruction** (information-preserving),
 > and ask whether the depth wall stops. Convention: question → setup → hypothesis → run → result → read →
 > decision. Plan: [`../README.md`](../README.md) §P3.0. Reporting: [`../result-format.md`](../result-format.md).
-> Reframe: [`../../../ref2/the-objective-reframe.md`](../../../ref2/the-objective-reframe.md).
+> Reframe: [`../../../research/papers/phase3/the-objective-reframe.md`](../../../research/papers/phase3/the-objective-reframe.md).
 
 ## Question
 
@@ -179,7 +179,7 @@ objectives, one bench, a clean decomposition:
 
 ## References (P3.0-specific)
 
-- **The objective reframe** ([`../../../ref2/the-objective-reframe.md`](../../../ref2/the-objective-reframe.md)) —
+- **The objective reframe** ([`../../../research/papers/phase3/the-objective-reframe.md`](../../../research/papers/phase3/the-objective-reframe.md)) —
   energy vs predictive/info-preserving; GIM/CLAPP; greedy layer-wise denoising-AE (Hinton'06/Bengio'07).
 - **Greedy InfoMax** ([1905.11786](https://arxiv.org/abs/1905.11786)) — *contrastive* (InfoNCE) preservation; the
   reason a plain autoencoder (this rung) is the wrong member of the family, and the route forward.

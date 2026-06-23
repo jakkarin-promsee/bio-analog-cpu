@@ -9,7 +9,7 @@ Phase 2 makes both a switch, so the P2.1 grid { squared, linear } goodness x { n
 config change, not a fork. The maths is the closed-form LOCAL SCFF gradient (no autograd),
 identical to scff_gate.py where the modes coincide — verified by reproducing the wall.
 
-The two axes, and why they are coupled (the DeeperForward finding, ref/deeperforward.md):
+The two axes, and why they are coupled (the DeeperForward finding, research/papers/phase1-2/deeperforward.md):
   GOODNESS
     squared : G = Σh²·gs   -> dG/dz = 2·gs·h        (the h-factor => quiet units freeze => dead-unit
                                                       cascade with depth; the Trifecta/Phase-1 wall)

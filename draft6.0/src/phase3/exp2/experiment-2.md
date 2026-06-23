@@ -84,5 +84,5 @@ stays an optional "is global cheaper than a window" refinement.)*
 
 - **P3.1** ([`../exp1/experiment-1.md`](../exp1/experiment-1.md)) — coordination works, flat-CIFAR capped (the
   PARTIAL this resolves). **P3.0** ([`../exp0/experiment-0.md`](../exp0/experiment-0.md)) — the contrastive objective.
-- **The reframe** ([`../../../ref2/the-objective-reframe.md`](../../../ref2/the-objective-reframe.md)) — predictive/
+- **The reframe** ([`../../../research/papers/phase3/the-objective-reframe.md`](../../../research/papers/phase3/the-objective-reframe.md)) — predictive/
   discriminative preservation composes depth (GIM/CLAPP); now shown on our substrate with coordination.

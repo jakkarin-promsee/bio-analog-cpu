@@ -30,7 +30,7 @@ So I'm taking many steps back. No in-chip memory, no analog ALU, no real circuit
 - **Neocortex** → the SCFF + GD block (the rest of this page).
 - **Hippocampus** → a LUT prototype store. I don't have its real shape yet, so the LUT stands in as the default until the math tells me what it wants to be.
 
-The worldview I'm aiming at now — heterogeneous organs, each with its own job and its own learning rule — is the one mapped out in [`future-ref/`](future-ref/README.md), topics **1–6**. That's the _direction_. The line I actually walk first is still the smallest stable thing there is: get SCFF + GD to converge.
+The worldview I'm aiming at now — heterogeneous organs, each with its own job and its own learning rule — is the one mapped out in [`research/north-star/`](research/north-star/README.md), topics **1–6**. That's the _direction_. The line I actually walk first is still the smallest stable thing there is: get SCFF + GD to converge.
 
 ## The plan I came back with
 
@@ -70,7 +70,6 @@ So the spine I came back with survived — two brains, blocks, gate, sleep — b
 | [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) | **the decision record** — N1–N3 + S1–S8, the live plan (spine committed; Stage 1 set most of the numbers).        |
 | [`idea/ideas1.md`](idea/ideas1.md)               | the full derivation, told as a story (every part + _why_).                                                        |
 | [`src/`](src/stage1-report.md)                   | **the results.** `stage1-report.md` (the four-phase arc) · `ref-report/` (glossary: methods / metrics / papers) · `phase{1..4}/` (per phase: the report, the summary, the `RESULTS.md` ledger, the run-cards + figures). |
-| [`concept/`](concept/README.md)                  | survey of learning algorithms — the _options_ considered (attribution here is draft-5.1 history).                 |
-| [`ref/`](ref/README.md)                          | paper stories behind the Phase-1/2 design (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD).                      |
-| [`ref2/`](ref2/README.md)                        | the Phase-3 depth-direction survey (Greedy InfoMax, CLAPP, Mono-Forward, the objective reframe).                  |
-| [`future-ref/`](future-ref/README.md)            | the **north-star** research dossier (beyond the numbered phases) — free-time reading, _not_ the line to walk now. |
+| [`research/survey/`](research/survey/README.md)         | survey of learning algorithms — the _options_ considered (attribution here is draft-5.1 history).                 |
+| [`research/papers/`](research/papers/README.md)         | paper stories behind the adopted design — Phase 1–2 (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD) **and** Phase 3 (Greedy InfoMax, CLAPP, Mono-Forward, the objective reframe). |
+| [`research/north-star/`](research/north-star/README.md) | the **north-star** research dossier (beyond the numbered phases) — free-time reading, _not_ the line to walk now (`th/` = Thai mirror). |

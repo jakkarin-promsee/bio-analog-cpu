@@ -4,8 +4,8 @@
 > fork that **routes the whole phase**, now resolved on CIFAR-10-flat (the wall reproduced cleanly; deep SCFF
 > features fall *below* a random projection). Convention: question → setup → run → result → read → decision. Spec:
 > [`../README.md`](../README.md) §P2.0. Reporting: [`../result-format.md`](../result-format.md). The two
-> papers it leans on: [`../../../ref/scff.md`](../../../ref/scff.md) (our base rule) and the new
-> [`../../../ref/deeperforward.md`](../../../ref/deeperforward.md) (the counter-finding that reshaped P2.1).
+> papers it leans on: [`../../../research/papers/phase1-2/scff.md`](../../../research/papers/phase1-2/scff.md) (our base rule) and the new
+> [`../../../research/papers/phase1-2/deeperforward.md`](../../../research/papers/phase1-2/deeperforward.md) (the counter-finding that reshaped P2.1).
 
 ## Question
 
@@ -194,7 +194,7 @@ depth-fix that is intrinsically single-sample and continual-safe is exactly what
 2. **P2.0 (this card) stays the wall + DECIDE — but adds the *cause* diagnostics** (dead-unit-fraction and
    effective-rank vs depth) so the lost/entangled verdict comes pre-split into norm-cause vs goodness-cause.
    That tells P2.1 which corner of the grid to trust *before* it runs all of it.
-3. **DeeperForward is written up** as [`../../../ref/deeperforward.md`](../../../ref/deeperforward.md) (now the
+3. **DeeperForward is written up** as [`../../../research/papers/phase1-2/deeperforward.md`](../../../research/papers/phase1-2/deeperforward.md) (now the
    second-most-relevant paper to this phase, after the Trifecta) so the reasoning lives where the next agent
    looks.
 

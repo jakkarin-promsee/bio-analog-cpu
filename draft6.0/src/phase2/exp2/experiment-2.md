@@ -10,7 +10,7 @@
 > setup → run → result → read → decision. Spec: [`../README.md`](../README.md) §P2.2. Reporting:
 > [`../result-format.md`](../result-format.md). Builds on [`../exp1/experiment-1.md`](../exp1/experiment-1.md)
 > (gate failed → here) and
-> [`../../../ref/scff.md`](../../../ref/scff.md) (the negative = "mixture of two things"; make it a *between-class*
+> [`../../../research/papers/phase1-2/scff.md`](../../../research/papers/phase1-2/scff.md) (the negative = "mixture of two things"; make it a *between-class*
 > mixture).
 
 ## Question
@@ -65,7 +65,7 @@ partner is chosen — so any change in the depth curve is attributable to the ob
 | **Transmission (FIXED)** | **`layer-norm` + `linear` goodness + threshold-free `contrast` loss** | P2.1's healthy substrate: no deactivation (dead 0.00), rank preserved (erank ~50), per-sample / substrate-native, contrast ~2× the deep probe of two-sided. |
 | **Varied — the negative partner** | the grid (whole-training-set partner pool; only the *constraint* differs): `random` (any sample — the P2.1≈baseline) · **`hard-oracle`** (a different **true-class** sample — the mechanism upper-bound) · `hard-oracle-proto` (a different-class **mean** — clean prototype vs noisy sample) · **`hard-unsup`** (a different **KMeans cluster**, k=10 — the substrate version; LUT is the online variant) | one variable; oracle separates "does class-aware help" from "can we get it unsupervised" — P2.0-selectivity-control-style rigor. |
 | **SCFF stack** | `L = 1…8`, width 64, ReLU, mono-forward dual-rail | depth is the axis (the slope is the headline). |
-| **Negative construction** | `x_pos = 2·x_k` ; `x_neg = x_k + partner` (the SCFF rule, [`scff.md`](../../../ref/scff.md)); only `partner` selection varies | the mechanism is unchanged from P2.1 — only *which* sample is blended in. |
+| **Negative construction** | `x_pos = 2·x_k` ; `x_neg = x_k + partner` (the SCFF rule, [`scff.md`](../../../research/papers/phase1-2/scff.md)); only `partner` selection varies | the mechanism is unchanged from P2.1 — only *which* sample is blended in. |
 | **Unsup clusterer** | **KMeans, k = n_classes (10)** on raw input, once per seed (report cluster→class purity) | the clean unsupervised proxy; the **LUT** (cosine-vigilance WTA) is the *online* substrate version, deferred to P2.6/Phase-3. |
 | **Probe / seeds / realism** | logistic C=1.0, frozen 2k/2k, per layer · seeds `[42,137,271,314,1729]` median+IQR · ideal floats | pinned metrics; one axis at a time. |
 
@@ -128,7 +128,7 @@ final probe by a real (disjoint-IQR) margin.
    [REPR](figs_exp2_cifar/REPR.png) (rank healthy ~40, NCC/Fisher don't rise).
 4. **Mechanism.** The class signal *is* read at L1 (oracle 0.330 > random 0.321 — a hair) but it **does not
    accumulate with depth — it dilutes**, exactly like density did. The deep reason is the one
-   [`scff.md`](../../../ref/scff.md) names: *"each layer optimizes its own myopic goodness with no global signal
+   [`scff.md`](../../../research/papers/phase1-2/scff.md) names: *"each layer optimizes its own myopic goodness with no global signal
    coordinating the layers."* **Composing class features across depth requires cross-layer coordination, which
    forward-only locality structurally cannot provide** — no choice of *objective* or *normalization* can
    manufacture it, because the missing thing isn't *what* each layer optimizes, it's the *coordination between*
@@ -160,7 +160,7 @@ perfect label-based oracle changes the slope by nothing). Together they prove th
 SCFF's forward-only locality**, not a fixable property of normalization or negatives.
 
 - **This is a confirmation of the architecture's own design logic, not a defeat.** Draft 6.0 always said SCFF is
-  the cheap *shallow* 80% and GD is the coordinating 20%; [`scff.md`](../../../ref/scff.md) predicted "that gap
+  the cheap *shallow* 80% and GD is the coordinating 20%; [`scff.md`](../../../research/papers/phase1-2/scff.md) predicted "that gap
   is the entire reason the GD part exists." Phase 2 turned that prediction into a measured fact: **depth
   composition is the coordination SCFF gives up, and only GD restores it.**
 - **Route → P2.5 (multi-block: `[SCFF×k → GD-realign]×N`).** This is now *the* Phase-2 depth question — does a
@@ -177,7 +177,7 @@ SCFF's forward-only locality**, not a fixable property of normalization or negat
 
 ## References (P2.2-specific)
 
-- **SCFF** ([`scff.md`](../../../ref/scff.md)) — negative = "a mixture of two things, not one"; Ch4 intends
+- **SCFF** ([`scff.md`](../../../research/papers/phase1-2/scff.md)) — negative = "a mixture of two things, not one"; Ch4 intends
   cross-cluster mixing (the hard negative). The base rule we keep; only the partner changes.
 - **P2.1** ([`../exp1/experiment-1.md`](../exp1/experiment-1.md)) — closed the transmission axis; set the healthy
   baseline (layer-norm + linear + contrast) and the deferred slope question.

@@ -39,7 +39,7 @@ For the narrative version of the same arc (mind stones, breakthroughs, why each 
 | `draft5.1-2.md`     | Main (Part) | Canonical spec Part 2 — §20 simulation, §21 future tracks. **Now in `draft5.0/`.**         |
 | `draft5.1-2.verify.md` | Plan (superseded) | Re-draft of the §20 plan, intuition-first, phase by phase. Was the live plan before the draft-6.0 pivot; now history (live plan = `draft6.0/`). |
 
-> The split into `draft5.1-1.md` / `draft5.1-2.md` exists only because the markdown-to-PDF tool fails on the unsplit length. Content is identical to `draft/draft5.1-full.md`. Section numbers are continuous across both parts.
+> The split into `draft5.1-1.md` / `draft5.1-2.md` exists only because the markdown-to-PDF tool fails on the unsplit length. Content is identical to `draft-journey/draft5.1-full.md`. Section numbers are continuous across both parts.
 
 ---
 
@@ -254,7 +254,7 @@ This file is kept as the single-file reference. It is identical in content to `d
 
 ### `draft5.1-1.md` + `draft5.1-2.md` — The Canonical Spec (split for PDF)
 
-The draft-5.1 canonical specification (historical). Now in `draft5.0/` (moved at the draft-6.0 pivot; was at the repo root), not under `draft/`.
+The draft-5.1 canonical specification (historical). Now in `draft5.0/` (moved at the draft-6.0 pivot; was at the repo root), not under `draft-journey/`.
 
 - **`draft5.1-1.md`** — Part 1 (§0–§19, §22–§23): framing, mechanism, worked example, modules, cross-cutting mechanisms, hypotheses, math targets, open questions, protected list, glossary.
 - **`draft5.1-2.md`** — Part 2 (§20–§21): the full simulation campaign (MVF + ten phases, reproducibility infrastructure, effort budget) and future tracks.

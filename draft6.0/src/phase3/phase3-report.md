@@ -4,7 +4,7 @@
 > objective, add the user's coordination idea, and win depth (forward-only, unsupervised), then prove it doesn't
 > cost the continual win — **adopted; it supersedes energy-goodness.** A first-person research log, figures and
 > tables inline. Terms and metrics are defined in [`../ref-report/`](../ref-report/README.md); the literature
-> behind the reframe is [`../../ref2/`](../../ref2/README.md); the terser source it draws from is the
+> behind the reframe is [`../../research/papers/`](../../research/papers/README.md); the terser source it draws from is the
 > [summary](phase3-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
 
 ---
@@ -12,7 +12,7 @@
 ## 1 · The wound we inherited — and the one word that was too strong
 
 Phase 2 ended with a clean, confident sentence: the depth wall is *"intrinsic to SCFF's forward-only locality."*
-We almost believed it. Then the literature pass ([`../../ref2/`](../../ref2/README.md)) caught the one word that
+We almost believed it. Then the literature pass ([`../../research/papers/`](../../research/papers/README.md)) caught the one word that
 was too strong. Phase 2 only ever varied the objective *inside one family* — the energy goodness `Σh²`, changing
 *which negative* gets blended in. Every cell still asked each layer the same question: *"are you loud on the
 coherent input and quiet on the mixture?"* — a density question.

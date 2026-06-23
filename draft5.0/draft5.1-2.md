@@ -35,7 +35,7 @@ This document contains §20 (Simulation Plan) and §21 (Future Tracks) of the ca
 - §20 Simulation Plan — Detailed Experimental Campaign (operator sanity → ten phases → reproducibility infrastructure → effort budget)
 - §21 Future Tracks — Optional and Deferred Mechanisms
 
-**Cross-references.** Section numbers are preserved from the unsplit version (`draft/draft5.1-full.md`, kept for reference). References like `§6.3` or `§17` point to Part 1; references like `§20.18` or `§21.5` point to Part 2. Both directions of reference occur naturally — the experimental campaign tests claims made in Part 1, and the architecture's hypotheses reference the phases that test them.
+**Cross-references.** Section numbers are preserved from the unsplit version (`draft-journey/draft5.1-full.md`, kept for reference). References like `§6.3` or `§17` point to Part 1; references like `§20.18` or `§21.5` point to Part 2. Both directions of reference occur naturally — the experimental campaign tests claims made in Part 1, and the architecture's hypotheses reference the phases that test them.
 
 ---
 

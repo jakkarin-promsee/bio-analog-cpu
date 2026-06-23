@@ -11,7 +11,7 @@
 > question → setup → run → result → read → decision. Spec: [`../README.md`](../README.md) §P2.1. Reporting:
 > [`../result-format.md`](../result-format.md). Builds on [`../exp0/experiment-0.md`](../exp0/experiment-0.md)
 > (the wall + the grid-widening decision). The two papers it leans on:
-> [`../../../ref/deeperforward.md`](../../../ref/deeperforward.md) (keep per-sample norm, fix the goodness) and
+> [`../../../research/papers/phase1-2/deeperforward.md`](../../../research/papers/phase1-2/deeperforward.md) (keep per-sample norm, fix the goodness) and
 > the Trifecta ([2311.18130](https://arxiv.org/abs/2311.18130), batch-norm route — the rival, drawn as the GPU
 > reference).
 
@@ -255,7 +255,7 @@ from `< 0` to `≥ 0` while learning. Per README §5 this is the explicit **STOP
 ## References (P2.1-specific, full list in README §10)
 
 - **DeeperForward** (ICLR 2025) — keep per-sample norm, fix goodness squared→mean/linear; the predicted-winner
-  corner. Story: [`../../../ref/deeperforward.md`](../../../ref/deeperforward.md).
+  corner. Story: [`../../../research/papers/phase1-2/deeperforward.md`](../../../research/papers/phase1-2/deeperforward.md).
 - **The Trifecta** ([2311.18130](https://arxiv.org/abs/2311.18130)) — batch-norm route (the rival / GPU
   reference); 6-layer 2048-wide FCN on CIFAR-10 (our headline precedent); BN placement *normalize→linear→ReLU*.
 - **ASGE** ([2509.12394](https://arxiv.org/abs/2509.12394)) — spatial-mean goodness, layer-norm kept, reverses

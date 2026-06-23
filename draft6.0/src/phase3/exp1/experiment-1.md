@@ -123,6 +123,6 @@ it **saturates** (w4 ≈ w2).
 
 - **P3.0** ([`../exp0/experiment-0.md`](../exp0/experiment-0.md)) — the contrastive objective this builds on.
 - **OLU / The Trifecta** ([2311.18130](https://arxiv.org/abs/2311.18130)) · **DF-O**
-  ([../../ref/distance-forward.md](../../ref/distance-forward.md)) — the coordination-window lineage.
+  ([../../../research/papers/phase1-2/distance-forward.md](../../../research/papers/phase1-2/distance-forward.md)) — the coordination-window lineage.
 - **CLAPP++ / direct-feedback** ([2601.21683](https://arxiv.org/abs/2601.21683)) — the untested global-coordination
   lever (the optional next static push).

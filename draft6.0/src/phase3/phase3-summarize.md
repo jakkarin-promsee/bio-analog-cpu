@@ -4,7 +4,7 @@
 > findings* — what we asked, what the sims said, and the honest verdict. Per-rung detail in each
 > `expN/experiment-N.md`; the scalar ledger is [`RESULTS.md`](RESULTS.md); the reporting standard is
 > [`result-format.md`](result-format.md); the plan was [`README.md`](README.md); the literature behind it is
-> [`../../ref2/`](../../ref2/README.md). Stack: numpy-only SCFF (pluggable *objective*) + sklearn probes +
+> [`../../research/papers/`](../../research/papers/README.md). Stack: numpy-only SCFF (pluggable *objective*) + sklearn probes +
 > matplotlib; tasks = CIFAR-10-flat (the wall), a built **depth-headroom** synth task (the headroom test), digits
 > (the continual veto); 5 seeds (3 continual).
 
@@ -14,7 +14,7 @@
 
 **Phase 2 closed the wrong thing — and Phase 3 reopens depth and wins it.** Phase 2 proved a deep *energy-goodness*
 SCFF stack can't earn depth and concluded the wall is "intrinsic to forward-only locality." The literature pass
-([`../../ref2/`](../../ref2/README.md)) showed that was one word too strong: the wall is intrinsic to the
+([`../../research/papers/`](../../research/papers/README.md)) showed that was one word too strong: the wall is intrinsic to the
 **energy objective** (`Σh²`), not to locality — Greedy InfoMax / CLAPP (and greedy layer-wise autoencoders before
 them) are forward-only, unsupervised, *and* depth-composing because their objective is information-preserving.
 Phase 3 tested that on our substrate and found a clean, decomposed answer: **the objective *family* is the lever**

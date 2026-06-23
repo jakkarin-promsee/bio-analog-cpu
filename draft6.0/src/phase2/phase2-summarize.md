@@ -125,7 +125,7 @@ GD is a **readout**, not a stream-rewriter.
 > **Numbering update (2026-06-21, after this synthesis was written):** "Phase 3" everywhere below means the
 > **temporal / online-maintenance** phase — which has since been **renumbered Phase 4**, because a **depth round
 > 2** (the *objective reframe* — energy-goodness can't earn depth, so swap to a predictive/info-preserving
-> objective; `../phase3/`, `../../ref2/`) was inserted as the new **Phase 3**. So: Phase 3 = depth r2 (active),
+> objective; `../phase3/`, `../../research/papers/`) was inserted as the new **Phase 3**. So: Phase 3 = depth r2 (active),
 > Phase 4 = the maintenance/gate work described here.
 
 Phase 1 found *where* this architecture wins (the continual regime). Phase 2 found *what depth costs and how to

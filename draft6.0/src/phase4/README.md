@@ -254,7 +254,7 @@ evening"). Failures/weaknesses are the point: a clean "here the cheap brain lose
 - **Continual metrics** — AA / BWT / FWT / forgetting + stability-plasticity (CL survey
   [2302.00487](https://arxiv.org/abs/2302.00487); Lopez-Paz **GEM** [1706.08840](https://arxiv.org/abs/1706.08840)).
 - **Noise robustness (A7)** — forward-only / local learning is more hardware-noise-robust than BP:
-  **Distance-Forward** (on-chip learning, the project's own [`../ref/distance-forward.md`](../ref/distance-forward.md));
+  **Distance-Forward** (on-chip learning, the project's own [`../../research/papers/phase1-2/distance-forward.md`](../../research/papers/phase1-2/distance-forward.md));
   analog-in-memory robustness ([2411.07023](https://arxiv.org/abs/2411.07023) — inherent robustness of analog IMC;
   [PMC11335942](https://pmc.ncbi.nlm.nih.gov/articles/PMC11335942/) — robust analog in-memory training). The standard
   analog-CIM eval injects abstract Gaussian weight/programming/read noise and reports the degradation curve.

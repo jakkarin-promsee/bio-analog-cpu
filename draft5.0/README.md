@@ -12,7 +12,7 @@
 **Status:** Rebuilt at **draft 6.0** (June 2026) after the previous learning rule collapsed. The substrate vision is intact; the learning rule was rebuilt from zero as a **SCFF + gradient-descent hybrid.** The design spine is committed; **Phase 1** (the behavioral-simulation ladder) is specified but has **not run yet** — numbers pending.
 
 > [!NOTE]
-> Solo independent research project, evenings/weekends. The live plan lives in [`draft6.0/`](draft6.0/). Drafts 1 → 5.1 (the *attribution era*) are kept as reference for how the project worked before the pivot — see [Project history](#project-history--the-attribution-era-draft-1--51) below.
+> Solo independent research project, evenings/weekends. The live plan lives in [`draft6.0/`](../draft6.0/). Drafts 1 → 5.1 (the *attribution era*) are kept as reference for how the project worked before the pivot — see [Project history](#project-history--the-attribution-era-draft-1--51) below.
 
 ---
 
@@ -53,7 +53,7 @@ The pieces:
 - **Sleep + memory** — periodic full-batch GD over a **hippocampus LUT** (deduplicated raw-input prototypes) re-covers the whole data range so nothing rots.
 - **Mono-forward** (the substrate move) — one forward sweep carries a positive and a negative world side by side through the **shared** weight crossbar; only the cheap activation buffers double, not the weight capacitors.
 
-The full story is in [`draft6.0/idea/ideas1.md`](draft6.0/idea/ideas1.md); the committed decisions in [`draft6.0/idea/main.ideas.v1.md`](draft6.0/idea/main.ideas.v1.md); the pivot story in [`draft6.0/README.md`](draft6.0/README.md).
+The full story is in [`draft6.0/idea/ideas1.md`](../draft6.0/idea/ideas1.md); the committed decisions in [`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md); the pivot story in [`draft6.0/README.md`](../draft6.0/README.md).
 
 ## The substrate
 
@@ -67,7 +67,7 @@ Phase 1 is the behavioral simulation: classification / statistics tasks, **ideal
 
 The discipline: **walk one spine — the neocortex (SCFF + GD)** — straight down the ladder. The **hippocampus LUT is a service, not a parallel brain**: it feeds SCFF its negatives (stubbed early) and holds replay history for sleep (where it becomes a real organ). You test **convergence, not theory.**
 
-The experiment ladder (full detail in [`draft6.0/idea/ideas1.md`](draft6.0/idea/ideas1.md)):
+The experiment ladder (full detail in [`draft6.0/idea/ideas1.md`](../draft6.0/idea/ideas1.md)):
 
 1. **1.x — the atoms.** 1.0 full SCFF (mono-forward, mandatory inter-layer norm); 1.1 full GD (the precision ceiling).
 2. **2.x — putting them together.** SCFF + GD via taps; then the plasticity-gradient middle layer.
@@ -98,9 +98,9 @@ The distinguishing claim is the *combination*: continuous analog compute + on-ch
 │   ├── idea/
 │   │   ├── main.ideas.v1.md   #   the decision record (N1–N3 + S1–S8)
 │   │   └── ideas1.md          #   the full derivation + the Phase-1 build plan
-│   ├── concept/               #   learning-rule survey (the options considered)
-│   ├── ref/                   #   paper stories behind 6.0 (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD)
-│   └── future-ref/            #   north-star research dossier (21 files, beyond the numbered phases) — compass, not the live line
+│   ├── research/survey/       #   learning-rule survey (the options considered)
+│   ├── research/papers/       #   paper stories behind 6.0 (Phase 1-3)
+│   └── research/north-star/   #   north-star research dossier (21 files, beyond the numbered phases) — compass, not the live line
 ├── docs/
 │   ├── essence/the-essence.md # the project's soul (origin → collapse → return)
 │   └── draft/                 # collaboration handoff + the draft 1→5.1 history
@@ -109,11 +109,11 @@ The distinguishing claim is the *combination*: continuous analog compute + on-ch
 │
 │   # ── HISTORICAL (the attribution era — kept as reference) ──
 ├── draft5.1-1.md / draft5.1-2.md   # the old canonical spec (attribution architecture)
-├── draft/                     # historical drafts 1.0 → 5.1
+├── draft-journey/             # the journey log — drafts 1.0 → 5.1
 └── src/                       # the old behavioral simulator (built for attribution)
 ```
 
-**Reading order if you've just arrived:** this README → [`draft6.0/README.md`](draft6.0/README.md) (the pivot) → [`draft6.0/idea/main.ideas.v1.md`](draft6.0/idea/main.ideas.v1.md) (the decisions) → [`docs/essence/the-essence.md`](docs/essence/the-essence.md) (the why). For the whole picture in one file: [`draft6.0/context.md`](draft6.0/context.md).
+**Reading order if you've just arrived:** this README → [`draft6.0/README.md`](../draft6.0/README.md) (the pivot) → [`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md) (the decisions) → [`docs/essence/the-essence.md`](../docs/essence/the-essence.md) (the why). For the whole picture in one file: [`draft6.0/context.md`](../draft6.0/context.md).
 
 ## Project history — the attribution era (draft 1 → 5.1)
 
@@ -124,15 +124,15 @@ In June 2026 that rule collapsed on a single flaw: the diffusion carried loss **
 That era is kept intact as reference — *how the project worked before the pivot*:
 
 - [`draft5.1-1.md`](draft5.1-1.md) / [`draft5.1-2.md`](draft5.1-2.md) — the old canonical spec.
-- [`docs/draft/project-history.md`](docs/draft/project-history.md) — the narrative arc, why each pivot happened.
-- [`docs/draft/draft.heirachy.md`](docs/draft/draft.heirachy.md) — the file-by-file map of every draft.
+- [`docs/draft/project-history.md`](../docs/draft/project-history.md) — the narrative arc, why each pivot happened.
+- [`docs/draft/draft.heirachy.md`](../docs/draft/draft.heirachy.md) — the file-by-file map of every draft.
 - [`src/`](src/) — the behavioral simulator built for the attribution chip.
 
 What carried forward in *spirit*: residual connections (now confirmed by boosting theory), the two-timescale Cortex/Hippocampus (now sleep + the LUT), and resident-weight / sign-as-digital / the Scap (substrate-level, unchanged).
 
 ## Methodology note
 
-Built from intuition first; literature comparison reserved for after the design stabilizes. *"The fast answer will destroy your creativity."* The risk is reinventing wheels; the benefit is reaching design decisions the literature wouldn't have suggested — and in practice the project keeps re-deriving published results from the circuit side before learning their names. The papers behind each draft-6.0 decision are told as stories in [`draft6.0/ref/`](draft6.0/ref/).
+Built from intuition first; literature comparison reserved for after the design stabilizes. *"The fast answer will destroy your creativity."* The risk is reinventing wheels; the benefit is reaching design decisions the literature wouldn't have suggested — and in practice the project keeps re-deriving published results from the circuit side before learning their names. The papers behind each draft-6.0 decision are told as stories in [`draft6.0/research/papers/`](../draft6.0/research/papers/).
 
 ## Honest framing
 
@@ -146,7 +146,7 @@ The author is a Year-2 undergraduate. A prior project — **ChronoForge** — wa
 
 ## Contributing
 
-Not yet — solo, at the design + pre-simulation stage. If the architecture interests you, opening an issue to discuss is welcome; please read [`draft6.0/README.md`](draft6.0/README.md) first so we can talk specifics.
+Not yet — solo, at the design + pre-simulation stage. If the architecture interests you, opening an issue to discuss is welcome; please read [`draft6.0/README.md`](../draft6.0/README.md) first so we can talk specifics.
 
 ## License
 

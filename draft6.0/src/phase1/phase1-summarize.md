@@ -95,7 +95,7 @@ These are the things we *did not* know going in — each was forced by a sim, no
 
 ## Spec corrections made (Phase 1 → the decision record)
 
-- **goodness = sum `‖h‖²`** (not mean) — `ideas1.md` consolidated-math note + `concept/SCFF.detail.md` note.
+- **goodness = sum `‖h‖²`** (not mean) — `ideas1.md` consolidated-math note + `research/survey/SCFF.detail.md` note.
 - **tap ALL SCFF layers** — supersedes S3's "GD reads the last n layers."
 - **`normalize_input = True`** (unit-norm input at layer 1 too) — ratified; trades the magnitude head-start
   for a uniform goodness scale and zero L1 unit-death.

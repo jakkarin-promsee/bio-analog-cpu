@@ -125,7 +125,7 @@ rung = the Phase-1 layer-norm degradation curve + the pure-GD ceiling. Pass-gate
 - **Question.** Does per-layer separability **rise** with depth under a different normalization **and/or
   goodness form** — and does the **online / per-sample (substrate-feasible)** version keep it? *(Widened from a
   pure-norm sweep 2026-06-21: DeeperForward shows the norm and the goodness form are coupled — see
-  [`exp0/experiment-0.md`](exp0/experiment-0.md) + [`../../ref/deeperforward.md`](../../ref/deeperforward.md).)*
+  [`exp0/experiment-0.md`](exp0/experiment-0.md) + [`../../research/papers/phase1-2/deeperforward.md`](../../research/papers/phase1-2/deeperforward.md).)*
 - **Varied — the grid `{ goodness } × { norm }`, one cell at a time.** *Goodness:* `squared Σh²` (baseline) ·
   **`linear Σh`** (DeeperForward — no `h`-factor in the update, so quiet units keep learning). *Norm:*
   `length-norm h/‖h‖` (baseline wall) · **`layer-norm (h−μ)/σ`** (per-sample, **mean-zero** → linear goodness
@@ -242,14 +242,14 @@ lever set → decision fed), filled the moment a rung's decision is made — exa
 
 **The renumber (2026-06-20).** "Phase 2" previously meant the recurrent brain in `CLAUDE.md` / `main.ideas`;
 that collided with this folder. Resolved across every **live** doc — CLAUDE.md (routing + scope),
-`main.ideas.v1.md`, `context.md`, the `skill/` maps, and memory (historical `draft/` & `project-history.md`
+`main.ideas.v1.md`, `context.md`, the `skill/` maps, and memory (historical `draft-journey/` & `project-history.md`
 keep their period usage on purpose):
 
 | phase | scope | status |
 | --- | --- | --- |
 | **Phase 1** | structure: SCFF, block, chain, **+ sleep** (the continual win) | **done** (exp0–exp4) |
 | **Phase 2** | *this* — depth round 1: can a deep *energy-goodness* SCFF stack earn depth? (no) | **done** (P2.0/1/2/5/6; P2.3/4 skipped) — see [`phase2-summarize.md`](phase2-summarize.md) |
-| **Phase 3** | depth round 2 — **the objective reframe** (energy → masked-feature reconstruction; the wall is intrinsic to the *energy objective*, not locality) | **active** — see [`../phase3/README.md`](../phase3/README.md) + [`../../ref2/`](../../ref2/README.md) |
+| **Phase 3** | depth round 2 — **the objective reframe** (energy → masked-feature reconstruction; the wall is intrinsic to the *energy objective*, not locality) | **active** — see [`../phase3/README.md`](../phase3/README.md) + [`../../research/papers/`](../../research/papers/README.md) |
 | **Phase 4** | **online maintenance** — the **Ch7 gate** (in-time GD trigger) + **sleep-*cadence* refinement** + the lifelong loop (*was "Phase 3"*) | future |
 | **north star** | the recurrent lifelong-learning brain (prefrontal↔hippocampus) | beyond the numbers; deliberately unspecced |
 
@@ -272,7 +272,7 @@ analog/PVT/SPICE realism (after the ideal depth-fix converges).
 ## 10. References (the canonical list)
 
 - **The Trifecta: three simple techniques for deeper FF** — [arXiv 2311.18130](https://arxiv.org/abs/2311.18130). BatchNorm + SymBa + OLU; layer-norm is the depth-killer. *The central paper.*
-- **DeeperForward: Enhanced Forward-Forward** — [ICLR 2025](https://proceedings.iclr.cc/paper_files/paper/2025/file/7dd309df03d37643b96f5048b44da798-Paper-Conference.pdf). *Counter-finding:* the depth-killer is **squared goodness** (deactivates neurons), not layer-norm — keep the per-sample norm, switch goodness squared→linear → 17-layer FF. The substrate-native route. Story: [`../../ref/deeperforward.md`](../../ref/deeperforward.md). **Co-central for Phase 2.**
+- **DeeperForward: Enhanced Forward-Forward** — [ICLR 2025](https://proceedings.iclr.cc/paper_files/paper/2025/file/7dd309df03d37643b96f5048b44da798-Paper-Conference.pdf). *Counter-finding:* the depth-killer is **squared goodness** (deactivates neurons), not layer-norm — keep the per-sample norm, switch goodness squared→linear → 17-layer FF. The substrate-native route. Story: [`../../research/papers/phase1-2/deeperforward.md`](../../research/papers/phase1-2/deeperforward.md). **Co-central for Phase 2.**
 - **Layer Collaboration in the Forward-Forward Algorithm** — [arXiv 2305.12393](https://arxiv.org/abs/2305.12393) (AAAI 2024). Shared detached goodness γ.
 - **SymBa** (Lee & Song, 2023) — symmetric/separation loss = pure-contrast.
 - **Streaming Normalization** — [CBMM-057](https://cbmm.mit.edu/sites/default/files/publications/CBMM-Memo-057.pdf); **Online Normalization** (Chiley 2019); **Batch Renormalization** (Ioffe 2017) — running-stats norm at batch 1.
