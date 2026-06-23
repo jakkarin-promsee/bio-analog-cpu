@@ -17,7 +17,7 @@ The single most relevant paper to your question, because it is *exactly* "how ma
 5. **Short-Term Memory** — holds state/cost history (working memory + hippocampus).
 6. **Actor** — proposes and optimizes action sequences (reactive, or by *planning* through the world model).
 
-The learning engine is **JEPA** (Joint-Embedding Predictive Architecture): predict in **representation space**, trained energy-based, with anti-collapse regularization (the BYOL/VICReg lineage you already met in `../ref/byol.md`).
+The learning engine is **JEPA** (Joint-Embedding Predictive Architecture): predict in **representation space**, trained energy-based, with anti-collapse regularization (the BYOL/VICReg lineage you already met in `../papers/phase1-2/byol.md`).
 
 **For us:** read this as the **target organ chart**, and notice the overlap is staggering — you already have or have named *five of the six*: SCFF=Perception, the loop=World Model, the feeling=Cost (intrinsic+critic), the LUT/workspace=Short-Term Memory, the Brainstem=Configurator. The one you *don't* have is the **Actor** (acting on the world) — which is fine, because phase 2 is *thinking*, not *acting*, and you can add the Actor later when the loop needs to do epistemic action (`4-signal.md`). **So: two brains is not enough — but you're already closer to six than you think.** JEPA also validates your whole direction: predict in representation space, energy-based, anti-collapse — that's SCFF+grounding.
 

@@ -1,6 +1,6 @@
 # SCFF — Self-Contrastive Forward-Forward
 
-*Nature Communications, 2025 ([arXiv 2409.11593](https://arxiv.org/abs/2409.11593)). The deep technical file is [../concept/SCFF.detail.md](../concept/SCFF.detail.md); this is the story.*
+*Nature Communications, 2025 ([arXiv 2409.11593](https://arxiv.org/abs/2409.11593)). The deep technical file is [../../survey/SCFF.detail.md](../../survey/SCFF.detail.md); this is the story.*
 
 ---
 
@@ -25,7 +25,7 @@ That's it. The network learns to answer one question at every layer: *"is what I
 
 Here's where you need to know one thing about your own notes. The **real paper pairs by concatenation**: it literally stacks the two inputs, `[x_k, x_k]` for positive, `[x_k, x_n]` for negative — so the input *doubles* in size, and there are two weight blocks `W₁, W₂`. The paper then *proves* (Appendix A) that those two blocks converge to be equal, `W₁ = W₂`.
 
-Our [SCFF.detail.md](../concept/SCFF.detail.md) describes it as **summation** with a single weight and no size growth. **That's not a mistake — it's a smart reformulation, and it's exactly equal to the paper** *because* `W₁ = W₂`:
+Our [SCFF.detail.md](../../survey/SCFF.detail.md) describes it as **summation** with a single weight and no size growth. **That's not a mistake — it's a smart reformulation, and it's exactly equal to the paper** *because* `W₁ = W₂`:
 
 $$W\cdot[x_k, x_k] \;=\; W_1 x_k + W_2 x_k \;=\; W(2x_k)$$
 

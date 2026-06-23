@@ -2,7 +2,7 @@
 
 ## Overview / Core Idea
 
-Gradient descent is the **mainstream** way to train almost every neural network, and it is the **baseline this whole project measures itself against**. Every method in the `concept/` folder — attribution, forward-forward, equilibrium propagation, feedback alignment — is defined by *which part of gradient descent it refuses to pay for*. So you need the baseline cold before the alternatives mean anything.
+Gradient descent is the **mainstream** way to train almost every neural network, and it is the **baseline this whole project measures itself against**. Every method in the `survey/` folder — attribution, forward-forward, equilibrium propagation, feedback alignment — is defined by *which part of gradient descent it refuses to pay for*. So you need the baseline cold before the alternatives mean anything.
 
 The idea is one sentence: **to make a loss smaller, repeatedly step the parameters a little bit in the direction of steepest decrease — the negative gradient.**
 

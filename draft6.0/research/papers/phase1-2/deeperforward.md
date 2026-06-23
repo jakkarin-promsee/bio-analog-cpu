@@ -1,6 +1,6 @@
 # DeeperForward — keep layer-norm, fix the *goodness*
 
-*ICLR 2025 ([proceedings](https://proceedings.iclr.cc/paper_files/paper/2025/file/7dd309df03d37643b96f5048b44da798-Paper-Conference.pdf), [code](https://github.com/tobysunsun/deeperforward)). Added 2026-06-21, at the top of Phase 2. The story; the deep notes live in [`../src/phase2/exp0/experiment-0.md`](../src/phase2/exp0/experiment-0.md).*
+*ICLR 2025 ([proceedings](https://proceedings.iclr.cc/paper_files/paper/2025/file/7dd309df03d37643b96f5048b44da798-Paper-Conference.pdf), [code](https://github.com/tobysunsun/deeperforward)). Added 2026-06-21, at the top of Phase 2. The story; the deep notes live in [`../../../src/phase2/exp0/experiment-0.md`](../../../src/phase2/exp0/experiment-0.md).*
 
 ---
 

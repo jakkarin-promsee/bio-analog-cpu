@@ -74,7 +74,7 @@ EBM ไม่ต้อง normalize คุณต้องการแค่ **E(
 
 ---
 
-### 1. SCFF goodness (`../ref/scff.md`)
+### 1. SCFF goodness (`../../papers/phase1-2/scff.md`)
 
 **E function:** E(x) = -||h(x)||²_F = ลบ norm ยกกำลังสอง ของ activation
 

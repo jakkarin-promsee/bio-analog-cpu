@@ -66,7 +66,7 @@ here; fold the live seam into whichever of 1/3 you run.
 
 ## Papers
 
-- **P2.5** (`../src/phase2/exp5/experiment-5.md`) — the read/write result that already answers this.
+- **P2.5** (`../../src/phase2/exp5/experiment-5.md`) — the read/write result that already answers this.
 - **Local Error Signals / predsim** — [1901.06656](https://arxiv.org/abs/1901.06656) (the non-collapsing `sim`
   loss).
 - **Block-Local Learning** — [2305.14974](https://arxiv.org/abs/2305.14974).

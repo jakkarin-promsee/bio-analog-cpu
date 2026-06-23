@@ -12,7 +12,7 @@
 ## Your idea already has a name: Overlapping Local Updates (OLU)
 
 From **The Trifecta** (Lorberbom et al, [arXiv 2311.18130](https://arxiv.org/abs/2311.18130)) — the paper
-already in our `ref/`:
+already in our `papers/`:
 
 > OLU trains layers in **overlapping pairs**. Each layer is optimized with two alternating objectives: when it
 > is the *last* layer of a pair it maximizes its **own** goodness; when it is the *first* layer of a pair it is
@@ -27,7 +27,7 @@ wants" without any backward pass. (It's a one-step forward lookahead — the sam
 
 ## The same idea from three other angles
 
-- **DF-O (Distance-Forward overlapping)** — already in our `ref/distance-forward.md` and named in decision **N2**
+- **DF-O (Distance-Forward overlapping)** — already in `distance-forward.md` and named in decision **N2**
   as our "coordination" lever. DF-O groups two adjacent layers and lets the gradient flow *across the pair*
   before detaching — a "tiny, controlled window of coordination." OLU and DF-O are the same family: a 2-layer
   coordination window. **N2 committed to this and Phase 2 never tested it** (P2.3 was skipped). Direction 1 is
@@ -86,8 +86,8 @@ fork you want resolved.
 
 ## Papers
 
-- **The Trifecta (OLU)** — [2311.18130](https://arxiv.org/abs/2311.18130) (also `ref/` — the Phase-2 rival).
-- **Distance-Forward (DF-O)** — [2408.14925](https://arxiv.org/abs/2408.14925) (also `ref/distance-forward.md`).
+- **The Trifecta (OLU)** — [2311.18130](https://arxiv.org/abs/2311.18130) (also in `papers/` — the Phase-2 rival).
+- **Distance-Forward (DF-O)** — [2408.14925](https://arxiv.org/abs/2408.14925) (also `distance-forward.md`).
 - **Layer Collaboration (γ broadcast)** — [2305.12393](https://arxiv.org/abs/2305.12393).
 - **Direct feedback / constant-width** — [2601.21683](https://arxiv.org/abs/2601.21683).
 - **Diagnosis of the myopia problem** — [2012.03837](https://arxiv.org/abs/2012.03837),

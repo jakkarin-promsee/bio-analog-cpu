@@ -115,7 +115,7 @@ more than rhyme: it picks the Phase-3 objective. A flat-MLP has no "next patch" 
 *always* has held-out dimensions to reconstruct — so **per-layer masked-feature reconstruction** is the
 substrate-native member of this family: single-sample, no negatives, forward-only, and it penalizes exactly the
 information-loss that the energy wall causes. (This is the decided Phase-3 primary objective — see
-[`../src/phase3/README.md`](../src/phase3/README.md) §0.)
+[`../../../src/phase3/README.md`](../../../src/phase3/README.md) §0.)
 
 ## Papers
 

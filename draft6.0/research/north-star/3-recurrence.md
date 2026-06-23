@@ -16,7 +16,7 @@ The apply-side keystone for "settle to equilibrium." Observation: a deep weight-
 
 ## Equilibrium Propagation (EqProp) — and the settle *also* gives you the gradient
 
-*Scellier & Bengio, 2017 ([Frontiers](https://www.frontiersin.org/articles/10.3389/fncom.2017.00024/full)). (Also in `../concept/equilibrium-propagation.detail.md`.)*
+*Scellier & Bengio, 2017 ([Frontiers](https://www.frontiersin.org/articles/10.3389/fncom.2017.00024/full)). (Also in `../survey/equilibrium-propagation.detail.md`.)*
 
 An energy-based network settles to a free equilibrium; then you **nudge** the output slightly toward the target and let it settle again; the **difference between the two equilibria, measured locally at each synapse**, *is* the gradient (exactly, in the small-nudge limit). No backward pass — two relaxations and a local subtraction.
 
@@ -26,7 +26,7 @@ An energy-based network settles to a free equilibrium; then you **nudge** the ou
 
 ## Predictive coding — iterative inference as the brain's default
 
-*Rao & Ballard, 1999; as a backprop-approximation: Whittington & Bogacz, 2017. (Also in `../concept/predictive-coding.detail.md`.)*
+*Rao & Ballard, 1999; as a backprop-approximation: Whittington & Bogacz, 2017. (Also in `../survey/predictive-coding.detail.md`.)*
 
 The brain as a stack of layers each **predicting the layer below** and passing **only the prediction error** upward. "Perceiving" is an *iterative* process: the network relaxes its internal estimates until prediction error is minimized across all layers. It provably approximates backprop, but the mechanism is **local error + iterative settling**, not a global backward sweep.
 

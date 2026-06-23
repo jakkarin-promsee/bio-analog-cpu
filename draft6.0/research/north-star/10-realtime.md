@@ -22,7 +22,7 @@ The "correct" answer, and the one that shows why it's hard. RTRL computes the **
 
 ## e-prop — the realtime learning rule for spiking/recurrent nets
 
-*Bellec, Scherr, Subramoney, Hajek, Salaj, Legenstein & Maass, 2020, Nature Communications ([paper](https://www.nature.com/articles/s41467-020-17236-y)). (Also `../concept/summary.detail.md`.)*
+*Bellec, Scherr, Subramoney, Hajek, Salaj, Legenstein & Maass, 2020, Nature Communications ([paper](https://www.nature.com/articles/s41467-020-17236-y)). (Also `../survey/summary.detail.md`.)*
 
 The tractable, on-chip version of RTRL, and **the single most relevant paper in this file.** e-prop factorizes the gradient into two parts that are *both locally available in real time*: an **eligibility trace** (a per-synapse memory of recent pre/post activity, computed **forward**) times a **learning signal** (a top-down "how wrong are we" that can even be a broadcast). The eligibility trace is the "highway into the future" — it holds *what this synapse did* until the learning signal arrives to say *whether it helped*. It approaches BPTT performance **without** storing history or running a backward pass — explicitly designed for **on-chip learning in neuromorphic hardware**.
 
@@ -56,7 +56,7 @@ Covered as an *atom* in `8-atom.md`, but it belongs here too: because liquid neu
 
 The hardware tradition built *for* this. SNNs compute with **sparse, asynchronous spikes** — a neuron does work *only when it fires*, so there's no global clock stepping every unit; computation is **event-driven**, which is naturally low-power and low-latency. Neuromorphic chips (Loihi, SpiNNaker2) run SNNs with **on-chip learning** (often e-prop-style local rules) at tiny energy budgets.
 
-**For us:** this is your nearest neighbor in *intent* (analog/sparse/online learning chip) and your nearest competitor to position against (`../draft5.1-1.md §1.5` did this for the old design — update it for 6.0). The lesson: **event-driven = compute only on change** is the deepest realtime principle, and it's your **sparse** substrate property taken to its limit. You don't have to adopt spikes, but "a unit costs nothing until it's active" is the realtime/energy idea to steal. (e-prop is, not coincidentally, the neuromorphic field's learning rule.)
+**For us:** this is your nearest neighbor in *intent* (analog/sparse/online learning chip) and your nearest competitor to position against (`../../../draft5.0/draft5.1-1.md §1.5` did this for the old design — update it for 6.0). The lesson: **event-driven = compute only on change** is the deepest realtime principle, and it's your **sparse** substrate property taken to its limit. You don't have to adopt spikes, but "a unit costs nothing until it's active" is the realtime/energy idea to steal. (e-prop is, not coincidentally, the neuromorphic field's learning rule.)
 
 ---
 

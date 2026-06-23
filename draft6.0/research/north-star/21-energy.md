@@ -21,7 +21,7 @@ The deep advantage (and why it's the right frame for analog): **no normalization
 
 Watch how many files collapse into this one principle:
 
-- **SCFF "goodness" (`../ref/scff.md`)** — goodness *is* (negative) energy. "High goodness on positives, low on negatives" = "low energy on real data, high on fake." Training SCFF *is* shaping an energy landscape with valleys at coherent inputs. Your whole cheap brain is an energy-based learner.
+- **SCFF "goodness" (`../papers/phase1-2/scff.md`)** — goodness *is* (negative) energy. "High goodness on positives, low on negatives" = "low energy on real data, high on fake." Training SCFF *is* shaping an energy landscape with valleys at coherent inputs. Your whole cheap brain is an energy-based learner.
 - **Hopfield associative memory (`1`)** — defined by an explicit energy function; recall = settle to the nearest energy minimum. Modern Hopfield = attention = your LUT. **Memory is energy descent.**
 - **Equilibrium Propagation (`3`)** — the network *is* an energy function; it settles to an energy minimum, and the learning rule is the difference between two energy-minimized states. **Learning from energy, locally.**
 - **Predictive coding & the free-energy principle (`3`, `4`)** — the brain minimizes "free energy" = prediction-error energy. Perception = settle the energy; the **"I get it" feeling = the energy hitting bottom.** Your correctness-signal *is* an energy reaching its floor.

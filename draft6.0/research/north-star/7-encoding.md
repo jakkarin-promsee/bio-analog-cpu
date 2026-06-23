@@ -72,7 +72,7 @@ The theory of *what a good representation even is.* A representation `Z` of inpu
 
 ## The output side, briefly — weak labels
 
-Your "input that doesn't label much" also has an output question. The trustable frames: **self-supervised pretrain + tiny supervised head** (your SCFF+GD split *is* this — encode without labels, read out with few), **semi-supervised** (a little labeled + lots unlabeled), and **contrastive/metric** outputs (represent the *target* as "near the right anchor," like Distance-Forward in `../ref/distance-forward.md`). The unifying rule: **let the labels shape only the last, cheap step; let structure do the rest.** That is already your 80/20.
+Your "input that doesn't label much" also has an output question. The trustable frames: **self-supervised pretrain + tiny supervised head** (your SCFF+GD split *is* this — encode without labels, read out with few), **semi-supervised** (a little labeled + lots unlabeled), and **contrastive/metric** outputs (represent the *target* as "near the right anchor," like Distance-Forward in `../papers/phase1-2/distance-forward.md`). The unifying rule: **let the labels shape only the last, cheap step; let structure do the rest.** That is already your 80/20.
 
 ---
 

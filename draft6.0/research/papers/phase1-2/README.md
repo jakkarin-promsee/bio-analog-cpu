@@ -1,8 +1,6 @@
-# `ref/` — the papers behind draft 6.0, told as stories
+# `phase1-2/` — the papers behind the adopted Phase 1–2 design
 
-These are the outside papers draft 6.0 leans on, each written as a **story, not a spec** — the problem the authors were stuck on, the one idea that unstuck them, and *why it matters for our chip*. Read these to get the core fast; go to the real papers only when you need the fine print.
-
-Each file ends with a **"What it means for us"** section — that's the part that earns the paper its place here.
+The outside papers the **cheap brain + the boosting chain** lean on, each written as a **story, not a spec** — the problem, the one idea that unstuck it, and *why it matters for our chip*. Each ends with a **"What it means for us"** section.
 
 | File | The paper | One-line why it's here |
 | ---- | --------- | ---------------------- |
@@ -13,4 +11,4 @@ Each file ends with a **"What it means for us"** section — that's the part tha
 | [byol.md](byol.md) | Bootstrap Your Own Latent (DeepMind 2020) | The precedent for our EMA-view: a downstream learner reading a *slow* copy of the encoder. |
 | [llrd.md](llrd.md) | Discriminative fine-tuning / layer-wise LR decay (ULMFiT 2018 →) | The precedent for our middle-layer slowdown — "slow what the downstream reads." |
 
-> Cross-reference: the design these feed into is [../idea/ideas1.md](../idea/ideas1.md); the deeper algorithm survey is [../concept/summary.detail.md](../concept/summary.detail.md).
+> Cross-reference: the design these feed into is [`../../../idea/ideas1.md`](../../../idea/ideas1.md); the deeper algorithm survey is [`../../survey/summary.detail.md`](../../survey/summary.detail.md); the **Phase-3** depth papers are in [`../phase3/`](../phase3/README.md).

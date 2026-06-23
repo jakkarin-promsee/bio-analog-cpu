@@ -91,7 +91,7 @@ The $1/M^l$ normalization makes the scalar comparable across layers of different
 > $\approx 1/M\!\approx\!0.015$, so a fixed threshold like $\theta=2.0$ is unreachable under **plain online
 > SGD** (the paper only reaches it with Adam × many epochs). The sum form is $\approx 1$ at init,
 > *width-independent*, makes $\theta=2.0$ sane, and needs no per-weight optimizer state — substrate-faithful.
-> Verified in [`../src/phase1/exp0`](../src/phase1/exp0/experiment-0.md) (the gate run): mean starves the
+> Verified in [`../../src/phase1/exp0`](../../src/phase1/exp0/experiment-0.md) (the gate run): mean starves the
 > deeper layers, sum separates them. The gradient simply drops the $1/M^l$ (becomes $2\,h^l(h^{l-1})^\top$).
 
 ---

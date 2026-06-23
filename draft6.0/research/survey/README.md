@@ -1,10 +1,10 @@
-# `concept/` — Learning-Algorithm Theory Notes
+# `survey/` — Learning-Algorithm Theory Notes
 
 Pure-theory reference notes on **how neural networks learn** — the mainstream gradient-based optimizers and the local / biologically-plausible / forward-only alternatives.
 
-**Scope, deliberately narrow:** this folder is *what each model is*, in clean theory — core idea, the math, the trade-offs. It is **not** about mapping these onto the analog-CPU / custom-ALU substrate yet; that connection is noted lightly where natural but is not the point here. Think of `concept/` as the reference library you read *before* deciding which mechanism the substrate should borrow.
+**Scope, deliberately narrow:** this folder is *what each model is*, in clean theory — core idea, the math, the trade-offs. It is **not** about mapping these onto the analog-CPU / custom-ALU substrate yet; that connection is noted lightly where natural but is not the point here. Think of `survey/` as the reference library you read *before* deciding which mechanism the substrate should borrow.
 
-> **Draft-6.0 note (June 2026).** This is a **survey of options**, not the current decision. Draft 5.1 chose **attribution** (`distribution-based.detail.md`) as the on-chip rule — and that choice was **invalidated** (the loss carried magnitude but never direction). **Draft 6.0 chose a SCFF + gradient-descent hybrid** instead — the papers behind it are in [`../ref/`](../ref/README.md), the decisions in [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md). So below, where older notes call attribution *"the project's rule,"* read it as **"the draft-5.1 pick, now historical."** The survey itself is still the right map of the learning-rule landscape.
+> **Draft-6.0 note (June 2026).** This is a **survey of options**, not the current decision. Draft 5.1 chose **attribution** (`distribution-based.detail.md`) as the on-chip rule — and that choice was **invalidated** (the loss carried magnitude but never direction). **Draft 6.0 chose a SCFF + gradient-descent hybrid** instead — the papers behind it are in [`../papers/`](../papers/README.md), the decisions in [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md). So below, where older notes call attribution *"the project's rule,"* read it as **"the draft-5.1 pick, now historical."** The survey itself is still the right map of the learning-rule landscape.
 
 ---
 

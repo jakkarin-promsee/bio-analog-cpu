@@ -6,7 +6,7 @@
 
 ## Hierarchical Predictive Coding — the hierarchy is a two-way street
 
-*Rao & Ballard, 1999; framework: Friston. (See also `4-signal.md`, `../concept/predictive-coding.detail.md`.)*
+*Rao & Ballard, 1999; framework: Friston. (See also `4-signal.md`, `../survey/predictive-coding.detail.md`.)*
 
 The most influential model of the *cortical* hierarchy, and the correction to "stack of feature detectors." Each level **predicts the activity of the level below** and sends that prediction *down*; the level below sends only the **prediction error** *up*. Perception is the hierarchy **settling** so that errors are minimized at every level. So the hierarchy is **bidirectional**: bottom-up isn't features-getting-fancier, it's *error*; top-down isn't just attention, it's *prediction*.
 
@@ -56,9 +56,9 @@ The scaling-world's modular hierarchy: many "expert" sub-networks, and a **route
 
 ## Greedy layer-wise growth — build the hierarchy one level at a time
 
-*Deep Belief Nets: Hinton, Osindero & Teh, 2006; and the Forward-Forward / local-learning lineage (`../concept/`).*
+*Deep Belief Nets: Hinton, Osindero & Teh, 2006; and the Forward-Forward / local-learning lineage (`../survey/`).*
 
-The historical-but-relevant idea: you don't have to train a deep hierarchy *end-to-end*. Train level 1 to encode the input, **freeze it**, train level 2 on level-1's output, and so on — **growing the hierarchy bottom-up**, each level local. This is what made deep learning work *before* end-to-end backprop got good, and it's exactly the spirit of **SCFF stacking** and **BoostResNet** (`../ref/boostresnet.md`).
+The historical-but-relevant idea: you don't have to train a deep hierarchy *end-to-end*. Train level 1 to encode the input, **freeze it**, train level 2 on level-1's output, and so on — **growing the hierarchy bottom-up**, each level local. This is what made deep learning work *before* end-to-end backprop got good, and it's exactly the spirit of **SCFF stacking** and **BoostResNet** (`../papers/phase1-2/boostresnet.md`).
 
 **For us:** this is the construction *method* for your hierarchy, and you're already using it (SCFF is greedy-layerwise; blocks chain by boosting). The lesson for phase 2: **grow the thinking hierarchy level by level**, each trained locally/online, rather than designing the whole tower and training it at once. It matches your "simple first, then climb" discipline and your local-learning substrate.
 
