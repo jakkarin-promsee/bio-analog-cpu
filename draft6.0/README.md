@@ -1,18 +1,21 @@
 # Draft 6.0
 
+> _The post-pivot line (June 2026). Stage 1 — the first organ, the SCFF + GD neocortex — is now built and
+> characterized across Phases 1–4; the live line is Phase 5. This page is the story: why 5.x died, what 6.0
+> turned out to be. The day-one plan is kept below as the hypothesis I came back with; the section after it is
+> what the simulations actually said (some of it overruled the plan, in my favour)._
+
 ## How did we get here?
 
-TBH, it's my mistake — I didn't check the main formula of draft 5.0 carefully enough. The worst part I missed is **direction**. Back then I was thinking only about how much loss each neuron should receive — the magnitude of the distribution — while the **sign** of the loss distribution was missing completely. That broke the draft 5.0 model apart: nothing converged, and patching direction in properly would break all my essence rules (the local-learning core this whole architecture stands on).
+Draft 6.0 exists because draft 5.0 broke on one missing piece: **direction.** The old learning rule worked out *how much* loss each neuron should absorb — the magnitude — but never *which way* it should move — the sign. Magnitude with no direction can't descend anything, so nothing converged. And patching the sign back in properly would have broken the local-learning core this whole architecture stands on.
 
-This is the worst scenario you can think of. Every concept I built before is wrong, and I have to rebuild everything from zero.
+So this was a reset, not a patch. The concepts under draft 5.x don't carry forward — I keep the old drafts only as idea references, not as the design. If you're reading `draft6.0/`, this is the design.
 
-If you're reading this `draft6.0/`, know that this time I threw all the previous drafts away. They're left as idea references only — don't read them as the concept.
-
-It cost me a burnout of about 3–4 days, but now I can stand again. The whole week I spent down actually made me see my target clearer. Now I'm back with a completely new plan.
+It took me a rough few days to accept that. But the reset is also what made the target clear again, and I came back with a completely new plan — the one the rest of this page lays out, and then puts to the test.
 
 ## Two weeks later — the deeper lesson
 
-The note above was written in the first days after the crash. Two weeks of sitting with it showed me the missing sign was only the _symptom_. The real hole was deeper — and the only "fix" for the sign was a trap: patching in full 1:1 directional backprop throws away the whole advantage and marches the chip straight back into the summation wall it exists to escape. "Just fix the sign" was never on the table.
+Those first days, the missing sign looked like the whole problem. Two weeks of sitting with it showed me it was only the _symptom_. The real hole was deeper — and the only "fix" for the sign was a trap: patching in full 1:1 directional backprop throws away the whole advantage and marches the chip straight back into the summation wall it exists to escape. "Just fix the sign" was never on the table.
 
 Here's what I actually got wrong. Draft 5.0 treated the brain as **homogeneous** — one structure repeated everywhere, running one simple rule: attribute-based backpropagation, a stack of linear regressions on axon behavior, and intelligence falls out the top. I was so sure of it that I decided _modern ML_ was the thing that was wrong — brute-forcing computation with an n×n transformer that does everything at once, when real intelligence (I thought) is continuous, in-chip, and just this one local rule repeated forever.
 
@@ -29,108 +32,45 @@ So I'm taking many steps back. No in-chip memory, no analog ALU, no real circuit
 
 The worldview I'm aiming at now — heterogeneous organs, each with its own job and its own learning rule — is the one mapped out in [`future-ref/`](future-ref/README.md), topics **1–6**. That's the _direction_. The line I actually walk first is still the smallest stable thing there is: get SCFF + GD to converge.
 
-## What will I do now?
+## The plan I came back with
 
-### Overview
+The rebuild is **two brains on one substrate**, and the whole bet rides on one observation: **direction is the one expensive thing in learning.** Distributing *which way* each weight should move is what costs; everything else is cheap. So pay for direction once, where it counts, and get the rest for free.
 
-After the long downfall, I went and researched a lot of ideas for what our "backpropagation" should look like. You can see all of them in `./draft6.0/concept`. The final idea, after 4 days of fully thinking, is:
+- **~80% SCFF — the cheap brain.** Self-Contrastive Forward-Forward: local, derivative-free, forward-only, and *unsupervised*. No backward pass, no order wall (no waiting on other layers), no labels — every neuron updates from its own activity. It organizes the shape of the world on its own. I picked it because it's the only rule I found that is local *and* derivative-free *and* forward-only *and* unsupervised all at once — the only one that can actually live on the substrate.
+- **~20% gradient descent — the precise brain.** SCFF can't put a real *label* on the shapes it finds, so a small modern optimizer does: it reads SCFF's features and maps them to classes. Why GD specifically? Because every learning rule ends up paying a cost close to full GD on direction anyway, so I pick the one that buys the most accuracy per unit of compute.
 
-- I will use **SCFF (Self-Contrastive Forward-Forward)** for most of the model (about 80%). This learning type needs no derivative, no summation chain, no order wall (no waiting for other layers to finish first) — each neuron can update itself without knowing anything about the others. It doesn't even need a label. SCFF converges to the place where `x_pos` and `x_neg` separate clearly, making the final layer of this part a near-perfect classifier.
+Around that core, the plan added the machinery to make it hold together:
 
-- But SCFF can't fit a real label. It is only an _unsupervised_ classification of the data shape.
+- **A middle layer** to smooth the seam between the two brains, so when SCFF's unsupervised features drift, the GD sitting on top doesn't fall off them.
+- **The block concept** — chain `[SCFF → middle → GD]` units, each block's GD checkpoint re-anchoring its output to a fixed label-shape. That way the next block always sees a stable input, and direction can chain end-to-end through an otherwise-local stack.
+- **Threshold-gated learning** — run cheap local SCFF most of the time, and only spend the expensive GD update when the error builds past a threshold (the way real cortex seems to).
+- **Sleep + a hippocampus** — because the gated GD only re-tracks the data it has recently seen, a periodic "sleep" re-fits GD full-batch over the whole history, with a memory store (a LUT, to start) holding that history.
 
-- So for the other ~20%, I will use **full gradient descent** to translate that classification into real labels. Why gradient descent? Because eventually every algorithm ends up paying a computation cost close to full gradient descent anyway — no matter what you choose, in the end you get stuck on direction diffusion. So I pick the one that gives the most accuracy per computation cost. (Think at CPU scale: `ldr` data-load cost + computation cost.)
+That was the hypothesis. The point of Stage 1 was to stop arguing it and let the simulations talk.
 
-### Full Detail
+## What the experiments said — Stage 1 (Phases 1–4)
 
-#### 1. The Middle Layer
+I built the behavioral simulation (numpy, ideal floats) and walked it down the ladder, one rung at a time, with the rule that **failures are data — never tune until it passes.** The full write-up is in [`src/stage1-report.md`](src/stage1-report.md) (the arc) plus one report per phase; the glossary is [`src/ref-report/`](src/ref-report/README.md). The short version:
 
-From the overview, you see the model has two parts: SCFF and gradient descent. The problem: SCFF has no label and updates with only a Hebbian-style rule. So if the input shape changes even a bit, the output at SCFF's last layer can swing a lot. The classification stays precise — but its _position_ moves. Which makes the gradient descent sitting on top of it outdated, and it breaks.
+**Phase 1 — the cell, and where it actually wins.** One block (SCFF + GD readout) really does generalize better than backprop: a smaller memorization gap (+0.027 vs +0.062 on MNIST) at ~10% of the backward cost. But the sim also corrected my day-one optimism — SCFF does **not** make "a near-perfect classifier." It clusters by **density, not class**: it learns where the data is dense, which is only "class" when classes happen to be dense clusters. It's a weak low-dimensional learner, and it degrades with depth. The real win turned up somewhere I hadn't centered — the **continual** regime. SCFF's unsupervised features don't forget, so where online backprop catastrophically forgets, a cheap **sleep** consolidation recovers near-ceiling accuracy. Sleep + the hippocampus LUT: confirmed. → [`src/phase1/phase1-report.md`](src/phase1/phase1-report.md)
 
-So I will fix this with **middle layers** that mix SCFF and gradient descent. I'm not sure about the exact formula yet, but the idea is to blend the two updates:
+**Phase 2 — depth is not SCFF's lever.** The substrate's cheap axis is *depth*, but a deep SCFF stack can't earn it — and I closed every escape hatch before believing that. Not a transmission problem, and not the negatives: even a perfect label **oracle** doesn't bend the depth curve. Depth instead comes from **boosted ensembles of shallow blocks** with tiny GD readouts (read the readouts, never re-write the stream) — ~85% of GD's accuracy at ~1/6 the backward cost. I concluded the wall was "intrinsic to forward-only locality" — which Phase 3 would narrow. → [`src/phase2/phase2-report.md`](src/phase2/phase2-report.md)
 
-- Layer n: full SCFF
-- Layer n+1: 0.9·SCFF + 0.1·gradient descent
-- Layer n+2: 0.8·SCFF + 0.2·gradient descent
-- …
-- Layer n+s: 0.1·SCFF + 0.9·gradient descent
-- Layer m: full gradient descent
+**Phase 3 — the objective reframe (the big correction).** The literature caught the one word that was too strong: the wall is intrinsic to the **energy objective** `Σh²`, not to locality. Forward-only, unsupervised learners *do* compose depth — when their objective preserves *information* instead of energy. So I swapped energy-goodness for a **contrastive (InfoNCE)** objective and added the cross-layer **coordination window** (my own "help the next layer" idea, supplied forward-only). With both, depth composes (on a task with the headroom to show it) — and it re-earns and slightly improves the continual win. **This is adopted; it supersedes the energy-goodness SCFF I came back with.** → [`src/phase3/phase3-report.md`](src/phase3/phase3-report.md)
 
-The middle layers don't aim to converge. They aim to _smooth the connection_ between the two models — so the output at the last layer doesn't swing so much, and gradient descent can follow its shape.
+**Phase 4 — the capability map.** Instead of improving the cell further, I characterized it: the gap to a *genuinely-tuned* backprop across seven controlled axes. The map says exactly what the project always claimed — a **substrate-native continual learner, not a static-accuracy competitor.** It wins continual, nuisance-dimensional input, depth-composition, and depth-is-cheap (the 80/20 advantage is real but **depth-gated** — flat-in-depth for us, linear for backprop); it trails on raw static accuracy and many-class; and it returned one honest **negative** on eval-time weight noise. No flattering surprises, no hidden bug. → [`src/phase4/phase4-report.md`](src/phase4/phase4-report.md)
 
-Not sure yet if this is enough, because SCFF and gradient descent won't train at the same time — e.g. train 64 batches on SCFF only, then switch to gradient descent (more detail in §3, The Learning Mechanism).
-
-#### 2. The Block Concept
-
-Topic 1 describes one unit of SCFF and gradient descent working together:
-
-First layers (SCFF) → middle layers (SCFF + gradient descent mix) → last layers (gradient descent)
-
-Call this a **[Block]**. Each block needs only one delta term from outside to drive its gradient descent — ∂L/∂Block_l, passed down to Block_l−1. But computing the whole network backward to get this delta exactly costs too much. So I approximate: `Block_W = Block_out / Block_in` — treat the whole block like a one-layer linear function with a single approximate weight matrix. (It's not linear. It's just an approximation.)
-
-This drops the backward cost from O(len(layers)) to O(len(blocks)). We get:
-
-Block_1 → Block_2 → … → Block_n
-
-Each block has an unsupervised classifier (SCFF) that can learn at any time from input alone, plus gradient descent right before the block sends its output out — and that gradient descent has a _fixed label_. This makes each block discrete: no matter how much the SCFF inside Block 1 swings, gradient descent pulls the output back to the label shape, so Block 2 still receives similar input.
-
-#### 3. The Learning Mechanism
-
-Now it's time for the real biology-inspired part — the math ends here. From all my research, I think everything above will be able to converge. The worst case is simply: connect all the SCFF together and keep only one gradient descent at the very end (for the case where gradient-descent delay makes the model swing and explode).
-
-The concept I picked: use **local learning (pure SCFF) until the error builds up and hits a threshold, then bring in gradient descent** — the way real brain nerves do it (per research info in 2025).
-
-- If loss < threshold: update **only SCFF** — the unsupervised classification brain. The model keeps getting more precise at classification, and its output keeps swinging and shifting away from the point gradient descent last saw.
-- If loss > threshold: update SCFF as normal **+ update gradient descent**, so the gradient-descent part can follow SCFF's output again.
-
-Why gate it like this? Because gradient descent is slow and huge. It costs a lot to compute: a full forward, the half backward (block-approximated), matrix computation, and the weight approximation. SCFF uses only `x_pos` and `x_neg` in a single forward pass (both computed at the same time). At circuit level, SCFF is more efficient in every way.
-
-And the biggest reason: **SCFF is unsupervised** — it tries to recognize _everything_ about the input. The more data it gets, the more classification it can do. Even while the last output is getting worse loss, the inside of the model still holds the data shape it learned. (The only bad case is overfitting, where it learns to recognize all the noise too XD.)
-
-But this gives us a new problem: gradient descent gets **shifted over time**. The single update when loss > threshold helps a bit — but it only reconnects the last-seen data, while the rest of the output range breaks. Example: SCFF keeps shifting over time, and only 10% of the data hits the threshold — so gradient descent now covers only 10% of the new input map (from SCFF).
-
-So my idea is a **"sleep-like mechanism"**: a phase where we train gradient descent full-batch again on the new SCFF map — making gradient descent cover the whole data range, from the past until now, again.
-
-And this creates a new problem too: where do we keep the full batch for the sleep phase? TBH, I don't know either. But I have 2 rough ideas:
-
-- Use SRAM to keep the input/label history like an array list.
-- Use another model whose only job is to remember the full history… yeah, it's a real hippocampus. I don't know yet whether it can work, because this model would be used to train the whole prediction model.
-
-## What will we do next?
-
-First, I will use only classification / statistics tasks.
-
-- 1.0. Simulate full SCFF
-- 1.1. Simulate full gradient descent
-
-- 2.0. Simulate SCFF + gradient descent
-- 2.1. Simulate SCFF + middle layers + gradient descent
-
-- 3.0. Simulate no sleep update
-- 3.1. Simulate sleep update with full-batch history (array history)
-- 3.2. Simulate sleep update with 20%-batch history (array history)
-- 3.3. Simulate sleep update with another model that keeps the history
-
-Then, once the steps above give us a stable init, I will try the **block concept**:
-
-[SCFF + middle + GD] → [SCFF + middle + GD] → [SCFF + middle + GD] → …
-
-Why do I want this? Because gradient descent is **100% direction-distribution compute** — distributing direction is the entire thing it does. Most Hebbian models break on complex tasks exactly because they can't send direction clearly. Putting a GD checkpoint between every block gives us two things:
-
-1. **A fixed-range translation layer at every boundary.** No matter how Block 1 shifts, its output stays in the same range and shape — so the whole model doesn't swing when the first block updates. The only thing that changes is the _precision_ of the output.
-2. **Direction chains through the whole model.** The gradient-descent stages connect to each other, so direction information links end-to-end — even though most of the layers are SCFF.
-
-But I'm not sure yet whether these in-between GD stages will hold or break. So: stable init first from the steps above, then we try this.
-
----
+So the spine I came back with survived — two brains, blocks, gate, sleep — but the simulations rewrote two of its parts in my favour: **the SCFF objective** (energy → contrast + coordination) and **what the architecture is *for*** (a continual learner, not a classifier racing backprop on accuracy). One piece is still only on paper: the **threshold gate** is named but unbuilt. Tuning that, plus the sleep/maintenance loop against this cell's measured drift, is **Phase 5**. And the horizon beyond the numbered phases is still the one the whole question was about — a recurrent, lifelong "thinking" brain where correctness is a self-generated feeling — but simple first.
 
 ## Where things live in this folder
 
 | Path                                             | What it is                                                                                                        |
 | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
 | [`context.md`](context.md)                       | **the full context dump** — the whole picture (what / why / how / the person). Start here if you're cold.         |
-| [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) | **the decision record** — N1–N3 + S1–S8, the live plan (spine committed, numbers pending).                        |
+| [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) | **the decision record** — N1–N3 + S1–S8, the live plan (spine committed; Stage 1 set most of the numbers).        |
 | [`idea/ideas1.md`](idea/ideas1.md)               | the full derivation, told as a story (every part + _why_).                                                        |
+| [`src/`](src/stage1-report.md)                   | **the results.** `stage1-report.md` (the four-phase arc) · `ref-report/` (glossary: methods / metrics / papers) · `phase{1..4}/` (per phase: the report, the summary, the `RESULTS.md` ledger, the run-cards + figures). |
 | [`concept/`](concept/README.md)                  | survey of learning algorithms — the _options_ considered (attribution here is draft-5.1 history).                 |
-| [`ref/`](ref/README.md)                          | plain-language stories of the papers **behind** the 6.0 design (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD). |
-| [`future-ref/`](future-ref/README.md)            | the **north-star** research dossier (21 files, beyond the numbered phases) — free-time reading, _not_ the line to walk now. |
+| [`ref/`](ref/README.md)                          | paper stories behind the Phase-1/2 design (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD).                      |
+| [`ref2/`](ref2/README.md)                        | the Phase-3 depth-direction survey (Greedy InfoMax, CLAPP, Mono-Forward, the objective reframe).                  |
+| [`future-ref/`](future-ref/README.md)            | the **north-star** research dossier (beyond the numbered phases) — free-time reading, _not_ the line to walk now. |
