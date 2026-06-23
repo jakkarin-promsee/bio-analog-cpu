@@ -18,7 +18,7 @@ The "get me up to speed / re-think before we continue" move.
 1. Skim `CLAUDE.md` (already loaded) → `skill/project-explore.md` (the frame).
 2. Read the live plan: `draft6.0/idea/main.ideas.v1.md` (decisions + "Status") and the experiment ladder
    in `draft6.0/idea/ideas1.md` (which rung we're on). For the whole picture cold: `draft6.0/context.md`.
-3. If a focus arg is given, also load that lens — **code** → `skill/simulator-code.md` (historical `src/`;
+3. If a focus arg is given, also load that lens — **code** → `skill/simulator-code.md` (historical `draft5.0-fossil/src/`;
    the 6.0 sim isn't written yet); **experiment** → `skill/simulation-experiments.md`; **arch** →
    `skill/architecture-research.md`.
 4. Report **tight**: where we are · the frame · what's solid vs open · what I'd watch next. Flag any doc

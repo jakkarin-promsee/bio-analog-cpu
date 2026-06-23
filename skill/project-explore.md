@@ -7,7 +7,7 @@
 > **Updated for draft 6.0 (June 2026).** The project **pivoted**: the old attribution learning rule
 > (`|a·W|` hierarchical diffusion) broke at the root — it carried loss *magnitude* but never *direction*
 > (the sign) — and was rebuilt as a **SCFF + gradient-descent hybrid**. This map now points at `draft6.0/`.
-> The draft-5.1 attribution world (`draft5.1-*.md`, `src/`, the Ganglion hierarchy) is **history** —
+> The draft-5.1 attribution world (`draft5.0-fossil/draft5.1-*.md`, `draft5.0-fossil/src/`, the Ganglion hierarchy) is **history** —
 > read it via `docs/draft/project-history.md` for *why* old calls were made, not for what we build now.
 >
 > **Router, not spec.** It points into `draft6.0/` (the live plan), `docs/essence/the-essence.md` (the
@@ -82,7 +82,7 @@ record). The shape:
 > The old **Scap → Ganglion → Column → Lobe → Limbic Loop** hierarchy belonged to the attribution
 > architecture and is **historical.** The *Scap* (capacitor weight storage) survives as the substrate
 > atom; the Hippocampus/Cortex *ideas* survive as the sleep/consolidation + LUT memory. Everything else in
-> that hierarchy is read-for-history-only (`draft5.1-1.md`).
+> that hierarchy is read-for-history-only (`draft5.0-fossil/draft5.1-1.md`).
 
 ---
 
@@ -114,10 +114,10 @@ This causes more accidental "fixes" than anything else.
 
 - **The live plan** (`draft6.0/`) is what we build now. `main.ideas.v1.md` is the decision record; its
   spine is committed and Stage 1 (Phases 1–4) set most of its numbers — the open knobs that remain are Phase 5's.
-- **The historical world** (`draft5.1-*.md`, `draft5.1-2.verify.md`, `src/`) is the **attribution chip** —
-  the design that broke. The `src/` simulator implemented *that* chip (the Ganglion, broadcast + momentum,
+- **The historical world** (`draft5.0-fossil/draft5.1-*.md`, `draft5.0-fossil/draft5.1-2.verify.md`, `draft5.0-fossil/src/`) is the **attribution chip** —
+  the design that broke. The `draft5.0-fossil/src/` simulator implemented *that* chip (the Ganglion, broadcast + momentum,
   the lean baseline). Its substrate primitives may carry forward; its learning rule does not. **Don't
-  "fix" draft 6.0 to match the old src/, and don't treat old §-references as live.**
+  "fix" draft 6.0 to match the old `draft5.0-fossil/src/`, and don't treat old §-references as live.**
 - **When something in the old docs contradicts draft 6.0, draft 6.0 wins.** The pivot is the most recent
   truth.
 
@@ -197,8 +197,8 @@ Full version: `docs/draft/project-personal.md` — read it before any non-trivia
 | Research the north-star / recurrent brain (beyond the numbered phases) | `draft6.0/future-ref/` (21-file dossier — free-time reading, *not* the live plan) |
 | Code / plan a Phase-2 experiment (depth round 1, done) | `draft6.0/src/phase2/` (README plan + result-format) |
 | Code / plan a Phase-3 experiment (depth round 2, the objective reframe) | `draft6.0/src/phase3/` (README plan + result-format) + `draft6.0/ref2/` (survey) |
-| Understand the old attribution chip (history) | `draft5.1-1.md` + `docs/draft/project-history.md` |
-| Read the (historical) simulator code | `skill/simulator-code.md` → `src/docs/*` (attribution-era) |
+| Understand the old attribution chip (history) | `draft5.0-fossil/draft5.1-1.md` + `docs/draft/project-history.md` |
+| Read the (historical) simulator code | `skill/simulator-code.md` → `draft5.0-fossil/src/docs/*` (attribution-era) |
 | Propose a change / make a scope call | `skill/architecture-research.md` |
 | Fire a recurring move (orient / checkpoint / commit / double-check) | `skill/workflows.md` (+ `/command` triggers) |
 | Understand **why** an old decision was made | `docs/draft/project-history.md` |
