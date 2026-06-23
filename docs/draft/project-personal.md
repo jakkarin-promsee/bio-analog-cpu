@@ -128,8 +128,8 @@ It is **not** an ML project. It is a **substrate** project. The architecture is 
 
 - **The draft-5.1 attribution theory was invalidated and rebuilt.** It distributed loss magnitude but never direction (the sign). The rebuild is **draft 6.0** — a SCFF + gradient-descent hybrid.
 - **Draft 6.0 spine: committed; numbers: pending.** The decisions (N1–N3 + S1–S8) are in `draft6.0/idea/main.ideas.v1.md`; the open knobs are listed there too — the sims set them. Nothing here is "locked" the way draft-5.1's §22 was; 6.0 is young.
-- **Simulation: Stage 1 (Phases 1–4) is complete (June 2026).** The experiment ladder (1.0 full SCFF → 1.1 full GD → 2.x mix+middle → 3.x sleep → 4.x block chain) in `ideas1.md` has run; the results live in `draft6.0/src/` (the report set + ledgers). The old `draft5.0-fossil/src/` simulator was built for the *attribution* architecture and is historical (substrate primitives may carry forward).
-- _(Old draft-5.1 status, for context: theory was "locked at 4.1/5.1"; the §20 campaign and the SLICE-1 / Ganglion-Personality work via `draft5.0-fossil/src/` were the live front before the pivot. That's the work that hit the wall.)_
+- **Simulation: Stage 1 (Phases 1–4) is complete (June 2026).** The experiment ladder (1.0 full SCFF → 1.1 full GD → 2.x mix+middle → 3.x sleep → 4.x block chain) in `ideas1.md` has run; the results live in `draft6.0/src/` (the report set + ledgers). The old `draft5.0/src/` simulator was built for the *attribution* architecture and is historical (substrate primitives may carry forward).
+- _(Old draft-5.1 status, for context: theory was "locked at 4.1/5.1"; the §20 campaign and the SLICE-1 / Ganglion-Personality work via `draft5.0/src/` were the live front before the pivot. That's the work that hit the wall.)_
 
 ### 2.3 The core architectural commitments
 

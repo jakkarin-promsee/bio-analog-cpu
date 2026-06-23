@@ -35,8 +35,8 @@ For the narrative version of the same arc (mind stones, breakthroughs, why each 
 | `draft5.0.md`       | Main        | Structural rewrite for stranger reader — mechanism (§2) before modules, §3 worked example         |
 | `draft5.0.x1.md`    | Brainstorm  | Brainstorm during the draft5.0 restructure                                                        |
 | `draft5.1-full.md`  | Main (ref)  | Final polish — §1.4 bio narrative, §3 XOR-convention bug fix, §3.6 ambiguity resolved (unsplit)    |
-| `draft5.1-1.md`     | Main (Part) | Canonical spec Part 1 — §0–§19, §22–§23. **Now in `draft5.0-fossil/` (moved at the draft-6.0 pivot; was at repo root).** |
-| `draft5.1-2.md`     | Main (Part) | Canonical spec Part 2 — §20 simulation, §21 future tracks. **Now in `draft5.0-fossil/`.**         |
+| `draft5.1-1.md`     | Main (Part) | Canonical spec Part 1 — §0–§19, §22–§23. **Now in `draft5.0/` (moved at the draft-6.0 pivot; was at repo root).** |
+| `draft5.1-2.md`     | Main (Part) | Canonical spec Part 2 — §20 simulation, §21 future tracks. **Now in `draft5.0/`.**         |
 | `draft5.1-2.verify.md` | Plan (superseded) | Re-draft of the §20 plan, intuition-first, phase by phase. Was the live plan before the draft-6.0 pivot; now history (live plan = `draft6.0/`). |
 
 > The split into `draft5.1-1.md` / `draft5.1-2.md` exists only because the markdown-to-PDF tool fails on the unsplit length. Content is identical to `draft/draft5.1-full.md`. Section numbers are continuous across both parts.
@@ -254,7 +254,7 @@ This file is kept as the single-file reference. It is identical in content to `d
 
 ### `draft5.1-1.md` + `draft5.1-2.md` — The Canonical Spec (split for PDF)
 
-The draft-5.1 canonical specification (historical). Now in `draft5.0-fossil/` (moved at the draft-6.0 pivot; was at the repo root), not under `draft/`.
+The draft-5.1 canonical specification (historical). Now in `draft5.0/` (moved at the draft-6.0 pivot; was at the repo root), not under `draft/`.
 
 - **`draft5.1-1.md`** — Part 1 (§0–§19, §22–§23): framing, mechanism, worked example, modules, cross-cutting mechanisms, hypotheses, math targets, open questions, protected list, glossary.
 - **`draft5.1-2.md`** — Part 2 (§20–§21): the full simulation campaign (MVF + ten phases, reproducibility infrastructure, effort budget) and future tracks.
@@ -281,7 +281,7 @@ Split only because the markdown-to-PDF tool fails on the unsplit length. Section
 > plan.
 
 **Latest plan: `draft6.0/`** — the SCFF + gradient-descent rebuild (June 2026). The draft-5.1 spec
-(`draft5.0-fossil/draft5.1-1.md` + `draft5.1-2.md`) and the attribution-era simulator (`draft5.0-fossil/src/`) are kept as **reference for
+(`draft5.0/draft5.1-1.md` + `draft5.1-2.md`) and the attribution-era simulator (`draft5.0/src/`) are kept as **reference for
 how the project worked before the pivot.** Start at `draft6.0/context.md` (the whole picture), or
 `draft6.0/README.md` (the pivot story). See `CLAUDE.md` for the full current file map.
 
@@ -293,5 +293,5 @@ in `project-history.md`; the rebuild is in `draft6.0/`.
 
 What this historical era achieved: the attribution mechanism *trained a single Ganglion* (regression near-
 perfect, a nonlinear paraboloid ~20×) before the scale flaw surfaced — a real result, recorded in git and
-`draft5.0-fossil/src/docs/`. The §22 protected list (14 items) and the §19 open questions belong to that dead architecture;
+`draft5.0/src/docs/`. The §22 protected list (14 items) and the §19 open questions belong to that dead architecture;
 the live decision record is `draft6.0/idea/main.ideas.v1.md`.

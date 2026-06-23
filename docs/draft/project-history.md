@@ -10,7 +10,7 @@
 
 This document traces _how_ the architecture mutated across iterations — not just _what_ changed, but _why_ each change happened. Every major decision has a reason. Every breakthrough has a mind stone. The path from draft1 to draft5.1 was not a straight line; it was a sequence of pushbacks, reframings, and earned simplifications.
 
-If you are a future AI picking this up: the spec is in `draft5.0-fossil/draft5.1-1.md` and `draft5.1-2.md` (moved there in the draft-6.0 pivot; split only for PDF-export length; no content difference from the unsplit `draft/draft5.1-full.md`). This document is the _story_ of how it got there. Read it if you want to understand why decisions are what they are — and why reopening them mid-simulation would be a mistake.
+If you are a future AI picking this up: the spec is in `draft5.0/draft5.1-1.md` and `draft5.1-2.md` (moved there in the draft-6.0 pivot; split only for PDF-export length; no content difference from the unsplit `draft/draft5.1-full.md`). This document is the _story_ of how it got there. Read it if you want to understand why decisions are what they are — and why reopening them mid-simulation would be a mistake.
 
 ---
 

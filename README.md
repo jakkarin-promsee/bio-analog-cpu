@@ -80,7 +80,7 @@ The full, reader-facing write-up lives in **[`draft6.0/src/stage1-report.md`](dr
 | The simulation code (per phase, regenerable) | [`draft6.0/src/`](draft6.0/src/) (`phase1..4/`) |
 | The papers behind it | [`draft6.0/ref/`](draft6.0/ref/) · [`draft6.0/ref2/`](draft6.0/ref2/) |
 | The soul of the project — why it exists | [`docs/essence/the-essence.md`](docs/essence/the-essence.md) |
-| The archived draft-5 (attribution) era | [`draft5.0-fossil/`](draft5.0-fossil/) |
+| The superseded draft-5 (attribution) era — *pre-pivot history, not the current design* | [`draft5.0/`](draft5.0/) |
 
 ---
 

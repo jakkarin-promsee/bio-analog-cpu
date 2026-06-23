@@ -7,7 +7,7 @@
 > **New here? Read `skill/project-explore.md` first** — the concept entry point.
 >
 > **Migrated to draft 6.0 (June 2026).** The old `§20` ten-phase campaign, the `H1` attribution
-> hypothesis, the MVF/Ganglion-Personality framing, and `draft5.0-fossil/draft5.1-2.verify.md` are **history.** The live
+> hypothesis, the MVF/Ganglion-Personality framing, and `draft5.0/draft5.1-2.verify.md` are **history.** The live
 > line is the **Phase-1 experiment ladder** in [`draft6.0/idea/ideas1.md`](../draft6.0/idea/ideas1.md).
 
 ## The one thing to internalize first

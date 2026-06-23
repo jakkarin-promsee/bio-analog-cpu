@@ -1,20 +1,20 @@
 # `skill/simulator-code.md` — editing the simulator: mental-model map
 
-> ## ⚠️ HISTORICAL — the attribution-era `draft5.0-fossil/src/` simulator (draft 5.1)
+> ## ⚠️ HISTORICAL — the attribution-era `draft5.0/src/` simulator (draft 5.1)
 > **This map describes the *old* simulator, built for the attribution chip — kept as a guideline for how
 > the previous build worked, not as the current task.** Draft 6.0 (June 2026) set the circuit/ALU/memory
 > aside to **stabilize the core math first**. **Update (2026-06-23):** the draft-6.0 behavioral sim has since
 > been written and run across `draft6.0/src/phase{1,2,3,4}/` (numpy SCFF + GD + probes; `p4lib.py` + per-phase
 > run/plot scripts) — Stage 1 (Phases 1–4) is complete. A fresh draft-6.0 code map is still TODO; until it
-> exists, read this only to understand the historical `draft5.0-fossil/src/` (the Ganglion, broadcast + momentum, the lean
+> exists, read this only to understand the historical `draft5.0/src/` (the Ganglion, broadcast + momentum, the lean
 > baseline). The live plan is [`draft6.0/`](../draft6.0/idea/ideas1.md).
 >
 > ---
 >
 > *(Original 5.1-era content below, unchanged.)*
 >
-> **Use this when** you're about to change `draft5.0-fossil/src/library/*` (wires, capacitor, pwm, scap, banks, alu,
-> control) or `draft5.0-fossil/src/example/*` (the builds, brainstem, run_xor).
+> **Use this when** you're about to change `draft5.0/src/library/*` (wires, capacitor, pwm, scap, banks, alu,
+> control) or `draft5.0/src/example/*` (the builds, brainstem, run_xor).
 >
 > This is a **router**, not a procedure — it tells you which docs to load and the mindset to hold; read
 > the docs it points to. `CLAUDE.md` is already in context; this adds the code layer.
@@ -27,11 +27,11 @@ MAR/MDR inter-processor transfer). Trust the *shapes*; distrust the *ease*.
 
 ## Read these first, in order — only the parts named
 
-1. **`draft5.0-fossil/src/docs/core_logic.md` — every time, before touching code.** The Python↔hardware decoder. Burn in
+1. **`draft5.0/src/docs/core_logic.md` — every time, before touching code.** The Python↔hardware decoder. Burn in
    **§6: moving a value across a scope wall is a bus transaction — never "just pass the object."**
-2. **`draft5.0-fossil/src/docs/code_concept.md`** — the class shapes you're editing. Match what's there.
-3. **`draft5.0-fossil/src/docs/context.md` §4** (decision log — what we chose *and reverted*) and **§6** (the traps).
-4. **`draft5.0-fossil/src/docs/question.md`** — skim when a construct confuses you ("why io_id? why is run() blocking?").
+2. **`draft5.0/src/docs/code_concept.md`** — the class shapes you're editing. Match what's there.
+3. **`draft5.0/src/docs/context.md` §4** (decision log — what we chose *and reverted*) and **§6** (the traps).
+4. **`draft5.0/src/docs/question.md`** — skim when a construct confuses you ("why io_id? why is run() blocking?").
 
 Don't re-read the whole spec for a code change — pull only the section a doc points you to.
 
@@ -47,8 +47,8 @@ Don't re-read the whole spec for a code change — pull only the section a doc p
 
 ## Constraints you cannot violate
 
-- **§22 (the protected list)** in `draft5.0-fossil/draft5.1-1.md` — locked architecture decisions. Don't reopen.
-- **The recorded deviations** (`draft5.0-fossil/src/docs/context.md §5`): the lean broadcast+momentum baseline and the
+- **§22 (the protected list)** in `draft5.0/draft5.1-1.md` — locked architecture decisions. Don't reopen.
+- **The recorded deviations** (`draft5.0/src/docs/context.md §5`): the lean broadcast+momentum baseline and the
   shallower credit hierarchy are *deliberate*. Don't "fix" them back without phase data.
 - **ids on wires are ints** (`group_id`, `weight_model_id`, `target_group`); `alu_id` is a `str` dict key.
 - **Don't import ML/backprop instincts.** No gradient routing, no weight transport. A Scap is a wire.

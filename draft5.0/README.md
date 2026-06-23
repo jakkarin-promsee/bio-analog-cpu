@@ -1,5 +1,11 @@
 # Bio-Inspired Analog Neural Compute Architecture
 
+> ## ⚠️ Superseded — the pre-pivot draft-5 (attribution) world
+> This folder is **historical.** It is kept for its concepts and as the lineage that led to the pivot; it does
+> **not** describe the current design. **The live design is [`../draft6.0/`](../draft6.0/README.md).** Draft 5 was
+> superseded when its learning rule was found to distribute loss *magnitude* but never *direction* (the sign) —
+> the full story is in [`../draft6.0/README.md`](../draft6.0/README.md).
+
 > A continuous-time analog substrate with on-chip, online learning.
 > Architecture spec + behavioral-simulation plan.
 

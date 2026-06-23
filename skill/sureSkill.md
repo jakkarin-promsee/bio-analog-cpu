@@ -8,7 +8,7 @@
 > procedure. `CLAUDE.md` (always loaded) points here, so the right map is found for the task at hand.
 >
 > **Migrated to draft 6.0 (June 2026).** The old confidence log below was about the *attribution* build
-> (the `draft5.0-fossil/src/` simulator, draft 5.1). It's kept, banded, as a record of what the previous build achieved —
+> (the `draft5.0/src/` simulator, draft 5.1). It's kept, banded, as a record of what the previous build achieved —
 > not as the current state. The current state is: **Stage 1 (Phases 1–4) simulated, complete, and written
 > up** (see below) — the live line is now **Phase 5 = optimization.**
 
@@ -21,7 +21,7 @@
 | `simulation-experiments.md` | writing tests, running a Phase-1 rung, interpreting results | ✅ 6.0 |
 | `workflows.md` | the recurring moves (orient / checkpoint / commit-progress / double-check) | ✅ 6.0 |
 | `sureSkill.md` | this meta-map / index | ✅ 6.0 |
-| `simulator-code.md` | editing the simulator | ⚠️ **historical** — describes the old `draft5.0-fossil/src/` attribution sim; the **6.0 behavioral sim is now written** in `draft6.0/src/phase{1,2,3,4}/` (numpy SCFF+GD+probes), but this map still points at the old one |
+| `simulator-code.md` | editing the simulator | ⚠️ **historical** — describes the old `draft5.0/src/` attribution sim; the **6.0 behavioral sim is now written** in `draft6.0/src/phase{1,2,3,4}/` (numpy SCFF+GD+probes), but this map still points at the old one |
 
 Maps to add: a **6.0 simulator-code** map (the fresh SCFF+GD behavioral sim now exists across `draft6.0/src/phase1-4/` —
 `p4lib.py` + the per-phase `pNlib`/run/plot scripts — and deserves its own code map), and later a
@@ -94,7 +94,7 @@ result — is now history, see below.)
 
 > ## ⚠️ HISTORICAL — the attribution build (draft 5.1), kept as a record
 >
-> *What the previous `draft5.0-fossil/src/` simulator achieved, preserved so the result isn't lost — but it is the dead
+> *What the previous `draft5.0/src/` simulator achieved, preserved so the result isn't lost — but it is the dead
 > architecture (attribution / `|a·W|` hierarchical diffusion), not the live plan.*
 >
 > - **The mechanism trained at the unit level.** A single Ganglion under broadcast + momentum on `|a·W|`
@@ -108,5 +108,5 @@ result — is now history, see below.)
 > - **What was never reached:** substantive-task convergence, the higher levels (Limbic two-timescale,
 >   SpecialGeneralist, multi-parent diffusion), and all analog/PVT behavior.
 >
-> The full code-level confidence log lives in git history and `draft5.0-fossil/src/docs/`. Read it only to understand the
+> The full code-level confidence log lives in git history and `draft5.0/src/docs/`. Read it only to understand the
 > old build; the substrate primitives carry forward, the learning rule does not.

@@ -25,7 +25,7 @@ The draft-5.1 learning rule — *attribution-based hierarchical diffusion*, spli
 
 **The deeper lesson (two weeks on):** the missing sign was the *symptom*. The real error was assuming the brain is **homogeneous** — one rule everywhere. It isn't; a real axon can't be simulated 1:1; modern ML doesn't brute-force biology, it **cheats it by projecting into a computable dimension** (the project's own motto: *copy the function, cheat the implementation*). So 6.0 builds **organ by organ** — the first two being the cheap SCFF cortex and the precise GD namer. (Told in full in `draft6.0/README.md` and `ideas1.md`.)
 
-**The live plan lives in `draft6.0/`.** Not the `draft5.1-*` files, not `draft5.1-2.verify.md` — those are now history (moved to `draft5.0-fossil/`). Read in this order:
+**The live plan lives in `draft6.0/`.** Not the `draft5.1-*` files, not `draft5.1-2.verify.md` — those are now history (moved to `draft5.0/`). Read in this order:
 
 - **`draft6.0/README.md`** — the pivot story: why 5.x died, what 6.0 is.
 - **`draft6.0/idea/ideas1.md`** — the full derivation, told as a story (every part, and *why* we do it).
@@ -66,7 +66,7 @@ The four-phase arc (Phases 1–4) is now documented **reader-facing for an outsi
 
 ### What is now historical (draft 5.x)
 
-The draft-5.1 spec (`draft5.0-fossil/draft5.1-*.md`), the §20 simulation campaign, the Ganglion-Personality / MVF work, and the `draft5.0-fossil/src/` simulator were built for the **attribution** architecture. The substrate primitives (Scap = capacitor weight storage, the crossbar) may carry forward, but the *learning rule* and *Ganglion-hierarchy-as-the-thing* are superseded. `docs/draft/project-history.md` is the narrative of the 1→5.1 era — read it for *why* old decisions were made, not for what we're doing now.
+The draft-5.1 spec (`draft5.0/draft5.1-*.md`), the §20 simulation campaign, the Ganglion-Personality / MVF work, and the `draft5.0/src/` simulator were built for the **attribution** architecture. The substrate primitives (Scap = capacitor weight storage, the crossbar) may carry forward, but the *learning rule* and *Ganglion-hierarchy-as-the-thing* are superseded. `docs/draft/project-history.md` is the narrative of the 1→5.1 era — read it for *why* old decisions were made, not for what we're doing now.
 
 ---
 
@@ -80,14 +80,14 @@ The draft-5.1 spec (`draft5.0-fossil/draft5.1-*.md`), the §20 simulation campai
 
 ## Task skill-maps (`skill/`)
 
-> **Migration note (June 2026):** the `skill/` maps have been **migrated to draft 6.0 / Phase 1** (2026-06-19). `project-explore`, `architecture-research`, `simulation-experiments`, `workflows`, and `sureSkill` now point at `draft6.0/` and the Phase-1 ladder. **`simulator-code.md` is the one exception — banded HISTORICAL**, because it describes the old attribution `draft5.0-fossil/src/` simulator (a fresh draft-6.0 code map is still TODO, now that the behavioral sim exists under `draft6.0/src/`).
+> **Migration note (June 2026):** the `skill/` maps have been **migrated to draft 6.0 / Phase 1** (2026-06-19). `project-explore`, `architecture-research`, `simulation-experiments`, `workflows`, and `sureSkill` now point at `draft6.0/` and the Phase-1 ladder. **`simulator-code.md` is the one exception — banded HISTORICAL**, because it describes the old attribution `draft5.0/src/` simulator (a fresh draft-6.0 code map is still TODO, now that the behavioral sim exists under `draft6.0/src/`).
 
 - **`skill/project-explore.md`** — the concept entry point; the anti-correction frame and the map of maps.
 - **`skill/architecture-research.md`** — proposing changes, triaging ideas, scope decisions.
 - **`skill/simulation-experiments.md`** — writing tests, running a Phase-1 rung, interpreting results.
 - **`skill/workflows.md`** — the steps behind the `/orient`, `/checkpoint`, `/commit-progress`, `/double-check` commands.
 - **`skill/sureSkill.md`** — the meta-map / confidence log (what's solid vs unknown in 6.0).
-- `skill/simulator-code.md` — **HISTORICAL** (the attribution-era `draft5.0-fossil/src/` simulator); read only for how the old build worked.
+- `skill/simulator-code.md` — **HISTORICAL** (the attribution-era `draft5.0/src/` simulator); read only for how the old build worked.
 
 ---
 
@@ -199,7 +199,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 ├── skill/                             task skill-maps (migrated to 6.0; simulator-code = historical)
 ├── draft/                             historical drafts (1.0 → 5.1-full)
 ├── tools/                            spec → A4 Word toolchain (tools/mkdocx.py)
-└── draft5.0-fossil/                   ★ HISTORICAL — the whole draft-5 (attribution) world, moved here at the pivot
+└── draft5.0/                   ★ HISTORICAL — the whole draft-5 (attribution) world, moved here at the pivot
     ├── README.md                      the old public-facing overview (draft-5 era)
     ├── draft5.1-1.md / draft5.1-2.md  the canonical spec (attribution era — reference only)
     ├── draft5.1-2.verify.md           the draft-5.1 live-plan (superseded by draft6.0/)
@@ -231,7 +231,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 | "What is this project really about / why?" | `docs/essence/the-essence.md`                                                    |
 | "How do I talk to this user?"              | `docs/draft/project-personal.md`                                                 |
 | "Why did we decide X (in the 5.1 era)?"    | `docs/draft/project-history.md`                                                  |
-| The old attribution architecture (history) | `draft5.0-fossil/` (`draft5.1-1.md` / `draft5.1-2.md` + `src/`)                  |
+| The old attribution architecture (history) | `draft5.0/` (`draft5.1-1.md` / `draft5.1-2.md` + `src/`)                  |
 | Fire a recurring move (commit / orient / audit) | `skill/workflows.md` (+ `/command` triggers in `.claude/commands/`)         |
 
 ---
