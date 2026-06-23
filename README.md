@@ -81,6 +81,7 @@ The full, reader-facing write-up lives in **[`draft6.0/src/stage1-report.md`](dr
 | The papers behind it | [`draft6.0/research/papers/`](draft6.0/research/papers/) |
 | The soul of the project — why it exists | [`docs/essence/the-essence.md`](docs/essence/the-essence.md) |
 | The superseded draft-5 (attribution) era — *pre-pivot history, not the current design* | [`draft5.0/`](draft5.0/) |
+| Working with an AI coding agent | [`AGENTS.md`](AGENTS.md) — the cross-tool front door (Claude Code: the layered `CLAUDE.md` files) |
 
 ---
 
