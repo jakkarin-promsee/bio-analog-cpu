@@ -198,7 +198,7 @@ These predate draft 6.0 and still govern every run. Internalize them.
 │       └── draft.heirachy.md          file-by-file draft map
 ├── skill/                             task skill-maps (migrated to 6.0; simulator-code = historical)
 ├── draft/                             historical drafts (1.0 → 5.1-full)
-├── report/                            spec → A4 Word toolchain (report/mkdocx.py)
+├── tools/                            spec → A4 Word toolchain (tools/mkdocx.py)
 └── draft5.0-fossil/                   ★ HISTORICAL — the whole draft-5 (attribution) world, moved here at the pivot
     ├── README.md                      the old public-facing overview (draft-5 era)
     ├── draft5.1-1.md / draft5.1-2.md  the canonical spec (attribution era — reference only)

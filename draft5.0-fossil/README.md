@@ -99,7 +99,7 @@ The distinguishing claim is the *combination*: continuous analog compute + on-ch
 │   ├── essence/the-essence.md # the project's soul (origin → collapse → return)
 │   └── draft/                 # collaboration handoff + the draft 1→5.1 history
 ├── skill/                     # task skill-maps for AI collaboration
-├── report/                    # spec → A4 Word toolchain
+├── tools/                    # spec → A4 Word toolchain
 │
 │   # ── HISTORICAL (the attribution era — kept as reference) ──
 ├── draft5.1-1.md / draft5.1-2.md   # the old canonical spec (attribution architecture)

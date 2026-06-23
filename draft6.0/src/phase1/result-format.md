@@ -31,7 +31,7 @@ B).** Every experiment, and every agent we hand an experiment to, calls the *sam
 | **Reference lines** | Accuracy plots always draw **chance** (dashed grey) + the **full-GD ceiling** (from exp0). Boosting plots always draw the **theoretical `e^{-½Tγ²}` bound**. A number with no reference line is a toy. |
 | **Axes** | Samples-seen on **log-x**; accuracy on **fixed y = [chance, 1.0]** so plots compare across experiments. Difficulty axes labelled with the *dial value AND its meaning* ("length-scale 0.3 = high-freq boundary"). |
 | **Caption** | Every caption ends with **the one-sentence takeaway**, not a description. Append `(n=5 seeds, task, weight budget)`. e.g. *"Block holds GD accuracy at ¼ the backward cost (n=5, spiral σ=0.1, 16.6k wts)."* |
-| **Format** | **Fixed dpi · fixed `figsize` · fixed font, identical every plot** — *that* is the contract. **300-dpi PNG is the default** (our spec→A4 path is pandoc→docx via [`report/mkdocx.py`](../../../report/mkdocx.py), where high-dpi PNG survives and SVG/EMF is finicky); vector (PDF/SVG) is nice-to-have, not required. Transparent bg. |
+| **Format** | **Fixed dpi · fixed `figsize` · fixed font, identical every plot** — *that* is the contract. **300-dpi PNG is the default** (our spec→A4 path is pandoc→docx via [`tools/mkdocx.py`](../../../tools/mkdocx.py), where high-dpi PNG survives and SVG/EMF is finicky); vector (PDF/SVG) is nice-to-have, not required. Transparent bg. |
 
 ---
 
