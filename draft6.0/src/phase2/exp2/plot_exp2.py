@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": True})
+plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": False, "savefig.facecolor": "white"})
 C_GD = "#e08214"
 STYLE = {  # each negative -> one colour+style forever
     "random":      dict(color="#555555", ls="--", lw=2.0, marker="o", band=True),

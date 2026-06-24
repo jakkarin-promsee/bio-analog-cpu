@@ -22,7 +22,7 @@ WIDTHS = [16, 24, 32, 48, 64, 96]            # SCFF width H -> the size axis
 N_TRAIN, N_TEST = 600, 600
 C_BLOCK, C_GD = "#117a78", "#e08214"
 plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10,
-                     "savefig.transparent": True})
+                     "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 def train_block(Xtr, Ytr, Xte, H, seed):

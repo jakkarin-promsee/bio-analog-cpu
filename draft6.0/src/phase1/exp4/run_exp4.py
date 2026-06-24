@@ -134,7 +134,7 @@ def main():
 
 def _fig(A, name, OUT):
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-    plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": True})
+    plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": False, "savefig.facecolor": "white"})
     x = np.arange(1, len(TASKS) + 1)
     fig, ax = plt.subplots(1, 2, figsize=(12, 4.3))
     style = [("gd", "#e08214", "GD-online"), ("online", "#c1272d", "block no-sleep (3.0)"),

@@ -31,7 +31,7 @@ CFG = {"digits": dict(H=64, scff_ep=40, sup_ep=60, n_train=600, n_test=600,
                       seeds=[42, 137, 271])}   # 3 seeds for the trade-curve shape (cost)
 C_BLOCK, C_GD = "#117a78", "#e08214"
 plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10,
-                     "savefig.transparent": True})
+                     "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 def run_split(name, k, seed):

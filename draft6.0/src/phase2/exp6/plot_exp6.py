@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": True})
+plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": False, "savefig.facecolor": "white"})
 CONDS = ["gd", "single_sleep", "boosted_sleep", "boosted_nosleep"]
 COL = {"gd": "#e08214", "single_sleep": "#1f5fbf", "boosted_sleep": "#117a78", "boosted_nosleep": "#c1272d"}
 LAB = {"gd": "GD-online (forget)", "single_sleep": "single-block + sleep (P1 base)",

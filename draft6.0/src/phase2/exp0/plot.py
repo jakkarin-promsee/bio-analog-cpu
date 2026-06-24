@@ -13,7 +13,7 @@ import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 C_WALL, C_GD, C_DECIDE, C_REF = "#555555", "#e08214", "#117a78", "#1f5fbf"
-plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": True})
+plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10, "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 def _band(ax, x, A, color, label, ls="-", marker="o"):

@@ -37,7 +37,7 @@ CFG = {"digits": dict(H=64, scff_ep=40, n_train=600, n_test=600, seeds=[42, 137,
        "mnist":  dict(H=128, scff_ep=20, n_train=3000, n_test=3000, seeds=[42, 137, 271])}
 C_CHAIN, C_PLAIN, C_GD = "#117a78", "#c1272d", "#e08214"
 plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10,
-                     "savefig.transparent": True})
+                     "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 def _norm(a):

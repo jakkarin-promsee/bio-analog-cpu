@@ -79,7 +79,7 @@ os.makedirs(OUTDIR, exist_ok=True)
 C_POS, C_NEG = "#1f5fbf", "#c1272d"   # world colours: pos=blue, neg=red
 C_SCFF = "#117a78"                      # SCFF-only = teal
 plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10,
-                     "savefig.transparent": True})
+                     "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 # ----------------------------------------------------------------------------- task: 2-arm spiral

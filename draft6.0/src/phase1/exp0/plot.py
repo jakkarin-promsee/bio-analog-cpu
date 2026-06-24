@@ -18,7 +18,7 @@ from scff_gate import make_checkerboard, DIMS, THETA
 C_SCFF, C_GD, C_RP = "#117a78", "#e08214", "#999999"
 C_POS, C_NEG = "#1f5fbf", "#c1272d"
 plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10,
-                     "savefig.transparent": True})
+                     "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 def _mi(a, ax=0):

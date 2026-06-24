@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 C_BLOCK, C_GD = "#117a78", "#e08214"
 plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 300, "font.size": 10,
-                     "savefig.transparent": True})
+                     "savefig.transparent": False, "savefig.facecolor": "white"})
 
 
 def _mi(a, ax=0):
