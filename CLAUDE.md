@@ -96,8 +96,8 @@ Biological names are **structural, not decorative**. Don't suggest renaming to "
 
 ## Skills & workflow commands
 
-- **Cross-draft moves:** [`skill/workflows.md`](skill/workflows.md) + the `/command` triggers in `.claude/commands/` — **`/orient`**, **`/checkpoint`**, **`/commit-progress`**, **`/double-check`**. They fire the same steps if you ask in plain words ("commit it", "double-check this"). Add a move there when a manual ritual repeats 3+ times.
-- **Draft-specific task maps** (concept entry, architecture triage, running experiments, the confidence log) are routed from the draft's own context — see [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md). *(They currently live in `skill/`; relocating them per-draft + converting to native `.claude/skills/` is planned — see [`AGENT-OPTIMIZE-PLAN.md`](AGENT-OPTIMIZE-PLAN.md).)*
+- **Workflow commands** (`.claude/commands/`, self-contained): **`/orient`**, **`/checkpoint`**, **`/commit-progress`**, **`/double-check`** — explicit moves that fire the same steps if you ask in plain words ("commit it", "double-check this"). Add one when a manual ritual repeats 3+ times.
+- **Skills (auto-load by task):** universal ones in **`.claude/skills/`** — `project-frame` (what the project is), `explore` (navigate the repo), `folder-structure` (where things go), `writing-report` (document a result). Draft-6-specific ones in **`draft6.0/.claude/skills/`** — `status`, `run-experiment`, `find-paper`, `simulator-code` (load when you work in draft 6). Design rationale: [`AGENT-OPTIMIZE-PLAN.md`](AGENT-OPTIMIZE-PLAN.md) + [`SKILL-PLAN.md`](SKILL-PLAN.md).
 
 ---
 

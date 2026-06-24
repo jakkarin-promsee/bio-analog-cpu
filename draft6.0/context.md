@@ -271,7 +271,7 @@ These ran through the whole conversation and are the real "soul" — the things 
 
 ## PART 11 — Where things stand & the file map
 
-**State (2026-06-22):** Draft 6.0 spine committed **and the numbered phases 1–4 have all run and closed** — Phase 1 (structure: the continual win), Phase 2 (depth round 1: energy-goodness can't), Phase 3 (depth round 2: contrast + coordination ADOPTED), Phase 4 (characterization: the capability map — a substrate-native continual learner, not a static-accuracy competitor; see `src/phase4/phase4-summarize.md`). **The disciplined next step is Phase 5 — optimization:** tune the maintenance loop (sleep cadence + Ch7 gate) against *this* cell's measured drift, plus the train-with-noise (hardware-aware) and natural-data multi-class follow-ups Phase 4 flagged. The research dossier (`research/north-star/`) remains *enrichment for free time*, not the line to walk. Orientation docs (`CLAUDE.md`, `skill/project-explore.md`, `../docs/draft/project-personal.md`) track draft 6.0; the `draft5.0/src/` simulator (draft-5.1-era) is historical (substrate primitives may carry forward).
+**State (2026-06-22):** Draft 6.0 spine committed **and the numbered phases 1–4 have all run and closed** — Phase 1 (structure: the continual win), Phase 2 (depth round 1: energy-goodness can't), Phase 3 (depth round 2: contrast + coordination ADOPTED), Phase 4 (characterization: the capability map — a substrate-native continual learner, not a static-accuracy competitor; see `src/phase4/phase4-summarize.md`). **The disciplined next step is Phase 5 — optimization:** tune the maintenance loop (sleep cadence + Ch7 gate) against *this* cell's measured drift, plus the train-with-noise (hardware-aware) and natural-data multi-class follow-ups Phase 4 flagged. The research dossier (`research/north-star/`) remains *enrichment for free time*, not the line to walk. Orientation docs (`CLAUDE.md`, `draft6.0/CLAUDE.md`, the `.claude/skills/`, `../docs/draft/project-personal.md`) track draft 6.0; the `draft5.0/src/` simulator (draft-5.1-era) is historical (substrate primitives may carry forward).
 
 **File map:**
 ```
@@ -292,7 +292,7 @@ docs/
     project-history.md      — the narrative arc draft 1 → 5.1 (the attribution era)
 post/                  — the build-in-public reflections (p1…p9, .content = PDF carousels)
 CLAUDE.md              — always-loaded project context (reframed to 6.0)
-skill/                 — task maps (project-explore reframed; rest draft-5.1-era)
+.claude/skills/         — auto-load skills (project-frame · explore · folder-structure · writing-report; draft-6 set under draft6.0/.claude/skills/)
 draft5.0/       — HISTORICAL (draft5.1-*.md + src/ + notes/ + test/ — the attribution chip & simulator)
 ```
 

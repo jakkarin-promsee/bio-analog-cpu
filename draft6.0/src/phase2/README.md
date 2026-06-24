@@ -242,7 +242,7 @@ lever set → decision fed), filled the moment a rung's decision is made — exa
 
 **The renumber (2026-06-20).** "Phase 2" previously meant the recurrent brain in `CLAUDE.md` / `main.ideas`;
 that collided with this folder. Resolved across every **live** doc — CLAUDE.md (routing + scope),
-`main.ideas.v1.md`, `context.md`, the `skill/` maps, and memory (historical `draft-journey/` & `project-history.md`
+`main.ideas.v1.md`, `context.md`, the `.claude/skills/`, and memory (historical `draft-journey/` & `project-history.md`
 keep their period usage on purpose):
 
 | phase | scope | status |

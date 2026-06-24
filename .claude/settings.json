@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(draft6.0/src/**/figs_*/*.npz)",
+      "Read(draft6.0/src/**/figs_*/*.npy)",
+      "Read(draft5.0/**/*.npz)",
+      "Read(draft5.0/**/*.npy)"
+    ]
+  }
+}
