@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.join(_HERE, "..", "phase3"))                # p3lib
 sys.path.insert(0, os.path.join(_HERE, "..", "phase2"))                # p2lib (normalize/relu/EPS)
 sys.path.insert(0, os.path.join(_HERE, "..", "phase1", "exp0"))        # models_extra (MLP)
 from p3lib import SCFFContrastOLU, _layernorm_fwd, _layernorm_vjp      # noqa: E402
-from p2lib import normalize, relu, EPS                                 # noqa: E402
+from p2lib import normalize, relu, EPS, SCFF2                          # noqa: E402  (SCFF2 = the energy-wall racer)
 from models_extra import MLP, match_width                              # noqa: E402
 
 
@@ -110,7 +110,7 @@ class MonoForward:
             a = an                                                     # detached forward to next layer
 
 
-# ============================================================ readout (for OURS)
+# ============================================================ readout (for OURS / energy baseline)
 def fit_readout(F, Y, C, seed, epochs=60, lr=2e-3, batch=32):
     ro = MLP([F.shape[1], 32, C], seed, lr=lr); rng = np.random.default_rng(seed)
     for _ in range(epochs):
@@ -120,20 +120,47 @@ def fit_readout(F, Y, C, seed, epochs=60, lr=2e-3, batch=32):
     return ro
 
 
+def readout_feats(reps, last_n=None):
+    """Tap the readout. `last_n=None` -> ALL layers concatenated (the legacy all-tap, kept for A1/A2/...).
+    `last_n=k` -> only the LAST k layer reps -> the realistic position a single GD readout head sits (the top
+    of the bulk). Reading from the top is what stops the readout from BYPASSING decayed deep layers via the
+    early ones (P4.3: that bypass is exactly what masks the energy depth-wall)."""
+    return np.concatenate(reps if last_n is None else reps[-last_n:], 1)
+
+
+def linear_probe(Ftr, Ytr, Fte, Yte, C, seed, epochs=120, lr=3e-3, batch=64):
+    """Numpy LINEAR probe (1-layer softmax via Adam, NO sklearn -> no OpenMP phantom): held-out accuracy of a
+    rep under a linear classifier = its linear separability. The diagnostic that exposes representational decay
+    layer-by-layer (the 'context decay by depth')."""
+    pr = MLP([Ftr.shape[1], C], seed, lr=lr); rng = np.random.default_rng(seed)
+    for _ in range(epochs):
+        idx = rng.permutation(len(Ftr))
+        for s in range(0, len(Ftr), batch):
+            pr.train_step(Ftr[idx[s:s + batch]], Ytr[idx[s:s + batch]])
+    return float((pr.predict(Fte) == Yte).mean())
+
+
+def per_layer_probe(reps_tr, Ytr, reps_te, Yte, C, seed):
+    """Linear probe at every layer -> the per-layer separability profile (list length L). probe[-1] = the
+    last-layer probe (the readout's view); the full list = the within-stack decay curve."""
+    return [linear_probe(rt, Ytr, re, Yte, C, seed) for rt, re in zip(reps_tr, reps_te)]
+
+
 # ============================================================ measured backward-cost meter (credit-dist x weights)
 def _mlp_cost(dims):                                                   # full backprop: W_l reached at distance L-l
     Ln = len(dims) - 1
     return sum((Ln - l) * (dims[l] + 1) * dims[l + 1] for l in range(Ln))
 
 
-def cost_ours(D, Wd, Lb, w, C):
+def cost_ours(D, Wd, Lb, w, C, readout_last_n=None):
     dims = [D] + [Wd] * Lb; bulk = 0; s = 0
     while s < Lb:
         ww = min(w, Lb - s)
         for j in range(ww):
             l = s + j; bulk += ww * (dims[l] + 1) * dims[l + 1]        # window backprops ww deep (local)
         s += ww
-    readout = _mlp_cost([Lb * Wd, 32, C])                             # all-tap readout (full but tiny)
+    ro_in = (Lb if readout_last_n is None else min(readout_last_n, Lb)) * Wd
+    readout = _mlp_cost([ro_in, 32, C])                               # readout (full but tiny): all-tap or last-n
     return bulk + readout
 
 
@@ -146,7 +173,11 @@ def cost_mono(dims, C):                                                # each la
 
 
 # ============================================================ the three racers (train + eval + cost)
-def race_ours(Xtr, Ytr, Xte, Yte, C, *, L=4, Wd=64, w=2, ep=25, seed=0, batch=32):
+def race_ours(Xtr, Ytr, Xte, Yte, C, *, L=4, Wd=64, w=2, ep=25, seed=0, batch=32,
+              readout_last_n=None, probe=False):
+    """OURS = contrast (InfoNCE, two-mask) + w-window coordination SCFF bulk + GD readout. `readout_last_n`
+    selects the readout tap (None = all-tap legacy; k = last-k layers, the realistic GD-head position).
+    `probe=True` also returns the per-layer linear-probe profile (the wall diagnostic)."""
     m = SCFFContrastOLU([Xtr.shape[1]] + [Wd] * L, seed=seed, window=w, mask_ratio=0.5, temp=0.5)
     rng = np.random.default_rng(seed)
     for _ in range(ep):
@@ -155,18 +186,49 @@ def race_ours(Xtr, Ytr, Xte, Yte, C, *, L=4, Wd=64, w=2, ep=25, seed=0, batch=32
             xb = Xtr[idx[s:s + batch]]
             if len(xb) >= 4:
                 m.train_step(xb, rng)
-    Ftr = np.concatenate(m.infer(Xtr), 1); Fte = np.concatenate(m.infer(Xte), 1)
+    reps_tr, reps_te = m.infer(Xtr), m.infer(Xte)
+    Ftr, Fte = readout_feats(reps_tr, readout_last_n), readout_feats(reps_te, readout_last_n)
     ro = fit_readout(Ftr, Ytr, C, seed)
-    return dict(acc_tr=float((ro.predict(Ftr) == Ytr).mean()), acc_te=float((ro.predict(Fte) == Yte).mean()),
-                bwd=cost_ours(Xtr.shape[1], Wd, L, w, C))
+    out = dict(acc_tr=float((ro.predict(Ftr) == Ytr).mean()), acc_te=float((ro.predict(Fte) == Yte).mean()),
+               bwd=cost_ours(Xtr.shape[1], Wd, L, w, C, readout_last_n))
+    if probe:
+        out["probe"] = per_layer_probe(reps_tr, Ytr, reps_te, Yte, C, seed)
+    return out
+
+
+def race_energy(Xtr, Ytr, Xte, Yte, C, *, L=4, Wd=64, ep=25, seed=0, batch=32,
+                goodness="squared", norm="lengthnorm", readout_last_n=None, probe=False):
+    """The OLD algorithm = energy-goodness SCFF (Phase-1/2): G=Σh² ('squared') under length-norm = the raw
+    depth-wall cell that Phase 3 superseded. Same width / readout / probe protocol as race_ours, so the only
+    thing that differs from OURS is the LEARNING RULE (energy-Σh² vs InfoNCE-contrast). Credit is 1-layer-local
+    (no cross-layer window) -> backward cost = cost_ours with w=1."""
+    m = SCFF2([Xtr.shape[1]] + [Wd] * L, goodness=goodness, norm=norm, goodness_scale="sum",
+              theta=2.0, seed=seed)
+    rng = np.random.default_rng(seed)
+    for _ in range(ep):
+        idx = rng.permutation(len(Xtr))
+        for s in range(0, len(Xtr), batch):
+            xb = Xtr[idx[s:s + batch]]
+            if len(xb) >= 4:
+                m.train_step(xb, rng)
+    reps_tr, reps_te = m.infer(Xtr), m.infer(Xte)
+    Ftr, Fte = readout_feats(reps_tr, readout_last_n), readout_feats(reps_te, readout_last_n)
+    ro = fit_readout(Ftr, Ytr, C, seed)
+    out = dict(acc_tr=float((ro.predict(Ftr) == Ytr).mean()), acc_te=float((ro.predict(Fte) == Yte).mean()),
+               bwd=cost_ours(Xtr.shape[1], Wd, L, 1, C, readout_last_n))
+    if probe:
+        out["probe"] = per_layer_probe(reps_tr, Ytr, reps_te, Yte, C, seed)
+    return out
 
 
 def race_bp(Xtr, Ytr, Xte, Yte, C, *, total, in_dim, depths=(2, 3, 4),
-            lrs=(1e-2, 3e-3, 1e-3, 3e-4), wds=(0.0, 1e-3), ep=60, seed=0, batch=32):
+            lrs=(1e-2, 3e-3, 1e-3, 3e-4), wds=(0.0, 1e-3), ep=60, seed=0, batch=32, te_masks=None):
     """GENUINELY-tuned BP ceiling (Bartunov/Spyra fairness): search {depth-shape × lr × weight-decay} at the
     MATCHED weight budget, pick best held-out, return the chosen config. Not exhaustive Optuna, but well past a
     single lr grid -- the whole gap-to-BP headline rides on this being a real ceiling, not a strawman. Cost is
-    the chosen shape's backward credit-assignment work."""
+    the chosen shape's backward credit-assignment work. `te_masks` (dict name->bool-mask over the test set):
+    if given, the returned dict also carries `acc_<name>` = the best model's accuracy on that test subset
+    (for the mixed-task per-subset BP reference)."""
     best = None; seen = set()
     for nh in depths:
         bw, _ = match_width(total, in_dim, C, nh)
@@ -185,6 +247,10 @@ def race_bp(Xtr, Ytr, Xte, Yte, C, *, total, in_dim, depths=(2, 3, 4),
                 if best is None or te > best["acc_te"]:
                     best = dict(acc_te=te, acc_tr=float(m.accuracy(Xtr, Ytr)),
                                 bwd=cost_bp(dims), lr=lr, wd=wd, depth=nh, width=bw)
+                    if te_masks:
+                        pred = m.predict(Xte)
+                        for nm, msk in te_masks.items():
+                            best[f"acc_{nm}"] = float((pred[msk] == Yte[msk]).mean())
     return best
 
 
