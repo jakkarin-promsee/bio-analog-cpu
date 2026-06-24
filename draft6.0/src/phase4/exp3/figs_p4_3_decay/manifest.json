@@ -1,5 +1,5 @@
 {
-  "experiment": "p4_3",
+  "experiment": "p4_3_decay",
   "git_commit": "805d26638c48ee21178c098371c73b3853ad4cfd",
   "seeds": [
     42,
@@ -8,7 +8,7 @@
     314,
     1729
   ],
-  "depths": [
+  "wid_depths": [
     2,
     3,
     4,
@@ -17,8 +17,15 @@
     10,
     12
   ],
-  "ctrl_width": 64,
-  "ctrl_depths": [
+  "arms": [
+    "fix64",
+    "widen"
+  ],
+  "wbase": 64,
+  "wstep": 16,
+  "mix_depths": [
+    2,
+    3,
     4,
     6,
     8,
@@ -29,15 +36,8 @@
     "flat",
     "headroom"
   ],
-  "budget_weights": 23460,
   "dim": 40,
   "n_class": 4,
-  "readout_last_n": 1,
-  "racers": [
-    "ours",
-    "energy(old, Sh2)",
-    "bp"
-  ],
   "numpy": "2.3.5",
-  "wall_clock_s": 2538.6
+  "wall_clock_s": 3164.1
 }
