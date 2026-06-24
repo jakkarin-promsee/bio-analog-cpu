@@ -34,7 +34,7 @@ natural-data multi-class) before optimizing. **The cell is sound; no algorithm b
 | **A1 difficulty** | Bayes error 0.02→0.37 | **trail** (cost of the gap) | gap doesn't open (+0.05→+0.01, uptick at chance); **capture** 0.92→0.68 is the real read |
 | **A2 ambient-dim** | nuisance dim 8→500 | **WIN** | OURS **crosses above** BP by dim 500 (gap −0.029); **Mono collapses** (0.75→0.41) |
 | **A3 depth × difficulty** | headroom task, overlap 0.4→1.2 | **WIN (composes)** *(representation, not task-acc)* | depth-composition **generalizes** (w2 per-layer-probe slope >0 all difficulties); OURS **out-composes BP** in the hard regime (crossover ≈0.6) |
-| **A4 width × depth** | iso-budget L2→L8 | **WIN (cost)** | OURS backward **flat in depth** (~45k) vs BP **linear** (52→124k); depth cheap + accretive on headroom |
+| **A4 width × depth** | iso-budget L2→L12 + W64 control | **WIN (cost)** | OURS/OLD backward **flat in depth** (~14–40k) vs BP **linear** (52→169k, ratio 1.3×→6.8×); energy-Σh² baseline **collapses with depth** (the wall); contrast composes ~5 layers (beats BP L2–L6 on headroom) then **decays — and the W64 control shows it's DEPTH-DECAY, not width** |
 | **A5 class count** | C 2→20 | **trail** (difficulty-gated) | synth gap +0.06→+0.23; **real digits +0.03** — harshness, not a many-class penalty |
 | **A6 continual** | class-incremental × difficulty | **DECISIVE WIN** | OURS+sleep BWT −0.02→−0.18 vs online-BP −0.83→−0.99; robust across difficulty |
 | **A7 noise** | weight σ 0→0.4 (eval-time) | **NEGATIVE** | OURS *least* robust (ret 0.75 vs BP 0.88) — but eval-time ≠ the substrate's train-with-noise regime (untested) |
@@ -59,11 +59,24 @@ from 0); the **w=1 no-coordination control never composes** (coordination is the
 headroom by overlap 1.0 — so **OURS and BP compose in complementary regimes** (BP at easy, **OURS in the hard
 regime**, crossover ≈0.6). w=2 shows a mild inverted-U at easy+deep (P3.2's w=4 fixes it → a window knob).
 
-**P4.3 — width × depth (A4) — the Scap-collision resolved, via cost.** At iso-weight budget, **OURS's backward cost
-is flat in depth (~45k; the w=2 window bounds credit distance) while BP's grows linearly (52→124k)** — narrow-deep,
-the substrate-native direction, is ~free for OURS and 2.6× costlier for BP. On headroom OURS climbs with depth and
-overtakes BP from L3; on flat depth doesn't pay. **The 80/20 cost advantage is depth-gated** — null at shallow
-(P4.0), large at depth — and the substrate operates deep, so it materializes in the operating regime.
+**P4.3 — width × depth (A4) — the Scap-collision resolved, via cost (re-run + extended).** At iso-weight budget,
+**OURS's *and* OLD's backward cost is flat in depth (~14–40k) while BP's grows linearly (52→169k)** — narrow-deep,
+the substrate-native direction, is ~free for the forward-only methods and up to **6.8×** costlier for BP. The re-run
+added the **energy-Σh² baseline** (Phase-1/2 wall cell), measured at the **last-layer readout** (where a real GD
+head sits; all-tap had *masked the wall* by reading the good early layers), and extended depth to L12 plus a
+**fixed-width W64 control**. The baseline makes the wall legible: **OLD collapses monotonically** (headroom
+0.49→0.31, flat 0.76→0.34). **Contrast flattens but does not abolish it** — OURS composes to ~L3–L5 and beats tuned
+BP L2–L6 on headroom, then **decays (loses to BP L8–L12)**. The prior "OURS climbs to L6" was an all-tap artifact.
+**The control settles the cause:** at *constant* W64 OURS still droops with depth (headroom 0.557→0.449) — so it is
+**depth-DECAY, not the iso width-shrink** (which adds only ~0.02–0.03). The cross-layer window genuinely shares
+context for ~5 layers (energy composes zero), but not unboundedly. **The 80/20 cost advantage is depth-gated**
+(1.3×→6.8×), and the deployed **all-tap / boosting readout is load-bearing** — it works around the *residual* decay
+(a single deep head is the wrong design). **A follow-up ([P4.3-decay](exp3/experiment-3-decay.md)) names the cause:** widening each layer (up to
+W240) does **not** fix it (fix64≈widen by L12), dead-unit fraction ≈ 0, and widen's higher rank buys no accuracy —
+so the decay is **local-objective drift off the class manifold past ~layer 5, not width / dead-units / capacity**;
+the fix is **preservation** (all-tap/boosting — vindicated — or residual skips). A mixed flat+headroom task shows
+the deep layers **corrupt** the early-solved flat subtask (probe ~0.67→0.51) while tuned BP holds it flat (~0.75).
+*(Caveat: depth-scaled training still untested.)*
 
 **P4.4 — class count (A5) — competitive-but-trails, difficulty-gated.** On the harsh synthetic the gap widens with
 C (+0.06→+0.23) and OURS's edge over Mono erodes (Mono ties by C20). **But the real anchors are far kinder** —
@@ -89,7 +102,7 @@ follow-up.** A caught over-optimistic assumption is a successful pre-flight chec
 1. **The win is the continual + depth-on-substrate story, not static accuracy** — exactly the project thesis,
    now *measured*. The static axes (A1, A5) characterize the *cost of the gap*; the wins (A2, A3, A4-cost, A6) are
    where the substrate lives.
-2. **The 80/20 cost advantage is depth-gated** (P4.0 null shallow → P4.3 2.6× deep). A single shallow number
+2. **The 80/20 cost advantage is depth-gated** (P4.0 null shallow → P4.3 6.8× deep). A single shallow number
    understates it; the substrate operates deep, where it's large. Phase 5's cost meter must report **cost-vs-depth**.
 3. **Layernorm is a double-edged sword** — it buys nuisance-robustness (A2) and costs weight-noise-robustness (A7),
    *same cause*. A tunable tradeoff, possibly regime-dependent.

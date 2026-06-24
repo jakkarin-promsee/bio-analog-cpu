@@ -45,7 +45,7 @@ depth-composition); TRAIL = static accuracy (the cost of the gap); NEGATIVE = a 
 | --- | --- | --- | --- |
 | **A6 continual** | class-incr × difficulty | **DECISIVE WIN** | BWT −0.02→−0.18 vs online-BP −0.83→−0.99 |
 | **A2 ambient-dim** | nuisance dim 8→500 | **WIN** | crosses above BP by dim 500 (gap −0.029); Mono collapses |
-| **A4 width×depth** | iso-budget L2→L8 | **WIN (cost)** | OURS flat ~45k vs BP 52→124k |
+| **A4 width×depth** | iso-budget L2→L12 +ctrl | **WIN (cost)** | OURS/OLD flat ~14–40k vs BP 52→169k (1.3×→6.8×); energy baseline = the wall; W64 control = decay-not-width |
 | **A3 depth×difficulty** | headroom, overlap 0.4→1.2 | **WIN (composes)** | w2 slope >0 all difficulties (w1 never) |
 | **A1 difficulty** | Bayes 0.02→0.37 | **TRAIL** | capture 0.92→0.68 (gap doesn't open) |
 | **A5 class count** | C 2→20 | **TRAIL** | synth gap +0.23 but digits +0.03 |
@@ -125,27 +125,57 @@ monotone composition).
 **What it said.** Depth-composition *generalizes* across difficulty, and it is a *representation* win (probe), not
 a task-accuracy win. **Map tile:** WIN (composes).
 
-### P4.3 — width × depth (A4) — the Scap-collision resolved, via cost
+### P4.3 — width × depth (A4) — the Scap-collision resolved, via cost (re-run + extended)
 
 The Phase-2 collision — SCFF likes width, the Scap likes depth — gets its real answer here. At an iso-weight budget
-we sweep shape from L2/W109 (wide-shallow) to L8/W40 (narrow-deep, the substrate-native direction), in both a flat
-and a headroom regime.
+we sweep shape from L2/W109 (wide-shallow) to L12/W30 (narrow-deep, the substrate-native direction), in both a flat
+and a headroom regime. The re-run adds three things the first pass lacked: the **OLD energy-Σh² baseline** (the
+Phase-1/2 wall cell); a **last-layer readout** (the realistic position a single GD head sits — all-tap *masked the
+wall* by reading the good early layers); and, to settle why OURS dips at depth, a **fixed-width W64 control** that
+holds width constant so only depth varies.
 
 **Figure — width × depth.**
 ![widthxdepth](exp3/figs_p4_3/WIDTHxDEPTH.png)
-*On headroom, OURS climbs with depth and overtakes BP from L3 (gap IQR-negative at deep, best at L6: 0.560 vs
-0.536); on flat, depth doesn't pay (OURS trails BP, but cheaper). (n=5, iso-budget ≈23.5k.)*
+*Three racers, L2→L12. OLD energy (grey) collapses with depth in both regimes; BP (blue) is flat; OURS (orange)
+sits between. On headroom OURS composes to L3–L5 (best L3: 0.559) and beats BP L2–L6, then decays below BP from L8;
+on flat, depth doesn't pay (OURS declines, but stays well above OLD). (n=5, iso-budget ≈23.5k, last-layer readout.)*
+
+**Figure — the wall.**
+![wall](exp3/figs_p4_3/WALL.png)
+*The last-layer linear probe (what the readout reads) and the per-layer profile at L12: OURS builds useful
+representation to ~layer 4–5 then declines; OLD never builds it and droops from layer 1. Contrast **flattens** the
+energy wall — the OURS−OLD gap widens with depth — but does not **abolish** it. (n=5.)*
+
+**Figure — the decay-vs-width control.**
+![control](exp3/figs_p4_3/CONTROL.png)
+*The disambiguator. At **constant width W64**, OURS *still* droops with depth (headroom 0.557→0.449, flat
+0.731→0.647 over L4→L12) — so the dip is **depth-DECAY, not the iso-budget width-shrink** (which adds only an extra
+~0.02–0.03 at L8–L12). The per-layer profile at L12/W64 confirms it: OURS builds to layer ~4–5 then decays, at
+constant width. (n=5.)*
 
 **Figure — Pareto.**
 ![pareto](exp3/figs_p4_3/PARETO.png)
-*The decisive picture: OURS's backward cost is **flat in depth** (~45k; the w=2 window bounds credit distance)
-while BP's grows **linearly** (52k → 124k). Narrow-deep is ~free for OURS and 2.6× costlier for BP. (n=5.)*
+*The cost picture, unchanged and sharper: both forward-only methods' backward cost is **flat in depth** (OURS
+~25–40k, OLD ~14–24k; bounded credit distance) while BP's grows **linearly** (52k → 169k). On headroom OURS owns
+the cheap top-left; BP fans right for no gain; OLD is cheapest but collapses. (n=5.)*
 
-This refines A1's cost flag into the real claim: **the 80/20 cost advantage is *depth-gated*** — null at shallow
-depth (A1), large (~2.6×) at depth — and the substrate operates deep, so it materializes in the operating regime.
-Depth is OURS's to spend: cheap, and accretive on headroom.
+This refines A1's cost flag into the real claim: **the 80/20 cost advantage is *depth-gated*** — ~1.3× at shallow
+depth, **~6.8× at L12** — and the substrate operates deep, so it materializes in the operating regime. Depth is
+OURS's to spend cheaply. **But the honest readout + control correct the accuracy story:** the cross-layer window
+genuinely shares context for **~5 layers** (energy composes *zero*), but the representation then **decays — and the
+W64 control proves the cause is depth, not width.** So the deployed **all-tap / boosting readout is load-bearing**
+(it works around the *residual* decay; a single deep head is the wrong design), and **energy-Σh² is decisively
+closed** as a depth substrate. (Honest caveat: all depths share `ep=25/lr=0.03` — depth-scaled training is an
+untested P5 knob before calling the decay an intrinsic ceiling.)
 
-**What it said.** The collision resolves in OURS's favour, via cost. **Map tile:** WIN (cost).
+**What it said.** The collision resolves in OURS's favour, via cost; the energy baseline makes the wall legible, and
+the control shows contrast's bounded escape from it is depth-limited, not width-limited. **Map tile:** WIN (cost).
+
+*Follow-up ([`exp3/experiment-3-decay.md`](exp3/experiment-3-decay.md)) — why it decays:* widening each layer (to
+W240) does **not** fix it (dead-fraction ≈ 0; widen's higher rank buys no accuracy), so the cause is
+**local-objective drift off the class manifold past ~layer 5**, not capacity. A mixed flat+headroom task shows the
+deep layers **corrupt** the early-solved flat subtask while tuned BP holds it flat. Fix = **preservation**
+(all-tap/boosting or residual skips), useful composition ≈ **5 layers**.
 
 ### P4.4 — class count (A5) — competitive-but-trails, difficulty-gated
 

@@ -169,11 +169,19 @@ Each rung = one axis swept, all three racers, the gap + cost logged. Built as **
   (coordination = the lever); GD loses headroom by overlap 1.0. OURS & BP compose in **complementary regimes** —
   **OURS out-composes BP in the hard/low-headroom regime** (crossover ≈0.6). Window-size = a P5 knob (w4 for
   easy+deep). Full read: [`exp2/experiment-2.md`](exp2/experiment-2.md).
-- **P4.3 — width × depth (A4).** ✅ **DONE (2026-06-22)** — **Scap-collision resolved (via cost).** At iso-weight
-  budget OURS's backward cost is **flat in depth** (w2-bounded credit) while BP's grows **linearly** — narrow-deep
-  (substrate-native) is ~free for OURS, 2.6× costlier for BP. On headroom OURS **climbs with depth and overtakes BP
-  from L3**; on flat depth doesn't pay. **Depth is OURS's to spend cheaply.** The 80/20 advantage is **depth-gated**
-  (refines P4.0). Full read: [`exp3/experiment-3.md`](exp3/experiment-3.md).
+- **P4.3 — width × depth (A4).** ✅ **RE-RUN + EXTENDED (2026-06-24: +energy baseline, last-layer readout, L10/L12,
+  W64 control)** — **Scap-collision resolved (via cost).** At iso-weight budget OURS's *and* OLD's backward cost is
+  **flat in depth** (bounded credit) while BP's grows **linearly** (52→169k) — narrow-deep (substrate-native) is
+  ~free for forward-only, up to **6.8× costlier for BP**. The **energy-Σh² baseline** makes the wall legible: **OLD
+  collapses with depth** (headroom 0.49→0.31). **Contrast flattens but doesn't abolish it** — OURS composes to ~L3–L5
+  and beats BP L2–L6 on headroom, then decays (loses L8–L12). The **W64 control settles the cause: depth-DECAY, not
+  width** (OURS droops with depth even at constant width; width-shrink adds only ~0.02–0.03). Measured at the
+  **last-layer readout** (all-tap had masked the wall). 80/20 advantage **depth-gated** (1.3×→6.8×); the deployed
+  all-tap/boosting readout is **load-bearing**. Full read: [`exp3/experiment-3.md`](exp3/experiment-3.md).
+  **Follow-up ([`exp3/experiment-3-decay.md`](exp3/experiment-3-decay.md)):** *why* it decays — widening (to W240)
+  does **not** fix it (dead-fraction ≈ 0; higher rank, same acc) ⇒ **local-objective drift past ~layer 5, not
+  capacity**; a mixed flat+headroom task shows deep layers **corrupt** the early-solved flat subtask while BP holds
+  it flat. Fix = **preservation** (all-tap/boosting or residual skips); useful composition ≈ **5 layers**.
 - **P4.4 — class count (A5) + real anchors.** ✅ **DONE (2026-06-22)** — **competitive-but-trails (like A1);
   difficulty-gated, not count-gated.** Synthetic gap widens with C (+0.06→+0.23) and OURS's edge over Mono erodes
   (Mono ties by C20) — **but real digits (10-class) gap is only +0.027**, so the synthetic widening is harshness,

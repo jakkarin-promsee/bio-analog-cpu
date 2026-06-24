@@ -78,25 +78,46 @@ a mild inverted-U at easy+deep (P3.2's w=4 fixes it → window-size is a Phase-5
 read: [`exp2/experiment-2.md`](exp2/experiment-2.md).
 
 ---
-## P4.3 — width × depth (A4) · ✅ DONE 2026-06-22
+## P4.3 — width × depth (A4) · ✅ RE-RUN + EXTENDED 2026-06-24  *(+energy-Σh² baseline · last-layer readout · L10/L12 · W64 control)*
 
-Iso-weight-budget shape sweep (B ≈ 23.5k = canonical L4/W64), depth `[2…8]` (wide-shallow → narrow-deep), two
-regimes: flat (`make_gauss`) and headroom (`make_tierb`). OURS vs tuned BP. 5 seeds.
+Iso-weight-budget shape sweep (B ≈ 23.5k = canonical L4/W64), depth `[2…12]` (wide-shallow → narrow-deep), two
+regimes: flat (`make_gauss`) and headroom (`make_tierb`). **Three racers: OLD (energy Σh², the Phase-1/2 wall cell)
+vs OURS (contrast+w2) vs tuned BP.** 5 seeds. **Headline accuracy = the LAST-LAYER readout** (the realistic GD-head
+position; all-tap masks the wall by reading the early layers → A4 not comparable to all-tap A1/A2/A5). Plus a
+**fixed-width W64 control** (L4→12) to separate depth-decay from the iso width-shrink.
 
-| shape | flat OURS | flat BP | head OURS | head BP | head gap | cost OURS/BP |
-| --- | --- | --- | --- | --- | --- | --- |
-| L2/W109 | 0.791 | 0.837 | 0.511 | 0.528 | +0.012 | 47k / 52k |
-| L3/W79 | 0.799 | 0.830 | 0.538 | 0.519 | −0.014 | 41k / 65k |
-| L4/W64 | 0.795 | 0.831 | 0.540 | 0.533 | +0.002 | 47k / 77k |
-| L6/W48 | 0.787 | 0.830 | **0.560** | 0.536 | **−0.027** | 46k / 99k |
-| L8/W40 | 0.782 | 0.841 | 0.551 | 0.523 | **−0.028** | 47k / 124k |
+| shape | flat OLD | flat OURS | flat BP | head OLD | head OURS | head BP | head gap | cost OLD/OURS/BP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| L2/W109 | 0.760 | 0.783 | 0.837 | 0.487 | 0.533 | 0.528 | −0.010 | 24k / 40k / 52k |
+| L3/W79 | 0.703 | 0.759 | 0.830 | 0.459 | **0.559** | 0.519 | **−0.039** | 21k / 31k / 65k |
+| L4/W64 | 0.680 | 0.731 | 0.831 | 0.441 | 0.557 | 0.533 | **−0.036** | 19k / 34k / 77k |
+| L6/W48 | 0.578 | 0.672 | 0.830 | 0.369 | 0.551 | 0.536 | −0.013 | 17k / 31k / 99k |
+| L8/W40 | 0.461 | 0.666 | 0.841 | 0.337 | 0.481 | 0.523 | +0.046 | 16k / 29k / 124k |
+| L10/W34 | 0.443 | 0.627 | 0.829 | 0.334 | 0.441 | 0.524 | +0.083 | 14k / 27k / 149k |
+| L12/W30 | **0.337** | 0.567 | 0.819 | **0.307** | 0.434 | 0.526 | +0.094 | 14k / 25k / 169k |
 
-**Verdict: Scap-collision resolved in OURS's favour, via cost.** OURS backward cost is **flat in depth** (~45k;
-w=2-bounded credit), BP's grows **linearly** (52k→124k) — narrow-deep (substrate-native) is ~free for OURS, 2.6×
-costlier for BP. On flat, depth doesn't pay (OURS trails BP on accuracy, cheaper). On headroom, OURS **climbs with
-depth and overtakes BP from L3** (gap IQR-negative at deep), best at L6. **Depth is OURS's to spend — cheap +
-accretive on headroom.** Refines P4.0: the **80/20 cost advantage is depth-gated** (null shallow, 2.6× deep). Full
-read: [`exp3/experiment-3.md`](exp3/experiment-3.md).
+**Fixed-width control (W64, the decay-vs-width test):** headroom OURS **0.557→0.449** (L4→L12), flat OURS
+**0.731→0.647** — **OURS droops with depth even at constant width** ⇒ the dip is **DECAY**, not the iso width-shrink
+(which adds only ~0.02–0.03 extra at L8–L12). Per-layer profile at L12/W64: OURS **builds to layer ~4–5** then decays.
+
+**Verdict: A4 = WIN (cost), unchanged.** Backward cost **flat in depth** for both forward-only methods (OLD ~14–24k,
+OURS ~25–40k) while BP grows **linearly** (52k→169k) — narrow-deep ~free for OURS/OLD, **up to 6.8× costlier for BP**
+(depth-gated 1.3×→6.8×). **The energy baseline makes the wall legible:** OLD collapses monotonically (flat 0.76→0.34,
+headroom 0.49→0.31). **Contrast flattens the wall but does not abolish it, and the cause is DECAY not width:** OURS
+composes to ~L3–L5 (beats BP L2–L6 on headroom), then decays (loses to BP L8–L12) — *even at fixed W64*. The
+context-sharing buys ~5 useful layers (energy buys zero) but not unbounded depth → the deployed **all-tap/boosting
+readout is load-bearing** and a single deep head is the wrong design. (Caveat: fixed `ep=25/lr=0.03` all depths →
+depth-scaled training is an untested P5 knob before calling the decay intrinsic.) Full read: [`exp3/experiment-3.md`](exp3/experiment-3.md).
+
+**Follow-up — P4.3-decay (why it decays; width is NOT the lever) · ✅ 2026-06-24.** Widening each layer with depth
+(`widen` W=64+16·l, up to W240 @L12) **does not fix the decay** — fix64 and widen converge by L12 (headroom 0.449
+vs 0.441). Mechanism diagnostics refute capacity: **dead-unit fraction ≈ 0** at every layer, and effective rank
+declines but widen carries **higher rank (18.7 vs 12.3 @L12) at identical accuracy** → the decay is **local-objective
+drift off the class manifold past ~layer 5**, not dead units or capacity. A **mixed flat+headroom** task (iso-budget,
++tuned BP) confirms it: flat-good (0.71→0.51) / headroom-weaker (0.47→0.34), and the flat subtask (probe-solved by
+layer 2–4) is **corrupted by the deeper layers** (probe ~0.67→0.51) — while **tuned BP holds the flat subset flat
+across depth (~0.75)**, so the corruption is OURS-specific. **Verdict: useful composition ≈ 5 layers; the fix is
+preservation (all-tap/boosting — vindicated — or residual skips), not width.** Full read: [`exp3/experiment-3-decay.md`](exp3/experiment-3-decay.md).
 
 ---
 ## P4.4 — class count (A5) + real anchors · ✅ DONE 2026-06-22
