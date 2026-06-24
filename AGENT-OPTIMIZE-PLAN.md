@@ -12,8 +12,11 @@
 > [`CLAUDE.md`](CLAUDE.md), [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md), thin per-phase signposts
 > (`draft6.0/src/phaseN/CLAUDE.md`), and [`draft5.0/CLAUDE.md`](draft5.0/CLAUDE.md). Cross-tool = option **C**
 > (self-contained `AGENTS.md`, no `@import` dependency on the always-loaded file). **Still pending (next pass):**
-> the skills migration to native `.claude/skills/` + per-draft relocation (§6); the optional settings levers
-> (`claudeMdExcludes` / read-deny, §5); hooks (§9.7).
+> **Update (2026-06-24): §6 skills now BUILT** per [`SKILL-PLAN.md`](SKILL-PLAN.md) — 4 universal `.claude/skills/`
+> + 4 draft-6 `draft6.0/.claude/skills/`, `workflows.md` folded into the commands, old `skill/` deleted; read-deny
+> rules added in `.claude/settings.json` (`claudeMdExcludes` deliberately skipped — lazy-load already keeps sibling
+> drafts out of a session, and excluding the fossil's `CLAUDE.md` would only drop context when you *do* work there).
+> **Still optional:** a `SessionStart` hook (§9.7). The maintenance contract: [`AGENT-OPTIMIZE-GUIDE.md`](AGENT-OPTIMIZE-GUIDE.md).
 
 ---
 
