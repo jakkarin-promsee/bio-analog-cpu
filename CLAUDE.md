@@ -97,7 +97,7 @@ Biological names are **structural, not decorative**. Don't suggest renaming to "
 ## Skills & workflow commands
 
 - **Workflow commands** (`.claude/commands/`, self-contained): **`/orient`**, **`/checkpoint`**, **`/commit-progress`**, **`/double-check`** — explicit moves that fire the same steps if you ask in plain words ("commit it", "double-check this"). Add one when a manual ritual repeats 3+ times.
-- **Skills (auto-load by task):** universal ones in **`.claude/skills/`** — `project-frame` (what the project is), `explore` (navigate the repo), `folder-structure` (where things go), `writing-report` (document a result). Draft-6-specific ones in **`draft6.0/.claude/skills/`** — `status`, `run-experiment`, `find-paper`, `simulator-code` (load when you work in draft 6). Design rationale: [`AGENT-OPTIMIZE-PLAN.md`](AGENT-OPTIMIZE-PLAN.md) + [`SKILL-PLAN.md`](SKILL-PLAN.md).
+- **Skills (auto-load by task):** universal ones in **`.claude/skills/`** — `project-frame` (what the project is), `explore` (navigate the repo), `folder-structure` (where things go), `writing-report` (document a result). Draft-6-specific ones in **`draft6.0/.claude/skills/`** — `status`, `run-experiment`, `find-paper`, `simulator-code` (load when you work in draft 6). Design + maintenance guide: [`AGENT-OPTIMIZE-GUIDE.md`](AGENT-OPTIMIZE-GUIDE.md).
 
 ---
 

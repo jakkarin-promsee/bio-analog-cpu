@@ -15,7 +15,7 @@
 >   a **§20** test hook. Do not fold it into the locked §1–§16 without the §20.17 promotion process.
 > - **Connects to:** the open **L3/L4 activation experiment** (the author's "let L3/L4 have no violent
 >   activation" probe), and the recent **paraboloid result** (one Ganglion cutting `0.1·(x₁+x₂)²` loss ~20×
->   under ±0.02 noise — see `skill/project-explore.md` §2). This note is the candidate *explanation* for
+>   under ±0.02 noise — see the `project-frame` skill). This note is the candidate *explanation* for
 >   that result.
 
 ---

@@ -30,11 +30,11 @@ src/experiment/
 ## Conventions
 
 - **Enter a phase through its `README.md`.** It says what's there and what to read, in order — the same
-  front-door idea as `skill/project-explore.md`, scoped to one phase.
+  front-door idea as the `explore` / `project-frame` skills, scoped to one phase.
 - **One experiment per `experiment-{n}.md`.** Write it for a *reader*, not just to save — same bar as a
   good commit message. Skeleton lives in `phase1/README.md`.
 - **`library/` is frozen.** Experiment scripts import it unchanged and add their own assembly. If you need
-  to change `library/`, that's a `simulator-code` task (see `skill/simulator-code.md`), not an experiment.
+  to change `library/`, that's a `simulator-code` task (see the `simulator-code` skill), not an experiment.
 - **Imports:** mirror `src/example/run_xor.py` (it sets `sys.path` so `from src.library import ...` works
   when run from the repo root).
 - **Figures:** commit the summary plots the logs reference (the deliverable). Dump raw/bulk sweeps to
