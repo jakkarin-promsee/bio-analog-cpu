@@ -16,7 +16,7 @@
 | File | Holds | Reports lean on it for |
 | --- | --- | --- |
 | [`methods.md`](methods.md) | the mechanisms — SCFF, mono-forward, boosting chain, sleep, contrast, coordination, … (grouped in **4 bands**: cheap brain / objective family / chain+maintenance / racers) | "what *is* this part" without re-explaining it each phase |
-| [`metrics.md`](metrics.md) | the measurement dictionary — AAA, gap, selectivity, BWT, capture, cost, … | one **pinned** definition per metric (today these are scattered across four `result-format.md` files) |
+| [`metrics.md`](metrics.md) | the measurement dictionary — AAA, gap, selectivity, BWT, capture, cost, … | one **pinned** definition per metric (consolidated here from the `result-format.md` files) |
 | [`papers.md`](papers.md) | the citation table — paper, people, arXiv, one-line why, link to the `research/papers/` story | naming the source without a paragraph |
 
 ## Convention for every entry

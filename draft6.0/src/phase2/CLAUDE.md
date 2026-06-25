@@ -6,7 +6,7 @@ bend the slope). Depth instead comes from **boosted ensembles of shallow SCFF bl
 — `read`/ensemble works; `write`/re-inject fails) at ~85% of GD accuracy for ~1/6 the backward cost; the recipe
 preserves the continual win (P2.6).
 
-- **Authoritative record:** [`phase2-summarize.md`](phase2-summarize.md) + [`RESULTS.md`](RESULTS.md). **Story:** [`phase2-report.md`](phase2-report.md).
+- **Authoritative synthesis (the front door):** [`README.md`](README.md) + the [`RESULTS.md`](RESULTS.md) ledger. **Story:** [`phase2-report.md`](phase2-report.md). **Pre-run design:** [`design.md`](design.md).
 - **Run-cards:** `exp0/1/2/5/6` (= P2.0/1/2/5/6). **There is no `exp3/`/`exp4/`** — P2.3/P2.4 were skipped (moot once P2.1+P2.2 closed the deep-SCFF path); the gap is intentional. **Apparatus:** `p2lib.py`. **Figures:** `figs_*/`.
-- **Read-budget:** to use this phase from elsewhere, read **`phase2-summarize.md` only**; open cards/code only to modify them.
+- **Read-budget:** to use this phase from elsewhere, read **`README.md` only**; open cards/code only to modify them.
 - **Up:** draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · results arc → [`../stage1-report.md`](../stage1-report.md).

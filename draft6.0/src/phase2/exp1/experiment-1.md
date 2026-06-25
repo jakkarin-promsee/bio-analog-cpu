@@ -8,7 +8,7 @@
 > deactivation, preserves rank, lifts shallow features) but does **not** create depth-rising class separability —
 > the bottleneck is the *objective* (density ≠ class), not transmission. Per README §5 this is the STOP/rethink
 > branch; the rethink routes to **P2.2 (class-aware objective)**, not the transmission-adjacent rungs. Convention:
-> question → setup → run → result → read → decision. Spec: [`../README.md`](../README.md) §P2.1. Reporting:
+> question → setup → run → result → read → decision. Spec: [`../design.md`](../design.md) §P2.1. Reporting:
 > [`../result-format.md`](../result-format.md). Builds on [`../exp0/experiment-0.md`](../exp0/experiment-0.md)
 > (the wall + the grid-widening decision). The two papers it leans on:
 > [`../../../research/papers/phase1-2/deeperforward.md`](../../../research/papers/phase1-2/deeperforward.md) (keep per-sample norm, fix the goodness) and

@@ -4,7 +4,7 @@
 > Phase 3 CLOSES.** The non-negotiable test: does `contrast + coordination` (the P3.0–P3.2 winner) preserve the
 > Phase-1 continual win? It does — and **beats the energy baseline** (BWT **−0.017** vs −0.026, final **0.954** vs
 > 0.938, disjoint-IQR, 3 seeds), with the contrastive SCFF-probe **flat** (doesn't forget) and sleep decisive.
-> Mirror of P2.6. Spec: [`../README.md`](../README.md) §P3.3. Reporting: [`../result-format.md`](../result-format.md).
+> Mirror of P2.6. Spec: [`../design.md`](../design.md) §P3.3. Reporting: [`../result-format.md`](../result-format.md).
 > Builds on [`../exp2/experiment-2.md`](../exp2/experiment-2.md) (the validated cell) + P2.6/exp4 (the win it must
 > preserve).
 

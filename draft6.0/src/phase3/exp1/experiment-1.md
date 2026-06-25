@@ -5,7 +5,7 @@
 > because flat-CIFAR has no depth headroom *for anyone* (GD-hidden is flat too). → lock **contrast + w2** as the
 > best unsupervised cell; route to **P3.3 (continual veto)**, the question that actually decides adoption
 > (direct-feedback = an optional static side-check).** P3.0 settled the objective (contrast preserves class info
-> but declines −0.016); P3.1 adds the coordination P2.2 named as missing. Spec: [`../README.md`](../README.md)
+> but declines −0.016); P3.1 adds the coordination P2.2 named as missing. Spec: [`../design.md`](../design.md)
 > §P3.1. Reporting: [`../result-format.md`](../result-format.md). Builds on
 > [`../exp0/experiment-0.md`](../exp0/experiment-0.md).
 

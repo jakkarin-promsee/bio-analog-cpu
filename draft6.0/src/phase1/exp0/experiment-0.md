@@ -2,7 +2,7 @@
 
 > **Status: config LOCKED, not run yet.** This is the first thing to run and the gate to everything
 > (ladder 1.0 + 1.1). Follow the convention: question → setup → run → result → read → decision. The spec is
-> [`../README.md`](../README.md); the *why* is [`../../../idea/ideas1.md`](../../../idea/ideas1.md).
+> [`../design.md`](../design.md); the *why* is [`../../../idea/ideas1.md`](../../../idea/ideas1.md).
 
 ## Question
 

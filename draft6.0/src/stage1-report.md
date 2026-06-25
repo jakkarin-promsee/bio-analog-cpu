@@ -177,9 +177,10 @@ numbered phases, deliberately not specced yet. *Simple intelligence first.*
 
 ## Reading guide
 
-Enter the set here, then descend by need: **stage1-report** (this file — the arc) → the four
+Enter the set here, then descend by need: **stage1-report** (this file — the arc) → each phase's
+**[`README.md`](phase1/README.md)** front door (the navigable synthesis + key figure) → the four
 **[phaseN-report.md](phase1/phase1-report.md)** (the detailed logs, with figures and the per-experiment story) →
 the **`expK/experiment-K.md`** cards (the full six-slot reads + threats) → **[`ref-report/`](ref-report/README.md)**
-for any term, metric, or paper. The per-phase **`RESULTS.md`** ledgers carry every scalar; the **`phaseN-summarize.md`**
-files are the terse synthesis the reports were built from. The whole set is meant to read cold to an outside
+for any term, metric, or paper. The per-phase **`RESULTS.md`** ledgers carry every scalar; each phase's
+**`design.md`** keeps the pre-run design it was built against. The whole set is meant to read cold to an outside
 researcher with only `ref-report/` as the glossary.

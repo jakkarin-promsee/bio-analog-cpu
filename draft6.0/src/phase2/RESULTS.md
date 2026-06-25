@@ -2,7 +2,7 @@
 
 > The **synthesis surface** for the whole phase — one row per rung, accumulated as they land. Six folders is a
 > pile of runs; *research is the arc*, and the arc lives **here**. Reporting format:
-> [`result-format.md`](result-format.md). Plan: [`README.md`](README.md). Phase-1 precedent:
+> [`result-format.md`](result-format.md). Pre-run design: [`design.md`](design.md). Phase-1 precedent:
 > [`../phase1/RESULTS.md`](../phase1/RESULTS.md).
 >
 > **Fill a row the moment a rung's *decision* is made.** The scalars for Phase 2 are the **depth-slope** (probe

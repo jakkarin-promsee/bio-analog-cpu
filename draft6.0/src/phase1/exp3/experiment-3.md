@@ -2,7 +2,7 @@
 
 > The experiment that decides the Exp-2 pivot: does **depth from stacking shallow GD-corrected blocks**
 > (a residual-boosting chain, N3/BoostResNet) beat a single block and avoid the monolithic-SCFF
-> degradation? Spec: [`../README.md`](../README.md) (Exp 3); reporting: [`../result-format.md`](../result-format.md).
+> degradation? Spec: [`../design.md`](../design.md) (Exp 3); reporting: [`../result-format.md`](../result-format.md).
 
 ## Question
 

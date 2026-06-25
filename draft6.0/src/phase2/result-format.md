@@ -6,10 +6,10 @@
 > like**, and every run follows it as the **baseline** — overridable or extendable when the actual data
 > demands, but never re-invented from scratch.
 >
-> **This file does NOT re-derive Phase 1's house style — it *inherits* it.** The color/linestyle encoding,
+> **This file does NOT re-derive the Stage-1 house style — it *inherits* it.** The color/linestyle encoding,
 > IQR bands, reference lines, axis rules, caption rule, the **reproducibility contract** (`manifest.json` +
 > `arrays.npz` + a `plot.py` that regenerates every figure from saved data), and the **"calling a difference
-> real at n=5"** rule are all imported verbatim from [`../phase1/result-format.md`](../phase1/result-format.md).
+> real at n=5"** rule are all imported verbatim from [`../result-format.md`](../result-format.md).
 > This file adds only what Phase 2 needs that Phase 1 didn't: **depth curves, representation-structure
 > metrics, drift, multi-block, the substrate-cost table, and the continual veto.**
 

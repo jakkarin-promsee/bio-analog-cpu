@@ -8,7 +8,7 @@
 > reaches ~85% of pure-GD accuracy at ~1/6 of its backward cost (forward-only SCFF bulk + tiny GD readouts). The
 > depth question is *answered, not won*: depth comes cheaply from boosted shallow blocks (GD as readout, not
 > stream-rewriter), and the architecture's real home stays the *continual* regime (Phase-1). Convention:
-> question → setup → run → result → read → decision. Spec: [`../README.md`](../README.md) §P2.5. Reporting:
+> question → setup → run → result → read → decision. Spec: [`../design.md`](../design.md) §P2.5. Reporting:
 > [`../result-format.md`](../result-format.md). Re-tests Phase-1 exp3 (the boosting chain) under the substrate
 > framing on the CIFAR-flat headline.
 >

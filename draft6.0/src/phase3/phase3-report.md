@@ -5,7 +5,7 @@
 > cost the continual win — **adopted; it supersedes energy-goodness.** A first-person research log, figures and
 > tables inline. Terms and metrics are defined in [`../ref-report/`](../ref-report/README.md); the literature
 > behind the reframe is [`../../research/papers/`](../../research/papers/README.md); the terser source it draws from is the
-> [summary](phase3-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
+> [`RESULTS.md`](RESULTS.md) ledger and the `expK/experiment-K.md` cards; the navigable overview is the [`README.md`](README.md).
 
 ---
 

@@ -3,7 +3,7 @@
 > **Status: ✅ RUN COMPLETE (2026-06-21) — verdict LOST → route P2.1.** The locked first run of Phase 2 and the
 > fork that **routes the whole phase**, now resolved on CIFAR-10-flat (the wall reproduced cleanly; deep SCFF
 > features fall *below* a random projection). Convention: question → setup → run → result → read → decision. Spec:
-> [`../README.md`](../README.md) §P2.0. Reporting: [`../result-format.md`](../result-format.md). The two
+> [`../design.md`](../design.md) §P2.0. Reporting: [`../result-format.md`](../result-format.md). The two
 > papers it leans on: [`../../../research/papers/phase1-2/scff.md`](../../../research/papers/phase1-2/scff.md) (our base rule) and the new
 > [`../../../research/papers/phase1-2/deeperforward.md`](../../../research/papers/phase1-2/deeperforward.md) (the counter-finding that reshaped P2.1).
 

@@ -17,7 +17,7 @@
 > energy-family P2.2 — oracle-proof). P3.0 tests the lever Phase 2 never touched: a **different objective family**
 > — swap the per-layer goodness from energy `Σh²` to **masked-feature reconstruction** (information-preserving),
 > and ask whether the depth wall stops. Convention: question → setup → hypothesis → run → result → read →
-> decision. Plan: [`../README.md`](../README.md) §P3.0. Reporting: [`../result-format.md`](../result-format.md).
+> decision. Plan: [`../design.md`](../design.md) §P3.0. Reporting: [`../result-format.md`](../result-format.md).
 > Reframe: [`../../../research/papers/phase3/the-objective-reframe.md`](../../../research/papers/phase3/the-objective-reframe.md).
 
 ## Question
@@ -45,7 +45,7 @@ the structure-exposed task, then the Mono-Forward fallback) before P3.1.
 | **Headline task** | **CIFAR-10-flat** (`load_cifar_local`, 3072-D, 10-class) | the documented wall; directly comparable to the P2.1/P2.2 curves. |
 | **Sanity task** | **synth Tier-B** (`make_tierb`) | code sanity only — synth has *no* wall (P2.0), so it can't show the win; the verdict rests on CIFAR. |
 | **Cells** | **energy-wall** (layer-norm + linear + contrast — the P2.1 healthy cell, the baseline-to-beat) · **masked-recon** (the hero) | one variable: the objective. *(Sibling-contrastive CLAPP control = the immediate next cell, P3.0b — run after the headline lands; not in this first run.)* |
-| **masked-recon objective** | per layer: corrupt input (mask `ρ=0.5` of dims → 0), encode `h=relu(W·ã+b)`, decode `â=D·h+c`, **local MSE** `‖â−a‖²`; update {W,b,D,c} by the within-layer AE gradient — **gradient-isolated between layers** (no cross-layer backprop, GIM/denoising-AE style). The clean (unmasked) normalized rep propagates forward. | the decided primary objective (`../README.md` §0): single-sample, info-preserving, the substrate-native denoising-AE member of the GIM family. |
+| **masked-recon objective** | per layer: corrupt input (mask `ρ=0.5` of dims → 0), encode `h=relu(W·ã+b)`, decode `â=D·h+c`, **local MSE** `‖â−a‖²`; update {W,b,D,c} by the within-layer AE gradient — **gradient-isolated between layers** (no cross-layer backprop, GIM/denoising-AE style). The clean (unmasked) normalized rep propagates forward. | the decided primary objective (`../design.md` §0): single-sample, info-preserving, the substrate-native denoising-AE member of the GIM family. |
 | **decoder `D_l`** | a small auxiliary head `[din × width]` per layer (like the GD readout / Mono-Forward's `M_i`) | the "20%" local machinery; reconstructs, never propagates. |
 | **stack** | `L = 1…8`, width 64, ReLU, input-norm on, **layer-norm** between layers | depth is the axis; width fixed; the P2.1 healthy transmission. |
 | **probe (PRIMARY)** | logistic, fixed L2 `C=1.0`, frozen 2k/2k, to convergence — **per layer** | the pinned metric (`result-format` Layer B). |

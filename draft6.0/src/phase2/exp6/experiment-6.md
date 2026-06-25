@@ -7,7 +7,7 @@
 > Continual-Norm rot never applies). The recipe — forward-only single-sample SCFF bulk + tiny sleep-consolidated
 > GD heads (~17% backward) — carries to Phase 3. Cadence guidance from both P2.5 (static) and here (continual):
 > **few blocks suffice.** Convention:
-> question → setup → run → result → read → decision. Spec: [`../README.md`](../README.md) §P2.6. Reporting:
+> question → setup → run → result → read → decision. Spec: [`../design.md`](../design.md) §P2.6. Reporting:
 > [`../result-format.md`](../result-format.md). Builds on [`../exp5/experiment-5.md`](../exp5/experiment-5.md)
 > (the recipe) and Phase-1 exp4 (the continual win it must preserve).
 >

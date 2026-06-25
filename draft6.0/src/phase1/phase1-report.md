@@ -3,8 +3,8 @@
 > The reader-facing narrative of Phase 1 (exp0 → exp4, June 2026): why we ran each rung, what broke, what the
 > simulation said — often overruling the plan — and the decision each set. A first-person research log, with
 > figures and scalar tables inline. Terms and metrics are defined in [`../ref-report/`](../ref-report/README.md);
-> the terser source it draws from is the [summary](phase1-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger,
-> and the `expK/experiment-K.md` cards.
+> the terser sources it draws from are the [`RESULTS.md`](RESULTS.md) ledger and the `expK/experiment-K.md`
+> cards; the navigable overview is the [`README.md`](README.md).
 
 ---
 

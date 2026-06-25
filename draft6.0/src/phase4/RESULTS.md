@@ -1,7 +1,7 @@
 # Phase 4 — RESULTS ledger (the scalars)
 
 > The capability-map numbers, one rung per section. Story/threats live in each `expN/experiment-N.md`; the synthesis
-> will live in `phase4-summarize.md`. Plan: [`README.md`](README.md); reporting contract:
+> lives in the [`README.md`](README.md) front door. Pre-run design: [`design.md`](design.md); reporting contract:
 > [`result-format.md`](result-format.md). Cell = `[contrast (InfoNCE, two-mask) + coordination w=2] SCFF bulk +
 > all-tap sleep-readout` (the Phase-3 adopted cell). Racers: **OURS** vs **genuinely-tuned BP** vs **Mono-Forward**.
 > Seeds `[42,137,271,314,1729]`, median [IQR]. Cost = **backward credit-assignment work** (analytic, substrate
@@ -181,5 +181,5 @@ the proper P5 follow-up.** Don't claim noise-robustness yet. Full read: [`exp6/e
 The map: **WIN** A6 continual (decisive), A2 ambient-dim, A3 depth-composition, A4 depth-is-cheap (80/20 depth-gated);
 **TRAIL** A1 difficulty, A5 class-count (difficulty-gated, real-data kinder); **NEGATIVE** A7 eval-time noise
 (layernorm tradeoff; train-with-noise untested). Verdict: a **substrate-native continual learner, not a static-
-accuracy competitor.** Synthesis: [`phase4-summarize.md`](phase4-summarize.md); assembled map:
+accuracy competitor.** Synthesis: [`README.md`](README.md); assembled map:
 `figs_summary/CAPABILITY_MAP.png`. **Phase 5 = optimize the continual win (sleep cadence + Ch7 gate).** PHASE 4 CLOSED.

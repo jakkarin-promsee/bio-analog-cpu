@@ -2,7 +2,7 @@
 
 > Auto-loads when you work in `draft6.0/`. This is the **draft's mental model + current status + map** — the file
 > that changes as work advances (the root `CLAUDE.md` stays stable). Cold-start narrative: [`context.md`](context.md).
-> Reading budget: load a phase's `phaseN-summarize.md` for its gist; open cards/code only to modify them; heavy
+> Reading budget: load a phase's `phaseN/README.md` for its gist; open cards/code only to modify them; heavy
 > sweeps → dispatch the `Explore` sub-agent.
 
 ---
@@ -23,7 +23,7 @@ Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md).
 ## Where we are — current status (the shifting part: edit this, not the root)
 
 **Stage 1 complete (Phases 1–4). Phase 5 = optimization is the live line.** One-glance ladder — the depth lives in
-each `src/phaseN/phaseN-summarize.md`, not here:
+each `src/phaseN/README.md`, not here:
 
 - **P1 ✓ structure** — the cell works; its home is the **continual** regime (a periodic sleep recovers what online backprop catastrophically forgets). Generalizes better than backprop at ~10% backward cost; *not* a deep static-accuracy competitor.
 - **P2 ✓ depth round 1** — a deep SCFF stack can't earn depth (transmission *and* a perfect-oracle objective both fail). Depth comes from **boosted ensembles of shallow blocks with tiny GD readouts**, not deep SCFF.
@@ -79,8 +79,10 @@ draft6.0/
     north-star/    the north-star dossier (21 files + th/ Thai mirror) — beyond the phases, not the live line
   src/             ★ Stage-1 report set + run-specs
     stage1-report.md   the four-phase executive arc
+    result-format.md   the canonical house style (figures · metrics · the 6-slot template)
     ref-report/        glossary the reports cite (methods · metrics · papers)
-    phaseN/            per phase: CLAUDE.md (signpost) · phaseN-report.md · phaseN-summarize.md · RESULTS.md · expK/ cards · figs
+    phaseN/            per phase: README.md (front door / synthesis) · design.md (the pre-run design) ·
+                       CLAUDE.md (signpost) · phaseN-report.md · RESULTS.md · result-format.md (delta) · expK/ cards · figs
 ```
 
 ---
@@ -91,9 +93,9 @@ draft6.0/
 | --- | --- |
 | The plan / what we're doing now | [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (decisions) + [`idea/ideas1.md`](idea/ideas1.md) (the story) |
 | The written results / Stage-1 story | [`src/stage1-report.md`](src/stage1-report.md) → `src/phaseN/phaseN-report.md` (figures inline) → [`src/ref-report/`](src/ref-report/README.md) (glossary) |
-| What did Phase N find? | `src/phaseN/phaseN-summarize.md` + `RESULTS.md` (the terse authoritative record) |
+| What did Phase N find? | `src/phaseN/README.md` (front-door synthesis) + `RESULTS.md` (the scalar ledger) |
 | Code / read a Phase-N experiment | `src/phaseN/` — start *in* that folder to load only its context; `expK/experiment-K.md` cards; `pNlib.py` apparatus |
-| Draw a figure / write up a result | [`src/phase1/result-format.md`](src/phase1/result-format.md) (house style + figure catalog) |
+| Draw a figure / write up a result | [`src/result-format.md`](src/result-format.md) (canonical house style + base figure catalog; per-phase additions in `src/phaseN/result-format.md`) |
 | The papers behind a decision | [`research/papers/`](research/papers/README.md) — `phase1-2/` (design) · `phase3/` (the reframe) |
 | The learning-rule survey | [`research/survey/summary.detail.md`](research/survey/summary.detail.md) |
 | The north-star / recurrent-brain research | [`research/north-star/`](research/north-star/README.md) — free-time reading, *not* the live plan |

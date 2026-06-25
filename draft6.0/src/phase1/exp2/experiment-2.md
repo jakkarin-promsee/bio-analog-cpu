@@ -1,7 +1,7 @@
 # Experiment 2 — inside the block: converting SCFF features to labels
 
 > Three internal knobs, one variable per cell, all vs the pure-GD ceiling, judged on held-out.
-> Driven by Exp 1's finding: **SCFF features degrade with depth.** Spec: [`../README.md`](../README.md)
+> Driven by Exp 1's finding: **SCFF features degrade with depth.** Spec: [`../design.md`](../design.md)
 > (Exp 2); reporting: [`../result-format.md`](../result-format.md); the *why*: N2 in
 > [`../../../idea/main.ideas.v1.md`](../../../idea/main.ideas.v1.md).
 

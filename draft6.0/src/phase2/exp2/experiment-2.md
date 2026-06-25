@@ -7,7 +7,7 @@
 > so the depth wall is **intrinsic to SCFF's forward-only locality**: composing class features across depth needs
 > cross-layer coordination that only GD supplies. The deep-SCFF static-accuracy path is closed; depth comes from
 > **GD-corrected boosted blocks (P2.5)**, not a deep SCFF stack. P2.3/P2.4 are now moot. Convention: question →
-> setup → run → result → read → decision. Spec: [`../README.md`](../README.md) §P2.2. Reporting:
+> setup → run → result → read → decision. Spec: [`../design.md`](../design.md) §P2.2. Reporting:
 > [`../result-format.md`](../result-format.md). Builds on [`../exp1/experiment-1.md`](../exp1/experiment-1.md)
 > (gate failed → here) and
 > [`../../../research/papers/phase1-2/scff.md`](../../../research/papers/phase1-2/scff.md) (the negative = "mixture of two things"; make it a *between-class*

@@ -2,7 +2,7 @@
 
 > **Why this exists.** Same as Phase 1–3: a characterization sweep that invents its own format per cell yields a
 > pile of incomparable numbers. Phase 4 is *especially* prone to it (many axes), so the contract matters most
-> here. **It inherits Phase 1–3** (IQR bands, reproducibility = `manifest.json` + `arrays.npz` + a `plot.py` that
+> here. **It inherits the canonical house style** ([`../result-format.md`](../result-format.md); IQR bands, reproducibility = `manifest.json` + `arrays.npz` + a `plot.py` that
 > regenerates from saved data, the n=5 disjoint-IQR rule, the 6+2 summary slots) and adds only the
 > **characterization** layer: the racer encoding, the **gap-to-backprop** family, the **cost Pareto**, and the
 > **capability map**. The output of every rung is a *piece of the map*, drawn the same way.

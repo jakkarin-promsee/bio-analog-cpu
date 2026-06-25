@@ -3,7 +3,7 @@
 > The destination, and the regime the substrate was actually built for. After the static-task arc
 > (exp0–Exp3) said "cheap + small-gap, but depth is weak," this asks the question that matters: on a
 > **non-stationary stream**, does the model rot (shift/forget), and does **sleep** recover it?
-> Spec: [`../README.md`](../README.md) (Exp 4 = ladder 3.x sleep + Ch7 gate); ideas1 Ch7–8.
+> Spec: [`../design.md`](../design.md) (Exp 4 = ladder 3.x sleep + Ch7 gate); ideas1 Ch7–8.
 
 ## Question
 

@@ -1,7 +1,8 @@
 # Metrics — the measurement dictionary (pinned)
 
-> The one place every Stage-1 metric is defined. Today these live scattered across the four
-> `phaseN/result-format.md` files; this consolidates them so a report can write `[BWT](../ref-report/metrics.md#bwt--backward-transfer)`
+> The one place every Stage-1 metric is defined. The house-style / figure definitions live in the canonical
+> [`../result-format.md`](../result-format.md) (per-phase additions in the `phaseN/result-format.md` deltas); this
+> dictionary consolidates the *metrics* so a report can write `[BWT](../ref-report/metrics.md#bwt--backward-transfer)`
 > and move on. **Pinned = the definition does not drift between phases.** Where a phase refined a metric, the
 > entry notes it.
 
@@ -19,14 +20,14 @@ The trapezoidal area under the held-out-accuracy vs **log₁₀(samples-seen)** 
 single convergence-speed-weighted average accuracy in [chance, 1]. Log-x because the checkpoints are log-spaced, so
 it rewards a model that climbs early, not just one that ends high.
 - **Scope note:** effectively a **Phase-1 scalar**. Phase 2/3 lead on [depth-slope](#depth-slope), Phase 4 on [gap-to-BP](#gap-to-bp) / [BWT](#bwt--backward-transfer) — later reports shouldn't over-promise AAA.
-- **Pinned in:** Phase 1 `result-format.md`
+- **Pinned in:** the canonical [`result-format.md`](../result-format.md)
 - **Used in:** Phase 1 (the scalar)
 
 ### Memorization gap
 Train-on-seen accuracy **minus** held-out accuracy — how much a model *memorizes* versus *understands*. Measured by
 re-evaluating (no update) on a rolling buffer of already-seen samples; under a fresh-draw single pass it is ~0 by
 construction (nothing to memorize), so it only *means* something on a repeating / seen buffer.
-- **Pinned in:** Phase 1 `result-format.md`
+- **Pinned in:** the canonical [`result-format.md`](../result-format.md)
 - **Used in:** Phase 1 (exp1 headline)
 
 ## Representation quality

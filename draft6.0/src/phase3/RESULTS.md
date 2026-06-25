@@ -1,7 +1,7 @@
 # Phase 3 — Results ledger
 
 > The **synthesis surface** for the depth-round-2 / objective-reframe phase — one row per rung, accumulated as
-> they land. Reporting format: [`result-format.md`](result-format.md). Plan: [`README.md`](README.md). Phase-2
+> they land. Reporting format: [`result-format.md`](result-format.md). Pre-run design: [`design.md`](design.md). Phase-2
 > precedent: [`../phase2/RESULTS.md`](../phase2/RESULTS.md).
 >
 > **Fill a row the moment a rung's *decision* is made.** Phase-3 scalars: the **depth-slope** (probe change/layer;

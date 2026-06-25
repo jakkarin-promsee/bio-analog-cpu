@@ -5,7 +5,7 @@
 > map says exactly what the project always claimed — a substrate-native **continual** learner, not a
 > static-accuracy competitor. A first-person research log, figures and tables inline. Terms and metrics are
 > defined in [`../ref-report/`](../ref-report/README.md); the terser source it draws from is the
-> [summary](phase4-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
+> [`RESULTS.md`](RESULTS.md) ledger and the `expK/experiment-K.md` cards; the navigable overview is the [`README.md`](README.md).
 
 ---
 
@@ -240,8 +240,8 @@ NEGATIVE.
 
 We assemble the seven tiles into the [capability map](figs_summary/CAPABILITY_MAP.png) and read the Phase-5 brief
 straight off it (§5). *(Labeling note: **P4.7 = the synthesis / map-assembly rung, not a 7th axis** — the seven
-axes are A1–A7 = P4.0–P4.6. The `phase4-summarize.md` header counts to P4.6; this report counts the synthesis
-rung, so "P4.0 → P4.7." Same thing — stated once so it doesn't read as a discrepancy.)*
+axes are A1–A7 = P4.0–P4.6; this report counts the synthesis rung too, so "P4.0 → P4.7." Same thing — stated once
+so it doesn't read as a discrepancy.)*
 
 ## 5 · The Phase-5 brief (the hand-off)
 

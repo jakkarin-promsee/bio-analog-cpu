@@ -1,6 +1,6 @@
 # `phase3/` — the depth-direction reframe (Phase 3 papers)
 
-The literature pass behind the Phase-3 question: *can a forward-only, unsupervised learner earn depth?* It caught the one word Phase 2 had too strong — the depth wall is intrinsic to the **energy-goodness objective** (`Σh²`), **not** to forward-only locality. Forward-only local learners *do* compose depth when their objective is **predictive / info-preserving** (InfoNCE), not energy. Greedy InfoMax is the existence proof; a Jan-2026 paper tests SCFF *by name* and matches end-to-end backprop-SSL. That reframe is what draft 6.0 **adopted** — contrast + a cross-layer coordination window supersede energy-goodness (the verdict lives in [`../../../src/phase3/`](../../../src/phase3/phase3-summarize.md)).
+The literature pass behind the Phase-3 question: *can a forward-only, unsupervised learner earn depth?* It caught the one word Phase 2 had too strong — the depth wall is intrinsic to the **energy-goodness objective** (`Σh²`), **not** to forward-only locality. Forward-only local learners *do* compose depth when their objective is **predictive / info-preserving** (InfoNCE), not energy. Greedy InfoMax is the existence proof; a Jan-2026 paper tests SCFF *by name* and matches end-to-end backprop-SSL. That reframe is what draft 6.0 **adopted** — contrast + a cross-layer coordination window supersede energy-goodness (the verdict lives in [`../../../src/phase3/`](../../../src/phase3/README.md)).
 
 | File | What it covers |
 | ---- | -------------- |

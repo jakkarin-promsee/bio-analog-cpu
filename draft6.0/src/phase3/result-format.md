@@ -10,9 +10,9 @@
 > **It does NOT re-derive the house style — it *inherits* it.** Layer A encoding, IQR bands, reference lines,
 > axis rules, the caption rule, the **reproducibility contract** (`manifest.json` + `arrays.npz` + a `plot.py`
 > that regenerates every figure from saved data with no retrain), and the **"calling a difference real at n=5"**
-> rule (disjoint IQR + ≥4/5 seeds) come verbatim from
-> [`../phase1/result-format.md`](../phase1/result-format.md) and
-> [`../phase2/result-format.md`](../phase2/result-format.md). Phase 3 adds only: the **objective/lever encoding**,
+> rule (disjoint IQR + ≥4/5 seeds) come verbatim from the canonical
+> [`../result-format.md`](../result-format.md) (and the Phase-2 additions in
+> [`../phase2/result-format.md`](../phase2/result-format.md)). Phase 3 adds only: the **objective/lever encoding**,
 > the **depth-*shape* metric family** (so "where the curve bends" stops being lost in a single slope), and the
 > **info-preservation curve** (the new objective's native causal read). The 6+2 summary slots and the continual
 > veto carry over unchanged.

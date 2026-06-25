@@ -4,7 +4,7 @@
 > hatch, and the cheap survivor. The sims said *no*, decisively — and proving that **is** the result. A
 > first-person research log, figures and tables inline. Terms and metrics are defined in
 > [`../ref-report/`](../ref-report/README.md); the terser source it draws from is the
-> [summary](phase2-summarize.md), the [`RESULTS.md`](RESULTS.md) ledger, and the `expK/experiment-K.md` cards.
+> [`RESULTS.md`](RESULTS.md) ledger and the `expK/experiment-K.md` cards; the navigable overview is the [`README.md`](README.md).
 
 ---
 
