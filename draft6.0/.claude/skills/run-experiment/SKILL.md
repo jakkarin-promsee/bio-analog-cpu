@@ -6,7 +6,7 @@ description: Plan, write, or run a draft-6 phase experiment — the sim ladder, 
 # Running a draft-6 experiment
 
 **Where the work is:** `draft6.0/src/phaseN/` (one folder per phase; the active phase is **Phase 5**).
-**Read first:** the target `phaseN/README.md` (the codeable spec) + `draft6.0/src/phase1/result-format.md` (house style). Prior-phase context = read that phase's `phaseN-summarize.md` **only**, never its code.
+**Read first:** the target `phaseN/design.md` (the codeable spec + build plan) + `draft6.0/src/result-format.md` (house style). Prior-phase context = read that phase's `phaseN/README.md` **only** (the front-door synthesis), never its code.
 
 **Methodology (non-negotiable):**
 - **One variable** changed per experiment; lock everything else (task, init, weight count, steps, metric).
@@ -20,4 +20,4 @@ description: Plan, write, or run a draft-6 phase experiment — the sim ladder, 
 
 **Write-boundary:** status goes in `draft6.0/idea/main.ideas.v1.md`; run detail in `phaseN/expK/`. Don't log a run in the `ideas1.md` derivation chapters — that's a decision, not a checkpoint.
 
-**Budget:** this skill + the target `phaseN/README.md` + the one relevant `expK/` card. Open `pNlib.py` only when modifying it.
+**Budget:** this skill + the target `phaseN/design.md` + the one relevant `expK/` card. Open `pNlib.py` only when modifying it.

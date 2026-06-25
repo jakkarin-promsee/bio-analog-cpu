@@ -17,7 +17,7 @@ description: Navigate this repository — where things live, how it's organized,
 - `AGENTS.md` — cross-tool front door · `README.md` — human overview · `tools/` — the spec → Word toolchain.
 
 **Read efficiently:** to understand a draft, load its `CLAUDE.md`; to understand a *prior* phase, read its one
-`phaseN-summarize.md` — not its code. For "what IS this project" load the **`project-frame`** skill; for "where
+`phaseN/README.md` (the front-door synthesis) — not its code. For "what IS this project" load the **`project-frame`** skill; for "where
 are we / current status" load draft 6's **`status`** skill.
 
 **Routing:** working on Phase 5 → start in `draft6.0/`; why an old decision was made → `docs/draft/project-history.md`;

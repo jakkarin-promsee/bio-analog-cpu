@@ -26,10 +26,10 @@ the task is:
 1. **Root (this file)** — always loaded: identity, the rules below, the router. Stable; rarely changes.
 2. **`draftN/CLAUDE.md`** — auto-loads when you work in that draft: its architecture, **current status**, file
    map, and per-draft routing. *(This is the file that changes as work advances — not the root.)*
-3. **`phaseN/CLAUDE.md`** — a thin signpost to that phase's authoritative record (`phaseN-summarize.md` + `RESULTS.md`).
+3. **`phaseN/CLAUDE.md`** — a thin signpost to that phase's front-door synthesis (`phaseN/README.md` + `RESULTS.md`).
 
 **Reading budget — the rule that keeps sessions cheap:** load the layer your task needs and **stop**. To understand
-a *prior* phase, read its one `phaseN-summarize.md` — never its code or cards. For heavy multi-file lookups (sweep
+a *prior* phase, read its one `phaseN/README.md` (the front-door synthesis) — never its code or cards. For heavy multi-file lookups (sweep
 several phases, hunt a paper), **dispatch the `Explore` sub-agent** (its own context window; returns only the
 conclusion) instead of reading them into this session. *(If a rule seems missing, it may be in a nested `CLAUDE.md`
 that hasn't loaded — run `/memory` to see what's in scope.)*

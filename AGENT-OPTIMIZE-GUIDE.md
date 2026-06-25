@@ -29,7 +29,7 @@ The two axes everything is organized by:
 root CLAUDE.md + AGENTS.md   (always / cross-tool)   MAP + rules     stable, < ~130 lines, NO dated content
   └ draftN/CLAUDE.md         (auto-loads in-draft)   MENTAL MODEL    architecture + status ladder + map, < ~200
       └ phaseN/CLAUDE.md     (auto-loads in-phase)   SIGNPOST        ~25 lines: verdict + pointers + read-budget
-          └ phaseN-summarize.md / RESULTS.md / expK/ …   DETAIL      read on demand
+          └ phaseN/README.md (front-door synthesis = read first) → phaseN-report.md / RESULTS.md / design.md / expK/ …   DETAIL   on demand
 ```
 
 - **Root `CLAUDE.md` + `AGENTS.md`** — always-loaded / cross-tool. Identity, collaboration + methodology rules,
@@ -38,16 +38,17 @@ root CLAUDE.md + AGENTS.md   (always / cross-tool)   MAP + rules     stable, < ~
 - **`draftN/CLAUDE.md`** — the draft's mental model + **current status ladder** + file map. The file that *changes*
   as work advances.
 - **`draftN/src/phaseN/CLAUDE.md`** — a thin **signpost**: one-line verdict + pointers + a read-budget. Never
-  restate the phase's results; point to `phaseN-summarize.md`.
+  restate the phase's results; point to `phaseN/README.md` (the front-door synthesis).
 - **Skills** (`.claude/skills/` + `draftN/.claude/skills/`) — auto-load by description, one task each, with a
   read-budget. §3.
 - **Commands** (`.claude/commands/`) — explicit user moves only; they never auto-fire.
 
 **Canonical folder template** (or just invoke the `folder-structure` skill): a `draftN/` holds `CLAUDE.md` ·
 `README.md` · `context.md` · `idea/` (`main.ideas.vN.md` + `ideasN.md`) · `research/` (`survey/` · `papers/` ·
-`north-star/`) · `src/` (one `phaseN/` each + `stageN-report.md` + `ref-report/`) · `.claude/skills/`. A `phaseN/`
-holds `CLAUDE.md` · `README.md` · `phaseN-summarize.md` · `RESULTS.md` · `phaseN-report.md` · `expK/` · `pNlib.py`
-· figures in `figs_*/`.
+`north-star/`) · `src/` (one `phaseN/` each + `stageN-report.md` + `result-format.md` + `ref-report/`) ·
+`.claude/skills/`. A `phaseN/` holds `README.md` (front-door synthesis — the one file to read from outside) ·
+`design.md` (pre-run experiment design / spec — a record, not a to-do) · `CLAUDE.md` (signpost) · `RESULTS.md` ·
+`phaseN-report.md` (deep narrative) · `result-format.md` (thin delta) · `expK/` · `pNlib.py` · figures in `figs_*/`.
 
 ---
 
@@ -68,7 +69,7 @@ holds `CLAUDE.md` · `README.md` · `phaseN-summarize.md` · `RESULTS.md` · `ph
 | `project-frame` | `.claude/skills/` | "what is this project", "is this ML", "what's SCFF" — the chip-not-model frame + the wrong reflexes |
 | `explore` | `.claude/skills/` | "where is X", "how is this repo organized", "draft5 vs draft6" |
 | `folder-structure` | `.claude/skills/` | "where does this file go", "add a phase/draft", the canonical layout |
-| `writing-report` | `.claude/skills/` | "write up results", "what goes in a summarize", the doc hierarchy + house style |
+| `writing-report` | `.claude/skills/` | "write up results", "what goes in the README", "where does the design go", the doc hierarchy + house style |
 | `status` | `draft6.0/.claude/skills/` | "where are we", "current status", "what did phase N find", "what's next" |
 | `run-experiment` | `draft6.0/.claude/skills/` | "run a phase", "write an experiment", the methodology + card structure |
 | `find-paper` | `draft6.0/.claude/skills/` | "the paper behind X", "which paper covers", the paper indexes |
@@ -92,7 +93,7 @@ holds `CLAUDE.md` · `README.md` · `phaseN-summarize.md` · `RESULTS.md` · `ph
 
 ## 5. The maintenance moves (do them this way)
 
-- **Finish a phase** → write the phase's `summarize` / `RESULTS` / cards, add a thin `phaseN/CLAUDE.md`, and bump
+- **Finish a phase** → write the phase's `README` (front-door synthesis) / `RESULTS` / cards, add a thin `phaseN/CLAUDE.md`, and bump
   the **one** status-ladder line in `draftN/CLAUDE.md`. **Do not touch the root.**
 - **Add a draft** → copy the draft template (the `folder-structure` skill) — its own `CLAUDE.md` + `.claude/skills/`;
   add **one** router line to root `CLAUDE.md` and `AGENTS.md`. Mark the previous live draft historical with a
@@ -109,8 +110,8 @@ holds `CLAUDE.md` · `README.md` · `phaseN-summarize.md` · `RESULTS.md` · `ph
 
 - **Root creeping** past ~130 lines, or gaining a date/verdict → push it down to the draft.
 - **The same fact in two files** → keep one, point from the other. Duplication rots — one copy goes stale.
-- **An agent reading a phase's code/cards just to "understand" it** → the `summarize` wasn't enough, or the
-  signpost didn't say "read the summary only." Fix the summary/signpost; don't accept the over-read.
+- **An agent reading a phase's code/cards just to "understand" it** → the `README` wasn't enough, or the
+  signpost didn't say "read the README only." Fix the README/signpost; don't accept the over-read.
 - **A skill with no budget line, or a vague description** → it over-fires or over-reads. Tighten it.
 - **Reading binary outputs** (`figs_*/*.npz|*.npy`) → never useful; already denied in `.claude/settings.json`.
 - **A `draftN/CLAUDE.md` ballooning** → its detail belongs in `context.md` or the phase files; keep it a map.
@@ -119,7 +120,7 @@ holds `CLAUDE.md` · `README.md` · `phaseN-summarize.md` · `RESULTS.md` · `ph
 
 ## 7. The cheap escape hatches (use them)
 
-- **Load your tier and stop.** To understand a *prior* phase, read its **one** `phaseN-summarize.md`.
+- **Load your tier and stop.** To understand a *prior* phase, read its **one** `phaseN/README.md` (front-door synthesis).
 - **Start the session in the subdirectory you're working in** — loads only that chain. The biggest cheap win.
 - **Dispatch the `Explore` subagent** for read-heavy lookups — it returns the conclusion, not the pages.
 - **`/memory`** shows what's actually loaded — use it to catch a rule that didn't load or a file that bloated.

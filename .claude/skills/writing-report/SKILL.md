@@ -1,28 +1,47 @@
 ---
 name: writing-report
-description: Write up or format a result at every tier — which document is which (working log / card / summarize / RESULTS / report / stage-report / README) and the house-style rules. Use for "write up results", "write a report", "what goes in a summarize", "how should the phase README look", "how is a result documented", "how do I format this".
+description: Write up or format a result at every tier — which document is which (design / working log / card / RESULTS / README front door / report / stage-report) and the house-style rules. Use for "write up results", "write a report", "what goes in the README", "where does the design/plan go", "how should the phase README look", "how is a result documented", "how do I format this".
 ---
 
 # Documenting a result
 
-A result is written **up the tiers** — from a freestyle log while you run, to structured internal records, to a public report. **Each tier has ONE audience; don't cross them.**
+A result is written **up the tiers** — from a freestyle log while you run, to structured internal records, to a
+public-facing front door + report. **Each file has exactly ONE job; don't blur them.** (One file ≠ two duties:
+the README is *not* also the pre-run plan — that's `design.md`. This split is deliberate; it's why a reader landing
+in a phase folder hits the result, not the pre-run design.)
 
 **Internal records — for you, future-you, and agents.**
-While running, keep a **freestyle working log**: step by step, text-heavy, no rules — raw notes for both the author and the agent. After the run, distill it into the three structured records:
-
-- `expK/experiment-K.md` **card** — the atomic record, 6 slots: *question → setup → run → result/figures → read → decision*. Written during/after a run.
-- `phaseN-summarize.md` — synthesis across the phase: what it means, what it overturned, what it decided. **The one file to read to understand a phase from outside.**
-- `RESULTS.md` — the scalar ledger: numbers + verdict, no prose.
+- **freestyle working log** (*while running*): step by step, text-heavy, no rules — raw notes for both the author
+  and the agent. Scratch; not a deliverable.
+- **`design.md`** — the **pre-run design + build spec** for the phase: *what to test* (the experiment ladder), *what
+  to build* (the component checklist), the controlled setup, the open knobs. Written **before** the runs and kept
+  as the record of what was proposed. **It is a record, not an open to-do** — named `design.md` (not `plan.md`) on
+  purpose, so a *finished* phase's spec never reads as a live task list. For a completed phase it is **historical**
+  (the results live in the `README.md`) and is **not** rewritten (period-correct); only an *active*, not-yet-run
+  phase's `design.md` is a spec the agent executes.
+- **`expK/experiment-K.md` card** — the atomic record, 6 slots: *question → setup → run → result/figures → read →
+  decision*. Written during/after a run.
+- **`RESULTS.md`** — the scalar ledger: numbers + verdict, one row per experiment, **no prose**.
 
 **Public documents — for an outside reader (professor / researcher / future-you).**
-The published face of a phase. Story-style and consistent across phases (each phase builds on the last): *what was the problem? what was this phase/experiment for? what did we find? what does the result mean?* Figures, graphs, and tables inline — ready for an outside researcher to read, and reusable as a reference for later experiments. Aim for a clean, professional research repo: consistent naming, logical hierarchy, easy for anyone (including future-you) to navigate.
+- **`README.md` — the front door (single duty).** The **navigable synthesis** of the phase: *Problem → Experiment
+  → Result (key figure inline) → Decision/verdict*, then a **links table** out to the report, `RESULTS.md`,
+  `design.md`, and the cards. Short (~80–120 lines). This is the file an outside reader **lands on** *and* the agent
+  **read-budget target** ("to understand a phase from outside, read `README.md` only"). Model it on
+  `draft6.0/README.md` (the draft-level front door done right). It **absorbs the old "phase summary" role** — there
+  is no separate `phaseN-summarize.md`.
+- **`phaseN-report.md`** — the **deep** reader-facing narrative: every figure inline, the per-experiment story,
+  publishable quality. The README links here for the full account.
+- **`stageN-report.md`** — the executive arc across a whole stage. Audience: cold outside reader.
+- **`result-format.md`** — the **canonical house style** lives once at `draft6.0/src/result-format.md` (figures,
+  metrics, reproducibility, the 6-slot template). Each phase keeps a *thin* `phaseN/result-format.md` that
+  **inherits** the canonical and adds only that phase's new figures.
+- **`ref-report/`** — the glossary the reports cite (methods · metrics · papers).
 
-- `phaseN-report.md` — reader-facing narrative, figures inline, publishable quality.
-- `stageN-report.md` — the executive arc across a whole stage. Audience: cold outside reader.
-- `ref-report/` — the glossary the reports cite (methods · metrics · papers).
-
-**The README bridge — `README.md` (per phase/exp).**
-Lives a two-stage life. *While the experiment runs*, it doubles as the working log — progress + a running result summary. *Once the phase is done and the report is written*, rewrite it into public-document form: a short Problem / Experiment / Result / Decision overview, figures inline, linking out to the full report. The end state is a **rich, navigable README** — publishable quality, outside-reader facing.
+**The file set per phase — one job each (don't add a sixth prose file):**
+`README.md` (front door / synthesis) · `design.md` (pre-run design) · `phaseN-report.md` (deep story) ·
+`RESULTS.md` (scalar ledger) · `result-format.md` (thin delta → canonical) · `CLAUDE.md` (agent signpost) ·
+`expK/experiment-K.md` (cards). If you feel the urge to write a "summary" file, that's the README's job — put it there.
 
 **Format rules (apply across all drafts unless a draft overrides):**
 
@@ -30,6 +49,8 @@ Lives a two-stage life. *While the experiment runs*, it doubles as the working l
 - "Calling a difference real" = check IQR overlap *before* claiming a gap is meaningful.
 - **Failures are data** — log them in the card with the same rigor as successes.
 - The card's *read* slot is the interpretation; the *decision* slot is what changes (if anything).
-- Don't cross audiences — no outside-reader prose in a `summarize`, no internal shorthand in a `report`.
+- **Don't blur jobs** — no pre-run design content padding the README front door; no internal shorthand in a
+  `report`; no prose creeping into `RESULTS.md`.
 
-**Budget:** read this skill. Draft-specific figure/house style → `draft6.0/src/phase1/result-format.md`.
+**Budget:** read this skill. Canonical figure/house style → `draft6.0/src/result-format.md` (per-phase additions
+in `draft6.0/src/phaseN/result-format.md`).

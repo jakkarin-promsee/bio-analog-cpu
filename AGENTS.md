@@ -28,7 +28,7 @@ live as analog charge on capacitors; the multiply-accumulate happens in a crossb
 
 Context is **layered in `CLAUDE.md` files, loaded lazily**: the root is always in scope; each `draftN/CLAUDE.md`
 loads when you work in that draft; each `phaseN/CLAUDE.md` is a thin signpost to that phase's record. **Load the
-tier your task needs and stop** — to understand a prior phase, read its one `phaseN-summarize.md`, *not* its code;
+tier your task needs and stop** — to understand a prior phase, read its one `phaseN/README.md` (the front-door synthesis), *not* its code;
 for heavy multi-file lookups, use a read-only sub-agent so the pages stay out of the main context. The full
 operating guide — collaboration norms, methodology, routing — is in [`CLAUDE.md`](CLAUDE.md). *(Non-Claude tools:
 the per-draft context lives in those `CLAUDE.md` files; read the one for the area you're touching.)*

@@ -17,8 +17,8 @@ description: Decide where a file goes or how to add a phase or draft — the can
 - `src/` — one `phaseN/` per phase + `stage1-report.md` + `ref-report/` (glossary) · `.claude/skills/` (draft-specific skills)
 
 **A `phaseN/` (under `src/`) contains:**
-- `CLAUDE.md` (thin signpost) · `README.md` (codeable spec) · `phaseN-summarize.md` (synthesis — the one file to read from outside) · `RESULTS.md` (scalar ledger) · `phaseN-report.md` (reader-facing narrative + figures) · `expK/experiment-K.md` (run-cards) · `pNlib.py` (apparatus, where one exists) · figures in `figs_*/`
-- `result-format.md` lives in `phase1/` and applies globally (house style).
+- `README.md` (**front-door synthesis — the one file to read from outside**) · `design.md` (the pre-run experiment design / codeable spec — a record, not an open to-do) · `CLAUDE.md` (thin signpost) · `RESULTS.md` (scalar ledger) · `phaseN-report.md` (reader-facing narrative + figures) · `result-format.md` (thin per-phase delta) · `expK/experiment-K.md` (run-cards) · `pNlib.py` (apparatus, where one exists) · figures in `figs_*/`
+- The **canonical house style** lives once at `src/result-format.md`; each `phaseN/result-format.md` is a thin delta that inherits it.
 
 **Adding a phase** → create `src/phaseN/` from the template + bump the one status-ladder line in `draft6.0/CLAUDE.md`. **Root untouched.**
 **Adding a draft** → create `draftN/` from the template (its own `CLAUDE.md` + `.claude/skills/`) + add one router line to root `CLAUDE.md` and `AGENTS.md`.
