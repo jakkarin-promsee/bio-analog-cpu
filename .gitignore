@@ -32,3 +32,6 @@ post
 **/figs_*/_ckpt.jsonl
 **/figs_*/run_full.log
 **/*.stale
+
+# Temporary research space
+temp/
