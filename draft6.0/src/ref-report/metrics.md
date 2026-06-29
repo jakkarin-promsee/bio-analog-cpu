@@ -37,7 +37,7 @@ The pinned way we read a representation: logistic regression with fixed L2, on a
 of activations, trained to convergence. Linear on purpose — the result attributes to the *representation*, not a
 clever classifier (Alain & Bengio) — and pinned so a layer can't be rescued by making the probe smarter.
 - **Onward:** [`papers.md#alain-bengio-probes`](papers.md#alain-bengio-probes)
-- **Used in:** Phase 1–4 (the per-layer read)
+- **Used in:** Phase 1–5 (the per-layer read; the Phase-5 composing-depth metric is built on it)
 
 ### Goodness (the SCFF energy)
 SCFF's per-layer objective, `G = Σ‖h‖²` — the **sum** of squared activations. We use the sum form, not the paper's

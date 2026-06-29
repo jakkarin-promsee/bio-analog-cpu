@@ -5,8 +5,8 @@ description: Work on the draft-6 numpy simulation code — the per-phase pNlib /
 
 # The draft-6 simulator
 
-**Where it lives:** `draft6.0/src/phase{1..4}/` — one folder per phase, each with its own apparatus.
-- Shared libraries: **`p2lib.py`, `p3lib.py`, `p4lib.py`** (`p4lib` is the most feature-complete). **Phase 1 has no `p1lib`** — its code lives in `phase1/exp0/models_extra.py` plus the per-experiment scripts.
+**Where it lives:** `draft6.0/src/phase{1..5}/` — one folder per phase, each with its own apparatus.
+- Shared libraries: **`p2lib.py`, `p3lib.py`, `p4lib.py`, `p5lib.py`** (`p4lib`/`p5lib` are the most feature-complete; `p5lib` adds per-depth heads, the calibrated-exit gate, a forward-MACs meter, and the A6 continual harness). **Phase 1 has no `p1lib`** — its code lives in `phase1/exp0/models_extra.py` plus the per-experiment scripts.
 - Per phase: `pNlib.py` (apparatus, Phases 2–4) · `run_*.py` (one run script per experiment) · `plot_*.py` (figure script) · `figs_*/` (outputs: `.png` + `arrays.npz` + `manifest.json`).
 
 **It is a behavioral numpy sim (ideal floats, ideal operators) — a *netlist of a chip*, not a model.**

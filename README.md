@@ -41,8 +41,8 @@ learning costs one charge cycle, not two.
 
 ## Where it stands — Stage 1
 
-Draft 6.0's first organ — the SCFF + gradient-descent "neocortex" cell — has been built and characterized across
-four phases of behavioral simulation. The headline:
+Draft 6.0's first organ — the SCFF + gradient-descent "neocortex" cell — has been built, characterized, and closed
+out across five phases of behavioral simulation. The headline:
 
 **It is a substrate-native *continual* learner — not a static-accuracy competitor.** That is exactly what the
 substrate is *for*, and the experiments say it plainly:
@@ -59,11 +59,13 @@ substrate is *for*, and the experiments say it plainly:
 - **One honest negative:** it is *not* (yet) robust to eval-time weight noise — a real tradeoff, owned rather than
   hidden.
 
-The four-phase arc, in one breath: **build the cell and find its home** (continual) → **find that stacking the
+The five-phase arc, in one breath: **build the cell and find its home** (continual) → **find that stacking the
 cheap learner deep can't earn depth** → **discover the real lever was the learning *objective*, not the locality**
 (swap energy-goodness for a contrastive objective + cross-layer coordination, and depth composes) → **map the whole
-capability honestly.** Every step was decided by a simulation or a paper overruling the plan, never by tuning until
-it passed.
+capability honestly** → **close out the cheap brain by solving its last wound** (the depth decay: a sharper
+objective earns the depth back until the readout beats a genuinely-tuned backprop, a short fixed reader reads it ~8×
+cheaper than all-tap — continual-safe and confirmed on real data). Every step was decided by a simulation or a paper
+overruling the plan, never by tuning until it passed.
 
 The full, reader-facing write-up lives in **[`draft6.0/src/stage1-report.md`](draft6.0/src/stage1-report.md)**.
 
@@ -75,9 +77,9 @@ The full, reader-facing write-up lives in **[`draft6.0/src/stage1-report.md`](dr
 | --- | --- |
 | The whole picture, cold | [`draft6.0/context.md`](draft6.0/context.md) |
 | Why draft 5 died and what 6.0 is | [`draft6.0/README.md`](draft6.0/README.md) |
-| The Stage-1 results — narrative + figures | [`draft6.0/src/stage1-report.md`](draft6.0/src/stage1-report.md) → the four `phaseN-report.md` |
+| The Stage-1 results — narrative + figures | [`draft6.0/src/stage1-report.md`](draft6.0/src/stage1-report.md) → the five `phaseN-report.md` |
 | The committed design decisions | [`draft6.0/idea/main.ideas.v1.md`](draft6.0/idea/main.ideas.v1.md) |
-| The simulation code (per phase, regenerable) | [`draft6.0/src/`](draft6.0/src/) (`phase1..4/`) |
+| The simulation code (per phase, regenerable) | [`draft6.0/src/`](draft6.0/src/) (`phase1..5/`) |
 | The papers behind it | [`draft6.0/research/papers/`](draft6.0/research/papers/) |
 | The soul of the project — why it exists | [`docs/essence/the-essence.md`](docs/essence/the-essence.md) |
 | The superseded draft-5 (attribution) era — *pre-pivot history, not the current design* | [`draft5.0/`](draft5.0/) |
@@ -91,8 +93,11 @@ The full, reader-facing write-up lives in **[`draft6.0/src/stage1-report.md`](dr
   tasks. Ideal math first; analog / process realism added only once the ideal converges.
 - **Out of scope (for now):** SPICE, fabrication, and external-benchmark-chasing *as the claim* — small tasks are
   fine as probes, but this is not a SOTA-accuracy project.
-- **Next — Phase 5:** optimize the maintenance loop (the sleep cadence + a learning-rate gate) against this cell's
-  measured drift, and run the hardware-relevant noise tests.
+- **Done — Phase 5 (the SCFF close-out):** the cheap brain is finished. The depth decay is solved — a sharper
+  objective earns the depth back (the readout beats a genuinely-tuned backprop), and a short fixed reader reads it
+  ~8× cheaper than all-tap — continual-safe and confirmed on real data.
+- **Next — Phase 6 (the GD side):** optimize the maintenance loop (the sleep cadence + a learning-rate gate) against
+  this cell's measured drift, and run the hardware-relevant noise tests.
 - **The north star, beyond the numbered phases:** a recurrent, lifelong-learning "thinking" loop where
   *correctness is a self-generated feeling*. Deliberately not specced yet — simple intelligence first.
 

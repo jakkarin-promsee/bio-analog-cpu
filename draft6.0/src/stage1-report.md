@@ -1,10 +1,11 @@
-# Stage 1 — the cheap brain, built and characterized (the report)
+# Stage 1 — the cheap brain, built, characterized, and closed out (the report)
 
-> The executive narrative of Stage 1 of draft 6.0 (Phases 1–4, June 2026) — the four-phase arc that built the
+> The executive narrative of Stage 1 of draft 6.0 (Phases 1–5, June 2026) — the five-phase arc that built the
 > first organ (the SCFF + GD neocortex cell), found where it wins, failed to make it deep, found *how* it can be
-> deep, and characterized the result. Each phase has its own detailed report; this is the spine that connects
-> them, written as a first-person research log. The four reports: [Phase 1](phase1/phase1-report.md) ·
-> [Phase 2](phase2/phase2-report.md) · [Phase 3](phase3/phase3-report.md) · [Phase 4](phase4/phase4-report.md).
+> deep, characterized the result, and **closed out the cheap brain by solving its one remaining wound — the depth
+> decay.** Each phase has its own detailed report; this is the spine that connects them, written as a first-person
+> research log. The five reports: [Phase 1](phase1/phase1-report.md) · [Phase 2](phase2/phase2-report.md) ·
+> [Phase 3](phase3/phase3-report.md) · [Phase 4](phase4/phase4-report.md) · [Phase 5](phase5/phase5-report.md).
 > Terms and metrics are defined in [`ref-report/`](ref-report/README.md); the committed design is the
 > [decision record](../idea/main.ideas.v1.md); the project's origin is told in
 > [`the-essence`](../../docs/essence/the-essence.md).
@@ -30,13 +31,13 @@ for free — label-free, local, forward-only, no backward pass that leaves the c
 one expensive thing in learning**, so we pay for it *once*, where it counts, and get everything else for free.
 
 **The frame.** Stage 1 is the first organ, built and characterized in **behavioral simulation** (numpy, ideal
-floats) — *before* analog/PVT realism (Phase 5+) and *before* the north star (the recurrent lifelong brain). The
+floats) — *before* analog/PVT realism (Phase 6+) and *before* the north star (the recurrent lifelong brain). The
 question Stage 1 set out to answer was never "does this beat backprop on accuracy." It was **where does a cheap,
 local, forward-only learner earn its place?**
 
 ## 2 · The one arc (the spine)
 
-Four phases, one argument. The shape of it:
+Five phases, one argument. The shape of it:
 
 > **We kept being right about *where* the cell wins (continual, substrate-native depth) and wrong about *how*
 > (deep SCFF, energy-goodness) — and every correction came from a sim or a paper overruling the plan, never from
@@ -54,7 +55,14 @@ dense*. That recovers classes only when classes *are* density clusters. Watch th
   (preserves class), add a forward-only **coordination window**, and depth composes — overturning Phase 2's verdict.
 - **Phase 4 drew the map**, and the map reads the whole cell exactly as the spine predicts: a *density/structure*
   learner with a cheap class-namer on top — it wins where the substrate lives and trails on static accuracy, *by
-  design*.
+  design*. The map left **one wound open**: past ~layer 5 the deep representation *decays* — the cell stops getting
+  more separable and starts getting less.
+- **Phase 5 closed it out** — and the wound was *density ≠ class* a fifth time. The decay is not dead units or too
+  little width; it is **direction**: deep local-contrast layers drift *off the class manifold* once a layer's
+  abstraction saturates, while their *magnitude* (rank, variance, goodness) stays healthy. A **sharper InfoNCE
+  objective** that keeps each update on the class direction earns the depth back (the readout beats tuned-BP; the probe tail reaches the objective ceiling), and — because
+  the home is the *flat* continual regime — a **short fixed reader** reads the useful depth cheaply. The wound is
+  solved, scoped, continual-safe, and confirmed on real data. The cheap brain is finished.
 
 ## 3 · Phase by phase (the synthesis)
 
@@ -109,6 +117,33 @@ OOM bug and refuted the plan's optimistic noise-win — the pre-flight gate work
 nuisance-dim, depth-cheap, depth-composition), TRAILS on static accuracy, and returns one honest NEGATIVE on
 eval-time noise. (OURS vs a genuinely-tuned BP ceiling, 7 axes.)*
 
+### Phase 5 — closing out the cheap brain → *depth solved, read cheaply*
+
+Phase 4 left one wound open: useful composition stops at ~layer 5, then the representation decays. Phase 5 set out
+to fix it and close SCFF — and first **named the decay precisely.** It is not dead units and not too little width;
+it is **direction** — the deep layers drift *off the class manifold* once a layer's abstraction saturates, alive
+and full-rank but mis-aimed. And it is **objective-locality, not an intrinsic "Tunnel"**: a diagnostic full-credit
+window (w12 — a *forbidden* full-backprop reach, measured only as the upper bound, never deployed) composes the
+whole 12-layer stack with **no decay at all**, so the depth is *curable*. Two cheap, forward-only levers cure it.
+**(1) Earn it.** A sharper InfoNCE temperature (0.2) keeps each update more class-selective: it marches the probe
+peak L5→L6 (→L9 once the window opens to w4) and lifts the headroom tail 0.435→0.530 (→0.562 at w4) so the **readout
+beats a genuinely-tuned backprop** (0.550 vs 0.531) while the probe tail reaches the w12 ceiling (0.556). An lr-matched
+control proves ~82% of the lift is *direction*, not a disguised learning-rate — the spine, paid a fifth time. **(2) Read it cheaply.** Per-depth heads read by a
+short, fixed truncation stack read the continual home at **8× less forward cost than all-tap** (0.547 @ 9.0k vs
+all-tap @ 72.5k) — because all-tap dilutes the class signal with the very drifted deep layers a capacity-limited head
+can't zero-weight. Both gates held: the fix **keeps the A6 continual win** (BWT −0.026 vs −0.017, the sleep-recovery
+mechanism intact) and the **decay reproduces on real data** (digits + CIFAR-flat), with the **temp-fix real on
+digits** (tail +0.152, roughly halving the decay) and null-but-safe on the no-headroom CIFAR-flat wall. Two honest
+narrowings, both struck on evidence: the **adaptive per-sample early-exit**
+lost to a fixed stack (the flat home rewards *pooling*, not placement — the inverse of the headroom result), and the
+**frozen-residual** preservation cell was skipped (the cheap levers closed the gap the fixed reader never reads).
+→ [full report](phase5/phase5-report.md)
+
+![phase-5 scorecard](phase5/exp9/figs_p5_9/SCORECARD.png)
+*The close-out in one glance: depth EARNED (readout beats tuned-BP), read CHEAPLY (a fixed short stack, 8×; the adaptive
+exit lost), continual-SAFE (A6 intact), and natural-CONFIRMED. The committed cell — `SCFFContrastOverlap` temp0.2 / w2,
+L12 bulk, no residual, fixed-reader deploy — is the cheap brain, closed.*
+
 ## 4 · Where the decisions came from (provenance)
 
 The draft-6.0 spine was committed on paper as **N1–N3** (the net) + **S1–S8** (supporting structure) — the
@@ -128,57 +163,71 @@ table is the audit trail: which committed decision was set, corrected, or merely
 | GD reads via taps | **S3** | Phase 1 exp1 | _corrected: tap **ALL** layers (not "last n")_ |
 | Two GD organs (interface / output) | **S4** | — | _carried, **not separately characterized** (wasn't isolated behaviorally)_ |
 | Mandatory inter-layer normalization | **S5** | Phase 1 + Phase 2.1 | _input-norm ratified (P1); length-norm survives but **mean-zero kills** → must pair with linear goodness (P2.1)_ |
-| Threshold-gated learning (Ch7 gate) | **S6** | _unbuilt_ | _open → Phase 5_ |
+| Threshold-gated learning (Ch7 gate) | **S6** | _unbuilt_ | _open → Phase 6 (GD-side)_ |
 | Sleep consolidation | **S7** | Phase 1 exp4 | _confirmed; the continual recovery mechanism_ |
 | LUT prototype memory | **S8** | Phase 1 exp4 | _confirmed; replays at ⅓ store (0.898 vs 0.935)_ |
+| Readout = fixed short-stack placement | **S9** (Phase-5; revises S3) | Phase 5 P5.3–P5.5 | _set: read the sharp extractor depth, not literally every layer; adaptive exit struck; no residual_ |
 | — *emergent Stage-1 decisions* — | | | |
 | Depth = block-count, not SCFF-layer-count | (Phase-2 finding) | Phase 2 P2.1/2.2/2.5 | _set: deep SCFF can't earn depth; read-not-write_ |
 | SCFF objective: energy → contrast + coordination | (reframe) | Phase 3 P3.0–P3.3 | _**adopted**; supersedes energy-goodness `Σh²`_ |
-| The adopted cell | — | Phase 3 (adopt) + Phase 4 (characterized) | _`[contrast (InfoNCE) + coord w=2] SCFF bulk + sleep-consolidated readout`_ |
+| SCFF depth: earn it via a sharper objective | (Phase-5 fix) | Phase 5 P5.1/P5.2 | _set: **temp 0.2 / w2** default (readout beats tuned-BP); **w4** = bounded depth-closer; the decay was objective-locality, not an intrinsic Tunnel_ |
+| The committed cell (close-out) | — | Phase 3 adopt + Phase 4 char + Phase 5 close-out | _`SCFFContrastOverlap` temp0.2 / w2, L12 bulk, NO residual, fixed-reader deploy (truncate ~L2–3 on the home; all-tap for peak; w4 for compositional)_ |
 
 ## 5 · The cell as it stands (end of Stage 1)
 
-The adopted cell is **`[contrast (InfoNCE, two-mask views) + coordination window w=2] SCFF bulk + a tiny
-sleep-consolidated GD readout`** — forward-only, per-sample, no batch statistics, continual-safe by construction.
-Stage 1 measured what it is:
+The committed cell is **`SCFFContrastOverlap` — contrast (InfoNCE, two-mask views) at temperature 0.2 +
+coordination window w=2, L12 bulk, NO residual, deployed with a fixed short-stack reader** (truncate ~L2–3 on the
+continual home; all-tap when peak accuracy is wanted; **w4** the bounded depth-closer for compositional tasks) —
+forward-only, per-sample, no batch statistics, sleep-consolidated, continual-safe by construction. Stage 1 measured
+what it is, and Phase 5 closed the one open wound:
 
 - **It wins continual** (the home): sleep recovers what online backprop catastrophically forgets, robustly across
   difficulty — its reason for being.
-- **It composes depth cheaply** (given headroom): backward cost flat-in-depth where backprop's grows linearly, so
-  the narrow-deep, substrate-native shape is ~free for it.
+- **It composes the depth a task needs, and reads it cheaply** (Phase 5): a sharper objective earns the depth back so
+  the **readout beats a genuinely-tuned backprop** and the probe tail reaches the w12 ceiling; the useful depth is then read
+  **8× cheaper than all-tap** by a short fixed stack. Backward cost stays flat-in-depth where backprop's grows
+  linearly, so the narrow-deep, substrate-native shape is ~free for it.
 - **It is nuisance-robust:** in high ambient dimension it crosses *above* a tuned backprop, for free.
 - **It trails on static accuracy** (difficulty, many synthetic classes) — the cost of being a density/structure
   learner with a cheap namer rather than a global error-minimizer.
 - **It is *not* yet noise-robust** in the one test we ran (eval-time weight noise) — a real, owned tradeoff, with
-  the substrate-relevant test (train-with-noise) still untested.
+  the substrate-relevant test (train-with-noise) still untested → Phase 6.
 
 ## 6 · Honest scope of Stage 1 as a whole
 
 - **Behavioral simulation only** — ideal floats, numpy; no analog / PVT / SPICE, no fabrication.
 - **Small and partly synthetic tasks** — checkerboard, digits, MNIST, CIFAR-flat, and built Gaussian generators.
-  The depth-composition result in particular is on a **built synthetic headroom task vs a fixed-budget GD baseline**:
-  the rising *slope* is the claim, not a GD-beat.
+  The depth-composition result in particular is on a **built synthetic headroom task** — Phase 5 hardened it (the
+  re-tuned **readout now beats** a genuinely-tuned backprop, and the decay reproduces on real digits *and* CIFAR-flat
+  with the fix real on digits) but the temp-fix is **null-but-safe on flat data with no composable depth** (CIFAR-flat stays at the wall — it needs
+  convolution, which is out of scope). The synthetic headroom result is a representation claim, not a benchmark-beat.
 - **Not a static-accuracy claim** — and we don't make one; the architecture trails there on purpose.
-- **Key machinery is unbuilt** — the Ch7 threshold gate and a tuned sleep cadence are named and deferred to Phase 5.
+- **Key machinery is unbuilt** — the Ch7 threshold gate and a tuned sleep cadence are named and deferred to Phase 6
+  (the GD-side optimization phase).
 - **Open follow-ups, not blockers** — natural-data / larger-scale validation, train-with-noise (hardware-aware),
   direct-feedback coordination, and anything needing architecture (convolution, time-series) — the north-star track.
 
-## 7 · What's next
+## 7 · What's next — Phase 6 (the GD-side era)
 
-**Phase 5 = optimization.** Stage 1 hands it a cell we trust and a precise brief: tune the **maintenance loop** —
-the sleep cadence + the Ch7 gate — against *this* cell's measured drift; make the cost meter **depth-aware and
-temporal** (the 80/20 lives in the gate + sleep cadence, not a per-pass number); run the **train-with-noise**
-(hardware-aware) test before any analog-noise claim; and **validate multi-class on natural data**. After that, the
-analog-realism layer opens (Phase 4's A7 cracked that door). The **recurrent lifelong brain** — a time-series
-prefrontal↔hippocampus loop where "correctness is a self-generated feeling" — remains the north star, beyond the
-numbered phases, deliberately not specced yet. *Simple intelligence first.*
+The cheap brain is finished. **Phase 6 = GD-side optimization** — every remaining knob is on the precise ~20% GD
+back, not the SCFF front. Stage 1 (and now the Phase-5 close-out) hands it a settled cell and a precise brief: tune
+the **maintenance loop** — the sleep cadence + the Ch7 learning-gate, now **readout-aware** (consolidate the
+*extractor-depth* features the fixed reader actually reads; shallow on the flat home, deep on compositional tasks) —
+against *this* cell's measured drift; make the cost meter **depth-aware and temporal** (the 80/20 lives in the gate +
+sleep cadence, not a per-pass number); and run the **train-with-noise** (hardware-aware) test before any analog-noise
+claim (Phase 4's A7 is a non-win until then). After that, the analog-realism layer opens. Phase 5's parked-with-
+evidence threads wait here too: the **oracle-exit headroom** (a better per-sample depth-selector than max-softmax
+could unlock large gains on the continual home — but it is a selector / north-star problem), and a *compositional*
+continual stream to test whether an adaptive exit ever earns its keep off the flat home. The **recurrent lifelong
+brain** — a time-series prefrontal↔hippocampus loop where "correctness is a self-generated feeling" — remains the
+north star, beyond the numbered phases, deliberately not specced yet. *Simple intelligence first.*
 
 ---
 
 ## Reading guide
 
 Enter the set here, then descend by need: **stage1-report** (this file — the arc) → each phase's
-**[`README.md`](phase1/README.md)** front door (the navigable synthesis + key figure) → the four
+**[`README.md`](phase1/README.md)** front door (the navigable synthesis + key figure) → the five
 **[phaseN-report.md](phase1/phase1-report.md)** (the detailed logs, with figures and the per-experiment story) →
 the **`expK/experiment-K.md`** cards (the full six-slot reads + threats) → **[`ref-report/`](ref-report/README.md)**
 for any term, metric, or paper. The per-phase **`RESULTS.md`** ledgers carry every scalar; each phase's

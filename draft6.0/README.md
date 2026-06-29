@@ -1,9 +1,9 @@
 # Draft 6.0
 
-> _The post-pivot line (June 2026). Stage 1 — the first organ, the SCFF + GD neocortex — is now built and
-> characterized across Phases 1–4; the live line is Phase 5. This page is the story: why 5.x died, what 6.0
-> turned out to be. The day-one plan is kept below as the hypothesis I came back with; the section after it is
-> what the simulations actually said (some of it overruled the plan, in my favour)._
+> _The post-pivot line (June 2026). Stage 1 — the first organ, the SCFF + GD neocortex — is now built,
+> characterized, and closed out across Phases 1–5; the live line is Phase 6 (the GD side). This page is the story:
+> why 5.x died, what 6.0 turned out to be. The day-one plan is kept below as the hypothesis I came back with; the
+> section after it is what the simulations actually said (some of it overruled the plan, in my favour)._
 
 ## How did we get here?
 
@@ -48,7 +48,7 @@ Around that core, the plan added the machinery to make it hold together:
 
 That was the hypothesis. The point of Stage 1 was to stop arguing it and let the simulations talk.
 
-## What the experiments said — Stage 1 (Phases 1–4)
+## What the experiments said — Stage 1 (Phases 1–5)
 
 I built the behavioral simulation (numpy, ideal floats) and walked it down the ladder, one rung at a time, with the rule that **failures are data — never tune until it passes.** The full write-up is in [`src/stage1-report.md`](src/stage1-report.md) (the arc) plus one report per phase; the glossary is [`src/ref-report/`](src/ref-report/README.md). The short version:
 
@@ -60,7 +60,9 @@ I built the behavioral simulation (numpy, ideal floats) and walked it down the l
 
 **Phase 4 — the capability map.** Instead of improving the cell further, I characterized it: the gap to a *genuinely-tuned* backprop across seven controlled axes. The map says exactly what the project always claimed — a **substrate-native continual learner, not a static-accuracy competitor.** It wins continual, nuisance-dimensional input, depth-composition, and depth-is-cheap (the 80/20 advantage is real but **depth-gated** — flat-in-depth for us, linear for backprop); it trails on raw static accuracy and many-class; and it returned one honest **negative** on eval-time weight noise. No flattering surprises, no hidden bug. → [`src/phase4/phase4-report.md`](src/phase4/phase4-report.md)
 
-So the spine I came back with survived — two brains, blocks, gate, sleep — but the simulations rewrote two of its parts in my favour: **the SCFF objective** (energy → contrast + coordination) and **what the architecture is *for*** (a continual learner, not a classifier racing backprop on accuracy). One piece is still only on paper: the **threshold gate** is named but unbuilt. Tuning that, plus the sleep/maintenance loop against this cell's measured drift, is **Phase 5**. And the horizon beyond the numbered phases is still the one the whole question was about — a recurrent, lifelong "thinking" brain where correctness is a self-generated feeling — but simple first.
+**Phase 5 — closing out the cheap brain.** Phase 4 left one wound: past ~layer 5 the representation stops composing and *decays*. Phase 5 named it and fixed it. The decay isn't dead units or too little width — it's **direction**: the deep layers drift off the class manifold once a layer's abstraction saturates (density ≠ class, a fifth time). And it isn't an intrinsic wall — a *forbidden* full-credit reach composes the whole stack with no decay, so the depth is **curable.** Two cheap, forward-only levers cure it: a **sharper contrastive temperature** earns the depth back (the **readout beats a genuinely-tuned backprop** and the probe tail reaches the objective ceiling — and an lr-matched control proves the lift is *direction*, not a disguised step-size), and — because the continual home is flat — a **short fixed reader** reads the useful depth ~**8× cheaper** than reading every layer. The fix keeps the continual win and roughly halves the decay on real digits (it does not erase it). Two honest narrowings, both struck on evidence: the *adaptive* per-sample early-exit lost to a fixed stack (the flat home rewards pooling, not placement), and a frozen-residual preservation cell wasn't needed. **The cheap brain is finished.** → [`src/phase5/phase5-report.md`](src/phase5/phase5-report.md)
+
+So the spine I came back with survived — two brains, blocks, gate, sleep — but the simulations rewrote two of its parts in my favour: **the SCFF objective** (energy → contrast + coordination) and **what the architecture is *for*** (a continual learner, not a classifier racing backprop on accuracy). The cheap brain (SCFF) is now **done**: built, characterized, and closed out (depth earned, read cheaply, continual-safe). One piece is still only on paper: the **threshold gate** is named but unbuilt. Tuning that, plus the sleep/maintenance loop against this cell's measured drift — all of it on the **GD side** now — is **Phase 6**. And the horizon beyond the numbered phases is still the one the whole question was about — a recurrent, lifelong "thinking" brain where correctness is a self-generated feeling — but simple first.
 
 ## Where things live in this folder
 
@@ -69,7 +71,7 @@ So the spine I came back with survived — two brains, blocks, gate, sleep — b
 | [`context.md`](context.md)                       | **the full context dump** — the whole picture (what / why / how / the person). Start here if you're cold.         |
 | [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) | **the decision record** — N1–N3 + S1–S8, the live plan (spine committed; Stage 1 set most of the numbers).        |
 | [`idea/ideas1.md`](idea/ideas1.md)               | the full derivation, told as a story (every part + _why_).                                                        |
-| [`src/`](src/stage1-report.md)                   | **the results.** `stage1-report.md` (the four-phase arc) · `result-format.md` (the canonical house style) · `ref-report/` (glossary: methods / metrics / papers) · `phase{1..4}/` (per phase: the **`README.md`** front door · `phaseN-report.md` story · `RESULTS.md` ledger · `design.md` pre-run design · run-cards + figures). |
+| [`src/`](src/stage1-report.md)                   | **the results.** `stage1-report.md` (the five-phase arc) · `result-format.md` (the canonical house style) · `ref-report/` (glossary: methods / metrics / papers) · `phase{1..5}/` (per phase: the **`README.md`** front door · `phaseN-report.md` story · `RESULTS.md` ledger · `design.md` pre-run design · run-cards + figures). |
 | [`research/survey/`](research/survey/README.md)         | survey of learning algorithms — the _options_ considered (attribution here is draft-5.1 history).                 |
 | [`research/papers/`](research/papers/README.md)         | paper stories behind the adopted design — Phase 1–2 (SCFF, Distance-Forward, BoostResNet, BYOL, LLRD) **and** Phase 3 (Greedy InfoMax, CLAPP, Mono-Forward, the objective reframe). |
 | [`research/north-star/`](research/north-star/README.md) | the **north-star** research dossier (beyond the numbered phases) — free-time reading, _not_ the line to walk now (`th/` = Thai mirror). |

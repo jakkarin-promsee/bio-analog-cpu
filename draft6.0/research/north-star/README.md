@@ -1,6 +1,6 @@
 # `north-star/` — the north-star research dossier
 
-> **What this is.** The north star — *beyond* the numbered phases (Phases 1–4 done: structure · depth round 1 · depth round 2/reframe · characterization; Phase 5 = optimization) — is a recurrent, lifelong-learning **thinking brain**: a prefrontal↔hippocampus loop where *correctness is a self-generated feeling*. It is **deliberately not specced** ("simple intelligence first"; see `docs/essence/the-essence.md`). This folder is the **map of the territory** for when we get there — every popular/trustable paper worth knowing, told as a story, with a **"For us"** line on each. Both the **ideas side** (theory, neuroscience, frames) and the **apply side** (concrete buildable methods).
+> **What this is.** The north star — *beyond* the numbered phases (Phases 1–5 done: structure · depth round 1 · depth round 2/reframe · characterization · SCFF close-out; Phase 6 = GD-side optimization) — is a recurrent, lifelong-learning **thinking brain**: a prefrontal↔hippocampus loop where *correctness is a self-generated feeling*. It is **deliberately not specced** ("simple intelligence first"; see `docs/essence/the-essence.md`). This folder is the **map of the territory** for when we get there — every popular/trustable paper worth knowing, told as a story, with a **"For us"** line on each. Both the **ideas side** (theory, neuroscience, frames) and the **apply side** (concrete buildable methods).
 >
 > Nothing here is a decision. It's the menu, not the order. Read for orientation; argue with it.
 

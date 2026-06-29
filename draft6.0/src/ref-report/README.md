@@ -30,5 +30,7 @@
 
 ## Growth note
 
-This scaffold covers Stage 1 (Phases 1–4). When `stage1-report.md` or a later phase introduces a term not
-listed here, **add the entry, don't inline the definition** — that's the whole point of this folder.
+This scaffold covers Stage 1 Phases 1–4. The **Phase-5** terms (composing-depth, forward-MACs expected-compute, the
+truncation floor, the w12 objective ceiling) are defined inline in the Phase-5 reports and are the **owed glossary
+addition**. When `stage1-report.md` or a later phase introduces a term not listed here, **add the entry, don't
+inline the definition** — that's the whole point of this folder.
