@@ -1,0 +1,30 @@
+{
+  "experiment": "p5_0_bench",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "L": 12,
+  "W": 64,
+  "dim": 40,
+  "n_class": 4,
+  "probe_ep": 120,
+  "cells": [
+    "w2",
+    "w12"
+  ],
+  "ntr": 4000,
+  "nte": 1500,
+  "ep": 25,
+  "guards": {
+    "equiv": 0.0,
+    "fd": 2.055789087573867e-08,
+    "cost_monotone": true
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 2482.2
+}

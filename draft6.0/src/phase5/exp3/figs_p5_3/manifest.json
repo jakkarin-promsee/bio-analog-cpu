@@ -1,0 +1,32 @@
+{
+  "experiment": "p5_3_profiler_truncation",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "L": 12,
+  "W": 64,
+  "temp": 0.2,
+  "window": 2,
+  "probe_ep": 120,
+  "overlaps": [
+    0.4,
+    0.6,
+    0.9
+  ],
+  "trunc_depths": [
+    5,
+    7,
+    9
+  ],
+  "guards": {
+    "equiv": 0.0,
+    "fd": 2.055789087573867e-08
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 1127.8
+}

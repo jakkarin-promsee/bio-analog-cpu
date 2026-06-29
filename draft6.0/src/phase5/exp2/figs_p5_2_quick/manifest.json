@@ -1,0 +1,24 @@
+{
+  "experiment": "p5_2_credit_reach",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42
+  ],
+  "L": 12,
+  "W": 64,
+  "dim": 40,
+  "n_class": 4,
+  "probe_ep": 40,
+  "temp": 0.2,
+  "windows": [
+    2,
+    3,
+    4
+  ],
+  "guards": {
+    "equiv": 0.0,
+    "fd": 2.055789087573867e-08
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 85.3
+}

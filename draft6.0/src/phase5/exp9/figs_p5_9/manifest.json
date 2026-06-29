@@ -1,0 +1,13 @@
+{
+  "experiment": "p5_9_scorecard",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "verdicts": {
+    "depth_earned": true,
+    "read_cheaply_adaptive": false,
+    "read_cheaply_fixed_truncation": true,
+    "continual_safe": true
+  },
+  "committed_cell": "temp0.2/w2 L12 no-residual fixed-reader",
+  "numpy": "2.3.5",
+  "wall_clock_s": 0.1
+}

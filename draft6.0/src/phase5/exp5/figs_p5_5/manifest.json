@@ -1,0 +1,26 @@
+{
+  "experiment": "p5_5_exit",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "L": 12,
+  "W": 64,
+  "temp": 0.2,
+  "window": 2,
+  "overlap": 0.7,
+  "scff_ep": 8,
+  "keep": 0.95,
+  "trunc_k": 2,
+  "tau_oneshot": 0.999,
+  "tau_refit": 0.999,
+  "verdict": "C5-PESSIMISTIC \u2014 exit does not clear the bar -> ship truncation/all-tap (complete answer)",
+  "guards": {
+    "equiv": 0.0,
+    "fd": 2.055789087573867e-08
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 71.5
+}

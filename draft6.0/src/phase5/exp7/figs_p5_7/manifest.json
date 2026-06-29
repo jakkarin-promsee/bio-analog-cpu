@@ -1,0 +1,33 @@
+{
+  "experiment": "p5_7_contsafety",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "conds": [
+    "t05_L4_sleep",
+    "t02_L4_sleep",
+    "t02_L12_sleep",
+    "t02_L4_nosleep"
+  ],
+  "tasks": [
+    "digits",
+    "synth"
+  ],
+  "window": 2,
+  "scff_ep": 8,
+  "sleep_ep": 60,
+  "overlap": 0.7,
+  "verdicts": {
+    "digits": true,
+    "synth": true
+  },
+  "guards": {
+    "equiv": 0.0,
+    "fd": 2.055789087573867e-08
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 262.9
+}

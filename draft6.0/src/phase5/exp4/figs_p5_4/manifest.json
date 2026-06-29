@@ -1,0 +1,24 @@
+{
+  "experiment": "p5_4_heads",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "L": 12,
+  "W": 64,
+  "temp": 0.2,
+  "window": 2,
+  "probe_ep": 120,
+  "params_heads": 26544,
+  "params_alltap": 24740,
+  "guards": {
+    "equiv": 0.0,
+    "fd": 2.055789087573867e-08
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 677.1
+}
