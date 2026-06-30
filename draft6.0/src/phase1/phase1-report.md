@@ -123,7 +123,9 @@ evidence that "approaches GD" is real and the basis for the default H=64. (n=5, 
 | backward cost | ~10% | 100% |
 
 **What it said.** A single block reaches near-GD accuracy with a *smaller* gap at ~10% of the backward cost —
-the cheap-and-generalizes story is real. But the per-layer probe also showed SCFF features **degrade with depth**
+the cheap-and-generalizes story is real. (And it is real *learning*, not a random-feature fluke: exp0's high-D control
+already showed SCFF beating a random projection — 0.841 vs 0.780 at width 64 on `load_digits` — the null it merely
+*tied* in 2-D.) But the per-layer probe also showed SCFF features **degrade with depth**
 (each *added* SCFF layer re-optimizes its own goodness and sheds class-relevant directions — so a 4-layer stack is
 already enough to see it), which is why the readout must tap *all* layers, not the last `n` (the spec's S3 was
 reading the worst ones).
@@ -238,8 +240,8 @@ read-layers** ρ≈0.3 (N2 — a drift fix, not a depth fix) · default **H=64**
 - **Small tasks** (2-D checkerboard / digits / MNIST), chosen as probes, not benchmarks.
 - **SCFF is a weak low-D learner** — its win over random is a *high-D* property; don't judge it on 2-D alone.
 - **"Rises with depth" is untestable** on a task one layer captures (it needs a high-D hierarchy — Phase 2/3).
-- **The sleep cadence and the Ch7 gate are not built** — the gate is named and deferred to Phase 5; exp4 used a
-  fixed sleep schedule, not a tuned one.
+- **The sleep cadence and the Ch7 gate are not built** — the gate is named and deferred to Phase 6 (the GD-side
+  optimization phase); exp4 used a fixed sleep schedule, not a tuned one.
 
 ## 7 · The bridge to Phase 2
 

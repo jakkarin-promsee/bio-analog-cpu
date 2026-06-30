@@ -12,7 +12,7 @@
 ## 1 · Why characterize before optimize
 
 By the end of Phase 3 we had a cell we trusted on *two* axes — continual (Phase 1) and depth-composition (Phase 3).
-But two axes is not a map. Before Phase 5 optimizes the maintenance loop on top of this cell, we wanted the whole
+But two axes is not a map. Before Phase 6 optimizes the maintenance loop on top of this cell, we wanted the whole
 orthogonal scorecard — run for **coverage, not triage** (the opposite of Phase 2, where we trimmed moot rungs). The
 discipline is "characterize before optimize": a breadth sweep is the cheapest place to catch a latent algorithm
 bug, before any optimization is built on a flaw.
@@ -39,7 +39,8 @@ intended. *The cell is sound; no algorithm bug hid in the breadth.*
 ![capability map](figs_summary/CAPABILITY_MAP.png)
 *The Stage-1 result in one glance: WIN = where the substrate lives (continual, nuisance-dim, depth-cheap,
 depth-composition); TRAIL = static accuracy (the cost of the gap); NEGATIVE = a caught over-optimistic assumption.
-(OURS vs a genuinely-tuned BP ceiling, 7 axes.)*
+(OURS vs a genuinely-tuned BP ceiling, 7 axes; the continual WIN is vs **naive online-BP without replay** — the fairer
+same-budget BP+replay baseline is Phase-6 work.)*
 
 | axis | dial | verdict | the number |
 | --- | --- | --- | --- |
@@ -164,7 +165,9 @@ depth, **~6.8× at L12** — and the substrate operates deep, so it materializes
 OURS's to spend cheaply. **But the honest readout + control correct the accuracy story:** the cross-layer window
 genuinely shares context for **~5 layers** (energy composes *zero*), but the representation then **decays — and the
 W64 control proves the cause is depth, not width.** So the deployed **all-tap / boosting readout is load-bearing**
-(it works around the *residual* decay; a single deep head is the wrong design), and **energy-Σh² is decisively
+(it works around the *residual* decay; a single deep head is the wrong design; and note all-tap plays *two* roles — as a **diagnostic** it *masks* the decay
+by reading the good early layers, which is why A4 reports a last-layer readout, but as a **deployment** it stays the
+best-*accuracy* reader, the role Phase 5 ships it in), and **energy-Σh² is decisively
 closed** as a depth substrate. (Honest caveat: all depths share `ep=25/lr=0.03` — depth-scaled training is an
 untested P5 knob before calling the decay an intrinsic ceiling.)
 
@@ -200,7 +203,9 @@ difficulty, plus the digits anchor.
 ![cont](exp5/figs_p4_5/CONT.png)
 *OURS+sleep forgets almost nothing (BWT −0.02 to −0.18) at *every* difficulty while online-BP catastrophically
 forgets (−0.83 to −0.99); the no-sleep control rots (sleep is the recovery mechanism — SCFF itself doesn't forget).
-The largest, cleanest margin in the phase. (n=3, class-incremental.)*
+The largest, cleanest margin in the phase — though note the baseline is **naive online-BP, no replay**; OURS uses a
+replay LUT + sleep, so the fair *mechanistic* control is its own no-sleep arm (which also rots), and a same-budget
+BP+replay comparison is Phase-6 work. (n=3, class-incremental.)*
 
 **Result.**
 
@@ -230,28 +235,36 @@ forward-only methods degrade more than BP. (n=5, 5 draws/cell.)*
 The likely cause is illuminating: the per-sample layernorm that *wins* A2 doesn't damp weight-*direction* noise —
 so A2's robustness and A7's fragility **share a cause** (a real tradeoff, a knob, not a verdict). Crucially,
 eval-time noise on a clean-trained model is **not** the substrate's regime: the literature's forward-only
-robustness claim lives in *online learning with noise* (hardware-aware), which is untested — the proper Phase-5
-follow-up. A caught over-optimistic assumption is a successful pre-flight check.
+robustness claim lives in *online learning with noise* (hardware-aware), which is untested — the proper Phase-6
+follow-up. **One caveat we now flag** (sharpened by the Phase-5 close-out): the fragility is to weight-*direction* noise — the
+exact quantity the architecture is built to preserve — and an analog substrate carries directional weight noise at
+*inference*, permanently; train-with-noise can buy *tolerance* but never removes it. So A7 is better read as the
+architecture's **sharpest open silicon risk** than as a deferred artifact. A caught over-optimistic assumption is a
+successful pre-flight check.
 
 **What it said.** Don't claim noise-robustness yet; the real test (train-with-noise) is untested. **Map tile:**
 NEGATIVE.
 
-### P4.7 — synthesis: the map + the Phase-5 brief
+### P4.7 — synthesis: the map + the hand-off brief
 
-We assemble the seven tiles into the [capability map](figs_summary/CAPABILITY_MAP.png) and read the Phase-5 brief
+We assemble the seven tiles into the [capability map](figs_summary/CAPABILITY_MAP.png) and read the hand-off brief
 straight off it (§5). *(Labeling note: **P4.7 = the synthesis / map-assembly rung, not a 7th axis** — the seven
 axes are A1–A7 = P4.0–P4.6; this report counts the synthesis rung too, so "P4.0 → P4.7." Same thing — stated once
 so it doesn't read as a discrepancy.)*
 
-## 5 · The Phase-5 brief (the hand-off)
+## 5 · The hand-off brief
 
-Picked from data, not guesses:
+Picked from data, not guesses. In the final phase numbering these split across two successors: the one open wound
+this map flagged — the **depth decay** past ~layer 5 (the P4.3 follow-up) — became **Phase 5** (the SCFF close-out:
+earn the depth back, read it cheaply); the **maintenance-loop optimizations** below became **Phase 6** (the GD-side
+era). The brief:
 
 1. **Optimize the continual mechanism** (sleep cadence + the Ch7 gate) — A6 is the validated win; tune it against
-   *this* cell's measured drift. **This is Phase 5's core.**
+   *this* cell's measured drift. **This is Phase 6's core.**
 2. **Build deep, but gate depth on headroom.** Depth is cheap (A4) and composes (A3) — invest in it — but it only
-   *pays* where there's headroom. Scale the coordination window with headroom (w=2 cheap in the hard regime; grow
-   to w=4 for easy+deep monotone composition).
+   *pays* where there's headroom, and the deep representation *decays* past ~layer 5. Scale the coordination window
+   with headroom (w=2 cheap in the hard regime; grow to w=4 for easy+deep monotone composition). **(→ Phase 5 closed
+   the decay: a sharper objective earns the depth back, a fixed short reader reads it cheaply.)**
 3. **Make the cost meter depth-aware and temporal.** The 80/20 is depth-gated (A4) and the online cheapness lives
    in the gate + sleep cadence — report cost-vs-depth, and meter the gated/sleep online cost, not one per-pass number.
 4. **Run the train-with-noise (hardware-aware) test** before any analog noise-robustness claim (A7), and treat
@@ -269,8 +282,18 @@ Picked from data, not guesses:
   We keep it (Spyra's strongest forward-only-supervised bar) but read it in context, not as a fixed baseline.
 - **A3 is *representation*-level, not task-accuracy** — depth-composition is read off the per-layer probe slope.
 - **A7's real win-test is untested** — eval-time noise is a non-win; the substrate's regime is online learning
-  *with* noise (train-with-noise / hardware-aware), which Phase 5 must run before any robustness claim.
+  *with* noise (train-with-noise / hardware-aware), which Phase 6 must run before any robustness claim.
 - **Scale / convolution / time-series are deferred** — they need architecture (the north star), not this cell.
+
+## 7 · The bridge to Phase 5
+
+The map is the thesis, measured — but it left one wound open: past ~layer 5 the representation *decays* (the P4.3
+follow-up named the cause — local-objective drift off the class manifold, not capacity, not width). That wound is the
+one thing standing between a *characterized* cell and a *finished* cheap brain: it caps the depth the substrate can
+spend, and it makes the deployed all-tap readout drag in drifted layers. Phase 5 is the close-out — it names the decay
+precisely (a **direction** failure), earns the depth back with a sharper objective, reads it cheaply with a fixed
+short stack, and confirms the fix is continual-safe and real on natural data. The maintenance-loop optimization (the
+sleep cadence + the Ch7 gate) then becomes the GD-side era, Phase 6.
 
 ## Reproducibility
 

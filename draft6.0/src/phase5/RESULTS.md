@@ -204,7 +204,7 @@ with no composable depth). **Inherited by P5.9:** assemble the verdict (committe
 
 ## P5.9 — assembled-cell confirmation: the SCFF close-out verdict `exp9`  · CAPSTONE
 *Assembled from the committed-cell columns of every rung (one config — temp0.2/w2 — ran all of P5.1–P5.8, so no
-stacking to re-confirm). Figure: SCORECARD.png. Public README/report DEFERRED to the author's return.*
+stacking to re-confirm). Figure: SCORECARD.png. Public README/report COMPLETE (`README.md` + `phase5-report.md`).*
 
 | verdict (design §7) | result | call |
 | --- | --- | --- |
@@ -218,5 +218,6 @@ deployment** (short truncation ~L2–3 on the continual home; all-tap for peak a
 compositional tasks). It composes the depth a task needs AND reads the continual home 8× cheaper than all-tap via a
 **short fixed stack** (the adaptive max-softmax exit was struck, P5.5 — the flat home doesn't reward per-sample
 adaptivity). Continual-safe, real-data-confirmed. The cheap brain is **finished**; the project pivots to Phase 6
-(GD-side optimization). **Owed (with the author):** the public `README.md` + `phase5-report.md`, the
-`idea/main.ideas.v1.md` S9 delta, the phase-renumber doc sync. **Experiment ladder P5.0–P5.9 COMPLETE.**
+(GD-side optimization). **Close-out complete:** the public `README.md` + `phase5-report.md` (written), the
+`idea/main.ideas.v1.md` **S9** delta (recorded), the phase-renumber doc sync (Phases 1–4 reports + ledgers updated).
+**Experiment ladder P5.0–P5.9 COMPLETE.**

@@ -161,7 +161,7 @@ class-incremental digits.)*
 **Figure — drift.**
 ![drift](exp6/figs_exp6_digits/DRIFT.png)
 *Drift is measured and compounds slightly with block count (boosted BWT a hair worse than single-block, −0.008,
-disjoint-IQR but negligible) — the number the Phase-5 gate will be tuned against. (n=3, digits.)*
+disjoint-IQR but negligible) — the number the Phase-6 gate will be tuned against. (n=3, digits.)*
 
 The recipe is **continual-safe by construction**: per-sample normalization carries no batch statistics, so the
 Continual-Normalization rot worry never applies. The honest caveat is that multi-block drift compounds slightly —
@@ -190,7 +190,7 @@ is `[SCFF×k → GD-readout]×N` (read, healthy cell, sleep-consolidated, few bl
 
 The surviving recipe = `[SCFF×k → GD-readout]×N`, **read** (not write), per-block SCFF = the healthy
 **layer-norm + linear + contrast** cell, sleep-consolidated, **few blocks suffice**. **Depth = block-count, not
-SCFF-layer-count.** Contrast > two-sided θ. Drift measured for the Phase-5 gate.
+SCFF-layer-count.** Contrast > two-sided θ. Drift measured for the Phase-6 gate.
 
 ## 6 · Honest scope & caveats
 

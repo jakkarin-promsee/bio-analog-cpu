@@ -59,7 +59,7 @@ The arc that closed every hatch, then found the survivor:
 
 The surviving recipe = `[SCFF×k → GD-readout]×N` — **read** (not write), per-block SCFF = the healthy
 **layer-norm + linear + contrast** cell, sleep-consolidated, **few blocks suffice**. **Depth = block-count, not
-SCFF-layer-count.** Contrast > two-sided θ. Drift measured for the Phase-5 gate.
+SCFF-layer-count.** Contrast > two-sided θ. Drift measured for the Phase-6 gate.
 
 **The load-bearing caveat (handed to Phase 3):** the in-the-moment conclusion "intrinsic to forward-only
 **locality**" is *one word too strong*. Every energy-goodness result here stands — but Phase 3 narrows the wall to

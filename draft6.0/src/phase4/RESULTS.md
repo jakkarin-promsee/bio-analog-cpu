@@ -29,7 +29,7 @@ OURS/BP ratio 0.90 → ~0.61.
 **Verdict:** bench **ADOPTED** (apparatus validated: exact Bayes monotone, cost meter sane, racers well-behaved).
 **A1 — the gap does NOT open with difficulty;** it *closes* (achievable window shrinks), and the difficulty signal
 is **capture** (monotone 0.92→0.68). OURS > Mono everywhere; OURS generalizes best until it overfits at the
-near-chance cell. **80/20 cost claim NOT supported per-pass** → Phase 5 must meter the gate + sleep cadence.
+near-chance cell. **80/20 cost claim NOT supported per-pass** → Phase 6 must meter the gate + sleep cadence.
 Figures: `exp0/figs_p4_0/{RACE,GAP_CURVE,PARETO,INV}.png`. Full read: [`exp0/experiment-0.md`](exp0/experiment-0.md).
 
 ---
@@ -154,7 +154,7 @@ Class-incremental stream (5 tasks of 2), validated P3.3 harness, synthetic at sw
 **Verdict: THE win, robust across difficulty.** OURS+sleep forgets almost nothing (BWT −0.02 to −0.18) at every
 difficulty while online-BP catastrophically forgets (−0.83 to −0.99); no-sleep rots (sleep is the mechanism).
 Digits reproduces P3.3 exactly (0.954/−0.017). AA falls with difficulty (harder task) but BWT stays excellent —
-the win doesn't erode off the home config. The architecture's reason for being. → P5 optimizes the sleep cadence +
+the win doesn't erode off the home config. The architecture's reason for being. → P6 optimizes the sleep cadence +
 gate. Full read: [`exp5/experiment-5.md`](exp5/experiment-5.md).
 
 ---
@@ -173,13 +173,14 @@ the **least** robust (retention 0.75 vs BP 0.88 at σ=0.4); both forward-only me
 BP. Likely cause: **per-sample layernorm** (A2's robustness mechanism) doesn't damp weight-*direction* noise → A2
 win and A7 loss **share a cause** (a real tradeoff). **Scope:** eval-time noise on a clean-trained model ≠ the
 substrate regime (online learning *with* noise = hardware-aware, where forward-only's claim lives) — **untested,
-the proper P5 follow-up.** Don't claim noise-robustness yet. Full read: [`exp6/experiment-6.md`](exp6/experiment-6.md).
+the proper P6 follow-up.** Don't claim noise-robustness yet. Full read: [`exp6/experiment-6.md`](exp6/experiment-6.md).
 
 ---
-## P4.7 — synthesis: the capability map + Phase-5 brief · ✅ DONE 2026-06-22
+## P4.7 — synthesis: the capability map + hand-off brief · ✅ DONE 2026-06-22
 
 The map: **WIN** A6 continual (decisive), A2 ambient-dim, A3 depth-composition, A4 depth-is-cheap (80/20 depth-gated);
 **TRAIL** A1 difficulty, A5 class-count (difficulty-gated, real-data kinder); **NEGATIVE** A7 eval-time noise
 (layernorm tradeoff; train-with-noise untested). Verdict: a **substrate-native continual learner, not a static-
 accuracy competitor.** Synthesis: [`README.md`](README.md); assembled map:
-`figs_summary/CAPABILITY_MAP.png`. **Phase 5 = optimize the continual win (sleep cadence + Ch7 gate).** PHASE 4 CLOSED.
+`figs_summary/CAPABILITY_MAP.png`. **Phase 5 closes out the SCFF depth decay; Phase 6 = optimize the continual win
+(sleep cadence + Ch7 gate).** PHASE 4 CLOSED.

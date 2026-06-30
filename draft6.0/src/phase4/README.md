@@ -13,7 +13,7 @@
 ## The problem
 
 By the end of Phase 3 we trusted the cell on *two* axes (continual + depth-composition). Two axes is not a map.
-Before Phase 5 optimizes the maintenance loop on top of this cell, we wanted the whole orthogonal scorecard — run
+Before Phase 6 optimizes the maintenance loop on top of this cell, we wanted the whole orthogonal scorecard — run
 for **coverage, not triage** — because a breadth sweep is the cheapest place to catch a latent algorithm bug
 before any optimization is built on a flaw. **Characterize before optimize.** (It earned the framing twice:
 the breadth caught a latent OOM bug *and* refuted the plan's optimistic noise-win — the pre-flight gate working.)
@@ -35,7 +35,8 @@ The deliverable is the map, not a verdict:
 
 ![capability map](figs_summary/CAPABILITY_MAP.png)
 *WIN where the substrate lives (continual, nuisance-dim, depth-cheap, depth-composition); TRAIL on static accuracy
-(the cost of the gap); one honest NEGATIVE on eval-time noise. (OURS vs a genuinely-tuned BP ceiling, 7 axes.)*
+(the cost of the gap); one honest NEGATIVE on eval-time noise. (OURS vs a genuinely-tuned BP ceiling, 7 axes; the continual WIN is vs **naive
+online-BP without replay** — the fairer same-budget BP+replay baseline is Phase-6 work.)*
 
 | axis | dial | verdict | the number |
 | --- | --- | --- | --- |
@@ -59,13 +60,16 @@ substrate. *(A follow-up names the cause: local-objective drift off the class ma
 capacity; widening doesn't fix it. Fix = preservation. Useful composition ≈ 5 layers. Caveat: depth-scaled
 training untested.)*
 
-## What it set (the Phase-5 brief)
+## What it set (the hand-off brief)
 
-Picked from data, not guesses:
+Picked from data, not guesses. In the final numbering these split: the open wound this map flagged — the **depth
+decay** past ~layer 5 — became **Phase 5** (the SCFF close-out); the **maintenance-loop optimizations** below became
+**Phase 6** (the GD side).
 
-1. **Optimize the continual mechanism** (sleep cadence + the Ch7 gate) — A6 is the validated win. **Phase 5's core.**
+1. **Optimize the continual mechanism** (sleep cadence + the Ch7 gate) — A6 is the validated win. **Phase 6's core.**
 2. **Build deep, but gate depth on headroom** — depth is cheap (A4) and composes (A3), but only *pays* with
-   headroom; scale the coordination window with headroom (w=2 hard regime → w=4 easy+deep).
+   headroom, and the deep representation *decays* past ~layer 5; scale the coordination window with headroom (w=2
+   hard regime → w=4 easy+deep). **(→ Phase 5 closed the decay.)**
 3. **Make the cost meter depth-aware and temporal** — the 80/20 is depth-gated; meter the gated/sleep online cost,
    not one per-pass number.
 4. **Run the train-with-noise (hardware-aware) test** before any analog noise claim (A7); treat layernorm as a
@@ -94,4 +98,4 @@ Picked from data, not guesses:
 | The pre-run design + the evaluation-methodology canon | [`design.md`](design.md) |
 | The run-cards | `exp0`…`exp6/` `experiment-*.md` (A1–A7); P4.3 has the decay follow-up |
 | Figure/house style | [`result-format.md`](result-format.md) → [`../result-format.md`](../result-format.md) |
-| The Stage-1 arc | [`../stage1-report.md`](../stage1-report.md) · **Prev:** [Phase 3](../phase3/README.md) |
+| The Stage-1 arc | [`../stage1-report.md`](../stage1-report.md) · **Prev:** [Phase 3](../phase3/README.md) · **Next:** [Phase 5](../phase5/README.md) |
