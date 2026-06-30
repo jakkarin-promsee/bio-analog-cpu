@@ -56,8 +56,8 @@ continual.)*
 
 | verdict (design §7) | bar | result | call |
 | --- | --- | --- | --- |
-| **① depth-EARNED** | headroom tail in the w12 band, or peak ≥ profiled extractor depth | readout **0.550 beats tuned-BP 0.531**; probe tail **0.530** (w2) → **0.562** (w4) reaches the w12 ceiling **0.556**; peak **L5→L6** (w2), **→L9** (w4) | **EARNED** |
-| **② read-CHEAPLY** (the cost gate, STOP ①) | adaptive exit beats all-tap **and** truncation on the continual stream | adaptive exit **dominated** (0.479 @ 74.7k); **fixed truncation 0.547 @ 9.0k = 8× cheaper than all-tap** | **SCOPED** (fixed, not adaptive) |
+| **① depth-EARNED** | headroom tail in the w12 band, or peak ≥ profiled extractor depth | readout **0.550 [0.545–0.553] beats tuned-BP 0.531 [0.531–0.533]** (IQR-disjoint; the tuned `race_bp` racer, not Phase 3's fixed-budget GD); probe tail **0.530** (w2) → **0.562** (w4) reaches the w12 ceiling **0.556**; peak **L5→L6** (w2), **→L9** (w4) | **EARNED** |
+| **② read-CHEAPLY** (the cost gate, STOP ①) | adaptive exit beats all-tap **and** truncation on the continual stream | adaptive exit **dominated** (0.479 @ 74.7k); **fixed truncation 0.547 @ 9.0k = 8× cheaper than all-tap** (readout-MACs; the L12 bulk still runs) | **SCOPED** (fixed, not adaptive) |
 | **③ continual-SAFE** (P5.7) | the fix keeps the A6 continual win (BWT within the −0.02 gate) | temp0.2 **BWT −0.026** vs −0.017, AA 0.944; the sleep-recovery mechanism intact | **PASS** |
 | **④ natural-CONFIRM** (P5.8) | the synthetic decay + fix survive real flat data | decay **real on both** (digits +0.260, CIFAR-flat +0.094); fix **+0.152** on digits (halves the decay, not erases); **null-but-safe** on CIFAR-flat | **REAL** |
 

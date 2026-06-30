@@ -77,7 +77,12 @@ Tunnel** — full credit composes everything. (n=5, headroom, PROBE_EP=120.)*
 The single most important read of the phase came from this rung: **w12 composes the whole stack with no decay.** If
 the decay were an intrinsic property of forward-only depth (a "Tunnel" the representation must pass through), even
 full credit would show it. It does not — so the decay is a property of the *local objective's reach*, and is
-therefore **curable** by sharpening the objective or extending its reach. The mixed task also reproduced the
+therefore **curable** by sharpening the objective or extending its reach. **This also closes the boring alternative
+Phase 4 flagged** (depth-scaled / under-training): w12 composes at the *identical* training budget — same epochs, same
+learning rate, only the credit *reach* differs — so the deep layers are not simply under-trained; what they lack is
+reach, not gradient steps. (A per-depth-scaled-LR schedule, the exact knob Phase 4 left un-run, remains the one
+untested variant, but the same-budget w12 result makes insufficient training an unlikely cause — and the lr-matched
+control in P5.1 adds that a *larger* effective step does not help either.) The mixed task also reproduced the
 **corruption** we feared: at w2 the deep layers drag an early-solved flat subtask from its peak down to 0.475, while
 w12 holds it at 0.708 — the deep layers overwrite when credit is local. **Banked:** the bench is trusted; no cell
 change; the two cure-directions (sharper objective, longer reach) are the next two rungs.
@@ -96,8 +101,10 @@ the lr-matched arm matches it; if it works because it preserves direction, temp-
 control. The lift is **direction, not learning-rate** — the lr-matched temp-0.5 arm stays flat at 0.452. (n=5,
 headroom, PROBE_EP=120.)*
 
-Temp **0.2** lifts the tail to **0.530 [0.527–0.539]** and the real readout to **0.550** — within 0.026 of the w12
-ceiling and, notably, **the readout beats tuned-BP** (0.531). The lr-matched control settles the confound: temp-0.2
+Temp **0.2** lifts the tail to **0.530 [0.527–0.539]** and the real readout to **0.550 [0.545–0.553]** — within 0.026
+of the w12 ceiling and, notably, **the readout beats tuned-BP** (0.531 [0.531–0.533], IQR-disjoint — the genuinely-tuned
+`race_bp` racer, a real {depth × lr × weight-decay} search, *not* Phase 3's weaker fixed-budget GD). The lr-matched
+control settles the confound: temp-0.2
 (0.530) vs lr-matched temp-0.5 (0.452) is **5/5 by seed and IQR-disjoint**, so **~82% of the +0.095 lift is
 direction, ~18% learning-rate** — the spine, paid in the objective.
 
@@ -300,9 +307,11 @@ exit. The cheap brain is **finished and trusted**.
 
 ## 6 · Honest scope & caveats
 
-- **The earn-depth result is on a built synthetic headroom task** — the re-tuned tail *ties* a genuinely-tuned
-  backprop and reaches the w12 objective ceiling, and the decay + fix reproduce on real digits; but the headline is a
-  **representation** claim (per-layer probe), not a static-accuracy benchmark-beat.
+- **The earn-depth result is on a built synthetic headroom task.** Be precise about *which* number does what: the
+  re-tuned **readout beats** a genuinely-tuned backprop (0.550 [0.545–0.553] vs 0.531 [0.531–0.533], IQR-disjoint —
+  readout-vs-readout, same metric), and — on the **probe** side, a *different* metric we keep separate (§glossary) — the
+  tail reaches the w12 *probe* ceiling at w4 (0.562 ≈ 0.556). The decay + fix reproduce on real digits. But the headline is a **representation/readout** claim on a task we *built* to have
+  depth headroom — a `+0.019` margin on a microscope, **not** a static-accuracy benchmark-beat.
 - **The temp-fix is null on flat data with no composable depth** (CIFAR-flat) — it needs convolution, out of scope. We
   report this as a scoped, null-but-safe result, not a failure.
 - **The adaptive early-exit is struck on the *flat* home only** — on a compositional continual stream it might earn its
@@ -310,7 +319,9 @@ exit. The cheap brain is **finished and trusted**.
 - **w12 is a diagnostic, never a deployment** — it is a forbidden full-credit reach used only as the objective ceiling;
   do not read its numbers as an achievable target.
 - **Continual numbers are n=3** (the heaviest cells) — read with the wider-IQR caution that implies; the static rungs
-  are n=5.
+  are n=5. We let the *headline* continual claim rest on n=3 only because its effect is **huge** (BWT −0.026 vs the
+  no-sleep control's ≈ −0.95 — the sign is unambiguous at three seeds); the n=5 / IQR-disjoint bar is there for the
+  *small* differences (e.g. the +0.019 readout margin), where three seeds would not be enough.
 
 ## Reproducibility
 

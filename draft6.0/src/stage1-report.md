@@ -115,7 +115,8 @@ OOM bug and refuted the plan's optimistic noise-win — the pre-flight gate work
 ![capability map](phase4/figs_summary/CAPABILITY_MAP.png)
 *The Stage-1 result in one glance: the cheap forward-only brain WINS where the substrate lives (continual,
 nuisance-dim, depth-cheap, depth-composition), TRAILS on static accuracy, and returns one honest NEGATIVE on
-eval-time noise. (OURS vs a genuinely-tuned BP ceiling, 7 axes.)*
+eval-time noise. (OURS vs a genuinely-tuned BP ceiling, 7 axes; the continual WIN is measured vs **naive online-BP
+without replay** — the fairer same-budget BP+replay baseline is Phase-6 work.)*
 
 ### Phase 5 — closing out the cheap brain → *depth solved, read cheaply*
 
@@ -127,10 +128,11 @@ window (w12 — a *forbidden* full-backprop reach, measured only as the upper bo
 whole 12-layer stack with **no decay at all**, so the depth is *curable*. Two cheap, forward-only levers cure it.
 **(1) Earn it.** A sharper InfoNCE temperature (0.2) keeps each update more class-selective: it marches the probe
 peak L5→L6 (→L9 once the window opens to w4) and lifts the headroom tail 0.435→0.530 (→0.562 at w4) so the **readout
-beats a genuinely-tuned backprop** (0.550 vs 0.531) while the probe tail reaches the w12 ceiling (0.556). An lr-matched
+beats a genuinely-tuned backprop** (0.550 [0.545–0.553] vs 0.531 [0.531–0.533], IQR-disjoint — the tuned `race_bp`
+racer, not Phase 3's weaker fixed-budget GD) while the probe tail reaches the w12 ceiling (0.556). An lr-matched
 control proves ~82% of the lift is *direction*, not a disguised learning-rate — the spine, paid a fifth time. **(2) Read it cheaply.** Per-depth heads read by a
-short, fixed truncation stack read the continual home at **8× less forward cost than all-tap** (0.547 @ 9.0k vs
-all-tap @ 72.5k) — because all-tap dilutes the class signal with the very drifted deep layers a capacity-limited head
+short, fixed truncation stack read the continual home at **8× less readout-forward cost than all-tap** (0.547 @ 9.0k vs
+all-tap @ 72.5k readout-MACs; the L12 SCFF bulk still runs — this is a *readout* saving, not total inference) — because all-tap dilutes the class signal with the very drifted deep layers a capacity-limited head
 can't zero-weight. Both gates held: the fix **keeps the A6 continual win** (BWT −0.026 vs −0.017, the sleep-recovery
 mechanism intact) and the **decay reproduces on real data** (digits + CIFAR-flat), with the **temp-fix real on
 digits** (tail +0.152, roughly halving the decay) and null-but-safe on the no-headroom CIFAR-flat wall. Two honest
@@ -190,8 +192,10 @@ what it is, and Phase 5 closed the one open wound:
 - **It is nuisance-robust:** in high ambient dimension it crosses *above* a tuned backprop, for free.
 - **It trails on static accuracy** (difficulty, many synthetic classes) — the cost of being a density/structure
   learner with a cheap namer rather than a global error-minimizer.
-- **It is *not* yet noise-robust** in the one test we ran (eval-time weight noise) — a real, owned tradeoff, with
-  the substrate-relevant test (train-with-noise) still untested → Phase 6.
+- **It is *not* yet noise-robust** in the one test we ran (eval-time weight noise) — a real, owned tradeoff, and a
+  *pointed* one: the sensitivity is **directional**, and an analog substrate's dominant mismatch is *also* directional,
+  so it attacks the very class-direction the design exists to protect. The substrate-relevant test (train-with-noise) is
+  still untested → Phase 6 — and this is the architecture's sharpest open silicon risk, not a footnote.
 
 ## 6 · Honest scope of Stage 1 as a whole
 
@@ -209,8 +213,8 @@ what it is, and Phase 5 closed the one open wound:
 
 ## 7 · What's next — Phase 6 (the GD-side era)
 
-The cheap brain is finished. **Phase 6 = GD-side optimization** — every remaining knob is on the precise ~20% GD
-back, not the SCFF front. Stage 1 (and now the Phase-5 close-out) hands it a settled cell and a precise brief: tune
+The cheap brain's *design* is finished (ideal-float behavioral sim — not silicon- or benchmark-validated).
+**Phase 6 = GD-side optimization** — every remaining knob is on the precise ~20% GD back, not the SCFF front. Stage 1 (and now the Phase-5 close-out) hands it a settled cell and a precise brief: tune
 the **maintenance loop** — the sleep cadence + the Ch7 learning-gate, now **readout-aware** (consolidate the
 *extractor-depth* features the fixed reader actually reads; shallow on the flat home, deep on compositional tasks) —
 against *this* cell's measured drift; make the cost meter **depth-aware and temporal** (the 80/20 lives in the gate +

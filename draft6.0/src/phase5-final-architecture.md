@@ -22,7 +22,9 @@
 > **A naming note.** "SCFF" here denotes the **forward-only, label-free, self-contrastive *frame*** — the cheap-brain
 > *role*. Its *objective* is **not** the energy-goodness of the original SCFF paper: Phase 3 replaced that with a
 > GIM/CLAPP-family **InfoNCE** loss (§2). So "SCFF" = the frame and the lineage, not Hinton's / the Nature-Comms
-> loss. We keep the name because it is this project's committed identity; we are explicit here so no one mistakes it
+> loss. **Mechanistically the committed cell is closest to CLAPP** (local InfoNCE, made online) carrying
+> **SimCLR-style two-view positives** — keeping the "SCFF" name is a statement of project *identity*, not a claim of
+> methodological descent from the SCFF paper specifically. We are explicit here so no one mistakes it
 > for the paper's exact method. Biological names ("Hippocampus", "Cortex") likewise name **circuit elements**, not
 > biology.
 
@@ -54,9 +56,11 @@ adaptation at analog-circuit energy, with no gradient or weight ever shipped off
 learning where it sits, cheaply, forever, instead of a frozen model retrained in a datacenter. That target makes
 two things matter that mainstream ML treats as afterthoughts: the **energy of the backward pass** (weight transport,
 a transpose, stored activations) and **catastrophic forgetting** (an online learner must not erase yesterday to
-learn today). The design answers both with **two brains** on the one substrate: a large, cheap, unsupervised front
-(**SCFF**, ~80% of the compute) that organizes the world for free — label-free, local, forward-only — and a small,
-precise **gradient-descent** back (~20%) that puts real labels on what the front organized. The whole bet rides on
+learn today). The design answers both with **two brains** on the one substrate: a large, unsupervised front
+(**SCFF**, ~80% of the network) whose *learning* is cheap — label-free, local, forward-only, no backward pass — and a
+small, precise **gradient-descent** back (~20%) that puts real labels on what the front organized. ("Cheap" here means
+cheap *to learn*, not cheap to run forward — the forward-inference energy of the SCFF bulk is a separate quantity we do
+not yet meter; §4 and the glossary are precise about this.) The whole bet rides on
 one observation: **direction is the one expensive thing in learning.** Measuring how loud a neuron is is free;
 deciding *which way* each weight must move is what costs. So we **pay for direction once, where it counts** (the 20%
 GD), and get the rest cheaply (the 80% SCFF). The method throughout: **copy the brain's *function*, cheat the
@@ -88,12 +92,27 @@ dependency chain** that a backward pass needs to compute *which way* each weight
 expensive parts (extra charge cycles, extra routing, extra buffers); the sign-plus-delta of a local update is cheap
 to *decide* even though it is not free to *write*. That is the precise sense in which we "pay for direction once."
 
+**Two honest limits on this claim, stated plainly.** (1) A forward-only local rule is *not* free of all update
+machinery — it still pays the intra-layer error→ΔW product, the per-sample L2 normalization, and (for the contrastive
+loss) a similarity/softmax block (§2.4). What it removes is the **cross-layer** credit chain (the transpose + deep
+activation tape), *not* the **local** update. (2) This is a **structural** argument, not a measured energy one: the
+cost meter in Stage 1 is an op-count proxy (glossary), and the costs that dominate real in-memory silicon — the
+**ADCs / data converters** and the **forward read energy** — sit *outside* it. So the net *energy* win is
+**unquantified and deferred to Phase 6**; what Stage 1 establishes is the credit-assignment *structure* (no cross-layer
+chain), not a Joule count.
+
 *(Designed, not simulated: capacitor leak, tuned below the natural rate against an 8-bit charge reference, is
-intended to give **free L2-style weight decay in physics** — a per-step charge loss `≈ λ` instead of a `λ‖W‖²` term.
-This is first-order and temperature-sensitive, exactly the PVT realism this version defers; the ideal-float
-simulation **does not model it**, so no result here depends on it. The full chip, mono-forward as an analog circuit,
+intended to give **free L2-style weight decay in physics** — leakage discharges a capacitor in proportion to its
+stored charge (`dQ/dt ∝ −Q`, i.e. a `≈ −λW` pull), which is exactly the gradient of a `λ‖W‖²` penalty arising from the
+device instead of an explicit term. Whether this *helps* (regularization) or *hurts* (it erodes the smallest — possibly
+most selective — weights, the rate `λ` drifts with temperature, and only the charge *magnitude* leaks while the sign
+sits in SRAM) is **untested** — a *hoped-for* free lunch, not a validated feature. It is first-order and
+temperature-sensitive, exactly the PVT realism this version defers; the ideal-float simulation **does not model it**,
+so no result here depends on it. The full chip, mono-forward as an analog circuit,
 and analog/PVT/noise realism are all out of scope for v1.0.0 — this is the ideal-math layer everything physical will
-later have to honor.)*
+later have to honor. The **substrate-technology choice itself is deferred too**: capacitive storage (chosen here) trades
+*leak/refresh* for the *write-endurance/write-noise* of a non-volatile analog conductance (RRAM/PCM) — the standard
+resident-weight alternative — and which side wins is a silicon-phase question, not settled here.)*
 
 ---
 
@@ -119,7 +138,8 @@ only when classes happen to *be* density clusters (a checkerboard or an equal-de
 class-separable, not more (Phase 2's "depth wall"). And the failure is in the **goodness functional itself**, not in
 the choice of negative — Phase 2 showed that *even a perfect class-oracle negative* does not make energy compose with
 depth, because no choice of what-is-positive-vs-negative can make a scalar that measures **magnitude** (`‖h‖²`)
-encode a **direction** (the class axis). That is the spine, stated as a theorem about the objective.
+encode a **direction** (the class axis). That is the spine, stated as an empirical result about the objective — a
+demonstration (the oracle-negative control of Phase 2), not a proof.
 
 ### 2.2 The committed objective: windowed two-view InfoNCE
 
@@ -166,6 +186,16 @@ patch/timestep to predict), and (ii) the Phase-5 **diagnosis and cure of a depth
 never surfaced (§2.3). When we say "composes with depth," we mean *on flat vectors, with the decay cured* — the part
 that is new.
 
+**The honest tension — why not just use CLAPP++?** A Jan-2026 benchmark we cite shows the predictive local-SSL family
+(CLAPP++) *matching* end-to-end backprop-SSL on CIFAR-10 (80.51 vs 80.49). So why dwell on a flat-MLP cell that reaches
+only ~0.55 on a synthetic generator? Because CLAPP++ earns CIFAR *with convolution and spatial structure* — exactly
+what our analog **flat-vector** substrate does not have. The structureless flat regime is both the harder one and the
+substrate-relevant one, and the two-masked-view target (with the depth-decay it surfaces, §2.3) is precisely the part
+the structured CLAPP++ result does not cover. **One open alternative we do not close:** GIM/CLAPP's *predictive*
+objective gives every layer a *fresh* target, which might avoid the same-target decay our masked-view contrast incurs.
+A flat-vector predictive objective is an untested route (§5); if it composed without a decay, that too would be a sharp
+result about why this regime is special.
+
 ### 2.3 The two knobs that close the depth problem (Phase 5)
 
 Even with contrast, the representation composed for only ~5 layers, then **decayed** — it drifted *off the class
@@ -186,19 +216,29 @@ a fifth time). Two **free, forward-only** knobs cure it:
   The diagnostic `w = 12` (one window over the whole stack) **is a full backward pass** — *forbidden* by the
   forward-only rule, used only as the ceiling.
 
-**Which deployable config actually earns the depth (be precise).** With `τ = 0.2` at `w = 2` — the *committed,
-substrate-legal* cell — the **deployed readout reaches `0.550`, above the tuned-BP reference `0.531`** (a like-for-like
-readout/accuracy comparison on the headroom task), and the **linear-probe tail rises from `0.435` to `0.530`**,
-closing to **`0.562` at `w = 4`** — i.e. it **reaches the w12 *probe* ceiling `0.556`** with a *bounded* window, never
-the forbidden full pass. So "depth solved" means: the cheap levers (sharper objective + a bounded window) carry the
-representation to its own full-credit ceiling, and a deployed readout on those features beats a matched tuned-BP — *on
-this synthetic headroom microscope, as a representation/readout result, not a benchmark.* The forbidden `w = 12` only
-proves the decay was **objective-locality (curable), not an intrinsic wall.**
+**Which deployable config actually earns the depth (be precise — this is the flagship claim, so it carries its
+uncertainty).** With `τ = 0.2` at `w = 2` — the *committed, substrate-legal* cell — the **deployed readout reaches
+`0.550 [0.545–0.553]`, above the tuned-BP reference `0.531 [0.531–0.533]`** — a `+0.019` margin that is IQR-disjoint
+and 5/5 by seed, so "real" by our own bar (§glossary). **What "tuned-BP" is here:** the genuinely-tuned `race_bp` racer
+carried from Phase 4 — a real search over {depth-shape × lr × weight-decay} at matched budget (the Bartunov/Spyra
+fairness protocol), *not* Phase 3's weaker "fixed-budget GD-hidden" representation baseline. (The two are distinct
+references and should not be conflated — the headline beats the *tuned* one.) The **linear-probe tail** rises from
+`0.435` to `0.530` (`w = 2`), closing to **`0.562` at `w = 4`** ≈ the **`0.556` w12 *probe* ceiling**. **Read the w12
+comparison correctly:** `w = 12` is one credit window over the whole stack — i.e. effectively *ordinary backprop on
+this 12-layer cell* — so "reaching the w12 ceiling" does **not** mean "matching an external ceiling"; it means a
+*bounded* forward-only window recovers almost all of what unconstrained credit would give *on this objective*. So
+"depth solved" means: the cheap levers (sharper objective + a bounded window) carry the representation to its own
+full-credit ceiling, and a deployed readout on those features beats a genuinely-tuned BP — *on this synthetic headroom
+microscope, a task we constructed to have depth headroom; a representation/readout result, not a benchmark.* The
+forbidden `w = 12` only proves the decay was **objective-locality (curable), not an intrinsic wall.**
 
 **The mandatory L2 norm** earns "load-bearing twice": it is required for FF-family correctness (a layer can't cheat
 by inflating `‖h‖`), *and* it is a **per-sample** normalization (no running/batch-normalization statistics), which is
 part of why the cell is continual-friendly (§4) and nuisance-robust (it down-weights non-discriminative dimensions
-for free). The same property is *why* it is sensitive to eval-time weight noise — a real, owned tradeoff.
+for free). The same property is *why* it is sensitive to eval-time weight noise — a real, owned tradeoff, and one that
+matters more than a footnote: the sensitivity is to weight-**direction** noise, and the substrate's dominant analog
+mismatch is *also* directional, so it attacks the very class-direction the whole design exists to preserve. That makes
+it the architecture's **sharpest open silicon risk**, not a tunable nuisance (§4, §7).
 
 ### 2.4 How the contrastive objective runs on the substrate (the honest bridge)
 
@@ -228,6 +268,20 @@ crossbar), and the charge-cycle budget for `N` accumulated negatives — is **de
 exactly like mono-forward-as-a-circuit. Nothing in §4's results depends on the chip realization; they are the ideal
 objective's behavior. But the bridge from "two rails" to "InfoNCE" is *the LUT supplying streamed negatives*, and we
 state it rather than imply the two rails alone discharge the loss (they do not).
+
+**Three caveats this bridge does not get to wave away (Phase-6 gates).** (1) **The estimator changes.** Every number in
+this document uses mini-batch InfoNCE with *in-batch* negatives; the chip uses a *rolling, ART-deduplicated* prototype
+pool. These are not the same estimator — a deduplicated pool may lack the *hardest* negatives, and the §2.3 temperature
+lever works precisely *by* concentrating on the hardest negatives. So **the `τ = 0.2` depth result is validated only
+with in-batch negatives; its survival under LUT-streamed negatives is untested**, and is a Phase-6 gate. (2) **The
+softmax/normalizer is a digital block, not free.** The contrastive denominator (an inner-product matrix + `exp` +
+normalize) is not a charge-native crossbar operation; "a second small crossbar" understates it — it is real area + ADC
+traffic that competes with the very backward cost we claim to save. (3) **A finite on-chip LUT and "task-spanning"
+negatives are in tension:** the continual-safety mechanism leans on negatives drawn from across tasks, but a *bounded*
+store under a lifelong stream must evict — which could re-introduce forgetting through the negative pool. The measured
+continual win (§4) used full-history replay in sim; the bounded-store version is unbuilt. (Relatedly, `B = 32` gives
+only 31 in-batch negatives — thin for InfoNCE; the on-chip "few negatives at a time" regime is thinner still and
+untested.)
 
 ---
 
@@ -301,7 +355,7 @@ trained by cross-entropy — the one "direction" expense, paid once.
             taps (GD reads, never writes — stop-gradient)
                   │
                   ▼
-         [ GD readout (~20% of compute) ]  ◀── sleep: periodic full-batch refit over the LUT replay history
+         [ GD readout (~20% of backward work) ]  ◀── sleep: periodic full-batch refit over the LUT replay history
             • deploy : short fixed truncation stack (continual home; ~8× cheaper than all-tap in readout MACs)
             • peak   : all-tap        • compositional : per-depth head   • (boosted blocks = validated option)
                   ▼
@@ -321,12 +375,15 @@ Measured against a **genuinely-tuned backprop** at matched weight budget — wit
   (Phase 6).
 - **Depth is cheap (compute-proportion).** The bounded credit chain (`w`) makes SCFF's **backward compute flat in
   depth** while backprop's grows linearly — measured as the op-count proxy of §glossary, *not* energy. The 80/20 is a
-  *share-of-compute* claim, depth-gated (it materializes deep, where the design is intended to operate).
+  *backward-work* share, depth-gated (it materializes deep, where the design is intended to operate) — and it says
+**nothing** about forward-inference energy, which is dominated by the SCFF bulk and is not metered here (a Phase-6 job).
 - **It composes the depth a task needs, and reads it cheaply** — the §2.3 result: on the synthetic headroom task the
   deployed readout (0.550) beats matched tuned-BP (0.531) and the probe tail reaches the cell's own w12 ceiling
   (0.556), read ~8× cheaper than all-tap. *This is a representation/readout claim on a constructed task* — said here,
   not only in §7.
-- **Nuisance-robust** (crosses *above* tuned-BP in high ambient dimension, free, via the per-sample norm); **trails on
+- **Nuisance-robust** (crosses *above* tuned-BP in high ambient dimension, free, via the per-sample norm) — but the *same* per-sample norm makes the cell **sensitive
+to weight-direction noise (A7)**, the sharpest open silicon risk on an analog substrate whose dominant mismatch is also
+directional (§7); it also **trails on
   raw static accuracy and many-class** problems, *by design* — a structure learner with a cheap namer, not a global
   error-minimizer. We do not claim otherwise.
 
@@ -363,6 +420,14 @@ each paper: what it gave, what we kept, **what we changed and why.**
   negatives**. And we add the Phase-5 **flat-vector depth-decay diagnosis + the `τ` cure** their structured setup never
   surfaced. *(We pre-registered masked **reconstruction** as the likely flat objective; the sims **overturned it** —
   reconstruction preserved density, below random. Recorded, not hidden.)*
+
+**SimCLR (2020)** *(the positive-pair construction)*
+- *Kept:* the **augmentation-based positive pair** — two stochastic views of one sample pulled together while other
+  samples are pushed apart, under InfoNCE. Our positives are this, *not* GIM/CLAPP's predict-the-adjacent-patch; the
+  earlier "SimCLR-flavored" mentions name this debt explicitly.
+- *Changed / extended:* the augmentation is **random coordinate masking** (`Bernoulli(1−r)`) on a **flat, non-image
+  vector**, applied *inside a local window* rather than through one global end-to-end encoder. So the committed cell is,
+  precisely: **SimCLR's positive, CLAPP's locality, on flat vectors.**
 
 **Distance-Forward Learning (2024)** *(the coordination window)*
 - *Kept / extended:* its **overlapping-block (DF-O)** trick is our **coordination window `w`** = the blocked-backprop
@@ -409,6 +474,7 @@ each paper: what it gave, what we kept, **what we changed and why.**
 | --- | --- | --- |
 | **SCFF** | label-free forward-only self-contrastive frame + the name | **energy → InfoNCE**; summation reformulation (FF-pairing case only) |
 | **GIM / CLAPP** | local InfoNCE that composes depth, unsupervised; CLAPP = single-sample/online form | **two-masked-view** target for flat vectors; streamed (LUT) negatives; the flat-vector decay-cure |
+| **SimCLR** | augmentation-based two-view positive pair under InfoNCE | random **coordinate-masking** augmentation on flat vectors, inside a local window |
 | **Distance-Forward** | overlapping-block coordination (DF-O) | parameterized **window `w`** = blocked-backprop truncation length; dose-response |
 | **DeeperForward** | "squared goodness kills depth, not the norm" | keep the L2 norm; drop `‖h‖²` |
 | **BoostResNet** | residual *follows* boosting, `e^{-½Tγ²}` | applied to **GD checkpoints** (labeled); read-not-write; few blocks |
@@ -422,9 +488,9 @@ each paper: what it gave, what we kept, **what we changed and why.**
 
 ## 6 · The five-phase journey that produced this model
 
-One model, five phases, one argument: **we kept being right about *where* the cell wins and wrong about *how*, and
-every correction came from a simulation or a paper overruling the plan — never from tuning until it passed.** The
-connective tissue is the single recurring fault, **density ≠ class.**
+One model, five phases, one argument. The plan's *destination* held — this is a continual, substrate-native-depth
+learner — but two of its *mechanisms* were wrong (deep SCFF; energy-goodness), and each was overturned by a simulation
+or a paper, not rescued by tuning. The connective tissue is one recurring fault, **density ≠ class.**
 
 1. **Phase 1 — build the cell, find its home.** One SCFF+GD block generalizes better than backprop (smaller
    memorization gap) at ~10% of the backward compute — but it is a weak *density* learner. Its home is the
@@ -436,7 +502,10 @@ connective tissue is the single recurring fault, **density ≠ class.**
    locality."
 3. **Phase 3 — the objective reframe (the big correction).** The wall is intrinsic to the **energy objective `‖h‖²`**,
    not to locality. Swap energy for **contrastive InfoNCE** + a forward-only **coordination window**, and depth
-   composes — *and* it re-earns the continual win. **Adopted; supersedes energy-goodness.**
+   composes — *and* it re-earns the continual win. **Adopted; supersedes energy-goodness.** *(Honest framing: GIM/CLAPP
+   had already shown a predictive/contrastive objective composes depth where energy doesn't — on *structured* data; our
+   Phase 2→3 arc hit that wall independently by experiment, diagnosed it via that literature, and extended the result to
+   the *flat-vector* regime they don't cover. So Phase 2 "rediscovered," it didn't first-discover, the wall.)*
 4. **Phase 4 — the capability map.** Characterized the adopted cell against a *genuinely-tuned* backprop across seven
    axes: **a substrate-native continual learner, not a static-accuracy competitor.** Wins continual / nuisance-dim /
    depth-composition / depth-is-cheap; trails static difficulty / class-count; one honest negative on eval-time
@@ -480,7 +549,14 @@ replay** (§4 states the fairer same-budget comparison as Phase-6 work). The tem
 flat data with no composable depth (CIFAR-flat needs convolution, out of scope). All numbers are ideal-float
 behavioral simulation; **no result here has been tested under analog noise, finite weight-write precision, or ADC
 quantization** — and the cell's known *eval-time-weight-noise sensitivity* (§2.3) is the first thing the analog
-version will have to survive.
+version will have to survive — indeed it is the architecture's **sharpest open silicon risk** (directional noise
+attacking the directional class-signal the design exists to protect; §2.3, §4), not routine future work.
+
+**On the L12 depth vs the shallow read (a hardware reader's question).** The committed *bulk* is L12 because depth is
+**task-dependent**: compositional tasks read deep (all-tap / `w = 4`), while the flat continual *home* reads only
+~L2–3. So a continual-only deployment could be fabricated **shallower** — L12 is the capacity for the tasks that need
+it, not a fixed silicon cost the home always pays. Matching fabricated depth to the deployment regime (area vs reach)
+is a Phase-6 / silicon-planning decision.
 
 ---
 
@@ -507,7 +583,7 @@ better-than-confidence per-sample selector) comes home here. *Simple intelligenc
 ## References (the papers this model stands on)
 
 Self-Contrastive Forward-Forward ([2409.11593](https://arxiv.org/abs/2409.11593)) · Greedy InfoMax
-([1905.11786](https://arxiv.org/abs/1905.11786)) · CLAPP ([2010.08262](https://arxiv.org/abs/2010.08262)) · "Can
+([1905.11786](https://arxiv.org/abs/1905.11786)) · CLAPP ([2010.08262](https://arxiv.org/abs/2010.08262)) · SimCLR ([2002.05709](https://arxiv.org/abs/2002.05709)) · "Can
 Local Learning Match Self-Supervised Backprop?" (Jan 2026, [2601.21683](https://arxiv.org/abs/2601.21683)) ·
 Distance-Forward Learning (2024) · DeeperForward (ICLR 2025) · BoostResNet (ICML 2018) · BYOL (2020) ·
 ULMFiT / discriminative fine-tuning (2018) · Mono-Forward ([2501.09238](https://arxiv.org/abs/2501.09238)) · CALM
