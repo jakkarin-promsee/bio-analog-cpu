@@ -120,6 +120,7 @@ Picked from data, not guesses:
 
 | For | Go to |
 | --- | --- |
+| **The whole model in one self-contained file (v1.0.0)** | [`../phase5-final-architecture.md`](../phase5-final-architecture.md) |
 | The full story, every figure, the per-rung reads | [`phase5-report.md`](phase5-report.md) |
 | The scalar ledger (per-rung numbers + verdicts) | [`RESULTS.md`](RESULTS.md) |
 | The pre-run design (the ladder, the build plan, the decision record) | [`design.md`](design.md) |

@@ -79,6 +79,7 @@ draft6.0/
     papers/        paper stories — phase1-2/ (the adopted design) + phase3/ (the depth reframe)
     north-star/    the north-star dossier (21 files + th/ Thai mirror) — beyond the phases, not the live line
   src/             ★ Stage-1 report set + run-specs
+    phase5-final-architecture.md  ★ the v1.0.0 model in one file (self-contained; the cheap brain, closed)
     stage1-report.md   the five-phase executive arc (the cheap brain, closed out)
     result-format.md   the canonical house style (figures · metrics · the 6-slot template)
     ref-report/        glossary the reports cite (methods · metrics · papers)
@@ -92,6 +93,7 @@ draft6.0/
 
 | When the user asks… | Look in |
 | --- | --- |
+| **The whole model in one file (v1.0.0)** | [`src/phase5-final-architecture.md`](src/phase5-final-architecture.md) — the self-contained SCFF+GD architecture summary; understand the model + the 5-phase arc without opening any phase report |
 | The plan / what we're doing now | [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (decisions) + [`idea/ideas1.md`](idea/ideas1.md) (the story) |
 | The written results / Stage-1 story | [`src/stage1-report.md`](src/stage1-report.md) → `src/phaseN/phaseN-report.md` (figures inline) → [`src/ref-report/`](src/ref-report/README.md) (glossary) |
 | What did Phase N find? | `src/phaseN/README.md` (front-door synthesis) + `RESULTS.md` (the scalar ledger) |

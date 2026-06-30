@@ -226,7 +226,11 @@ north star, beyond the numbered phases, deliberately not specced yet. *Simple in
 
 ## Reading guide
 
-Enter the set here, then descend by need: **stage1-report** (this file — the arc) → each phase's
+**If you read only one file:** [`phase5-final-architecture.md`](phase5-final-architecture.md) — the **v1.0.0**
+self-contained account of the whole model (what it is, the math, how it extends each paper, the five-phase arc),
+written for an outside researcher to understand the architecture without opening any phase report.
+
+Otherwise, enter the set here, then descend by need: **stage1-report** (this file — the arc) → each phase's
 **[`README.md`](phase1/README.md)** front door (the navigable synthesis + key figure) → the five
 **[phaseN-report.md](phase1/phase1-report.md)** (the detailed logs, with figures and the per-experiment story) →
 the **`expK/experiment-K.md`** cards (the full six-slot reads + threats) → **[`ref-report/`](ref-report/README.md)**
