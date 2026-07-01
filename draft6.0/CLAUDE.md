@@ -22,15 +22,17 @@ Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md).
 
 ## Where we are — current status (the shifting part: edit this, not the root)
 
-**The SCFF cheap brain is finished (Phases 1–5). Phase 6 = GD-side optimization is the live line.** One-glance
-ladder — the depth lives in each `src/phaseN/README.md`, not here:
+**The SCFF cheap brain composes depth (Phases 1–5); one Stage-1 *extension* remains — Phase 6, noise-robustness — and
+it is the live line. The GD *namer* (Stage 2) follows as Phases 7–9.** One-glance ladder — the depth lives in each
+`src/phaseN/README.md`, not here:
 
 - **P1 ✓ structure** — the cell works; its home is the **continual** regime (a periodic sleep recovers what online backprop catastrophically forgets). Generalizes better than backprop at ~10% backward cost; *not* a deep static-accuracy competitor.
 - **P2 ✓ depth round 1** — a deep SCFF stack can't earn depth (transmission *and* a perfect-oracle objective both fail). Depth comes from **boosted ensembles of shallow blocks with tiny GD readouts**, not deep SCFF.
 - **P3 ✓ depth round 2 — ADOPTED** — the wall was the **energy objective `Σh²`**, not locality. **Contrast (InfoNCE) + a cross-layer coordination window** compose depth and re-earn the continual win — this **supersedes energy-goodness**.
 - **P4 ✓ characterization** — the capability map vs *genuinely-tuned* backprop: **a substrate-native continual learner, not a static-accuracy competitor.** WINS continual / nuisance-dim / depth-composition / depth-is-cheap (the 80/20 cost win is depth-gated); TRAILS static difficulty / class-count; one honest NEGATIVE on eval-time weight noise.
 - **P5 ✓ SCFF close-out — depth SOLVED (scoped)** — the decay was **objective-locality, not an intrinsic Tunnel** (full-credit w12 composes the whole stack). Two *free* levers fix it: **sharper InfoNCE temp 0.2** earns the depth back (direction, not lr — ~82% of the lift; the readout beats tuned-BP, the probe tail reaches the w12 ceiling) and **per-depth heads + a short fixed reader** read the continual home **8× cheaper** than all-tap. **Continual-safe** (A6 intact, BWT −0.026) and **real-data-confirmed** (digits tail +0.152; null-but-safe on CIFAR-flat, which has no composable depth). Committed cell: **`SCFFContrastOverlap` temp0.2 / w2, L12 bulk, NO residual, fixed-reader deploy** (truncate ~L2–3 on the home · all-tap for peak acc · w4 = bounded depth-closer). Adaptive early-exit and the frozen residual were **struck**. *The cheap brain is done.*
-- **P6 → GD-side optimization** (live — was "P5 = optimization") — every remaining knob is on the precise GD back: the sleep-cadence + Ch7 learning-gate maintenance loop tuned to the measured drift, plus train-with-noise (hardware-aware) and natural-data follow-ups.
+- **P6 → noise-robust SCFF** (live — a Stage-1 *extension*, reframed 2026-07-01) — A7 (eval-time noise sensitivity) *and* the continual fact that **every datum the model banks is a noisy real-world sample** (it never sees clean truth) both land on the **SCFF objective**, not the GD readout: a frozen head can't manufacture backbone robustness it lacks (LP-FT), so noise is fixed **here, before the namer**. Probe tap/input/ADC noise (Rasch's dominant channel), structured & directional; verdict fork = fixable-in-the-SCFF-objective vs a deeper rethink. Plan: [`src/phase6/design.md`](src/phase6/design.md).
+- **Stage 2 → the GD namer (Phases 7–9)** — once the base is noise-hardened: **P7** the readout (cosine / RanPAC on the frozen bulk) · **P8** the economy gate + the cost meter · **P9** the maintenance loop + owed baselines. Map: [`src/stage2-design.md`](src/stage2-design.md). *(Was the undifferentiated "P6 = GD optimization.")*
 
 > Status edit rule: finishing a phase updates **one line above** + adds a `phaseN/CLAUDE.md` signpost. The root never changes for this.
 
