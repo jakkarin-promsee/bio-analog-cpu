@@ -1,7 +1,7 @@
 # P6.6 — continual-safety: the home-turf gate (the spine gate, un-skippable)
 
-*Inheriting from P6.1: the adopted fix = `NoiseAugContrast` variant=iid, σ_aug=1.0 (fixes the dominant
-tap-directional channel into band). This rung decides whether banking it is allowed.*
+*Inheriting from P6.1: the adopted fix = `NoiseAugContrast` variant=iid, σ_aug=1.0 (substantially hardens the
+dominant tap-directional channel — a partial band crossing, P6.8). This rung decides whether banking it is allowed.*
 
 **Question.** Does the adopted noise fix **preserve the A6 sleep-recovery continual win**? A fix that dents A6 is
 rejected regardless of its A7 gain.

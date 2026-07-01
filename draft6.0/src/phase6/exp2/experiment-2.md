@@ -12,8 +12,9 @@ antecedents hold:
 - **tap ≫ weight** (P6.0): the weight channel (multiplicative, old-A7) retains 0.895 @σ=0.4 — the *mildest* channel;
   tap/input directional are the dominant enemies (retention ~0.59 @rms 4.0), and the norm-amplified tap channel is
   where the fragility lives. ADC is fine ≥3-bit; common-mode is auto-rejected by the layernorm.
-- **P6.1 closes the tap gap** (0.946, ≥ the 0.90 band) via generic iid augmentation — no weight-channel gap remains
-  that a flatness lever would be needed to close.
+- **P6.1 substantially closes the tap gap** (0.817→0.865 combined; per-rung to 0.946) via generic iid augmentation —
+  no weight-channel gap remains that a flatness lever would be needed to close (and flatness targets the *weight*
+  channel, not the tap residual regardless).
 
 **Verdict: SKIPPED.** Flatness (S-SGD weight-noise + the zeroth-order sharpness pass) would harden the
 *non-dominant* weight channel; the compute (a continual-scale periodic forward-only pass over the SCFF weights) is

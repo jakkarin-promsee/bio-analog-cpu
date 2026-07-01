@@ -1,8 +1,8 @@
 # P6.3 — the per-sample-norm root re-examination — **SKIP-CARD** (STOPPING MARK ②)
 
-*Inheriting from P6.1: the dominant tap-directional channel is fixed by generic iid augmentation
-(retention 0.841→0.946, into band), clean acc improved, selectivity held. The only residual is the
-input-transducer channel (0.812→0.822, marginal).*
+*Inheriting from P6.1: the dominant tap-directional channel is substantially hardened by generic iid augmentation
+(retention 0.817→0.865 combined, a partial band crossing), clean acc improved, selectivity held. The only residual
+is the input-transducer channel (0.812→0.822, marginal).*
 
 **Pre-registered skip (design §3 P6.3 + STOPPING MARK ②).** P6.3 was conditional — *"run iff P6.1+P6.2 leave a
 gap"* — and its default outcome was pre-declared: *"leave the norm alone, harden around it; touching the root is

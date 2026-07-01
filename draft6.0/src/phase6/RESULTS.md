@@ -54,10 +54,11 @@ dominant channel = tap (Rasch). Guard: aug-σ0≡plain `0.0`.*
 Spine ordering **iid ≥ randax > dir** → the gain is **generic smoothing, NOT directional-specific** (H-aug-directional
 **overturned**). IID-enemy (rotational) retention unfixed (~0.60, √d energy) but its per-sample cos rises (0.34→0.41).
 
-**Reads:** **ADOPT iid σ_aug=1.0** — fixes the dominant tap-directional channel into band (≥0.90), clean acc ↑,
-selectivity held, capacity knee at σ2.0 avoided. Input-transducer channel marginal (0.812→0.822) → **Scoped-YES
-residual** to Stage-2 read-side. **STOP ① substantially met.** **Banked (pending P6.6):** the iid-aug fix. **P6.2/P6.3
-→ skip-cards** (tap fixed; weight non-dominant; leave the load-bearing norm).
+**Reads:** **ADOPT iid σ_aug=1.0** — substantially hardens the dominant tap-directional channel (per-rung median 0.946
+at the top of a wide IQR; **P6.8-combined 0.865, a *partial* not clean band crossing**), clean acc ↑, selectivity held,
+capacity knee at σ2.0 avoided. Input-transducer channel marginal (0.812→0.822) → **Scoped-YES residual** to Stage-2
+read-side. **STOP ① substantially met.** **Banked (pending P6.6):** the iid-aug fix. **P6.2/P6.3 → skip-cards** (tap
+substantially closed; weight non-dominant; leave the load-bearing norm).
 
 ---
 

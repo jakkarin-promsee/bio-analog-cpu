@@ -50,7 +50,7 @@ faces (Door A residual · Door B residual · the spine's enemy).
 | rung | question | verdict |
 | --- | --- | --- |
 | **P6.0** `exp0` | reproduce A7 on the frozen cell with an honest noise model; which channel; directional? | **BENCH TRUSTED** — A7 OURS-specific & directional (0.60 vs linear 0.96, 5/5); σ*=2.0 pinned; 7/7 guards |
-| **P6.1** `exp1` | does a noise-augmented contrastive view fix it, spine-clean, no collapse? *(STOP ①)* | **YES on the dominant tap channel** — adopt **iid σ_aug=1.0** (0.841→0.946); the fix is **generic** (overturns H-aug-directional) |
+| **P6.1** `exp1` | does a noise-augmented contrastive view fix it, spine-clean, no collapse? *(STOP ①)* | **substantially, on the dominant tap channel** — adopt **iid σ_aug=1.0** (0.82→0.87 combined; per-rung 0.95); the fix is **generic** (overturns H-aug-directional) |
 | **P6.2** `exp2` | forward-only flatness for the weight channel? | **SKIP** — tap ≫ weight, tap already fixed |
 | **P6.3** `exp3` | re-tune the per-sample norm (the A7 root)? *(STOP ②)* | **SKIP** — leave the load-bearing norm; harden around it |
 | **P6.4** `exp4` | can the direction form from an all-noisy stream; does purity beat averaging? | **YES it forms** (zero-mean 0.93, directional 1.00); purity ≈ averaging (not needed) |

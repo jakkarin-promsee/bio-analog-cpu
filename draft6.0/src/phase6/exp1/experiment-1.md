@@ -42,7 +42,9 @@ clean acc + tail-L12 selectivity + erank (capacity/collapse guard). `aug-σ0≡p
    directional mechanism.**
 2. **Headline** — tap-directional retention **0.946 [0.852–0.952]** at iid σ1.0 vs the fix-free baseline **0.841
    [0.836–0.869]** and the noiseless ceiling 1.00 (paired Δ +0.031 [+0.023,+0.082], 5/5) (n=5, headroom, tap,
-   matched projected-RMS). Crosses the pre-registered ≥0.90 band.
+   matched projected-RMS). *(⚠ This per-rung median sits at the top of a wide IQR; the P6.8 assembled run — more
+   device draws — revises it to **0.865**, near not above the 0.90 band. The lift is real and 5/5-paired either way;
+   the band crossing is **partial** — see P6.8.)*
 3. **Figures** — AUG-SWEEP (the sweet-spot + capacity knee), INV. (A7-CURVE fix-vs-fix-free assembled in P6.8.)
 4. **Mechanism** — the directional enemy is a *coherent translation* along an axis unknown at train time; you cannot
    bet the augmentation on one direction (dir/randax under-perform), so **broad iid smoothing — invariance to
@@ -56,9 +58,10 @@ clean acc + tail-L12 selectivity + erank (capacity/collapse guard). `aug-σ0≡p
    honestly, **not** a directional-specific spine mechanism (the design's H-aug hypothesis is overturned here); (c)
    unpaired IQR overlaps (high between-seed variance) → the **paired Δ** IQR excludes 0 and is 5/5 (real by the
    paired rule); (d) input-channel gain is marginal — reported, not hidden.
-6. **Decision** — **Adopt `NoiseAugContrast` variant=iid, σ_aug=1.0** (pending the P6.6 gate). It fixes the dominant
-   tap channel into band. The **input-transducer channel is only marginally helped** (0.812→0.822) — a **Scoped-YES
-   residual** handed to Stage-2 read-side, not a headline. STOPPING MARK ① substantially met on the dominant channel.
+6. **Decision** — **Adopt `NoiseAugContrast` variant=iid, σ_aug=1.0** (pending the P6.6 gate). It substantially
+   hardens the dominant tap channel (per-rung near/into band; P6.8-combined 0.865, a *partial* crossing). The
+   **input-transducer channel is only marginally helped** (0.812→0.822) — a **Scoped-YES residual** handed to
+   Stage-2 read-side, not a headline. STOPPING MARK ① substantially met on the dominant channel.
 7. **Robustness-honesty** — the enemy was tap-directional at matched projected-RMS (a fixed device offset along the
    class axis), not a weak i.i.d. stand-in; the gain is a preserved class **direction** read as retention; the
    collapse/selectivity + capacity-knee guards passed; the fix is **generic**, and that is stated plainly rather than
