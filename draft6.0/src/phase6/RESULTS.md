@@ -102,6 +102,15 @@ Phase-9 knob, not required. Strengthens the YES.
 
 ---
 
+## P6.5 — bulk-drift — **DEFERRED** (verdict-exempt measurement rung)
+Per design §3 P6.5, this is a MEASUREMENT rung (representation drift over the continual stream) tagged
+**verdict-bar-exempt** and **deferrable to Stage-2/Phase-9, where its only consumer (the maintenance-loop design)
+lives.** P6.6 already established the fix is drift-*robust* (BWT improves), so the bulk-drift rate is deferred to
+Stage-2 rather than run at continual-stream cost here — it cannot move the Phase-6 verdict. `p6lib.bulk_drift` is
+built and available.
+
+---
+
 ## P6.7 — natural-data confirmation `exp7`
 *Locked: fix-free vs iid-aug σ1.0 · digits 64-D + CIFAR-flat 3072-D · σ*=2.0 · directional · seeds[42,137,271].*
 
