@@ -32,6 +32,8 @@ post
 # phase run artifacts — checkpoints/logs/stale regenerate; figs + arrays.npz + manifest.json are the tracked record
 **/figs_*/_ckpt.jsonl
 **/figs_*/run_full.log
+**/*_run.log
+**/figs_*_quick/
 **/*.stale
 
 # Temporary research space

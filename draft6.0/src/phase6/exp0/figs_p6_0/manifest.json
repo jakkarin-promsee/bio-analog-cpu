@@ -1,0 +1,51 @@
+{
+  "experiment": "p6_0_bench",
+  "git_commit": "5222617a6aaa1f317a4b9262abac6492938fa076",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "tasks": [
+    "headroom",
+    "flat"
+  ],
+  "L": 12,
+  "W": 64,
+  "dim": 40,
+  "n_class": 4,
+  "rms_add": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "sig_w": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "adc_bits": [
+    8,
+    6,
+    4,
+    3,
+    2
+  ],
+  "reps_draw": 5,
+  "ret_target": 0.9,
+  "sigma_star": 2.0,
+  "dir_cos_at_star": 0.9712009640094431,
+  "ours_worse_than_linear": true,
+  "guards": {
+    "all_pass": true
+  },
+  "numpy": "2.3.5",
+  "wall_clock_s": 317.6
+}
