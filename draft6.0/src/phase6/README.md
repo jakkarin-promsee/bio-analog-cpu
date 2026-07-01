@@ -1,9 +1,10 @@
 # Phase 6 — Noise-robust SCFF: make the cheap brain survive the world it runs in
 
-> **The front door.** Read this for the verdict; open `RESULTS.md` for the numbers, `expK/experiment-K.md` for a
-> rung's story, `design.md` for the pre-run plan. Phase 6 is a **Stage-1 extension** — it hardens the *frozen
-> Phase-5 cell* against noise **before** the GD namer (Stage 2), because a frozen head cannot manufacture backbone
-> robustness (LP-FT). Ran 2026-07-01, P6.0→P6.8, single-thread, seeds `[42,137,271,314,1729]`, all guards pass.
+> **The front door.** Read this for the verdict; open [`phase6-report.md`](phase6-report.md) for the full story with
+> every figure, `RESULTS.md` for the numbers, `expK/experiment-K.md` for a rung's story, `design.md` for the pre-run
+> plan. Phase 6 is a **Stage-1 extension** — it hardens the *frozen Phase-5 cell* against noise **before** the GD
+> namer (Stage 2), because a frozen head cannot manufacture backbone robustness (LP-FT). Ran 2026-07-01, P6.0→P6.8,
+> single-thread, seeds `[42,137,271,314,1729]`, all guards pass.
 
 ---
 
@@ -84,5 +85,16 @@ improved**; the dominant tap-directional channel is noise-robust.
 robustness is built into the base representation, not bolted onto the readout.* This revises the implicit "the SCFF
 objective is noiseless" and is the Phase-6 supporting decision for `idea/main.ideas.v1.md`.
 
-*Literature behind every mechanism:* [`../../research/papers/phase6/`](../../research/papers/phase6/README.md).
-*Prev:* [Phase 5](../phase5/README.md) · *Next:* [Stage 2 / Phases 7–9](../stage2-design.md).
+## Read next
+
+| For | Go to |
+| --- | --- |
+| **The full story, every figure, the per-rung reads** | [`phase6-report.md`](phase6-report.md) |
+| The scalar ledger (per-rung numbers + the scorecard) | [`RESULTS.md`](RESULTS.md) |
+| The pre-run design (the ladder, the build plan, the two-door framing) | [`design.md`](design.md) |
+| The binding reporting contract (figures · tables · the 8-slot summary) | [`result-format.md`](result-format.md) |
+| The run-cards | `exp0`…`exp8/` `experiment-*.md` (P6.0–P6.8; exp2/exp3 = the documented skips) |
+| The literature behind every mechanism | [`../../research/papers/phase6/`](../../research/papers/phase6/README.md) |
+| The Stage-1 arc (Phase 6 is its noise-hardening extension) | [`../stage1-report.md`](../stage1-report.md) |
+
+*Prev:* [Phase 5](../phase5/README.md) · *Next:* [Stage 2 / Phases 7–9 — the GD namer](../stage2-design.md).
