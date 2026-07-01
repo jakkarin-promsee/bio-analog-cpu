@@ -1,0 +1,16 @@
+{
+  "experiment": "p6_8_assembled",
+  "git_commit": "86ed49d697c609046f60ebfab5aaa08289a575bf",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "fix": "iid1.0",
+  "tap_dir_ret_fixfree": 0.817179485607988,
+  "tap_dir_ret_hardened": 0.8645238079800169,
+  "numpy": "2.3.5",
+  "wall_clock_s": 132.4
+}

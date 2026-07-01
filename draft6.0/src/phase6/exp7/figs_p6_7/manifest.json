@@ -1,0 +1,17 @@
+{
+  "experiment": "p6_7_natural",
+  "git_commit": "86ed49d697c609046f60ebfab5aaa08289a575bf",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "datasets": [
+    "digits",
+    "cifar"
+  ],
+  "sig_star": 2.0,
+  "fix": "iid1.0",
+  "numpy": "2.3.5",
+  "wall_clock_s": 404.6
+}

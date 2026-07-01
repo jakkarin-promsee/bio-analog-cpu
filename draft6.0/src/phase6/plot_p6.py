@@ -67,7 +67,15 @@ def fig_a7_curve(d, out):
     for metric, pre, ylab in [("acc", "a7acc", "readout accuracy"), ("dir", "a7dir", "direction-invariance cos")]:
         fig, ax = plt.subplots(figsize=STYLE["figsize_wide"])
         drew = False
-        for ch in ("tap", "input"):                                   # the additive channels on the shared grid
+        # P6.8 assembled view: fix-free (dashed) vs hardened (solid bold), the directional channels
+        for ch in ("tap", "input"):
+            col = STYLE["ch"].get(ch, STYLE["ours"])
+            if ok(f"{pre}_hardened_{ch}_dir") or ok(f"{pre}_fixfree_{ch}_dir"):
+                if ok(f"{pre}_fixfree_{ch}_dir"):
+                    _band(ax, rms, d[f"{pre}_fixfree_{ch}_dir"], col, f"fix-free {ch}·dir", ls="--"); drew = True
+                if ok(f"{pre}_hardened_{ch}_dir"):
+                    _band(ax, rms, d[f"{pre}_hardened_{ch}_dir"], col, f"hardened {ch}·dir", ls="-"); drew = True
+        for ch in ("tap", "input"):                                   # P6.0 reproduction view (ours = fix-free)
             col = STYLE["ch"].get(ch, STYLE["ours"])
             for var, ls in [("iid", "-"), ("dir", "--")]:
                 k = f"{pre}_ours_{ch}_{var}"

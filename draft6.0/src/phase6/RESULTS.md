@@ -100,3 +100,48 @@ is noise" continual fear is answered. **Buffer purity not adopted** (no benefit 
 Phase-9 knob, not required. Strengthens the YES.
 
 ---
+
+## P6.7 — natural-data confirmation `exp7`
+*Locked: fix-free vs iid-aug σ1.0 · digits 64-D + CIFAR-flat 3072-D · σ*=2.0 · directional · seeds[42,137,271].*
+
+| dataset | clean acc | fix-free tap-dir ret | hardened tap-dir ret | A7 present? | fix holds? |
+| --- | --- | --- | --- | --- | --- |
+| digits | 0.94–0.96 | 0.763 | **0.888** | YES (<0.95) | YES |
+| CIFAR-flat | ~0.27 | 0.697 | **0.779** | YES (<0.95) | YES |
+
+**Reads:** A7 is **not a synthetic artifact** — reproduces on both real datasets, and the fix lifts the dominant tap
+channel on both. Input-directional dataset-dependent (weak digits, robust CIFAR); the fix does not create input
+robustness (the residual). Synthetic story + fix **committable**.
+
+---
+
+## P6.8 — assembled-cell confirmation + the arc verdict `exp8`
+*Locked: adopted iid-aug σ1.0, full A7 curve vs the frozen P6.0 fix-free arrays · headroom · n=5 · σ*=2.0.*
+
+| metric | fix-free | hardened (iid σ1.0) | paired Δ (pos/5) | verdict |
+| --- | --- | --- | --- | --- |
+| **tap-dir retention** (dominant) | 0.817 [0.781–0.861] | **0.865 [0.851–0.915]** | +0.054 (5/5) | real lift, **near not above** 0.90 band |
+| input-dir retention (residual) | 0.733 [0.729–0.771] | 0.696 [0.695–0.769] | −0.03 | not helped (Stage-2) |
+| clean acc | 0.526 | 0.555 [0.555–0.560] | +0.029 | improved |
+
+**VERDICT — Scoped-YES (fixable in SCFF, forward-only; with a named residual):** the dominant tap channel is
+substantially and reproducibly hardened forward-only (0.817→0.865, 5/5; digits 0.888; CIFAR 0.779) — **near, not
+decisively above, the 0.90 band** (an honest *partial* fix) — **continual-safe** (P6.6) and **natural-confirmed**
+(P6.7). **Not NO** (the objective did not need reopening); **not clean-YES** (partial + a residual). The **input-
+transducer directional** channel + the tap high-σ tail + ADC<3-bit → **Stage-2 read-side brief.** **The SCFF side's
+noise question is COMPLETE.**
+
+---
+
+## Phase-6 scorecard
+
+| axis | result |
+| --- | --- |
+| A7 reproduced, OURS-specific & directional | ✅ (0.60 vs linear 0.96, 5/5; on synthetic + digits + CIFAR) |
+| primary fix = forward-only noise-augmentation | ✅ generic iid (directional-specific **overturned**) |
+| dominant tap channel hardened | ⚠️ partial — real +0.05–0.13 lift, near the 0.90 band |
+| input-transducer channel | ❌ residual → Stage-2 read-side |
+| continual A6 win preserved (the gate) | ✅ PASS (BWT −0.022→−0.017, slightly better) |
+| Door B (all-noisy stream) | ✅ direction forms (zero-mean 0.93, directional 1.00) |
+| natural-data (not a synthetic artifact) | ✅ digits + CIFAR-flat |
+| **arc verdict** | **Scoped-YES** — hardened cell + a named Stage-2 residual |
