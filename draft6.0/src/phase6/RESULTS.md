@@ -60,3 +60,43 @@ residual** to Stage-2 read-side. **STOP ① substantially met.** **Banked (pendi
 → skip-cards** (tap fixed; weight non-dominant; leave the load-bearing norm).
 
 ---
+
+## P6.2 / P6.3 — flatness / norm-root — **SKIP-CARDS** `exp2` `exp3`
+*Pre-registered conditional rungs; neither antecedent met.* **P6.2:** tap ≫ weight (P6.0: weight ret 0.895 mildest)
+**and** P6.1 closed the tap gap → flatness would harden a non-dominant channel → **SKIP.** **P6.3:** the dominant gap
+was closed *around* the norm (P6.1); the only residual is the non-dominant input channel (Stage-2 read-side); the
+per-sample norm is load-bearing for 4 P5/P4 properties → **leave the norm, harden around it (STOP ②)** → **SKIP.**
+
+---
+
+## P6.6 — continual-safety: the home-turf gate `exp6` *(the spine gate)*
+*Locked: digits A6 home · CISTREAM 5×2 · sleep-consolidated all-tap · seeds[42,137,271,314,1729] (full 5, NEVER 3) ·
+paired-sign veto.*
+
+| change | AA | BWT | forget | ΔBWT paired (neg/5) | verdict |
+| --- | --- | --- | --- | --- | --- |
+| fix-free committed cell | 0.937 [0.929–0.941] | −0.022 [−0.045,−0.020] | 0.024 | — (referent ≈ P5.7 −0.026) | A6 win |
+| **iid-aug σ1.0** | **0.944 [0.940–0.945]** | **−0.017 [−0.020,−0.017]** | 0.020 | **+0.005 (1/5 neg)** | **PASS — banked** |
+
+Per-seed ΔBWT `[+0.048,−0.005,+0.002,+0.025,+0.005]` (4/5 positive); ΔAA 4/5 positive. **The fix preserves — and
+slightly improves — the A6 win** (a noise-robust rep is also drift-robust). Paired veto not tripped (1/5, need ≥4/5).
+
+**Reads:** **GATE PASSED → the iid-aug σ1.0 fix is BANKED** as the noise-hardened cell. The verdict survives its most
+dangerous gate. → P6.7 (natural), P6.8 (verdict).
+
+---
+
+## P6.4 — Door B: all-noisy stream + buffer purity `exp4`
+*Locked: frozen cell trained on an all-corrupted stream (rms 1.0 = σ*/2) · headroom · matched sample budget · n=5.*
+
+| corruption / knob | separability (ratio to clean-data cell) | verdict |
+| --- | --- | --- |
+| zero-mean stream | 0.930 [0.918–0.935] | direction forms (N2N; 0.07 residual gap) |
+| directional stream | 1.001 [0.982–1.030] | forms fully (coherent shift ≠ training problem) |
+| purity-on vs off | 0.530 [0.529–0.531] vs 0.525 [0.521–0.543] (3/5) | averaging suffices (within noise) |
+
+**Reads:** the class direction **forms from an all-noisy stream** (both corruptions clear the 0.90 bar); the "all data
+is noise" continual fear is answered. **Buffer purity not adopted** (no benefit at this noise level) → an *available*
+Phase-9 knob, not required. Strengthens the YES.
+
+---

@@ -1,0 +1,17 @@
+{
+  "experiment": "p6_6_continual_safety",
+  "git_commit": "c9f25c0ebfa2bff1e819c3e8081cb3598e967b15",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "changes": [
+    "fixfree",
+    "aug_iid_1.0"
+  ],
+  "numpy": "2.3.5",
+  "wall_clock_s": 88.9
+}

@@ -1,0 +1,14 @@
+{
+  "experiment": "p6_4_door_b",
+  "git_commit": "c9f25c0ebfa2bff1e819c3e8081cb3598e967b15",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "corr_rms": 1.0,
+  "numpy": "2.3.5",
+  "wall_clock_s": 366.0
+}
