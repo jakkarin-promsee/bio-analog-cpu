@@ -36,6 +36,7 @@ Phase-7 bake-off scores *which readout stays spine-clean while matching the prot
 | ---- | -------------- | ------------ |
 | [the-convex-readout.md](the-convex-readout.md) | Reservoir computing / ELM / online convex optimization. Why a readout on a frozen bulk is convex; FTRL/regret; SGD vs Adam vs Lion vs *no optimizer at all*; what a 2-register Scap can hold. | **The 20% is the easy part — frozen features make it convex.** |
 | [direction-readouts.md](direction-readouts.md) | Cosine classifiers, NCM, **Deep SLDA**, **RanPAC** ridge-prototype, classifier magnitude-bias (SCR / BiC / Weight-Alignment), the bursty-stream imbalance guard. | **Cosine reads *direction*; NCM/SLDA carry a magnitude but dodge recency bias — score which stays spine-clean.** |
+| [analytic-and-covariance-readouts.md](analytic-and-covariance-readouts.md) *(2nd-pass audit)* | The families the rough pass missed: **Analytic Continual Learning / recursive-least-squares** (ACIL, GKEAL, DS-AL, AOCIL, GACL, and ⭐ **F-OAL** = forward-only + online + no-gradient); **FeCAM** per-class-covariance Mahalanobis; the **RanDumb** skeptic-control. | **No-gradient streaming naming is a *published paradigm*, not a bet — and FeCAM is the closed-form multimodality escape (and the max-magnitude spine pole).** |
 
 ## Papers (the readout slice)
 
@@ -53,3 +54,11 @@ Phase-7 bake-off scores *which readout stays spine-clean while matching the prot
 | BiC (Large Scale Incremental Learning) | [1905.13260](https://arxiv.org/abs/1905.13260) | the **magnitude-bias** failure of a naive linear head, post-hoc fix |
 | Weight Alignment (Maintaining Discrimination & Fairness) | [1911.07053](https://arxiv.org/abs/1911.07053) | fixes head bias by **aligning weight *norms*** — magnitude is the bug |
 | Logit-adjusted online CL | [2311.06460](https://arxiv.org/abs/2311.06460) | online (during-stream) fix for the bursty-stream recency/imbalance bias |
+| — *2nd-pass audit adds (IDs review-resolved)* — | | *(see [analytic-and-covariance-readouts.md](analytic-and-covariance-readouts.md))* |
+| **FeCAM** (per-class covariance Mahalanobis) | [2309.14062](https://arxiv.org/abs/2309.14062) | **the closed-form multimodality/heterogeneity escape — and the max-magnitude spine pole** (CIFAR100/5t 70.9 vs NCM 64.8) |
+| **Deep SLDA** (tied covariance, streaming) | [1909.01520](https://arxiv.org/abs/1909.01520) | **the cheaper covariance *middle*** (one shared cov) — between NCM and FeCAM on the ladder |
+| **F-OAL** = **AOCIL** (Forward-only Online Analytic Learning) | [2403.15751](https://arxiv.org/abs/2403.15751) *(NeurIPS 2024; one paper, v1→v2 rename)* | ⭐ **forward-only + online + recursive-least-squares, no gradient — our exact constraint** |
+| ACIL · GKEAL · DS-AL · GACL (Analytic CL family) | [2205.14922](https://arxiv.org/abs/2205.14922) / CVPR'23 (few-shot, no arXiv) / [2403.17503](https://arxiv.org/abs/2403.17503) / [2403.15706](https://arxiv.org/abs/2403.15706) | **RLS = joint-learning-equivalent, no-gradient, streaming** — RanPAC is one point in this space |
+| **AIR** — Analytic Imbalance Rectifier | [2408.10349](https://arxiv.org/abs/2408.10349) | **the no-gradient family's imbalance guard** (P7.3 — trained-head guards don't apply to a closed-form winner) |
+| **RanDumb** (random projection + simple classifier) | [2402.08823](https://arxiv.org/abs/2402.08823) | **the skeptic control** — does the trained bulk even beat a random projection at the readout? (run random-from-taps + random-from-pixels) |
+| AnaCP — Analytic Contrastive Projection | [2511.13880](https://arxiv.org/abs/2511.13880) | newest (Nov 2025) "upper-bound CL" analytic head — a stretch reference |
