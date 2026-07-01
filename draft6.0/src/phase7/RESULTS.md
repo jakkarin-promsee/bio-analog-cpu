@@ -24,4 +24,24 @@ INV: dead-frac **0.000** · effective-rank **58.7** · FD-guard ✓ · feature-s
 is the expected ELM effect (flagged to Stage 2, both readings); static ceiling confirms SCFF is a *continual*, not a
 static-accuracy, competitor (P4-consistent).
 
-<!-- P7.1 .. P7.6 rows appended as they run -->
+## P7.1 — the readout bake-off (headline)  `exp1`
+*(running — section inserted here when complete)*
+
+---
+
+## P7.2 — multimodality / heterogeneity: the closed-form cliff  `exp2`
+*(controls: pinned all-tap taps, natural digits = decider, synth-blob = sanity, seeds ×5; wall 65.6s)*
+
+| ladder-rung | acc (digits, natural) | acc (synth-blob sanity) | n-modes (natural) | closed-form? | verdict |
+| --- | --- | --- | --- | --- | --- |
+| mean (NCM) | 0.754 [0.742–0.762] | 0.285 | 1.00 | ✓ | one mean underfits |
+| **SLDA (tied cov)** | **0.946 [0.946–0.951]** | 0.267 | — | ✓ | **the covariance escape (+0.19)** |
+| FeCAM (per-class cov) | 0.921 [0.905–0.933] | 0.298 | — | ✓ | per-class overfits (< SLDA) |
+| GKEAL (kernel) | 0.586 [0.583–0.613] | 0.857 | — | ✓ | multimodal fallback (rescues sanity only) |
+| mixture (k=3) | 0.824 [0.802–0.839] | 0.693 | — | ✗ | non-convex; **hurts digits (−0.12)** |
+
+**Verdict:** natural features **unimodal** (n-modes 1.0); the lever is the **tied covariance (SLDA), closed-form, no
+mixture needed** (mixture hurts). Convex/analytic story holds. SLDA's whitening is a magnitude tool — sharpens (not
+dodges) the spine tension.
+
+<!-- P7.3 .. P7.6 rows appended as they run -->

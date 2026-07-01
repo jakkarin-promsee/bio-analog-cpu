@@ -1,0 +1,33 @@
+{
+  "rung": "P7.2",
+  "git": "b5c740517e8b7fe925eb4cecfe12bd9f2b8c8f01",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "wall_s": 65.6,
+  "digits_ladder": {
+    "mean": 0.7537688442211056,
+    "slda": 0.9463986599664992,
+    "fecam": 0.9212730318257957,
+    "gkeal": 0.5862646566164154,
+    "mixture": 0.8241206030150754
+  },
+  "synthblob_ladder": {
+    "mean": 0.2853333333333333,
+    "slda": 0.26666666666666666,
+    "fecam": 0.298,
+    "gkeal": 0.8573333333333333,
+    "mixture": 0.6926666666666667
+  },
+  "nmodes_median": 1.0,
+  "closed_form_gain": 0.1926,
+  "mixture_extra": -0.1223,
+  "versions": {
+    "numpy": "2.3.5"
+  }
+}

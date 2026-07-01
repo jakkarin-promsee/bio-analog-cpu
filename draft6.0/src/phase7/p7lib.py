@@ -116,6 +116,15 @@ def _l2n(A):
     return A / (np.linalg.norm(A, axis=1, keepdims=True) + EPS)
 
 
+def _spd_inv(M):
+    """Invert a shrinkage-regularized (PD) matrix by fast LU; fall back to the SVD pseudo-inverse if singular.
+    The covariance heads add a shrinkage ridge, so LU is safe and ~3x faster than pinv on the 768-D tap space."""
+    try:
+        return np.linalg.inv(M)
+    except np.linalg.LinAlgError:
+        return np.linalg.pinv(M)
+
+
 def jsonsafe(o):
     """Recursively cast numpy scalars/arrays/bools to plain Python types so json.dump never chokes (the manifests)."""
     if isinstance(o, dict):
@@ -253,7 +262,7 @@ class SLDAHead:
         Xc = F - mu[Y]                                                  # within-class centering
         Sig = (Xc.T @ Xc) / max(len(F), 1)
         Sig = (1 - self.shrinkage) * Sig + self.shrinkage * np.trace(Sig) / d * np.eye(d)
-        P = np.linalg.pinv(Sig)                                         # precision (tied)
+        P = _spd_inv(Sig)                                              # precision (tied)
         self.W = mu @ P                                                 # [C,d]  w_c = Σ⁻¹ μ_c
         self.b = -0.5 * (mu @ P * mu).sum(1)                           # b_c = -0.5 mu_c^T Sigma^-1 mu_c
         self.mu = mu
@@ -288,7 +297,7 @@ class FeCAMHead:
             dg = np.sqrt(np.clip(np.diag(Sig), EPS, None))
             Cn = Sig / (dg[:, None] * dg[None, :])                      # correlation normalization (FeCAM)
             Cn = Cn + self.gamma * np.eye(d)                            # shrinkage (diagonal-dominant)
-            mus.append(mu); Pinvs.append(np.linalg.pinv(Cn * (dg[:, None] * dg[None, :])))
+            mus.append(mu); Pinvs.append(_spd_inv(Cn * (dg[:, None] * dg[None, :])))
         self.mu = np.stack(mus); self.Pinv = np.stack(Pinvs)
         return self
 
@@ -435,8 +444,8 @@ KNOB_GRIDS = {
     "cosine-softmax": [dict(tau=t) for t in (0.05, 0.1, 0.2, 0.5)],
     "ncm":            [dict()],
     "slda":           [dict(shrinkage=s) for s in (1e-3, 1e-2, 1e-1, 3e-1)],
-    "fecam":          [dict(shrinkage=s) for s in (0.1, 1.0, 10.0)],
-    "ranpac":         [dict(proj_dim=p, ridge_lambda=l) for p in (1000, 2000) for l in (1e0, 1e1, 1e2, 1e3)],
+    "fecam":          [dict(shrinkage=s) for s in (0.1, 1.0)],
+    "ranpac":         [dict(proj_dim=2000, ridge_lambda=l) for l in (1e0, 1e1, 1e2, 1e3)],   # fixed fair expansion
     "rls":            [dict(ridge_lambda=l) for l in (1e-1, 1e0, 1e1, 1e2, 1e3)],
     "gkeal":          [dict(gamma=g, ridge_lambda=l) for g in (0.05, 0.1, 0.5) for l in (1e0, 1e1)],
 }
@@ -754,7 +763,7 @@ def readout_cost(head, F_dim, C):
 
 
 # ============================================================ AAA static metric
-def aaa_curve(head_factory, Ftr, Ytr, Fte, Yte, *, n_points=6):
+def aaa_curve(head_factory, Ftr, Ytr, Fte, Yte, *, n_points=4):
     """Area under acc vs log10(#samples) ÷ log-span (the AAA static metric). Fits a fresh head on log-spaced
     training subsets. Returns (aaa, sizes, accs)."""
     N = len(Ftr)
