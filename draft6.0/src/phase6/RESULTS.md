@@ -37,3 +37,26 @@ translation along the class axis** (damages retention, not per-sample cos → re
 → gap for P6.1. **BENCH TRUSTED.** **Banked:** the bench + the frozen fix-free arrays. **Continual-safety:** n/a.
 
 ---
+
+## P6.1 — noise-as-contrastive-augmentation: the primary fix `exp1` *(STOP ①)*
+*Locked: frozen cell + one noise-augmented view · headroom · L12 · seeds[42,137,271,314,1729] · 5 draws · σ*=2.0 ·
+dominant channel = tap (Rasch). Guard: aug-σ0≡plain `0.0`.*
+
+| variant · σ_aug | tap-dir retention (dominant) | input-dir ret | clean acc | selectivity | vs-random-axis | verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| fix-free (σ0) | 0.841 [0.836–0.869] | 0.812 [0.685–0.908] | 0.526 | 0.530 | — | baseline |
+| **iid σ1.0** | **0.946 [0.852–0.952]** | 0.822 [0.679–0.888] | 0.555 | 0.530 | iid>randax(0.870) | **ADOPT — fixes tap** |
+| iid σ2.0 | 0.920 [0.832–0.939] | 0.818 | 0.543 | 0.507 | — | knee (sel dents) |
+| dir σ1.0 | 0.876 [0.873–0.890] | 0.767 | 0.558 | 0.569 | dir<iid | generic>directional |
+| randax σ1.0 | 0.870 [0.846–0.911] | 0.793 | 0.535 | 0.526 | — | generic isolator |
+
+**Paired Δ (iid σ1.0 − fixfree) tap-dir:** median **+0.031** [+0.023,+0.082], **5/5 positive** → real (paired).
+Spine ordering **iid ≥ randax > dir** → the gain is **generic smoothing, NOT directional-specific** (H-aug-directional
+**overturned**). IID-enemy (rotational) retention unfixed (~0.60, √d energy) but its per-sample cos rises (0.34→0.41).
+
+**Reads:** **ADOPT iid σ_aug=1.0** — fixes the dominant tap-directional channel into band (≥0.90), clean acc ↑,
+selectivity held, capacity knee at σ2.0 avoided. Input-transducer channel marginal (0.812→0.822) → **Scoped-YES
+residual** to Stage-2 read-side. **STOP ① substantially met.** **Banked (pending P6.6):** the iid-aug fix. **P6.2/P6.3
+→ skip-cards** (tap fixed; weight non-dominant; leave the load-bearing norm).
+
+---

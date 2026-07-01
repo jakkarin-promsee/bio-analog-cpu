@@ -320,11 +320,16 @@ class NoiseAugContrast(SCFFContrastOverlap):
     RINCE dS is covered by fd_rince_check."""
 
     def __init__(self, dims, *, sig_aug=0.0, variant="dir", loss="infonce", aug_common_mode=0.0, aug_adc_bits=0,
-                 rince_q=0.5, rince_lam=0.5, randax_seed=0, **kw):
+                 rince_q=0.5, rince_lam=0.5, randax_seed=0, aug_coherent=False, **kw):
         super().__init__(dims, **kw)
         self.sig_aug = float(sig_aug); self.variant = variant; self.loss = loss
         self.aug_common_mode = float(aug_common_mode); self.aug_adc_bits = int(aug_adc_bits)
         self.rince_q = float(rince_q); self.rince_lam = float(rince_lam)
+        # aug_coherent: corrupt one view with a FIXED per-batch offset (matches the eval enemy's COHERENT structure —
+        # a device shift is the same for all samples). Per-sample aug ≈ Jacobian smoothing (fixes small ROTATIONAL
+        # noise); coherent aug directly teaches invariance to a TRANSLATION along the label-free axis (the P6.0
+        # directional enemy). The clean test of whether aug CAN fix the coherent-directional channel.
+        self.aug_coherent = bool(aug_coherent)
         self._randax_rng = np.random.default_rng(randax_seed)
         self._randax_cache = {}
 
@@ -356,7 +361,7 @@ class NoiseAugContrast(SCFFContrastOverlap):
             a2src = a
             if nm is not None:                                         # view 2: NOISE-augmented, then masked
                 axis = self._aug_axis(a)
-                a2src = nm.add(a, rng, axis)
+                a2src = nm.add(a, rng, axis, per_sample=not self.aug_coherent)
             a2 = a2src * (rng.random((B, din)) >= self.mask_ratio)
             u1, n1, c1, ht1 = self._view_fwd(a1, s, w)
             u2, n2, c2, ht2 = self._view_fwd(a2, s, w)

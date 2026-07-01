@@ -1,0 +1,25 @@
+{
+  "experiment": "p6_1_noise_aug",
+  "git_commit": "1ff2d133a89004ed663d621f1a56848c6738337f",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "sigaugs": [
+    0.0,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "variants": [
+    "iid",
+    "dir",
+    "randax"
+  ],
+  "sig_star": 2.0,
+  "numpy": "2.3.5",
+  "wall_clock_s": 807.3
+}
