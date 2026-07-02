@@ -5,7 +5,8 @@
 > [`expK/experiment-K.md`](exp0/experiment-0.md). Pre-run plan: [`design.md`](design.md). Reporting contract:
 > [`result-format.md`](result-format.md). The frozen cell it runs: [`../phase6-final-architecture.md`](../phase6-final-architecture.md).
 > The namer it fires: [`../phase7/README.md`](../phase7/README.md). Ran 2026-07-02, P8.0→P8.6, single-thread CPU/float64,
-> seeds `[42,137,271,314,1729]`, ≈94 min wall, all seven guards bit-exact.
+> seeds `[42,137,271,314,1729]`, ≈94 min wall, all seven guards bit-exact. **P8.7 (the "why analog" substrate ablation)
+> added 2026-07-02** — §7.
 
 ---
 
@@ -212,11 +213,67 @@ verdict is **LIVE-SAFE**, and the mechanism inverts the naive expectation:
 
 ---
 
-## 7 · What Phase 8 sets, and what it leaves owed
+## 7 · Why analog: the substrate ablation (P8.7 — extension)
+
+Everything above compares OURS to BP+replay on the **same analog substrate** — the `bp_ratio` 0.501 is the *algorithm*
+win. But the chip's whole premise is the analog substrate itself, and the professor's question is blunt: *why not just
+run this on a GPU?* P8.7 answers it by re-metering the **exact committed loop** (P8.6) and the **same fair BP+replay
+baseline** on a **digital (von-Neumann / GPU-class) substrate** — the same per-op counts, different physics: **no ADC**
+(the datapath is digital end-to-end, so the analog tax vanishes — granted fully to digital), a **real digital 8-bit MAC**
+(`E_MAC_DIG` = 0.2 pJ, Horowitz ISSCC'14 45 nm, arithmetic-only — the *most generous* assumption to digital, before the
+memory wall), SRAM writes, matched 8-bit precision (the axis under test is the substrate, not the number format).
+
+The full 2×2:
+
+| model × substrate | E_total (pJ) | vs OURS-analog |
+| --- | --- | --- |
+| **OURS · analog** (the chip) | **3.40e7** | (ref) |
+| OURS · digital | 1.83e8 | 5.37× |
+| GD+replay · analog | 5.37e7 | 1.58× |
+| GD+replay · digital (status quo) | 5.23e8 | 15.37× |
+
+The win **factors cleanly** into two orthogonal multipliers:
+
+- **Substrate win = 5.37×** (OURS-digital / OURS-analog). This *is* the compute-in-memory thesis, measured. The SCFF
+  forward is ~8×10⁸ MACs; in the crossbar those MACs are near-free (weights resident, `e_MAC` 0.01 pJ), so only the ADC
+  readout is taxed. On a digital machine there is no ADC — but every one of those MACs now costs real energy (operands
+  fetched, the memory wall), and there are **~75× more MACs than ADC conversions**, so dropping the ADC saves far less
+  than the MACs now cost. Compute-in-memory wins precisely because it makes the many cheap operations *actually* cheap.
+- **Algorithm win = 2.86×** (GD-digital / OURS-digital). Orthogonal to the substrate: on the *same* digital hardware, our
+  gated forward-only loop (no backward pass; the namer fires on ~11–16% of steps) costs a third of BP+replay, which pays
+  a 3× forward + a replay pass *every* step to reach matched retention.
+- **Total = 15.37×** = 5.37 × 2.86 (the identity holds — the meter is internally consistent). What adopting the chip buys
+  over the conventional approach is the product of the two.
+
+Two honesty checks make this defensible rather than a rigged demo:
+
+1. **The 80/20 is substrate-independent.** GD-share is 0.155 on analog and 0.109 on digital — the gate's split is a
+   property of the op-schedule, not the physics. The economy is real on either substrate; analog just makes the whole
+   thing cheaper.
+2. **The analog advantage is a floor, not a knife-edge.** Sweeping `E_MAC_DIG` from 0.1 (below Horowitz arithmetic-only)
+   to 2.0 pJ (a heavy memory wall), the substrate win runs 2.74× → 5.37× → 13.3× → 26.5× → 52.9×. Even at the most
+   generous digital assumption the chip wins ~2.7×; count the memory wall a real accelerator pays and it grows past 50×.
+   The reported 5.4× is conservative.
+
+![P8.7 SUBSTRATE — why analog: OURS-analog vs OURS-digital vs GD-digital](exp7/figs_p8_7/SUBSTRATE.png)
+*Left: the 2×2 — the OURS-analog "chip" bar (ringed teal, 3.4e7 pJ) is a sliver of the GD-digital status-quo bar
+(5.2e8 pJ); substrate × algorithm = total (5.37 × 2.86 = 15.4). Right: the memory-wall sweep — OURS-analog is a flat
+reference while the digital costs climb, so the ~5× analog advantage is a floor. (n=5; behavioral meter, Horowitz +
+NeuroSim/ISAAC anchors + params in the manifest.)*
+
+*(Cross-check: OURS/GD on analog here is 0.63, vs the 0.50 P8.5 reported — P8.5 used the simpler checkpoint sleep cadence
+while P8.7 meters the committed grid-8 loop, which sleeps more; OURS costs a little more but is still cheaper than
+BP+replay on analog. Same direction, reconciled.) The digital model is behavioral, not an empirical GPU measurement —
+that would be incomparable to a behavioral analog model; the fair comparison is the same accounting on both substrates.*
+
+---
+
+## 8 · What Phase 8 sets, and what it leaves owed
 
 **Committed (the economy):** deployed head **SLDA** · awake gate **DDM** · trigger **class-direction tap-drift** · sleep
 cadence **grid-8 / full history / λ_ema 1.0** · imbalance guard **cbrs** · envelope unchanged (GD reads taps, never writes
-SCFF). **Metered 80/20: GD-share 0.121; bp_ratio 0.501.**
+SCFF). **Metered 80/20: GD-share 0.121; bp_ratio 0.501. Why-analog (P8.7): 15.4× cheaper than conventional GD-on-digital
+= 5.4× substrate × 2.9× algorithm.**
 
 **Decision-record deltas (flagged, banked to `idea/main.ideas.v1.md`, never retro-editing frozen arch files):**
 - **S6** → resolved (DDM gate + class-direction trigger; magnitude-of-shift is the false-fire null).
@@ -238,10 +295,10 @@ n=5, "real" only if IQR-disjoint and ≥4/5 by sign, the P8.6 gate uses a paired
 
 ---
 
-## 8 · Reading guide
+## 9 · Reading guide
 
 **Verdict:** [`README.md`](README.md). **Numbers:** [`RESULTS.md`](RESULTS.md). **Per-rung stories (8-slot cards):**
-[`exp0`](exp0/experiment-0.md) → [`exp6`](exp6/experiment-6.md). **Pre-run plan:** [`design.md`](design.md). **Contract:**
+[`exp0`](exp0/experiment-0.md) → [`exp7`](exp7/experiment-7.md). **Pre-run plan:** [`design.md`](design.md). **Contract:**
 [`result-format.md`](result-format.md). **Apparatus:** `p8lib.py` (+ `p8cfg.py`, `p8run.py`, `plot_p8.py`). **The model
 this runs:** [`../phase6-final-architecture.md`](../phase6-final-architecture.md). **The Stage-2 arc:**
 [`../stage2-report.md`](../stage2-report.md).

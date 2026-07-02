@@ -723,11 +723,22 @@ def _e_adc(cfg, bits=None):
 
 
 def hardware_cost_meter(cfg, *, head_name, Fdim, C, n_fire, n_sleep, n_steps, batch, probe_n,
-                        scff_dims, adc_bits=None):
+                        scff_dims, adc_bits=None, substrate="analog", e_mac_dig=None):
     """E_total = n_MAC*e_MAC + n_ADC*e_ADC(bits) + n_write*e_write + n_solve_flop*e_digital, ADC-dominant. Prices
     the WHOLE live loop for one head. Ops: (a) SCFF fwd+update EVERY step; (b) namer inference EVERY step; (c) namer
-    partial_fit on FIRES; (d) sleep re-forward+solve on SLEEPS. Returns the per-op energy dict (pJ; behavioral)."""
-    eA = _e_adc(cfg, adc_bits); eM = cfg.E_MAC; eW = cfg.E_WRITE; eD = cfg.E_DIGITAL
+    partial_fit on FIRES; (d) sleep re-forward+solve on SLEEPS. Returns the per-op energy dict (pJ; behavioral).
+
+    `substrate` = 'analog' (the crossbar/CIM chip -- near-free in-memory MAC, ADC-dominant; the DEFAULT, so every
+    frozen P8.0-P8.6 call is unchanged) or 'digital' (the conventional von-Neumann / digital-accelerator baseline --
+    P8.7: a real digital 8-bit MAC (cfg.E_MAC_DIG >> E_MAC because the operands must be fetched, the memory wall),
+    NO ADC (eA=0 -- the datapath is digital end-to-end, the analog tax vanishes), SRAM weight write (E_WRITE_DIG),
+    same digital solve (E_DIGITAL, substrate-independent). Matched 8-bit precision => the axis under test is the
+    SUBSTRATE. `e_mac_dig` overrides cfg.E_MAC_DIG for the memory-wall sensitivity sweep."""
+    if substrate == "digital":
+        eA = 0.0; eM = (cfg.E_MAC_DIG if e_mac_dig is None else float(e_mac_dig))
+        eW = cfg.E_WRITE_DIG; eD = cfg.E_DIGITAL
+    else:
+        eA = _e_adc(cfg, adc_bits); eM = cfg.E_MAC; eW = cfg.E_WRITE; eD = cfg.E_DIGITAL
     # --- SCFF bulk (a): fwd MACs + ADC per activation + CHEAP analog local plasticity EVERY step. The continuous
     #     local update is an analog charge nudge (priced at e_MAC), NOT a digital write-verify -- the expensive
     #     e_write (capacitor/RRAM program) is reserved for the RARE, DELIBERATE namer solve-writes (c)/(d) (design 2.3).
@@ -762,11 +773,13 @@ def hardware_cost_meter(cfg, *, head_name, Fdim, C, n_fire, n_sleep, n_steps, ba
     return dict(mac=E_mac, adc=E_adc, write=E_write, solve=E_solve, total=E_total,
                 gd=E_gd, scff=E_scff, gdshare=float(E_gd / (E_total + EPS)),
                 n_MAC=(a_mac + b_mac + d_mac), n_ADC=(a_adc + b_adc + d_adc),
-                n_write=(c_write_e + d_write_e), n_solve=(c_solve + d_solve))
+                n_write=(c_write_e + d_write_e), n_solve=(c_solve + d_solve),
+                substrate=substrate, e_mac=eM, e_adc=eA)
 
 
-def meter_from_trace(cfg, head_name, cache, res, *, adc_bits=None):
-    """Price a run_economy result on its actual fire/sleep counts."""
+def meter_from_trace(cfg, head_name, cache, res, *, adc_bits=None, substrate="analog", e_mac_dig=None):
+    """Price a run_economy result on its actual fire/sleep counts. `substrate`/`e_mac_dig` select the analog crossbar
+    (default) or the digital-accelerator baseline (P8.7) -- the SAME op-counts, different per-op physics."""
     stream = cache["stream"]; C = stream["C"]
     Fdim = cache["steps"][0]["phi_b"].shape[1]
     scff_dims = [cfg.DIM] + [cfg.WIDTH] * cfg.DEPTH
@@ -774,24 +787,30 @@ def meter_from_trace(cfg, head_name, cache, res, *, adc_bits=None):
     return hardware_cost_meter(cfg, head_name=head_name, Fdim=Fdim, C=C,
                                n_fire=int(res["fires"].sum()), n_sleep=int(res["sleeps"].sum()),
                                n_steps=len(cache["steps"]), batch=cfg.BATCH, probe_n=probe_n,
-                               scff_dims=scff_dims, adc_bits=adc_bits)
+                               scff_dims=scff_dims, adc_bits=adc_bits, substrate=substrate, e_mac_dig=e_mac_dig)
 
 
-def bp_replay_energy(cfg, *, Fdim, C, n_steps, batch, replay_batch, bp_dims, adc_bits=None):
-    """The BP+replay energy model at matched retention (SAME substrate table, SAME analog-plasticity assumption as
-    OURS -- fair): a backward pass EVERY step (~2x forward MACs) + the backward activations digitized (2x ADC) + a
-    replay mini-batch fwd+bwd EVERY step (to reach OURS's retention). The weight update is a cheap analog nudge
-    (e_MAC), same as OURS's SCFF plasticity -- so BP's DISTINCTIVE cost is the BACKWARD credit-assignment MACs+ADC +
-    the replay, NOT writes. NOT a naive backward-every-step BP that forgets (a strawman), NOT a generic FLOP count."""
-    eA = _e_adc(cfg, adc_bits); eM = cfg.E_MAC
+def bp_replay_energy(cfg, *, Fdim, C, n_steps, batch, replay_batch, bp_dims, adc_bits=None,
+                     substrate="analog", e_mac_dig=None):
+    """The BP+replay energy model at matched retention (SAME substrate table, SAME plasticity assumption as OURS --
+    fair): a backward pass EVERY step (~2x forward MACs) + the backward activations digitized (2x ADC, analog only) +
+    a replay mini-batch fwd+bwd EVERY step (to reach OURS's retention). The weight update is a cheap nudge (e_MAC),
+    same as OURS's SCFF plasticity -- so BP's DISTINCTIVE cost is the BACKWARD credit-assignment MACs (+ ADC on
+    analog) + the replay, NOT writes. NOT a naive backward-every-step BP that forgets (a strawman), NOT a generic FLOP
+    count. `substrate`='analog' (default -- the fair same-substrate BP the P8.5 bp_ratio uses) or 'digital' (P8.7 --
+    the conventional GPU/digital-accelerator GD baseline: digital MACs, NO ADC, matched 8-bit precision)."""
+    if substrate == "digital":
+        eA = 0.0; eM = (cfg.E_MAC_DIG if e_mac_dig is None else float(e_mac_dig))
+    else:
+        eA = _e_adc(cfg, adc_bits); eM = cfg.E_MAC
     fwd_macs = bp_dims[0] * bp_dims[1] + sum(bp_dims[i] * bp_dims[i + 1] for i in range(1, len(bp_dims) - 1))
     acts = sum(bp_dims[1:]); n_w = fwd_macs
     per_step_samples = batch + replay_batch
     mac = n_steps * per_step_samples * fwd_macs * 3.0                  # fwd + bwd (~2x) = 3x forward MACs
-    adc = n_steps * per_step_samples * acts * 2.0                      # fwd + bwd activations digitized
-    upd = n_steps * n_w                                              # cheap analog weight update (e_MAC), same as OURS
+    adc = n_steps * per_step_samples * acts * 2.0                      # fwd + bwd activations digitized (analog only)
+    upd = n_steps * n_w                                              # cheap weight update (e_MAC), same as OURS
     E = (mac + upd) * eM + adc * eA
-    return dict(total=E, mac=(mac + upd) * eM, adc=adc * eA, n_w=n_w)
+    return dict(total=E, mac=(mac + upd) * eM, adc=adc * eA, n_w=n_w, substrate=substrate, e_mac=eM)
 
 
 # ============================================================ guards (run FIRST — any fails -> STOP)

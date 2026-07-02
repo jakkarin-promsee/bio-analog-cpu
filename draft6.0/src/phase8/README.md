@@ -6,7 +6,8 @@
 > contract. Phase 8 is **Stage 2's second GD phase** (P7 readout · **P8 economy+cost** · P9 maintenance). Phase 7 picked
 > *what* the namer is (RanPAC + cbrs); **Phase 8 turns both brains on together for the first time**, decides *when* the
 > namer fires, and puts the **first honest hardware cost number** on the founding 80/20. Ran 2026-07-02, P8.0→P8.6,
-> single-thread CPU/float64, seeds `[42,137,271,314,1729]`, all seven guards bit-exact.
+> single-thread CPU/float64, seeds `[42,137,271,314,1729]`, all seven guards bit-exact. **P8.7 (the "why analog" substrate
+ablation) added 2026-07-02** — the full 2×2 {OURS, GD+replay} × {analog, digital} for the professor brief.
 
 ---
 
@@ -28,6 +29,13 @@ namer, a drift-gated awake/sleep economy — and ran it live. Four results, all 
   (worst-BWT **0.000**, 0/5 seeds regress vs oracle). And the crux inversion: **firing *more* forgets *more*** —
   always-pay forgets (−0.137) while the disciplined economy does not. The gate is a *safety* mechanism, not just a cost
   saver.
+- **WHY ANALOG — the substrate decomposition (P8.7 extension).** Priced against the *conventional* approach (real
+  backprop+replay on a digital accelerator), the chip is **~15× cheaper** in energy — and that win **factors cleanly**:
+  **~5.4× is the analog substrate** (compute-in-memory: the many MACs are near-free in the crossbar, only the ADC is
+  taxed; a digital von-Neumann machine pays the memory wall on every MAC) and **~2.9× is the 80/20 algorithm** (our
+  gated, backward-pass-free loop vs BP+replay on the *same* digital substrate). The analog advantage is a **conservative
+  floor** — it holds at ≥2.7× even under the most generous (arithmetic-only) digital assumption and grows to ~50× once
+  the memory wall is counted. **The 80/20 itself is substrate-independent** (GD-share 0.11–0.16 on either substrate).
 
 **The spine, demonstrated cleanly.** The committed trigger fires on the **class direction** in the SCFF taps, not on a
 magnitude. Run against a nuisance covariate shift (`g·x + α·1`, removed to ~ε by SCFF's input layernorm), the direction
@@ -118,6 +126,18 @@ phase's crux: always-pay forgets (−0.137) while the disciplined, cheaper econo
 *The committed economy holds worst-point BWT at 0.000 (= oracle) in 5/5 seeds at GD-share 0.155, while always-pay forgets
 (−0.137) at GD-share 0.747 — cheaper **and** safer. (n=5, live CI+nuisance; BWT pre-sleep at the worst mid-stream point.)*
 
+**P8.7 — why analog (the substrate ablation, extension).** P8.4/P8.5 compared OURS vs BP+replay on the *same analog*
+table — the algorithm win. P8.7 adds the substrate axis: re-meter the exact committed loop and the fair BP+replay
+baseline on a **digital** (von-Neumann / GPU-class) substrate — no ADC, a real digital 8-bit MAC (Horowitz-anchored,
+memory-wall swept), matched 8-bit precision. The chip (OURS-analog) is **15.4× cheaper** than the conventional baseline
+(GD-digital), factoring into a **5.4× substrate** win × a **2.9× algorithm** win.
+
+![P8.7 — why analog: OURS-analog vs OURS-digital vs GD-digital](exp7/figs_p8_7/SUBSTRATE.png)
+*Left: the 2×2 — the OURS-analog "chip" bar (ringed teal, 3.4e7 pJ) is a sliver of the GD-digital status-quo bar
+(5.2e8 pJ); substrate × algorithm = total (5.4 × 2.9 = 15.4). Right: the memory-wall sweep — OURS-analog is flat while
+the digital costs rise, so the ~5× analog advantage is a floor (≥2.7× even at arithmetic-only digital). (n=5; behavioral
+meter, Horowitz + NeuroSim/ISAAC anchors in the manifest.)*
+
 ---
 
 ## Honest scope (what Phase 8 does *not* settle)
@@ -131,6 +151,10 @@ phase's crux: always-pay forgets (−0.137) while the disciplined, cheaper econo
   (EMA-view / drift-slowdown) slows the drift, re-tune (a slower drift admits a sparser sleep).
 - **The meter is behavioral** (relative-pJ, ADC-centred macro-model — NeuroSim / ISAAC / PUMA level), NOT SPICE; per-op
   params + citations logged in every manifest, ADC-dominance sensitivity-checked.
+- **The digital baseline (P8.7) is behavioral too** — the same accounting on a von-Neumann substrate (no ADC, digital MACs
+  Horowitz-anchored, matched 8-bit). Its central `E_MAC_DIG` is *arithmetic-only* (the most generous to digital); the
+  memory wall is folded into the sweep, so the ~5× substrate advantage is a **conservative floor**, not a tuned number. It
+  is a *model*, not an empirical GPU measurement (which would be incomparable to a behavioral analog model).
 - **The read-side noise residual** (Phase-6 brief) remains owed → Phase 9.
 
 ---

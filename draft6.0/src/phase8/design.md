@@ -1,6 +1,7 @@
 # Phase 8 — The Economy: *when* the namer fires, and *what it truly costs* (the plan)
 
-> **Status: 🟢 LOCKED-FOR-RUN (written 2026-07-02; deep-research folded; 3-agent lab-manager review folded — §8).**
+> **Status: 🟢 RAN & COMPLETE (P8.0→P8.6 ran 2026-07-02; deep-research folded; 3-agent lab-manager review folded — §8).
+> + P8.7 substrate ablation EXTENSION added & ran 2026-07-02 (the "why analog" 2×2 for the professor brief — §2.5, §3).**
 > A *live spec an agent executes* — the experiment ladder + build plan for the **economy of the two-brain chip**: the
 > awake/sleep learning-gate that decides *when* to pay for direction, and the honest hardware cost meter that prices it.
 > When the rungs run they fill `expK/experiment-K.md`, `RESULTS.md`, then the public `README.md` + `phase8-report.md`.
@@ -223,6 +224,9 @@ The meter delivers:
   matched retention**: the BP reference must be **BP+replay** (its per-step backward + its replay passes to reach OURS's
   retention), metered on the **identical per-op energy table** (same `e_ADC`, `e_MAC`, `e_write`) — *not* a generic FLOP
   count and *not* a naive backward-every-step BP that forgets (a strawman). The first non-proxy 80/20 the project has had.
+- **The substrate ablation (P8.7 — EXTENSION)** — the same committed loop + the same BP+replay baseline, re-metered on the
+  **digital substrate** (§2.5) so the full **2×2 {OURS, GD+replay} × {analog, digital}** decomposes the win into
+  **substrate** × **algorithm** — the "why analog" answer for the professor brief.
 
 ### 2.4 The numeric verdict cuts (PINNED BLIND — the Phase-6/7 "unpinned verdict" hole, never reintroduced)
 
@@ -249,12 +253,40 @@ Pinned as *shapes with thresholds*, never expected results. `δ_acc = 0.02` (the
   scheduled sleep — NOT post-sleep)** — post-sleep hides the awake gate's recency forgetting (red-team catch). Live BWT
   **not negative** vs the oracle/frozen baseline in `≥ 4/5` paired seeds (veto) **AND** live AA within `δ_acc` of the
   frozen promise. A negative-BWT-at-worst-point in ≥4/5 = the economy is not safe (a first-class failure).
+- **Substrate ablation (P8.7 — EXTENSION).** Reported as a **decomposition**, no binary pass/fail. The **substrate win**
+  `= E(OURS-digital)/E(OURS-analog)` (same algorithm, CIM vs von-Neumann) and the **algorithm win** `= E(GD-digital)/
+  E(OURS-digital)` (same digital substrate, our 80/20 vs BP+replay) must **multiply to the total win** `= E(GD-digital)/
+  E(OURS-analog)` (an identity check — if they don't, the meter is inconsistent). The analog advantage is **honest only
+  if it survives the `E_MAC_DIG` sweep** — OURS-analog < OURS-digital across the whole arithmetic-only → memory-wall
+  range, so the reported number is a floor, not a knife-edge on one MAC-energy assumption.
 
 **No result may be narrated into a branch it does not numerically satisfy.**
 
+### 2.5 The digital substrate (P8.7) — the conventional baseline, made fair
+
+The meter's analog model (§2.3) prices the **crossbar/CIM chip**: the MAC is near-free (in-memory, `E_MAC`) and the
+**ADC dominates**. The "why analog" question needs its counterfactual — the **same computation on a conventional
+von-Neumann / digital-accelerator (GPU-class) substrate**, priced on the **same per-op accounting** so the only thing
+that changes is the *physics*:
+
+- **The MAC is no longer free.** A digital 8-bit multiply-accumulate must **fetch its operands** (the memory wall):
+  `E_MAC_DIG ≫ E_MAC`. Anchor: **Horowitz ISSCC'14** (45 nm) — 8-bit MULT ≈ 0.2 pJ, ADD ≈ 0.03 pJ → an 8-bit MAC
+  ≈ **0.2 pJ arithmetic-only**; an on-chip SRAM operand fetch adds ~1–5 pJ (DRAM ~100×). So `E_MAC_DIG = 0.2` is the
+  *arithmetic-only floor* (most generous to digital) and the **memory-wall penalty is folded into the sweep**
+  `E_MAC_DIG ∈ {0.1 … 2.0}`.
+- **There is no ADC.** The datapath is digital end-to-end — the analog tax (the ADC term, §2.3's dominant cost) **vanishes**
+  (`e_ADC = 0`). This is the term that *helps* digital; the meter grants it fully.
+- **Weight writes are SRAM stores** (`E_WRITE_DIG = 0.5 pJ`, vs the 10 pJ analog capacitor/RRAM write-verify); the digital
+  **solve** is `E_DIGITAL`, substrate-independent.
+- **Matched 8-bit precision** — the analog crossbar+ADC path is also 8-bit, so the axis under test is the **substrate**,
+  not the number format (the fairness clamp). The BP+replay baseline (§2.3) is priced on the digital table the same way
+  (drop the ADC, use `E_MAC_DIG`) — the fair conventional-GD baseline (matched retention, weight budget, precision).
+
+Anchors + params logged in the manifest (`METER_CITE_DIG`), sensitivity-swept — the same honesty rule as the analog meter.
+
 ---
 
-## 3. The ladder — P8.0 → P8.6 (one variable per rung; guards first; each rung states its read-including-failure BEFORE it runs)
+## 3. The ladder — P8.0 → P8.7 (one variable per rung; guards first; each rung states its read-including-failure BEFORE it runs)
 
 - **P8.0 — bench + guards + the live drift + the controls + the drift-visibility sanity panel.** Build `awake_sleep_loop`
   (dual-mode) + `partial_fit` + the meter skeleton. **Pin & justify the streaming schedule** (§2.1). Run the **guard set**
@@ -283,6 +315,16 @@ Pinned as *shapes with thresholds*, never expected results. `δ_acc = 0.02` (the
 - **P8.6 — assembled + the A6 gate (un-skippable).** Committed gate + cadence + head + cbrs, **live streaming**, 5 seeds +
   paired-sign veto, **BWT measured at the worst mid-stream point**. **Read:** *does the live mechanism keep the continual
   win (BWT not negative ≥4/5 at worst point; AA within δ_acc)? If not → the economy is not safe, and that is the headline.*
+- **P8.7 — the substrate ablation: WHY ANALOG? (EXTENSION, added 2026-07-02 post-run — author Q-call for the professor
+  brief).** P8.4/P8.5 metered OURS and BP+replay on the *same analog table* (the `bp_ratio` = the **algorithm** win on
+  analog); this rung adds the axis the "why build the analog chip" question needs — price the **exact committed economy**
+  (P8.6's loop: SLDA + DDM + cbrs + grid-8/full/λ1.0) **and** the fair BP+replay baseline on **both substrates** → the
+  full **2×2 {OURS, GD+replay} × {analog, digital}**, headline three = **OURS-analog vs OURS-digital vs GD-digital.**
+  The digital substrate = the conventional von-Neumann / digital-accelerator (GPU-class) baseline (§2.5). Decompose the
+  total win into **substrate** (`E(OURS-digital)/E(OURS-analog)` — CIM vs von-Neumann, same algorithm) × **algorithm**
+  (`E(GD-digital)/E(OURS-digital)` — our 80/20 vs real backprop+replay, same substrate); + an **`E_MAC_DIG` memory-wall
+  sensitivity sweep**. **Read:** *how much of the win is the analog substrate vs the 80/20 algorithm; is the analog
+  advantage robust across the digital MAC-energy assumption (a floor, not a knife-edge); does the 80/20 hold on digital?*
 
 *(Rungs are decisions backed by a result, not experiments to tune to pass. A struck arm is a card with its mechanism.
 Heavy live cells (P8.3, P8.6) checkpoint + single-thread + verify PID.)*
@@ -371,7 +413,11 @@ is the gate trigger, measured as FAR-on-nuisance.)*
   `driftlens` (embedding-distance vs reference window — the label-free reference) · `studd_signal` (student-teacher mimic
   loss, conservative). Each ~20–40 lines numpy (**no River/sklearn** for compute).
 - **`hardware_cost_meter(...)`** — the behavioral ADC-centred energy model (§2.3); the **BP+replay energy model** (matched
-  retention, same per-op table); `readout_cost` = the MAC+solve unit-energy special case (the guard).
+  retention, same per-op table); `readout_cost` = the MAC+solve unit-energy special case (the guard). **P8.7 extension:**
+  a `substrate="analog"` (default — every frozen P8.0–P8.6 call unchanged, guards bit-exact) / `"digital"` switch
+  (§2.5: `e_ADC=0`, `e_MAC=E_MAC_DIG`, `e_write=E_WRITE_DIG`; `e_mac_dig` overridable for the memory-wall sweep) on both
+  `hardware_cost_meter` and `bp_replay_energy` — the SAME op-counts, different per-op physics. New figure `fig_substrate`
+  (the 2×2 + the `E_MAC_DIG` sweep). New config block `E_MAC_DIG / E_WRITE_DIG / E_MAC_DIG_SWEEP / METER_CITE_DIG`.
 - **`make_drift_stream(...)`** — the streaming CI schedule (gradual onset) + a **nuisance-covariate injector** (a smooth
   input transform SCFF is invariant to, boundary intact) + a **stationary segment**. Emits known real-drift onset markers
   (→ MTD) and nuisance markers (→ FAR). **The injector is calibrated at the raw-input/early-tap level** (prove the pixels

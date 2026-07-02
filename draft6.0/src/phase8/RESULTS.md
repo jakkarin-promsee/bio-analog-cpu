@@ -9,6 +9,8 @@
 Full ladder ran 2026-07-02 (seeds `[42,137,271,314,1729]`, `--quick` off, git `e6993d5`, numpy 2.3.5, single-thread
 CPU/float64). Wall: P8.0 850s · P8.1 1511s · P8.2 1207s · P8.3 1206s · P8.4 157s · P8.5 291s · P8.6 398s (≈94 min total).
 All seven guards bit-exact every rung. Cell = `NoiseAugContrast(iid,σ_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12`.
+**P8.7 (substrate ablation — EXTENSION) ran 2026-07-02, 91s** (5 seeds; meter-proxy + partial-fit guards re-checked
+bit-exact — the analog path is unchanged by the digital switch).
 
 ---
 
@@ -125,4 +127,33 @@ same substrate table. The gate creates the 80/20 (off → 0.778).*
 *Paired veto 0/5 more-negative than oracle → PASS; AA-match OK → **LIVE-SAFE**. The disciplined economy is cheaper
 (GD-share 0.155 vs 0.747) **and** safer (worst-BWT 0.000 vs −0.137) than firing always. Live-vs-frozen AA gap (0.447 vs
 0.614) = task difficulty (harder live stream), not forgetting (worst-BWT 0.000).*
+
+---
+
+## P8.7 — substrate ablation: WHY ANALOG? *(EXTENSION; swept: model × substrate; committed economy = SLDA+DDM+cbrs+grid-8)*
+
+*The full 2×2 — the exact committed live loop (P8.6) and the fair BP+replay baseline, re-metered on the analog crossbar
+and the digital (von-Neumann / GPU-class) substrate. Digital = §2.5 (no ADC, `E_MAC_DIG=0.2` pJ Horowitz-anchored, SRAM
+write, matched 8-bit). Behavioral, relative-pJ. Energy is deterministic given the fixed schedule → zero IQR.*
+
+| model × substrate | E_total (pJ) | vs OURS-analog | verdict |
+| --- | --- | --- | --- |
+| **OURS · analog** (the chip) | **3.40e7** | (ref) | the proposed substrate |
+| OURS · digital | 1.83e8 | 5.37× | our algorithm without CIM |
+| GD+replay · analog | 5.37e7 | 1.58× | algorithm-only ablation (OURS/GD = 0.63, cf. P8.5 checkpoint 0.50) |
+| GD+replay · digital (status quo) | 5.23e8 | 15.37× | conventional GD on a digital accelerator |
+
+*Win decomposition (median [IQR], deterministic):*
+
+| win | ratio | meaning |
+| --- | --- | --- |
+| **substrate** (OURS digital/analog) | **5.37×** | CIM vs von-Neumann, same algorithm — *why analog* |
+| **algorithm** (digital GD/OURS) | **2.86×** | our 80/20 vs real backprop+replay, same digital substrate |
+| **TOTAL** (GD-digital / OURS-analog) | **15.37×** | what the chip buys = substrate × algorithm (5.37 × 2.86 = 15.4 ✓ identity) |
+
+*80/20 holds on both substrates: GD-share analog 0.155 / digital 0.109 (the gate's split is substrate-independent).
+`E_MAC_DIG` memory-wall sweep (substrate win): 0.1→2.74× · 0.2→5.37× (Horowitz) · 0.5→13.3× · 1.0→26.5× · 2.0→52.9× —
+analog wins even at the most-generous arithmetic-only digital (2.74× ≫ 1), so the reported advantage is a **floor**, not
+a knife-edge. Committed reading: **the analog substrate is ~5× of the total ~15× win; the 80/20 algorithm is the other
+~3×.***
 

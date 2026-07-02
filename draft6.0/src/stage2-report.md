@@ -158,6 +158,17 @@ falls inside a segment, not at a boundary). The live-vs-frozen accuracy gap (0.4
 **task difficulty**, not forgetting (worst-BWT 0.000) — the natural multi-class number (A5) and the fair BP+replay
 *accuracy* fight remain Phase 9's. → [full Phase 8 report](phase8/phase8-report.md).
 
+**Why analog (P8.7 extension — the substrate ablation for the professor brief).** The bp_ratio above compares OURS to
+BP+replay on the *same analog* table — the *algorithm* win. P8.7 adds the substrate axis: re-meter the exact committed
+loop and the same fair baseline on a **digital** (von-Neumann / GPU-class) substrate (no ADC, digital 8-bit MACs
+Horowitz-anchored, matched precision) → the full **2×2 {OURS, GD+replay} × {analog, digital}**. The chip (OURS-analog,
+3.4e7 pJ) is **15.4× cheaper** than the conventional baseline (GD-on-digital, 5.2e8 pJ), and the win factors cleanly:
+**5.4× is the analog substrate** (compute-in-memory — the ~8e8 SCFF MACs are near-free in the crossbar, while a digital
+machine pays the memory wall on every one, and there are ~75× more MACs than ADC reads) **× 2.9× is the 80/20 algorithm**
+(our gated forward-only loop vs BP+replay on the *same* digital substrate). The 80/20 is **substrate-independent**
+(GD-share 0.11–0.16 on either), and the analog advantage is a **conservative floor** — ≥2.7× even at the most-generous
+arithmetic-only digital, growing past 50× once the memory wall is counted. → [Phase 8 report §7](phase8/phase8-report.md).
+
 ### Phase 9 — the maintenance loop + the owed baselines → *the honest fights Stage 1 deferred*  **[LAST — not run]**
 
 Phase 9 tunes the validated A6 continual loop against *this* cell and settles the debts. The load-bearing one is
@@ -189,6 +200,7 @@ frozen architecture snapshots.
 | The committed head's cost | **S11 caveat** | **resolved at P8 close** | _**S12**: metered E-ratio 69× → **commit SLDA** as the deployed namer (RanPAC kept as the accuracy/spine reference)_ |
 | Sleep consolidation cadence | **S7** | **extended at P8 close** | _**S12**: **grid-8 / full LUT history / λ_ema 1.0** detector-driven cadence (was oracle-boundary); drift-rate-conditional_ |
 | The "80/20" cost number | proxy (Stage-1) | **metered at P8 close** | _**S12**: real — GD-share **0.121** with the gate on (0.778 off); replaces the proxy tag; bp_ratio 0.501 vs BP+replay_ |
+| Why analog (substrate vs algorithm) | unquantified | **decomposed at P8.7** | _**S12 note**: the chip is **15.4× cheaper** than conventional GD-on-digital = **5.4× substrate (CIM)** × **2.9× algorithm (80/20)**; analog advantage is a floor (behavioral, Horowitz-anchored)_ |
 | The live two-brain loop is continual-safe | — (untested) | **set at P8 close** | _**S12 new supporting decision**: LIVE-SAFE (worst-BWT 0.000, 0/5 regress); the gate is a **safety** mechanism (more GD forgets more)_ |
 | EMA-view slow coordination | **N2** | **owed → Phase 9** | _a *proposed* promotion (standby → default) pending the P9 sim; the P8 cadence is conditional on it — not yet_ |
 | SCFF carries a noise-aware objective | **S10** | Phase 6 (Stage-1 ext) | _done — the frozen cell already carries it_ |

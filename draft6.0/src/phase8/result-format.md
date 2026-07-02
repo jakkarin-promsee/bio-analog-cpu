@@ -55,6 +55,10 @@
 | **RanPAC** (committed head) | `#0b8f6a` (teal) | solid, triangle | the committed namer (cost meter's subject A) |
 | **SLDA** (cost fallback head) | `#2c6fbf` (blue) | **dashed**, square | the ~200×-cheaper-proxy no-grad alternative (subject B) |
 | **BP energy model** | `#8a1b8a` (magenta) | **dashed** | the backward-every-step energy reference (metered 80/20) |
+| **OURS-analog** (P8.7 hero) | `#0b8f6a` (teal), **thick ring** | bar | ⭐ the chip we propose — the substrate ablation's hero |
+| **OURS-digital** (P8.7) | `#7fcbb4` (light teal) | bar | our algorithm on a conventional digital substrate (isolates the substrate win) |
+| **GD-analog** (P8.7) | `#c98ac9` (light magenta) | bar | BP+replay on our substrate (the algorithm-only ablation) |
+| **GD-digital** (P8.7) | `#8a1b8a` (magenta) | bar | the status quo — real backprop+replay on a digital accelerator (the conventional baseline) |
 | **chance** | `#111111` dotted thin | — | the floor of floors |
 
 Read by colour/role: **black dash-dot = the oracle reference** (the win condition is *approaching* it at lower cost);
@@ -74,6 +78,7 @@ fig_cost_meter(run)         # F: COST-METER     (per-op energy breakdown bars: M
 fig_metered_8020(run)       # F: METERED-8020   (GD-share vs SCFF-share stacked, vs the BP energy model)
 fig_drift(run)              # F: DRIFT          (live bulk_drift cos vs stream-step; "the bulk doesn't forget")
 fig_cont_safety(run)        # F: CONT-SAFETY    (the LIVE A6 gate — BWT/AA/forget vs oracle/frozen baseline + veto)
+fig_substrate(run)          # F: SUBSTRATE      (P8.7 — the 2x2 {OURS,GD}x{analog,digital} + the E_MAC_DIG memory-wall sweep)
 fig_inv(run)                # F: INV            (every run — guards + fire-counts + health)
 regen(run_dir)              # redraws every figure whose arrays are present in <run-dir>/arrays.npz — the citable path
 ```
@@ -97,6 +102,10 @@ outside these functions**, and **every rung writes `arrays.npz` to the schema be
 | `gdshare_<config>` | `[S]` | `E[(c)+(d)] / E_total`; `bp_ratio` `[S]` = `E_total / E_BP+replay_model` (matched retention, same substrate table) |
 | `bulkdrift` · `driftvis` | `[S, K]` / `[S, K, 2]` | `cos(rep_t, rep_{t+Δ})` across `K` steps; `driftvis` = the class-direction signal at [real-onset, nuisance-onset] markers (the P8.0 drift-visibility panel) |
 | `cadence_grid` | `[S, F, H]` | accuracy-held over sleep-frequency `F` × history-fraction `H` × `λ_ema` (CADENCE); `cadence_bwt` (worst-point) same shape |
+| `E_ours_<sub>` · `E_gd_<sub>` | `[S]` | **P8.7** — total metered energy for `{ours, gd}` on `sub ∈ {analog, digital}` (the 2×2, SUBSTRATE fig) |
+| `substrate_win` · `algorithm_win_digital` · `total_win` · `bp_ratio_analog` | `[S]` | **P8.7** — the win-ratio decomposition (substrate × algorithm = total; `bp_ratio_analog` = the P8.5 cross-check) |
+| `gdshare_analog` · `gdshare_digital` | `[S]` | **P8.7** — the 80/20 GD-share on each substrate (does the gate's split survive the substrate swap) |
+| `emac_sweep` | `[K, 3]` | **P8.7** — the memory-wall sweep: columns `[E_MAC_DIG, E(OURS-digital), E(GD-digital)]`; OURS-analog is the flat reference |
 | `inv_<panel>` | `[S, …]` | INV panels (`partial_fit_equiv`/`live_path_anchor`/`scff_static_frozen`/`meter_proxy`/`detector_far`/`cache_replay`/`fdguard`/`firecounts`) |
 
 > **Source-of-truth note:** canonical [`../result-format.md`](../result-format.md) Layer A **owns** any shared constant
@@ -119,6 +128,8 @@ outside these functions**, and **every rung writes `arrays.npz` to the schema be
 | **hardware energy** `E` | behavioral ADC-centred per-op tally (`n_MAC·e_MAC + n_ADC·e_ADC(bits) + n_write·e_write + n_solve·e_digital`); **the MAC+solve sub-terms reduce to `readout_cost` under unit energies** (ADC/write are net-new terms, not reduction targets) | relative-E (tagged model + params) |
 | **metered 80/20** | `GD-share = E[(c)+(d)]/E_total`; `SCFF-share = E[(a)+(b)]/E_total`; + `bp_ratio` vs the BP energy model | fraction + ratio |
 | **live SCFF drift** | `bulk_drift` = `cos(rep_t, rep_{t+Δ})` of fixed probes across the stream (P6.5 measurement) | cosine vs step |
+| **substrate energy** `E(model,sub)` **(P8.7)** | total behavioral energy of `model ∈ {OURS, GD+replay}` on `sub ∈ {analog, digital}`; digital = §2.5 (no ADC, `E_MAC_DIG`, matched 8-bit) | relative-E (tagged model + params) |
+| **substrate / algorithm / total win (P8.7)** | `E(OURS-dig)/E(OURS-analog)` · `E(GD-dig)/E(OURS-dig)` · `E(GD-dig)/E(OURS-analog)`; substrate×algorithm = total (identity check) | ratio (×), median [IQR] |
 
 **The verdict cuts (PINNED, blind — the design §2.4 cuts, restated as the reporting contract):**
 - **Gate frontier (primary):** accuracy-held vs GD-fire-fraction `f`, FAR the third axis, vs the **oracle-cadence**
@@ -163,6 +174,7 @@ can't see — matching it is the *win*, not a loss.
 | **METERED-8020** | `fig_metered_8020` | GD-share vs SCFF-share stacked bar, vs the **BP+replay** energy model (matched retention, same substrate) | the first honest 80/20; how it compares to always-pay + BP+replay |
 | **DRIFT** | `fig_drift` | **left:** `bulk_drift` cos vs stream-step (live); **right (P8.0 drift-visibility):** the class-direction signal + error-rate at **real-onset vs nuisance-onset** markers | how fast the bulk drifts + "bulk doesn't forget"; **is the detection problem well-posed** (signals move at real not nuisance onsets; error-rate ≠ tap-drift) |
 | **CONT-SAFETY** *(the live A6 gate)* | `fig_cont_safety` | BWT / AA / forget bars **at the worst mid-stream point (pre-sleep)**, live vs oracle/frozen baseline (+ paired-sign veto marker) | does the LIVE mechanism keep the A6 win **where the awake gate is worst** (not just post-sleep) |
+| **SUBSTRATE** *(P8.7 — why analog)* | `fig_substrate` | **left:** the 2×2 total-energy bars (OURS/GD × analog/digital, linear, hero ringed) + the substrate/algorithm/total win box; **right:** the `E_MAC_DIG` memory-wall sweep (OURS-analog flat reference) | how much of the win is the analog **substrate** vs the 80/20 **algorithm**; is the analog advantage a floor (survives the MAC-energy sweep) |
 | **INV** *(EVERY run)* | `fig_inv` | small-multiples: partial-fit-equiv ✓ · live-path-anchor ✓ · scff-static-frozen ✓ · meter-proxy ✓ · detector-FAR-floor ✓ · cache-replay ✓ · FD ✓ · fire-counts | guards + apparatus sanity + the fire economy at a glance |
 
 **Caption rule (every figure):** one sentence ending with **the takeaway** (not a description), then `(n=5, task, …)`. An
@@ -194,6 +206,7 @@ column = a ≤6-word verdict; one variable swept per table (the swept variable i
 | P8.4 | `head · E_total · E_adc · E_solve · AA(live) · E-ratio · verdict` *(RanPAC vs SLDA)* |
 | P8.5 | `config · GD-share · SCFF-share · bp_ratio · verdict` |
 | P8.6 | `mechanism · AA · BWT(+paired-sign) · forget · vs-baseline · verdict` |
+| P8.7 | `model×substrate · E_total · vs-analog · win-ratio · verdict` *(the 2×2; substrate/algorithm/total win + the E_MAC_DIG floor)* |
 
 **Struck tables (a struck gate/trigger/cadence):** identical schema, with the failure condition + the **mechanistic
 reason** in the verdict column — a struck arm gets the same rigor as a win (failures are data: a gate that over-fires, a
@@ -330,6 +343,7 @@ green. A card that looks like this *cannot* be the messy output the contract pre
 | **P8.4** cost meter | **COST-METER** (per-op breakdown, RanPAC vs SLDA), INV |
 | **P8.5** metered 80/20 | **METERED-8020** (GD/SCFF share vs BP model), INV |
 | **P8.6** assembled + A6 | **CONT-SAFETY** (live, vs oracle/frozen + veto) + GATE-BAKEOFF + METERED-8020 (assembled) + the committed economy + the Stage-2/P9 brief |
+| **P8.7** substrate ablation *(EXTENSION)* | **SUBSTRATE** (the 2×2 + the `E_MAC_DIG` memory-wall sweep), INV; the substrate/algorithm/total win decomposition + the analog-advantage floor |
 
 ## Grounding (what the field does — and what we adopt)
 

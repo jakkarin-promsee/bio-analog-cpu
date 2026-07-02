@@ -78,3 +78,24 @@ METER_CITE = {
     "refs": ["DNN+NeuroSim", "ISAAC ISCA'16", "PUMA ASPLOS'19", "AIHWKit", "SAR-ADC Walden FoM"],
     "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE",
 }
+
+# ============================================================ the DIGITAL substrate (P8.7 — "why analog?")
+# The conventional von-Neumann / digital-accelerator (GPU-class) baseline: the SAME per-op accounting as the analog
+# meter, but DIGITAL physics. The crossbar's near-free in-memory MAC (E_MAC, weights resident) is replaced by a real
+# digital multiply-accumulate that must FETCH its operands (the memory wall); there is NO ADC (the datapath is digital
+# end-to-end -- the analog tax vanishes); weight programming becomes a cheap SRAM write. Matched 8-bit precision so the
+# comparison is FAIR vs the analog 8-bit crossbar+ADC (the axis under test is the SUBSTRATE, not the number format).
+# Anchor: Horowitz ISSCC'14 "Computing's Energy Problem (and what we can do about it)" (45 nm): 8-bit int MULT ~0.2 pJ,
+# 8-bit ADD ~0.03 pJ -> an 8-bit MAC ~0.2 pJ ARITHMETIC-ONLY (no data movement); an on-chip SRAM operand fetch adds
+# ~1-5 pJ and DRAM ~100x that -> a real accelerator's per-MAC energy is HIGHER, so the analog advantage the meter
+# reports at E_MAC_DIG=0.2 is a CONSERVATIVE FLOOR. The memory-wall penalty is folded in via the sweep.
+E_MAC_DIG = 0.2             # pJ per digital 8-bit MAC (Horowitz arithmetic-only; conservative -- excludes data movement)
+E_WRITE_DIG = 0.5           # pJ per digital weight write (SRAM store; vs 10 pJ analog capacitor/RRAM write-verify)
+E_MAC_DIG_SWEEP = [0.1, 0.2, 0.5, 1.0, 2.0]   # arithmetic-only (0.1-0.2) -> with SRAM/DRAM data movement (the memory wall)
+METER_CITE_DIG = {
+    "digital_8b_mac_pJ_arith": E_MAC_DIG, "horowitz_8b_mult_pJ": 0.2, "horowitz_8b_add_pJ": 0.03,
+    "sram_operand_fetch_pJ": "1-5 (folded into the E_MAC_DIG sweep, not the central value)",
+    "digital_has_no_ADC": True, "digital_weight_write_pJ": E_WRITE_DIG,
+    "refs": ["Horowitz ISSCC'14 Computing's Energy Problem", "Sze et al. Efficient Processing of DNNs (Proc. IEEE'17)"],
+    "scope": "behavioral von-Neumann / digital-accelerator baseline, relative-pJ, matched 8-bit precision, NOT SPICE",
+}

@@ -260,6 +260,57 @@ def fig_cont_safety(d, out):
     return [_save(fig, out, "CONT_SAFETY.png")]
 
 
+# ============================================================ SUBSTRATE (P8.7 — "why analog?")
+def fig_substrate(d, out):
+    """The 2x2 substrate ablation: {OURS, GD+replay} x {analog, digital}. Left: the four total-energy bars (log-y),
+    the headline three (OURS-analog / OURS-digital / GD-digital) foregrounded, the win-arrows annotated. Right: the
+    E_MAC_DIG memory-wall sensitivity sweep (OURS-analog is a flat reference; the digital costs rise with data
+    movement -> the analog advantage is a floor)."""
+    need = ("E_ours_analog", "E_ours_digital", "E_gd_analog", "E_gd_digital")
+    if not all(k in _keys(d) for k in need):
+        return []
+    oa = _med(d["E_ours_analog"]); od = _med(d["E_ours_digital"])
+    ga = _med(d["E_gd_analog"]); gd = _med(d["E_gd_digital"])
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=STYLE["figsize_wide"])
+    labels = ["OURS\nanalog\n(the chip)", "OURS\ndigital", "GD+replay\nanalog", "GD+replay\ndigital\n(status quo)"]
+    vals = [oa, od, ga, gd]
+    cols = ["#0b8f6a", "#7fcbb4", "#c98ac9", "#8a1b8a"]                 # teal=OURS, magenta=GD; dark=headline substrate
+    x = np.arange(4)
+    bars = axL.bar(x, vals, 0.62, color=cols, edgecolor="k", linewidth=0.5, zorder=3)
+    bars[0].set_edgecolor("#0b8f6a"); bars[0].set_linewidth(2.4)        # ring the hero (OURS-analog = the chip)
+    axL.set_xticks(x); axL.set_xticklabels(labels, fontsize=7)
+    axL.set_ylabel("total substrate energy (pJ; behavioral)")
+    axL.set_title("the 2x2: model x substrate (linear)")
+    axL.set_ylim(0, max(vals) * 1.18)
+    for xi, v in zip(x, vals):                                          # value labels
+        axL.annotate(f"{v:.2e}", (xi, v), fontsize=6.5, ha="center", va="bottom", xytext=(0, 2),
+                     textcoords="offset points")
+    # the three win-ratios (annotated, not asserted): substrate (OURS d->a), algorithm (GD d -> OURS d), total (GD d -> OURS a)
+    sub_win = od / (oa + 1e-30); alg_win = gd / (od + 1e-30); tot_win = gd / (oa + 1e-30)
+    txt = (f"substrate win (OURS digital/analog) = {sub_win:.1f}x\n"
+           f"algorithm win (digital GD/OURS) = {alg_win:.1f}x\n"
+           f"TOTAL win (GD-digital / OURS-analog) = {tot_win:.1f}x")
+    axL.text(0.03, 0.97, txt, transform=axL.transAxes, fontsize=6.6, va="top", ha="left",
+             bbox=dict(boxstyle="round", fc="#f7f7f7", ec="#999999", alpha=0.95))
+    axL.grid(axis="x", visible=False)
+    # right: the memory-wall sweep
+    if "emac_sweep" in _keys(d):
+        SW = np.asarray(d["emac_sweep"], float)                        # [K, 3] = e_mac_dig, ours_digital, gd_digital
+        e = SW[:, 0]
+        axR.plot(e, SW[:, 1], "-o", color="#7fcbb4", lw=STYLE["lw"], ms=4, label="OURS digital")
+        axR.plot(e, SW[:, 2], "-s", color="#8a1b8a", lw=STYLE["lw"], ms=4, label="GD+replay digital")
+        axR.axhline(oa, color="#0b8f6a", ls="-.", lw=1.6, label="OURS analog (substrate-indep.)")
+        axR.axvline(0.2, color="#bbbbbb", ls=":", lw=1.0)              # the Horowitz arithmetic-only anchor
+        axR.annotate("Horowitz 8b MAC", (0.2, oa), fontsize=6, va="bottom", ha="center", color="#666666",
+                     xytext=(0, 3), textcoords="offset points")
+        axR.set_yscale("log"); axR.set_xscale("log")
+        axR.set_xlabel("digital MAC energy E_MAC_DIG (pJ)")
+        axR.set_ylabel("total energy (pJ)"); axR.set_title("memory-wall sensitivity")
+        axR.legend(fontsize=6.2, loc="lower right")
+    fig.suptitle("SUBSTRATE — why analog: OURS-analog vs OURS-digital vs GD-digital", fontsize=9.5, y=1.0)
+    return [_save(fig, out, "SUBSTRATE.png")]
+
+
 # ============================================================ INV (every run)
 def fig_inv(d, out):
     panels = [k for k in _keys(d) if k.startswith("inv_")]
@@ -281,7 +332,7 @@ def fig_inv(d, out):
 
 
 _ALL = [fig_gate_bakeoff, fig_trigger, fig_cadence, fig_cost_meter, fig_metered_8020,
-        fig_drift, fig_cont_safety, fig_inv]
+        fig_drift, fig_cont_safety, fig_substrate, fig_inv]
 
 
 def regen(run_dir):

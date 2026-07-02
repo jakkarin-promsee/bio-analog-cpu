@@ -1,7 +1,7 @@
 # Phase 8 — the economy gate + the cost meter, run LIVE (signpost)
 
 You're in **Phase 8** of draft 6.0's **Stage 2** (the GD namer) — **✅ COMPLETE (ran 2026-07-02, P8.0→P8.6, all seven
-guards bit-exact).** The **second** of three GD-stage phases (P7 readout · **P8 economy+cost** · P9 maintenance). Phase 7
+guards bit-exact; + P8.7 substrate-ablation EXTENSION added 2026-07-02).** The **second** of three GD-stage phases (P7 readout · **P8 economy+cost** · P9 maintenance). Phase 7
 picked *what* the namer is (RanPAC + cbrs); **Phase 8 turned both brains on together for the first time** (SCFF learns
 live forward-only; the namer tracks the drift via a gate + sleep), decided *when* the namer fires, and put the **first
 honest hardware cost number** on the founding 80/20.
@@ -20,6 +20,13 @@ honest hardware cost number** on the founding 80/20.
   **cbrs** · envelope unchanged (GD reads taps, never writes SCFF).
 - **The spine, demonstrated:** the trigger fires on class **direction** (invariant to a nuisance covariate, 0.84×) not
   **magnitude** (the null spikes 10× and false-fires on 94% of nuisance steps) — density≠class, 8th coat.
+- **WHY ANALOG (P8.7 extension, for the professor brief):** re-metered the exact committed loop + the fair BP+replay
+  baseline on a **digital** (von-Neumann/GPU-class) substrate → the full **2×2**. The chip is **15.4× cheaper** than
+  conventional GD-on-digital, factoring into **5.4× substrate** (compute-in-memory: the ~8e8 near-free crossbar MACs vs
+  the digital memory wall, ~75× more MACs than ADC ops) **× 2.9× algorithm** (our gated forward-only loop vs BP+replay on
+  the *same* digital substrate). The 80/20 is **substrate-independent** (GD-share 0.11–0.16); the analog advantage is a
+  **floor** (≥2.7× even at arithmetic-only digital, →53× with the memory wall). Digital = behavioral (Horowitz-anchored,
+  NOT an empirical GPU measurement). Card: [`exp7/experiment-7.md`](exp7/experiment-7.md); figure `exp7/figs_p8_7/SUBSTRATE.png`.
 - **Two design guesses the sims overturned:** (1) the gate's value is **safety, not just cost** — always-pay forgets, so
   more GD is worse; (2) **regular cadence beats boundary-aligned sleep** (grid worst-BWT 0.000 vs oracle-boundary −0.439,
   because the worst point falls mid-segment, not at a boundary).
