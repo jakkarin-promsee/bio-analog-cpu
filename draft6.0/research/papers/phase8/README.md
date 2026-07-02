@@ -36,6 +36,7 @@ can't settle.
 | File | What it covers | The one idea |
 | ---- | -------------- | ------------ |
 | [the-economy-gate.md](the-economy-gate.md) | Concept-drift detection (DDM, ADWIN, ADWIN-U), plateau / loss-slope detection, Skip-RNN budget loss, synthetic gradients / DNI (the *don't*), the SGR ε-floor. | **"Spend GD only when the cheap path stalls" is a 20-year-old solved streaming problem — but false-fires burn the 80/20.** |
+| [deep-research-delta.md](deep-research-delta.md) | The **2nd (deep) pass** — does the rough research cover all of Phase 8? Adds the eval vocabulary (MTD/MTFA/FAR), the co-adapting-backbone / representation-drift literature (our sleep = raw-exemplar replay; REMIND = the anti-pattern; SDC/LDC the road-not-taken), the ADC-dominated cost-meter model + pJ anchors, DriftLens, and the correct ADWIN-U citation. | **The rough pass had the right spine; it was missing the eval metrics, the moving-backbone literature, and a concrete cost model — now folded.** |
 
 ## Papers (the economy slice)
 
