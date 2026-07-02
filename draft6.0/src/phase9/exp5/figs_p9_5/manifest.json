@@ -1,0 +1,93 @@
+{
+  "rung": "P9.5",
+  "git": "1fb11b30f90773bb53798f145a6289811d033eb2",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "lifelong": {
+    "cycles": 2,
+    "revisit": 20,
+    "probe_every": 6
+  },
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "internal_signals_only": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "live_path_anchor": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true
+  },
+  "wall_s": 314.5,
+  "committed_knobs": {
+    "N2": "struck",
+    "depth": "alltap",
+    "eviction": "cbrs",
+    "evict_cap": 120,
+    "read_side_residual": "earned",
+    "sleep_cadence": "grid-4 (freeze re-confirm; P8 grid-8 was single-pass)",
+    "bulk": "NoiseAugContrast \u03c3_aug=1.0",
+    "head": "SLDA",
+    "gate": "DDM/error-EMA",
+    "cbrs": true
+  },
+  "freeze": {
+    "frozen": true,
+    "veto_more_neg": 0,
+    "veto_ok": true,
+    "aa_ok": true,
+    "gd_ok": true,
+    "git_hash_prefreeze": "1fb11b30f90773bb53798f145a6289811d033eb2"
+  },
+  "summary": {
+    "assembled_aa": "0.494 [0.478-0.502]",
+    "assembled_wbwt": "-0.028 [-0.039--0.022]",
+    "assembled_gdshare": "0.178 [0.178-0.178]",
+    "base_aa": "0.494 [0.478-0.502]",
+    "base_wbwt": "-0.317 [-0.439--0.267]",
+    "oracle_wbwt": "-0.028 [-0.039--0.022]",
+    "p86_ci_aa": 0.447,
+    "verdict": "FREEZE \u2014 assembled loop holds A6 (veto 0/5 more-neg), AA held, GD-share 0.178 <= 0.25; lock at commit"
+  }
+}

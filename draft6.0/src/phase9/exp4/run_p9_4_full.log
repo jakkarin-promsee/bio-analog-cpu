@@ -1,0 +1,26 @@
+P9.4 — read-side residual (conditional; Phase-6 input-transducer directional)  (QUICK=False, seeds=[42, 137, 271, 314, 1729])
+  [partial_fit_equiv ranpac] max|W_stream-W_batch|=4.11e-15 pred-miss=0  OK
+  [partial_fit_equiv slda] max|W_stream-W_batch|=2.22e-16 pred-miss=0  OK
+  [fd_budget_gate] max|analytic-FD|=3.47e-08  OK
+  [meter_proxy] our fwd-MAC=1556000 == readout_cost fwd_macs=1556000 solve_dim=2000  OK
+  [detector_far] stationary FAR floor {'abs': 0.0, 'ddm': 0.0, 'adwin': 0.0}  OK
+  [scff_static_frozen] frozen-tap reproducibility max|d|=0.00e+00 static RanPAC acc=0.566  OK
+  [live_path_anchor] block-mode vs continual_safety_heads max|d|=0.00e+00  AA ref=0.3602 new=0.3602  OK
+  [cache_replay] deterministic replay max|d|=0.00e+00 fire-diff=0 firefrac=1.00  OK
+  [n2_readside] (a) p9==p8 max|dmat|=0.00e+00 fire-diff=0  OK
+  [n2_readside] (c) LLRD rho=1 max|dW|=0.00e+00 OK | rho<1 early/mid move=0.00e+00 late move=7.92e-03  early CLEAN (rate-only)
+  [evict_equiv] (a) cap=inf kept=140/140 appended=140  OK
+  [evict_equiv] (b) cap=30 recency == last-30 FIFO contents  OK
+  seed 42: clean=0.559 residual-undef=0.465 (dent +0.093) proto-reanchor=0.546 (ret 0.977)
+  seed 137: clean=0.523 residual-undef=0.457 (dent +0.066) proto-reanchor=0.521 (ret 0.996)
+  seed 271: clean=0.553 residual-undef=0.408 (dent +0.145) proto-reanchor=0.549 (ret 0.993)
+  seed 314: clean=0.539 residual-undef=0.425 (dent +0.115) proto-reanchor=0.532 (ret 0.986)
+  seed 1729: clean=0.547 residual-undef=0.276 (dent +0.271) proto-reanchor=0.535 (ret 0.978)
+== figures ==
+  RESIDUAL.png
+  INV.png
+
+== P9.4 SUMMARY (wall 150.5s) ==
+  residual dent 0.115 [0.093-0.145] (gate fires iff > 0.02)  FIRED=True
+  undefended retention 0.787 [0.738-0.833] | proto-reanchor retention 0.986 [0.978-0.993]
+  VERDICT: read-side proto-reanchor RECOVERS the residual (ret 0.986 vs undef 0.787) -> ADOPT

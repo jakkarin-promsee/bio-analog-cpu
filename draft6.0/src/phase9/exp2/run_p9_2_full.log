@@ -1,0 +1,34 @@
+P9.2 — consolidation depth  (QUICK=False, seeds=[42, 137, 271, 314, 1729], inherited N2=struck)
+  [partial_fit_equiv ranpac] max|W_stream-W_batch|=4.11e-15 pred-miss=0  OK
+  [partial_fit_equiv slda] max|W_stream-W_batch|=2.22e-16 pred-miss=0  OK
+  [fd_budget_gate] max|analytic-FD|=3.47e-08  OK
+  [meter_proxy] our fwd-MAC=1556000 == readout_cost fwd_macs=1556000 solve_dim=2000  OK
+  [detector_far] stationary FAR floor {'abs': 0.0, 'ddm': 0.0, 'adwin': 0.0}  OK
+  [scff_static_frozen] frozen-tap reproducibility max|d|=0.00e+00 static RanPAC acc=0.566  OK
+  [live_path_anchor] block-mode vs continual_safety_heads max|d|=0.00e+00  AA ref=0.3602 new=0.3602  OK
+  [cache_replay] deterministic replay max|d|=0.00e+00 fire-diff=0 firefrac=1.00  OK
+  [n2_readside] (a) p9==p8 max|dmat|=0.00e+00 fire-diff=0  OK
+  [n2_readside] (c) LLRD rho=1 max|dW|=0.00e+00 OK | rho<1 early/mid move=0.00e+00 late move=7.92e-03  early CLEAN (rate-only)
+  [evict_equiv] (a) cap=inf kept=140/140 appended=140  OK
+  [evict_equiv] (b) cap=30 recency == last-30 FIFO contents  OK
+  [life-cache] seed 42: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.0s)
+  seed 42: alltap AA=0.443 wBWT=-0.317 cost=4.86e+06 | truncK AA=0.449 wBWT=-0.533 cost=3.91e+05 | perdepth AA=0.459 wBWT=-0.373 cost=9.26e+04
+  [life-cache] seed 137: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.4s)
+  seed 137: alltap AA=0.478 wBWT=-0.517 cost=4.86e+06 | truncK AA=0.457 wBWT=-0.511 cost=3.91e+05 | perdepth AA=0.448 wBWT=-0.461 cost=9.26e+04
+  [life-cache] seed 271: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.9s)
+  seed 271: alltap AA=0.526 wBWT=-0.267 cost=4.86e+06 | truncK AA=0.481 wBWT=-0.550 cost=3.91e+05 | perdepth AA=0.460 wBWT=-0.422 cost=9.26e+04
+  [life-cache] seed 314: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.3s)
+  seed 314: alltap AA=0.502 wBWT=-0.439 cost=4.86e+06 | truncK AA=0.498 wBWT=-0.233 cost=3.91e+05 | perdepth AA=0.478 wBWT=-0.261 cost=9.26e+04
+  [life-cache] seed 1729: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (10.9s)
+  seed 1729: alltap AA=0.494 wBWT=-0.222 cost=4.86e+06 | truncK AA=0.474 wBWT=-0.422 cost=3.91e+05 | perdepth AA=0.475 wBWT=-0.253 cost=9.26e+04
+== figures ==
+  CADENCE_DEPTH.png
+  INV.png
+
+== P9.2 SUMMARY (wall 198.4s, inherited N2=struck) ==
+  alltap  : AA 0.494 [0.478-0.502] wBWT -0.317 [-0.439--0.267] sleep-cost 4856905.728 [4856905.728-4856905.728] (reforward 12275712.000 [12275712.000-12275712.000])
+  truncK  : AA 0.474 [0.457-0.481] wBWT -0.511 [-0.533--0.422] sleep-cost 391421.952 [391421.952-391421.952] (reforward 12275712.000 [12275712.000-12275712.000])
+  perdepth: AA 0.460 [0.459-0.475] wBWT -0.373 [-0.422--0.261] sleep-cost 92594.176 [92594.176-92594.176] (reforward 12275712.000 [12275712.000-12275712.000])
+  truncK: A6-held=False E-ratio=12.4x adopt=False
+  perdepth: A6-held=False E-ratio=52.5x adopt=False
+  VERDICT: keep ALL-TAP (trunc did not hold A6 within delta_acc)

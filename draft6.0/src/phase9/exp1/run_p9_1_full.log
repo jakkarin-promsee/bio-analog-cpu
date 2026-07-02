@@ -1,0 +1,42 @@
+P9.1 — N2 bake-off (read-side/rate-only)  (QUICK=False, seeds=[42, 137, 271, 314, 1729])
+  [partial_fit_equiv ranpac] max|W_stream-W_batch|=4.11e-15 pred-miss=0  OK
+  [partial_fit_equiv slda] max|W_stream-W_batch|=2.22e-16 pred-miss=0  OK
+  [fd_budget_gate] max|analytic-FD|=3.47e-08  OK
+  [meter_proxy] our fwd-MAC=1556000 == readout_cost fwd_macs=1556000 solve_dim=2000  OK
+  [detector_far] stationary FAR floor {'abs': 0.0, 'ddm': 0.0, 'adwin': 0.0}  OK
+  [scff_static_frozen] frozen-tap reproducibility max|d|=0.00e+00 static RanPAC acc=0.566  OK
+  [live_path_anchor] block-mode vs continual_safety_heads max|d|=0.00e+00  AA ref=0.3602 new=0.3602  OK
+  [cache_replay] deterministic replay max|d|=0.00e+00 fire-diff=0 firefrac=1.00  OK
+  [n2_readside] (a) p9==p8 max|dmat|=0.00e+00 fire-diff=0  OK
+  [n2_readside] (c) LLRD rho=1 max|dW|=0.00e+00 OK | rho<1 early/mid move=0.00e+00 late move=7.92e-03  early CLEAN (rate-only)
+  [evict_equiv] (a) cap=inf kept=140/140 appended=140  OK
+  [evict_equiv] (b) cap=30 recency == last-30 FIFO contents  OK
+  -> all guards PASS  (LLRD early/mid taps CLEAN (rate-only))
+  [life-cache] seed 42: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.6s)
+  [life-cache] seed 42: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (15.0s)
+  seed 42: no-N2 AA=0.443 wBWT=-0.317 drift_red=+0.0000 sf=0.022 | ema-0.3 AA=0.443 wBWT=-0.383 drift_red=-0.0324 sf=0.022 | ema-0.1 AA=0.449 wBWT=-0.411 drift_red=-0.0085 sf=0.022 | llrd-0.5 AA=0.461 wBWT=-0.328 drift_red=+0.0000 sf=0.022
+  [life-cache] seed 137: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (14.9s)
+  [life-cache] seed 137: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.5s)
+  seed 137: no-N2 AA=0.478 wBWT=-0.517 drift_red=+0.0000 sf=0.007 | ema-0.3 AA=0.480 wBWT=-0.383 drift_red=-0.0357 sf=0.007 | ema-0.1 AA=0.480 wBWT=-0.344 drift_red=-0.0091 sf=0.007 | llrd-0.5 AA=0.487 wBWT=-0.461 drift_red=+0.0000 sf=0.007
+  [life-cache] seed 271: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (11.6s)
+  [life-cache] seed 271: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.2s)
+  seed 271: no-N2 AA=0.526 wBWT=-0.267 drift_red=+0.0000 sf=0.022 | ema-0.3 AA=0.522 wBWT=-0.406 drift_red=-0.0414 sf=0.022 | ema-0.1 AA=0.526 wBWT=-0.294 drift_red=-0.0102 sf=0.022 | llrd-0.5 AA=0.527 wBWT=-0.256 drift_red=+0.0000 sf=0.022
+  [life-cache] seed 314: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (14.2s)
+  [life-cache] seed 314: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.7s)
+  seed 314: no-N2 AA=0.502 wBWT=-0.439 drift_red=+0.0000 sf=0.007 | ema-0.3 AA=0.505 wBWT=-0.378 drift_red=-0.0345 sf=0.007 | ema-0.1 AA=0.504 wBWT=-0.378 drift_red=-0.0085 sf=0.007 | llrd-0.5 AA=0.505 wBWT=-0.422 drift_red=+0.0000 sf=0.007
+  [life-cache] seed 1729: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.5s)
+  [life-cache] seed 1729: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.9s)
+  seed 1729: no-N2 AA=0.494 wBWT=-0.222 drift_red=+0.0000 sf=0.022 | ema-0.3 AA=0.488 wBWT=-0.306 drift_red=-0.0340 sf=0.022 | ema-0.1 AA=0.485 wBWT=-0.272 drift_red=-0.0088 sf=0.022 | llrd-0.5 AA=0.495 wBWT=-0.239 drift_red=+0.0000 sf=0.022
+== figures ==
+  N2_BAKEOFF.png
+  INV.png
+
+== P9.1 SUMMARY (wall 396.4s) ==
+  no-N2    : AA 0.494 [0.478-0.502] wBWT -0.317 [-0.439--0.267] plast 0.383 [0.347-0.391] drift_red 0.000 [0.000-0.000] sleepfreq 0.022 [0.007-0.022]
+  ema-0.3  : AA 0.488 [0.480-0.505] wBWT -0.383 [-0.383--0.378] plast 0.365 [0.335-0.366] drift_red -0.035 [-0.036--0.034] sleepfreq 0.022 [0.007-0.022]
+  ema-0.1  : AA 0.485 [0.480-0.504] wBWT -0.344 [-0.378--0.294] plast 0.377 [0.336-0.414] drift_red -0.009 [-0.009--0.009] sleepfreq 0.022 [0.007-0.022]
+  llrd-0.5 : AA 0.495 [0.487-0.505] wBWT -0.328 [-0.422--0.256] plast 0.378 [0.352-0.398] drift_red 0.000 [0.000-0.000] sleepfreq 0.022 [0.007-0.022]
+  eligible[ema-0.3] = False  ({'acc_ok': True, 'bwt_ok': False, 'plast_ok': True, 'lever_ok': False, 'sparser': False, 'better_bwt': False, 'reopen': False, 'eligible': False})
+  eligible[ema-0.1] = False  ({'acc_ok': True, 'bwt_ok': False, 'plast_ok': True, 'lever_ok': False, 'sparser': False, 'better_bwt': False, 'reopen': False, 'eligible': False})
+  eligible[llrd-0.5] = False  ({'acc_ok': True, 'bwt_ok': True, 'plast_ok': True, 'lever_ok': False, 'sparser': False, 'better_bwt': False, 'reopen': False, 'eligible': False})
+  VERDICT: N2 STRUCK (no arm clears the bar)

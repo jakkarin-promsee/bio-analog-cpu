@@ -1,0 +1,98 @@
+{
+  "rung": "P9.2",
+  "git": "1fb11b30f90773bb53798f145a6289811d033eb2",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "lifelong": {
+    "cycles": 2,
+    "revisit": 20,
+    "probe_every": 6
+  },
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "internal_signals_only": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "live_path_anchor": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true
+  },
+  "wall_s": 198.4,
+  "inherited_n2": "struck",
+  "committed_depth": "alltap",
+  "depth_eval": {
+    "truncK": {
+      "a6_held": false,
+      "eratio": 12.408363156903372,
+      "adopt": false
+    },
+    "perdepth": {
+      "a6_held": false,
+      "eratio": 52.4536848624259,
+      "adopt": false
+    }
+  },
+  "summary": {
+    "alltap": {
+      "acc": "0.494 [0.478-0.502]",
+      "wbwt": "-0.317 [-0.439--0.267]",
+      "sleep_cost": "4856905.728 [4856905.728-4856905.728]",
+      "reforward": "12275712.000 [12275712.000-12275712.000]"
+    },
+    "truncK": {
+      "acc": "0.474 [0.457-0.481]",
+      "wbwt": "-0.511 [-0.533--0.422]",
+      "sleep_cost": "391421.952 [391421.952-391421.952]",
+      "reforward": "12275712.000 [12275712.000-12275712.000]"
+    },
+    "perdepth": {
+      "acc": "0.460 [0.459-0.475]",
+      "wbwt": "-0.373 [-0.422--0.261]",
+      "sleep_cost": "92594.176 [92594.176-92594.176]",
+      "reforward": "12275712.000 [12275712.000-12275712.000]"
+    },
+    "verdict": "keep ALL-TAP (trunc did not hold A6 within delta_acc)"
+  }
+}

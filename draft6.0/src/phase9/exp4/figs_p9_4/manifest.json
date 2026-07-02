@@ -1,0 +1,71 @@
+{
+  "rung": "P9.4",
+  "git": "1fb11b30f90773bb53798f145a6289811d033eb2",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "lifelong": {
+    "cycles": 2,
+    "revisit": 20,
+    "probe_every": 6
+  },
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "internal_signals_only": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "live_path_anchor": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true
+  },
+  "wall_s": 150.5,
+  "gate_fired": true,
+  "residual_channel": "input-transducer directional (p6 NoiseModel dir)",
+  "summary": {
+    "dent": "0.115 [0.093-0.145]",
+    "undef_ret": "0.787 [0.738-0.833]",
+    "defend_ret": "0.986 [0.978-0.993]",
+    "verdict": "read-side proto-reanchor RECOVERS the residual (ret 0.986 vs undef 0.787) -> ADOPT"
+  }
+}

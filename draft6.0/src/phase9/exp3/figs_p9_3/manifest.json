@@ -1,0 +1,104 @@
+{
+  "rung": "P9.3",
+  "git": "1fb11b30f90773bb53798f145a6289811d033eb2",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "lifelong": {
+    "cycles": 2,
+    "revisit": 20,
+    "probe_every": 6
+  },
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "internal_signals_only": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "live_path_anchor": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true
+  },
+  "wall_s": 357.9,
+  "cap": 120,
+  "cbrs_holds": false,
+  "cbrs_committed": true,
+  "beats": {
+    "recency": true,
+    "reservoir": true,
+    "herding": false
+  },
+  "herding_reimports": false,
+  "scaling_flag": true,
+  "min_cap_6cls": 400.0,
+  "min_cap_10cls": Infinity,
+  "committed_eviction": "cbrs",
+  "summary": {
+    "oracle": {
+      "wbwt": "-0.240 [-0.287--0.228]",
+      "acc": "0.514 [0.492-0.519]",
+      "lut": "3232.000 [3232.000-3232.000]"
+    },
+    "cbrs": {
+      "wbwt": "-0.400 [-0.406--0.367]",
+      "acc": "0.380 [0.374-0.391]",
+      "lut": "120.000 [120.000-120.000]"
+    },
+    "reservoir": {
+      "wbwt": "-0.607 [-0.613--0.547]",
+      "acc": "0.359 [0.352-0.371]",
+      "lut": "120.000 [120.000-120.000]"
+    },
+    "recency": {
+      "wbwt": "-0.707 [-0.780--0.587]",
+      "acc": "0.327 [0.325-0.336]",
+      "lut": "120.000 [120.000-120.000]"
+    },
+    "herding": {
+      "wbwt": "-0.367 [-0.427--0.361]",
+      "acc": "0.318 [0.314-0.380]",
+      "lut": "120.000 [120.000-120.000]"
+    },
+    "verdict": "CBRS committed as best-bounded (beats iid/FIFO by the real-diff bar; herding ties \u2014 buffer-spine null here; the bound bites at cap 120 \u2014 no bounded policy matches the oracle: the scaling law)"
+  }
+}

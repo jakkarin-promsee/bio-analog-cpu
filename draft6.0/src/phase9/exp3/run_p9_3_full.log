@@ -1,0 +1,38 @@
+P9.3 — bounded-LUT eviction  (QUICK=False, seeds=[42, 137, 271, 314, 1729], cap=120)
+  [partial_fit_equiv ranpac] max|W_stream-W_batch|=4.11e-15 pred-miss=0  OK
+  [partial_fit_equiv slda] max|W_stream-W_batch|=2.22e-16 pred-miss=0  OK
+  [fd_budget_gate] max|analytic-FD|=3.47e-08  OK
+  [meter_proxy] our fwd-MAC=1556000 == readout_cost fwd_macs=1556000 solve_dim=2000  OK
+  [detector_far] stationary FAR floor {'abs': 0.0, 'ddm': 0.0, 'adwin': 0.0}  OK
+  [scff_static_frozen] frozen-tap reproducibility max|d|=0.00e+00 static RanPAC acc=0.566  OK
+  [live_path_anchor] block-mode vs continual_safety_heads max|d|=0.00e+00  AA ref=0.3602 new=0.3602  OK
+  [cache_replay] deterministic replay max|d|=0.00e+00 fire-diff=0 firefrac=1.00  OK
+  [n2_readside] (a) p9==p8 max|dmat|=0.00e+00 fire-diff=0  OK
+  [n2_readside] (c) LLRD rho=1 max|dW|=0.00e+00 OK | rho<1 early/mid move=0.00e+00 late move=7.92e-03  early CLEAN (rate-only)
+  [evict_equiv] (a) cap=inf kept=140/140 appended=140  OK
+  [evict_equiv] (b) cap=30 recency == last-30 FIFO contents  OK
+  [life-cache] seed 42: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.8s)
+  seed 42: oracle wBWT=-0.240 AA=0.491 | cbrs wBWT=-0.367 AA=0.347 | reservoir wBWT=-0.547 AA=0.320 | recency wBWT=-0.587 AA=0.325 | herding wBWT=-0.361 AA=0.291
+  [life-cache] seed 137: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.7s)
+  seed 137: oracle wBWT=-0.294 AA=0.492 | cbrs wBWT=-0.411 AA=0.380 | reservoir wBWT=-0.607 AA=0.371 | recency wBWT=-0.707 AA=0.327 | herding wBWT=-0.333 AA=0.380
+  [life-cache] seed 271: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (14.2s)
+  seed 271: oracle wBWT=-0.287 AA=0.526 | cbrs wBWT=-0.406 AA=0.374 | reservoir wBWT=-0.713 AA=0.352 | recency wBWT=-0.827 AA=0.322 | herding wBWT=-0.478 AA=0.314
+  [life-cache] seed 314: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.1s)
+  seed 314: oracle wBWT=-0.228 AA=0.519 | cbrs wBWT=-0.400 AA=0.396 | reservoir wBWT=-0.613 AA=0.395 | recency wBWT=-0.780 AA=0.338 | herding wBWT=-0.367 AA=0.400
+  [life-cache] seed 1729: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.9s)
+  seed 1729: oracle wBWT=-0.189 AA=0.514 | cbrs wBWT=-0.280 AA=0.391 | reservoir wBWT=-0.500 AA=0.359 | recency wBWT=-0.533 AA=0.336 | herding wBWT=-0.427 AA=0.318
+  scaling[6cls, 6cls]: cap40=-0.392 cap80=-0.301 cap120=-0.263 cap200=-0.296 cap400=-0.237
+  scaling[10cls, 10cls]: cap40=-0.456 cap80=-0.444 cap120=-0.406 cap200=-0.372 cap400=-0.311
+== figures ==
+  EVICT.png
+  INV.png
+
+== P9.3 SUMMARY (wall 357.9s, cap=120) ==
+  oracle    : wBWT -0.240 [-0.287--0.228] AA 0.514 [0.492-0.519] lut 3232.000 [3232.000-3232.000]
+  cbrs      : wBWT -0.400 [-0.406--0.367] AA 0.380 [0.374-0.391] lut 120.000 [120.000-120.000]
+  reservoir : wBWT -0.607 [-0.613--0.547] AA 0.359 [0.352-0.371] lut 120.000 [120.000-120.000]
+  recency   : wBWT -0.707 [-0.780--0.587] AA 0.327 [0.325-0.336] lut 120.000 [120.000-120.000]
+  herding   : wBWT -0.367 [-0.427--0.361] AA 0.318 [0.314-0.380] lut 120.000 [120.000-120.000]
+  cbrs committed(best-bounded): True | holds-vs-oracle(cap-flag): False | beats {'recency': True, 'reservoir': True, 'herding': False} | herding re-imports: False
+  scaling: min-cap-hold 6cls=400.0 10cls=inf -> grows-with-#classes: True
+  VERDICT: CBRS committed as best-bounded (beats iid/FIFO by the real-diff bar; herding ties — buffer-spine null here; the bound bites at cap 120 — no bounded policy matches the oracle: the scaling law)

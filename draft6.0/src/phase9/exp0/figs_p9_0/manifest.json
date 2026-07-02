@@ -1,0 +1,107 @@
+{
+  "rung": "P9.0",
+  "git": "1fb11b30f90773bb53798f145a6289811d033eb2",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "lifelong": {
+    "cycles": 2,
+    "revisit": 20,
+    "probe_every": 6
+  },
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "internal_signals_only": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "live_path_anchor": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true
+  },
+  "n2_detail": {
+    "dmat": 0.0,
+    "dfire": 0,
+    "d_rho1": 0.0,
+    "early_move": 0.0,
+    "late_move": 0.007916337768986342,
+    "early_clean": true
+  },
+  "wall_s": 584.1,
+  "summary": {
+    "rotation_final": "0.645 [0.631-0.655]",
+    "staleness_final": "0.069 [0.000-0.600]",
+    "destruction_final": "2.207 [2.097-2.472]",
+    "destruction_min": "0.966 [0.861-1.000]",
+    "bulk_minmax": [
+      [
+        0.6223992857931077,
+        1.0
+      ],
+      [
+        0.626458633541069,
+        1.0
+      ],
+      [
+        0.7214341093794733,
+        1.0
+      ],
+      [
+        0.5986713608410935,
+        1.0
+      ],
+      [
+        0.5857068390534302,
+        1.0
+      ]
+    ],
+    "verdict": "ROTATION-ONLY \u2014 the cheapness holds (re-fit retention within delta_acc of birth)",
+    "committed_aa": "0.494 [0.478-0.502]",
+    "committed_wbwt": "-0.317 [-0.439--0.267]",
+    "committed_f": "0.002 [0.002-0.002]",
+    "oracle_aa": "0.494 [0.478-0.502]",
+    "oracle_wbwt": "-0.289 [-0.317--0.278]",
+    "always_aa": "0.530 [0.505-0.539]",
+    "always_wbwt": "-0.400 [-0.400--0.400]"
+  }
+}

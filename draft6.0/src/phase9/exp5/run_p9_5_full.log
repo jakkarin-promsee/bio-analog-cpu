@@ -1,0 +1,35 @@
+P9.5 — assemble + FREEZE  (QUICK=False, seeds=[42, 137, 271, 314, 1729])
+  committed knobs: N2=struck depth=alltap eviction=cbrs(cap 120) read-side-residual=earned
+  [partial_fit_equiv ranpac] max|W_stream-W_batch|=4.11e-15 pred-miss=0  OK
+  [partial_fit_equiv slda] max|W_stream-W_batch|=2.22e-16 pred-miss=0  OK
+  [fd_budget_gate] max|analytic-FD|=3.47e-08  OK
+  [meter_proxy] our fwd-MAC=1556000 == readout_cost fwd_macs=1556000 solve_dim=2000  OK
+  [detector_far] stationary FAR floor {'abs': 0.0, 'ddm': 0.0, 'adwin': 0.0}  OK
+  [scff_static_frozen] frozen-tap reproducibility max|d|=0.00e+00 static RanPAC acc=0.566  OK
+  [live_path_anchor] block-mode vs continual_safety_heads max|d|=0.00e+00  AA ref=0.3602 new=0.3602  OK
+  [cache_replay] deterministic replay max|d|=0.00e+00 fire-diff=0 firefrac=1.00  OK
+  [n2_readside] (a) p9==p8 max|dmat|=0.00e+00 fire-diff=0  OK
+  [n2_readside] (c) LLRD rho=1 max|dW|=0.00e+00 OK | rho<1 early/mid move=0.00e+00 late move=7.92e-03  early CLEAN (rate-only)
+  [evict_equiv] (a) cap=inf kept=140/140 appended=140  OK
+  [evict_equiv] (b) cap=30 recency == last-30 FIFO contents  OK
+  [life-cache] seed 42: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (12.8s)
+  seed 42: assembled AA=0.443 wBWT=-0.073 gd=0.178 | base AA=0.443 wBWT=-0.317 | oracle wBWT=-0.073
+  [life-cache] seed 137: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.2s)
+  seed 137: assembled AA=0.478 wBWT=-0.022 gd=0.178 | base AA=0.478 wBWT=-0.517 | oracle wBWT=-0.022
+  [life-cache] seed 271: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.7s)
+  seed 271: assembled AA=0.526 wBWT=-0.011 gd=0.178 | base AA=0.526 wBWT=-0.267 | oracle wBWT=-0.011
+  [life-cache] seed 314: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.4s)
+  seed 314: assembled AA=0.502 wBWT=-0.028 gd=0.178 | base AA=0.502 wBWT=-0.439 | oracle wBWT=-0.028
+  [life-cache] seed 1729: n_steps=536 onsets=[40, 88, 136, 184] nuis=472 monitors=10 grid=101 (13.3s)
+  seed 1729: assembled AA=0.494 wBWT=-0.039 gd=0.178 | base AA=0.494 wBWT=-0.222 | oracle wBWT=-0.039
+== figures ==
+  FREEZE.png
+  CONT_SAFETY.png
+  INV.png
+
+== P9.5 SUMMARY (wall 314.5s) ==
+  assembled: AA 0.494 [0.478-0.502] wBWT -0.028 [-0.039--0.022] GD-share 0.178 [0.178-0.178]
+  base (shipped, same stream): AA 0.494 [0.478-0.502] wBWT -0.317 [-0.439--0.267]
+  oracle: wBWT -0.028 [-0.039--0.022]  | veto 0/5 more-neg (ok=True)
+  AA-held=True GD<=0.25=True  git(pre-freeze)=1fb11b30f9
+  VERDICT: FREEZE — assembled loop holds A6 (veto 0/5 more-neg), AA held, GD-share 0.178 <= 0.25; lock at commit
