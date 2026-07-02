@@ -313,8 +313,9 @@ analog-realism layer (SPICE / PVT); and, beyond the numbered phases, the recurre
 
 ## Reading guide
 
-**If you read only one file for the model:** [`phase6-final-architecture.md`](phase6-final-architecture.md) — the
-self-contained, noise-hardened account of the whole cell (the frozen bulk Stage 2 names). **For the plan Stage 2
+**If you read only one file for the model:** [`phase9-final-architecture.md`](phase9-final-architecture.md) — the v2.0.0
+self-contained account of the **complete two-brain neocortex, frozen** (both brains + the maintenance loop; the
+cheap-brain-only snapshot is [`phase6-final-architecture.md`](phase6-final-architecture.md)). **For the plan Stage 2
 executes:** [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). **For the result so far:** this file
 (the arc) → [Phase 7 front door](phase7/README.md) →
 [Phase 8 front door](phase8/README.md) → the `phaseN/phaseN-report.md` deep stories (every figure) →

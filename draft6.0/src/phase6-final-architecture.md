@@ -3,9 +3,10 @@
 > **What this is.** The single, self-contained account of the model we built across **six** phases of draft 6.0 — what
 > it is, how every part works, *why* it is shaped the way it is, the math under it, and exactly how it extends the
 > papers it stands on. It is written so an **outside researcher can understand the whole model from this one file**,
-> without opening a single `phaseN/` report. **This is the current head of the line; it supersedes
-> [`phase5-final-architecture.md`](phase5-final-architecture.md)** — which is kept, unchanged, as the **v1.0.0
-> ideal-data snapshot** (the model *before* it met noise). What v1.1.0 adds is one thing: the cheap brain is now
+> without opening a single `phaseN/` report. **This is the v1.1.0 cheap-brain-only snapshot — the current head is now
+> [`phase9-final-architecture.md`](phase9-final-architecture.md)** (the complete two-brain neocortex, frozen), which
+> supersedes this file. This file in turn **supersedes [`phase5-final-architecture.md`](phase5-final-architecture.md)** —
+> kept, unchanged, as the **v1.0.0 ideal-data snapshot** (the model *before* it met noise). What v1.1.0 adds is one thing: the cheap brain is now
 > **hardened against the noise it will actually meet** — on an analog substrate and on a lifelong, never-clean data
 > stream — with the residual it can't reach named out loud.
 >

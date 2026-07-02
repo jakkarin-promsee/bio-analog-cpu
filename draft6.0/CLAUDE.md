@@ -86,7 +86,8 @@ draft6.0/
     papers/        paper stories — phase1-2/ (the adopted design) + phase3/ (the depth reframe)
     north-star/    the north-star dossier (21 files + th/ Thai mirror) — beyond the phases, not the live line
   src/             ★ Stage-1 report set + run-specs
-    phase6-final-architecture.md  ★ the v1.1.0 model in one file (self-contained; noise-hardened — the current head)
+    phase9-final-architecture.md  ★ the v2.0.0 WHOLE neocortex in one file (both brains, frozen — the CURRENT HEAD)
+    phase6-final-architecture.md  the v1.1.0 cheap-brain-only snapshot (SCFF alone, noise-hardened — the base v2.0.0 builds on)
     phase5-final-architecture.md  the v1.0.0 ideal-data snapshot (kept as the pre-noise base)
     stage1-report.md   the five-phase executive arc (the cheap brain, closed out)
     result-format.md   the canonical house style (figures · metrics · the 6-slot template)
@@ -101,7 +102,7 @@ draft6.0/
 
 | When the user asks… | Look in |
 | --- | --- |
-| **The whole model in one file (v1.1.0, current head)** | [`src/phase6-final-architecture.md`](src/phase6-final-architecture.md) — the self-contained SCFF+GD architecture summary, **noise-hardened**; understand the model + the 6-phase arc without opening any phase report. *(v1.0.0 ideal-data base, kept: [`src/phase5-final-architecture.md`](src/phase5-final-architecture.md).)* |
+| **The whole model in one file (v2.0.0, current head)** | [`src/phase9-final-architecture.md`](src/phase9-final-architecture.md) — the self-contained account of the **complete two-brain neocortex, frozen** (both brains + the maintenance loop); understand the model + the 9-phase arc without opening any phase report. *(v1.1.0 cheap-brain-only snapshot, kept: [`src/phase6-final-architecture.md`](src/phase6-final-architecture.md); v1.0.0 ideal-data base: [`src/phase5-final-architecture.md`](src/phase5-final-architecture.md).)* |
 | The plan / what we're doing now | [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (decisions) + [`idea/ideas1.md`](idea/ideas1.md) (the story) |
 | The written results / the Stage-1 & Stage-2 story | [`src/stage1-report.md`](src/stage1-report.md) · [`src/stage2-report.md`](src/stage2-report.md) → `src/phaseN/phaseN-report.md` (figures inline) → [`src/ref-report/`](src/ref-report/README.md) (glossary) |
 | What did Phase N find? | `src/phaseN/README.md` (front-door synthesis) + `RESULTS.md` (the scalar ledger) |
