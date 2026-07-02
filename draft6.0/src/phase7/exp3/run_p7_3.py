@@ -33,12 +33,12 @@ QUICK = "--quick" in sys.argv
 OUT = os.path.join(_HERE, "figs_p7_3" + ("_quick" if QUICK else ""))
 SEEDS = CFG.SEEDS[:3] if QUICK else CFG.SEEDS
 SCFF_EP = 2 if QUICK else CFG.SCFF_EP
-CAP = 500                                                             # bounded buffer -> recency-biased imbalance
+CAP = 800                                                             # bounded buffer -> recency-biased imbalance
 # (head, family, guards): trained heads take logit-adj/bal-softmax/cbrs; analytic heads take AIR.
 # RanPAC = the committed head (analytic); SLDA = the cheaper no-grad alternative; cosine/mlp = the trained comparators.
 PROBES = [
-    ("ranpac", "analytic", ["none", "air"]),
-    ("slda", "analytic", ["none", "air"]),
+    ("ranpac", "analytic", ["none", "air", "cbrs"]),
+    ("slda", "analytic", ["none", "air", "cbrs"]),
     ("cosine-softmax", "trained", ["none", "logitadj", "balsoftmax", "cbrs"]),
     ("mlp", "trained", ["none", "logitadj", "cbrs"]),
 ]
@@ -58,15 +58,32 @@ def _knob_c(name):
     return kb
 
 
+def _recency_skew_buffer(FBf, YBf, C, cap, rng):
+    """A bounded RECENCY-SKEWED reservoir: every class present, but recent tasks over-represented (per-class count
+    proportional to task recency (t+1)^2, task = class//2). Models the bursty stream's chronic imbalance WITHOUT
+    the degenerate total-absence of a raw last-cap-rows cut (which no head-side guard can fix)."""
+    task = np.arange(C) // 2
+    wc = ((task + 1.0) ** 2); wc = wc / wc.sum()
+    per_c = np.maximum(2, (cap * wc).astype(int))                     # >=2/class so every class is present
+    FB, YB = [], []
+    for c in range(C):
+        idx = np.where(YBf == c)[0]
+        if len(idx) == 0:
+            continue
+        sel = rng.choice(idx, min(len(idx), per_c[c]), replace=False)
+        FB.append(FBf[sel]); YB.append(YBf[sel])
+    return np.concatenate(FB), np.concatenate(YB)
+
+
 def bursty_eval(cache, head_name, C, seed, guard, cap):
-    """Fit the head on a BOUNDED (recency-biased or class-balanced) buffer at stream end, apply the guard, return
+    """Fit the head on a BOUNDED (recency-skewed or class-balanced) buffer at stream end, apply the guard, return
     (old-task acc, recent-task acc) = the task-recency-bias split."""
     T = len(cache)
     FBf, YBf = cache[T - 1]["FB"], cache[T - 1]["YB"]
     if guard == "cbrs":
         FB, YB = P.class_balanced_reservoir(FBf, YBf, C, cap, np.random.default_rng(seed))
     else:
-        FB, YB = FBf[-cap:], YBf[-cap:]                              # naive bounded buffer = recent-heavy
+        FB, YB = _recency_skew_buffer(FBf, YBf, C, cap, np.random.default_rng(seed))  # recent-heavy, all present
     counts = np.bincount(YB, minlength=C).astype(float)
     head = P.make_head(head_name, C, seed=seed, **_knob_c(head_name)).fit(FB, YB)
     if guard == "air":

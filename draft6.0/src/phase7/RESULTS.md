@@ -62,7 +62,23 @@ mixture needed** (mixture hurts). Convex/analytic story holds. SLDA's whitening 
 dodges) the spine tension.
 
 ## P7.3 — the bursty-stream imbalance guard  `exp3`
-*(pending — section inserted here when complete)*
+*(controls: pinned bulk, bounded recency-skewed buffer cap=800, seeds ×5; committed RanPAC + comparators; wall 47s)*
+
+| head (family) | guard | acc-old | acc-recent | recency-gap | verdict |
+| --- | --- | --- | --- | --- | --- |
+| **RanPAC** (analytic) | none | 0.179 | 0.674 | +0.495 | biased under strong skew |
+| **RanPAC** | **cbrs** | **0.562** | 0.575 | **+0.013** | **shipped — near-eliminates gap** |
+| RanPAC | air | 0.506 | 0.412 | −0.094 | over-corrects (not shipped) |
+| SLDA | cbrs | 0.529 | 0.583 | +0.055 | clean; air over-corrects (recent→0) |
+| cosine-softmax (trained) | none | 0.024 | 0.683 | +0.659 | **worst recency bias (trained-softmax)** |
+| cosine-softmax | cbrs | 0.392 | 0.587 | +0.195 | logit-adj +0.214, bal-softmax barely |
+| mlp (trained) | cbrs | 0.475 | 0.569 | +0.094 | logit-adj +0.254 |
+
+**Verdict:** trained-softmax has the worst intrinsic recency bias (+0.659); no-gradient RanPAC less so (+0.495). The
+**shipped guard = class-balanced reservoir (cbrs)**, buffer-side + family-agnostic (RanPAC → +0.013). **AIR
+over-corrects** → the design's "AIR is the no-gradient guard" is **overturned** (buffer balance beats output re-weighting).
+
+<!-- P7.5 .. P7.6 rows appended as they run -->
 
 ---
 
