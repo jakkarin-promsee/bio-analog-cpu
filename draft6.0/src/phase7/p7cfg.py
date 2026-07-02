@@ -28,3 +28,13 @@ RANDPROJ_DIM = 2000
 
 # --- the committed-cell dims are [dim] + [64]*12 (L12, W64) ---
 WIDTH, DEPTH = 64, 12
+
+# --- the P7.1-selected per-head knobs (median-selected on the val split; used by the downstream rungs so they
+#     test the ACTUAL committed heads, not the class defaults). RanPAC = the committed namer candidate. ---
+COMMITTED_KNOBS = {
+    "linear": {}, "cosine-ncm": {"tau": 0.03}, "cosine-softmax": {"tau": 0.05},
+    "ncm": {}, "slda": {"shrinkage": 1e-3}, "fecam": {"shrinkage": 0.1},
+    "ranpac": {"proj_dim": 2000, "ridge_lambda": 1.0}, "rls": {"ridge_lambda": 1.0},
+    "mlp": {},                                                        # mlp epochs handled by the harness (sleep_ep)
+}
+COMMITTED_HEAD = "ranpac"                                             # P7.1 verdict (pending the P7.4 gate)

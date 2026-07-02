@@ -61,4 +61,27 @@ flip 0 but sub-competitive). Cost proxy: RanPAC ~200× SLDA (→ P8; SLDA = chea
 mixture needed** (mixture hurts). Convex/analytic story holds. SLDA's whitening is a magnitude tool — sharpens (not
 dodges) the spine tension.
 
-<!-- P7.3 .. P7.6 rows appended as they run -->
+## P7.3 — the bursty-stream imbalance guard  `exp3`
+*(pending — section inserted here when complete)*
+
+---
+
+## P7.4 — continual-safety: the home-turf GATE  `exp4`
+*(controls: pinned bulk, synthetic CI home, seeds ×5 (never 3), baseline = floor-head-on-same-bulk; wall 5.1 min)*
+
+| head | AA | BWT(+paired-sign) | forget | vs-floor-head | neg/5 | verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| linear-softmax | 0.584 | −0.181 | 0.182 | (baseline) | 0/5 | (baseline) |
+| cosine-ncm (no-grad) | 0.319 | −0.142 | 0.147 | +0.059 | 0/5 | PASS |
+| cosine-softmax (grad) | 0.480 | −0.234 | 0.234 | −0.030 | **5/5** | **STRUCK — dents A6 (trained-softmax recency)** |
+| SLDA (no-grad) | 0.604 | −0.162 | 0.162 | +0.013 | 0/5 | PASS |
+| FeCAM (no-grad, max-mag) | 0.459 | −0.302 | 0.302 | −0.127 | **5/5** | **STRUCK — dents A6 (per-class cov overfit)** |
+| **RanPAC (committed, no-grad)** | **0.617** | **−0.157** | 0.157 | +0.023 | 0/5 | **PASS — adoption stands** |
+| RLS (no-grad) | 0.558 | −0.183 | 0.183 | −0.003 | 3/5 | PASS (within noise, <4/5) |
+| MLP (grad) | 0.623 | −0.147 | 0.149 | +0.040 | 1/5 | PASS |
+
+**Verdict:** committed **RanPAC PASSES** (keeps the A6 win, 0/5 negative). The gate strikes the trained cosine-softmax
+and the max-magnitude FeCAM (5/5 each). Mechanism control: cosine-ncm (no-grad) passes but cosine-softmax (grad, same
+angle metric) is struck → the **trained weights**, not the metric, cause the recency dent (BiC/WA/SCR confirmed).
+
+<!-- P7.5 .. P7.6 rows appended as they run -->
