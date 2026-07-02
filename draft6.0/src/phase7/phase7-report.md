@@ -84,8 +84,9 @@ and, among the tied cluster, is the **most spine-clean** (argmax-flip 0.54 vs ML
 tie-break selects it. **The projection earns its keep**: RanPAC (ridge on a 2000-D random expansion) beats plain RLS
 (ridge, no projection) by **+0.047, real (5/5)**.
 
-**The spine bends — numerically.** The pinned verdict cut: `Δ = AA(best magnitude) − AA(best cosine) = AA(RanPAC 0.617)
-− AA(cosine-softmax 0.480) = +0.128`, **real** (paired IQR excludes 0, 5/5 sign), `|Δ| > δ=0.02` →
+**The spine bends — numerically.** The pinned verdict cut: `Δ = the paired-by-seed median of [AA(RanPAC) −
+AA(cosine-softmax)] = +0.128` (head medians AA 0.617 vs 0.480; the paired median differs slightly from the
+difference-of-medians because the median is not linear), **real** (paired IQR excludes 0, 5/5 sign), `|Δ| > δ=0.02` →
 **magnitude-wins-spine-bends**, with the mechanism condition satisfied: the winning magnitude head is **not** more
 fragile than cosine under the bursty stream (RanPAC BWT −0.157 vs cosine-softmax −0.234). The two cosine heads are the
 only argmax-flip-0 heads (spine-clean by construction, *figure: SPINE-CLEAN*), but they sit well below the frontier —

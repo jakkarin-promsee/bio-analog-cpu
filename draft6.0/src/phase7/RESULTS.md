@@ -41,8 +41,8 @@ static-accuracy, competitor (P4-consistent).
 
 **Verdict:** frontier top = 3-way tie {MLP 0.623, **RanPAC 0.617**, SLDA 0.604} (mutually within-noise); best is
 **no-gradient RanPAC** (highest acc 0.647, spine tie-break) → *the 20% is not gradient descent*. Spine-tension =
-**magnitude-wins-spine-bends** (Δ=AA(ranpac)−AA(cosine-softmax) = **+0.128**, real 5/5, >δ=0.02; cosine spine-clean at
-flip 0 but sub-competitive). Cost proxy: RanPAC ~200× SLDA (→ P8; SLDA = cheaper within-noise no-grad alternative).
+**magnitude-wins-spine-bends** (Δ = paired-by-seed median of [AA(ranpac)−AA(cosine-softmax)] = **+0.128**; head medians
+0.617 vs 0.480; real 5/5, >δ=0.02; cosine spine-clean at flip 0 but sub-competitive). Cost proxy: RanPAC ~200× SLDA (→ P8; SLDA = cheaper within-noise no-grad alternative).
 
 ---
 

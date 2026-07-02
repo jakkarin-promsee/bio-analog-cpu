@@ -29,8 +29,9 @@ softmax = gradient). Seeds ×5 (verdict gap Δ≫0.02 ⇒ no 9-seed extension ne
 | RLS (ridge, no proj, no-grad) | 0.623 [.609–.635] | 0.558 [.550–.574] | −0.197 | 0.561 | 7.7e3 | analytic, no proj — below RanPAC |
 | MLP head (non-convex, grad) | 0.625 [.615–.641] | 0.623 [.615–.627] | −0.147 | 0.604 | 2.5e4 | top-cluster AA (the "if we paid GD" anchor) |
 
-**Verdict cut (§2, blind).** `Δ = AA(best magnitude) − AA(best cosine) = AA(ranpac 0.617) − AA(cosine-softmax 0.480) =
-+0.128`, **real** (paired IQR excludes 0, sign 5/5), `|Δ| > δ=0.02` → **magnitude-wins-spine-bends**, and the mechanism
+**Verdict cut (§2, blind).** `Δ = the paired-by-seed median of [AA(ranpac) − AA(cosine-softmax)] = +0.128` (per-seed
+diffs [0.136, 0.109, 0.153, 0.129, 0.122]; head medians AA 0.617 vs 0.480), **real** (paired IQR excludes 0, sign 5/5),
+`|Δ| > δ=0.02` → **magnitude-wins-spine-bends**, and the mechanism
 condition holds: the winning magnitude head (RanPAC, BWT −0.157) is **not** more fragile than cosine (BWT −0.234) under
 the bursty stream — it is recency-robust by having no trained softmax weights.
 
