@@ -131,13 +131,20 @@ worst-BWT −0.517/−0.439 vs oracle −0.317/−0.272 (materially more-negativ
 grid; oracle fires at onsets, DDM lags). Gate is out of P9 scope → the P9-legal lever is the sleep cadence (S7 / the P8
 drift-conditional debt).
 
-*Cadence re-confirm (freeze-driven frequency sub-table; internal refs only):*
-| cadence | neg/5 vs oracle | AA | GD-share | worst-BWT | freeze cut |
-| --- | --- | --- | --- | --- | --- |
-| grid-8 (P8, single-pass) | 2 | 0.494 | 0.138 | −0.317 | fails veto |
-| grid-6 | 0 | 0.495 | 0.153 | −0.087 | passes (razor tie) |
-| **grid-4 (committed, the knee)** | 0 | 0.494 | 0.178 | −0.028 | **passes** |
-| grid-2 | 0 | 0.495 | 0.215 | −0.033 | passes (no safer, costlier) |
+*Cadence re-confirm (freeze-driven frequency sub-table; internal refs only; full frontier `{2,4,5,6,8,16}`,
+`exp5/figs_p9_5_cadence/arrays.npz`):*
+| cadence | neg/5 vs oracle | AA | GD-share | nsleep | worst-BWT | freeze cut |
+| --- | --- | --- | --- | --- | --- | --- |
+| grid-2 | 0 | 0.495 | 0.215 | 50 | −0.033 | passes (no safer than grid-4, costlier) |
+| **grid-4 (committed, the knee)** | 0 | 0.494 | 0.178 | 25 | −0.028 | **passes (best worst-BWT of the frontier)** |
+| grid-5 | 0 | 0.495 | 0.166 | 20 | −0.039 | passes (cheaper than grid-4; near-flat) |
+| grid-6 | 0 | 0.495 | 0.153 | 16 | −0.087 | passes (razor tie) |
+| grid-8 (P8, single-pass) | 2 | 0.494 | 0.138 | 12 | −0.317 | fails veto |
+| grid-16 | 0 | 0.458 | 0.107 | 6 | −0.367 | fails AA-held (over-sparse; not random) |
+
+Freeze band = grid-2→grid-6 (all clear the veto at held AA + GD ≤ 0.25); grid-4 has the best absolute worst-BWT of the whole
+frontier (−0.028) so it stays committed, with grid-5/grid-6 cheaper viable options. The two failures split by axis: grid-8
+fails the **veto** (sparse-sleep troughs); grid-16 fails **AA-held** (6 sleeps under-consolidate → AA 0.458, worst-BWT −0.367).
 
 *Re-freeze (grid-4, 5 seeds, all nine guards bit-exact):*
 | mechanism | AA | worst-BWT (+paired-sign) | GD-share | vs-oracle | frozen? |

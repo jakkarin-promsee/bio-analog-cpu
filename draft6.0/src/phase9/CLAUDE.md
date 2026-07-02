@@ -30,8 +30,10 @@ lifelong maintenance loop against *internal* signals, then LOCKED the object** s
   the analog layer. The Phase-6 "scoped-YES → Stage-2 read-side" debt is discharged.
 - **P9.5 — assemble + FREEZE.** The first assemble (inherited grid-8 = the shipped object bit-for-bit) **failed the oracle-veto
   2/5** on the lifelong stream (deep pre-sleep troughs between sparse sleeps). The freeze-driven **cadence re-confirm** (the P8
-  drift-conditional debt) found any denser cadence clears it; **grid-4 is the knee** (worst-BWT saturates at −0.028 at GD-share
-  0.178). Re-frozen at grid-4: veto 0/5, AA held, GD ≤ 0.25 → **FROZEN.**
+  drift-conditional debt; full frontier `{2,4,5,6,8,16}`) found the **freeze band is grid-2→grid-6**; **grid-4 is the knee**
+  (best absolute worst-BWT of the frontier, −0.028, at GD-share 0.178 — grid-5/grid-6 are cheaper viable options). The two
+  failures split by axis: grid-8 fails the **veto**, grid-16 (over-sparse) fails **AA-held** (AA 0.458, not random). Re-frozen
+  at grid-4: veto 0/5, AA held, GD ≤ 0.25 → **FROZEN.**
 - **Two things the sims overturned:** (1) the live diagnosis that the worst-point gap was the committed gate's *fire-timing*
   (unfixable in P9) — denser **sleep** closed it entirely, because frequent consolidation makes the fire-timing irrelevant;
   (2) the plan's guess that the read-side defense would need an SLDA **covariance** re-estimate — **proto-reanchor** (no

@@ -8,7 +8,7 @@ is COMMITTED / out of P9 scope (design §0.2), so the one P9-legal lever is the 
 frequency re-confirm — deferred under 'N2 struck', now OWED by the freeze failure). Denser sleep repairs the PRE-sleep
 worst-point state, so it MIGHT close the veto even though the gap is fire-timing-driven — an empirical question.
 
-This sweeps cadence_every ∈ {2,4,6,8} on the lifelong stream (committed loop otherwise), scoring the SAME three freeze
+This sweeps cadence_every ∈ {2,4,5,6,8,16} on the lifelong stream (committed loop otherwise), scoring the SAME three freeze
 cuts, all vs INTERNAL references (NEVER the P10 baseline): (1) worst-point BWT paired-sign veto vs the oracle at the
 SAME cadence (neg <= 1); (2) AA-held within delta_acc of the P8.6 shipped loop (grid-8 base AA); (3) GD-share <= 0.25.
 The cache is cadence-INDEPENDENT (the SCFF trajectory does not depend on the loop), so build ONCE per seed and replay all
@@ -35,8 +35,9 @@ import p9run as R                                                      # noqa: E
 QUICK = "--quick" in sys.argv
 OUT = os.path.join(_HERE, "figs_p9_5_cadence" + ("_quick" if QUICK else ""))
 SEEDS = CFG.SEEDS[:2] if QUICK else CFG.SEEDS
-CADENCES = [2, 4, 8] if QUICK else [2, 4, 6, 8]                       # denser than (and incl.) the committed grid-8
+CADENCES = [4, 8, 16] if QUICK else [2, 4, 5, 6, 8, 16]              # the full frontier: dense (grid-2) -> sparse (grid-16)
 SHIPPED_CADENCE = 8                                                    # the P8.6 committed loop's cadence (the AA ref)
+COMMITTED_CADENCE = 4                                                  # the committed knee (unchanged — the freeze is grid-4)
 
 
 def loop(cache, hf, gate, cad):
@@ -70,27 +71,38 @@ def main():
         del cache
 
     base_aa_med = R.med(base_aa)
+    negs, passes = [], []
     print(f"\n  shipped (grid-8) base AA = {base_aa_med:.3f}  (AA-held bar = {base_aa_med - CFG.DELTA_ACC:.3f})", flush=True)
     print(f"  {'cadence':>8} {'neg/5':>6} {'AA':>18} {'AA-held':>8} {'GD-share':>18} {'GD<=.25':>8} {'nsleep':>7} {'FREEZE?':>8}", flush=True)
-    winner = None
     for c in CADENCES:
         neg = R.paired_sign_neg(asm[c]["bwt"], orc[c]["bwt"], tol=CFG.DELTA_ACC)
         veto_ok = neg <= len(SEEDS) - 4
         aa_ok = R.med(asm[c]["aa"]) >= base_aa_med - CFG.DELTA_ACC
         gd_ok = R.med(asm[c]["gd"]) <= CFG.GD_SHARE_CAP
-        frozen = veto_ok and aa_ok and gd_ok
-        if frozen and winner is None:
-            winner = c
+        frozen = bool(veto_ok and aa_ok and gd_ok)
+        negs.append(neg)
+        if frozen:
+            passes.append(c)
         print(f"  {c:>8} {neg:>6} {R.fmt(asm[c]['aa']):>18} {str(aa_ok):>8} {R.fmt(asm[c]['gd']):>18} "
               f"{str(gd_ok):>8} {R.med(asm[c]['nslp']):>7.0f} {str(frozen):>8}", flush=True)
 
-    print(f"\n== CADENCE RE-CONFIRM (wall {round(time.time()-t0,1)}s) ==", flush=True)
-    if winner is not None:
-        print(f"  WINNER: cadence_every={winner} clears the oracle-veto (neg<=1) at held AA + GD-share<=0.25 "
-              f"-> commit as the lifelong cadence, re-freeze.", flush=True)
-    else:
-        print(f"  NO cadence clears the oracle-veto -> the worst-point gap is the committed DDM gate's fire-timing "
-              f"(out of P9 scope), NOT sleep frequency. Name it to P10; the loop regresses 0/5 vs the shipped object.", flush=True)
+    # persist the frontier (arrays + manifest) so P10 can load/plot it — grid-4 stays committed (the freeze is unchanged)
+    A = dict(seeds=np.array(SEEDS), cadences=np.array(CADENCES, float), cad_neg=np.array(negs, float),
+             cad_bwt=np.array([asm[c]["bwt"] for c in CADENCES]), cad_aa=np.array([asm[c]["aa"] for c in CADENCES]),
+             cad_gd=np.array([asm[c]["gd"] for c in CADENCES]), cad_nslp=np.array([asm[c]["nslp"] for c in CADENCES]),
+             cad_orc_bwt=np.array([orc[c]["bwt"] for c in CADENCES]), base_aa=np.array(base_aa))
+    man = R.base_manifest("P9.5-cadence", _HERE, SEEDS, QUICK, guards=g, wall_s=round(time.time() - t0, 1),
+                          cadences=CADENCES, committed_cadence=COMMITTED_CADENCE, shipped_cadence=SHIPPED_CADENCE,
+                          passes_veto=passes,
+                          summary={f"grid-{c}": dict(neg=int(negs[i]), bwt=R.fmt(asm[c]["bwt"]), aa=R.fmt(asm[c]["aa"]),
+                                                     gd=R.fmt(asm[c]["gd"]), nsleep=R.med(asm[c]["nslp"]))
+                                   for i, c in enumerate(CADENCES)})
+    R.save_run(OUT, A, man)
+
+    print(f"\n== CADENCE FRONTIER (wall {round(time.time()-t0,1)}s) ==", flush=True)
+    print(f"  cadences clearing the oracle-veto (neg<=1) at held AA + GD<=0.25: {passes}", flush=True)
+    print(f"  COMMITTED (unchanged) = grid-{COMMITTED_CADENCE}, the safety knee (see run_p9_5.py / freeze 59d2720).", flush=True)
+    print(f"  grid-16 = the sparse extreme (fewest sleeps) — the 'paid less compute' end of the frontier.", flush=True)
 
 
 if __name__ == "__main__":

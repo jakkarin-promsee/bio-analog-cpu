@@ -126,18 +126,26 @@ Since the gate/trigger are committed (out of P9 scope) and every P9 knob was str
 the shipped object), the one P9-legal lever was the sleep **cadence** — the P8 "cadence is drift-rate-conditional" debt, now
 owed by the freeze. The cadence re-confirm settled it:
 
-| cadence | neg/5 vs oracle | AA | GD-share | worst-BWT | freeze |
-| --- | --- | --- | --- | --- | --- |
-| grid-8 (P8, single-pass) | 2 | 0.494 | 0.138 | −0.317 | fails |
-| grid-6 | 0 | 0.495 | 0.153 | −0.087 | razor tie |
-| **grid-4 (committed, the knee)** | 0 | 0.494 | 0.178 | −0.028 | **passes** |
-| grid-2 | 0 | 0.495 | 0.215 | −0.033 | passes (no safer, costlier) |
+| cadence | neg/5 vs oracle | AA | GD-share | nsleep | worst-BWT | freeze |
+| --- | --- | --- | --- | --- | --- | --- |
+| grid-2 | 0 | 0.495 | 0.215 | 50 | −0.033 | passes (no safer than grid-4, costlier) |
+| **grid-4 (committed, the knee)** | 0 | 0.494 | 0.178 | 25 | −0.028 | **passes (best worst-BWT of the frontier)** |
+| grid-5 | 0 | 0.495 | 0.166 | 20 | −0.039 | passes (cheaper than grid-4; near-flat) |
+| grid-6 | 0 | 0.495 | 0.153 | 16 | −0.087 | passes (razor tie) |
+| grid-8 (P8, single-pass) | 2 | 0.494 | 0.138 | 12 | −0.317 | fails veto |
+| grid-16 | 0 | 0.458 | 0.107 | 6 | −0.367 | fails AA-held |
 
-Any denser cadence clears the veto at held AA and GD-share ≤ 0.25 — because frequent consolidation keeps the pre-sleep state
-fresh, so the deep troughs never form *and* the assembled loop's worst-point becomes identical to the oracle's (the
-DDM-vs-onset fire-timing difference is masked). This overturned the live diagnosis that the gap was the committed gate's
-fire-timing (unfixable) — the lever was frequency, a P9-legal knob. **grid-4 is the knee**: worst-BWT saturates at −0.028
-(grid-2 is no safer for +0.037 GD-share; grid-6 is a razor's-edge tie at −0.087). Committed as the lifelong sleep cadence.
+The **freeze band is grid-2 → grid-6** — denser cadences clear the veto at held AA and GD-share ≤ 0.25, because frequent
+consolidation keeps the pre-sleep state fresh, so the deep troughs never form (and the DDM-vs-onset fire-timing difference is
+masked). This overturned the live diagnosis that the gap was the committed gate's fire-timing (unfixable) — the lever was
+frequency, a P9-legal knob. **grid-4 is the knee**: it has the *best absolute worst-BWT of the whole frontier* (−0.028), so it
+stays committed; grid-5 (−0.039, cheaper) and grid-6 (−0.087, cheaper still but a razor tie) are viable lighter options. The
+two failures fall on *different* axes — a symmetry worth seeing: **grid-8 fails the veto** (too sparse → the sparse-sleep
+troughs), while **grid-16 fails AA-held** (far too sparse → 6 sleeps under-consolidate, so accuracy itself drops to 0.458 and
+worst-BWT collapses to −0.367). grid-16 is *not* random — it is the "paid-less-compute" cliff. (A caveat, stated: at grid-5 and
+grid-16 the boundary-onset oracle hits an unlucky pre-sleep phase alignment and its own worst-BWT jumps, so the assembled loop
+there *beats* the oracle — the veto passes but the load-bearing read is the assembled worst-BWT, not a ties-oracle framing.)
+Committed cadence unchanged: **grid-4** (the freeze is `59d2720`).
 
 ![P9.5 FREEZE — the assembled grid-4 loop holds worst-BWT at the oracle level (−0.028) at held AA and GD-share ≤ 0.25](exp5/figs_p9_5/FREEZE.png)
 
