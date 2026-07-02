@@ -25,7 +25,7 @@ magnitude; only the **cosine** head is direction-pure. It is perfectly spine-cle
 **Δ = 0.128** (real, 5/5, ≫ δ=0.02) → **magnitude-wins-spine-bends**. But that price **shrinks 4× on natural digits
 (−0.036)** and **vanishes on CIFAR-flat** (where the bulk itself has no composable depth). The winner (RanPAC) reads a
 *magnitude* (a ridge prototype) yet is **recency-robust — not because it reads direction, but because it has no trained
-softmax weights to inflate** (density ≠ class, wearing its 8th coat).
+softmax weights to inflate** (density ≠ class, wearing its 7th coat).
 
 **Two design guesses the sims overturned (the honest science):**
 - **AIR is NOT the no-gradient imbalance guard.** The plan expected the Analytic Imbalance Rectifier to guard a
@@ -51,6 +51,14 @@ softmax weights to inflate** (density ≠ class, wearing its 8th coat).
 *(synthetic CI home, median; full IQR + the 9-head scorecard in [`RESULTS.md`](RESULTS.md).)* The frontier top is a
 statistical tie of **MLP, RanPAC, SLDA**; the projection earns its keep (**RanPAC − RLS = +0.047, real**); the
 direction-pure cosine sits below the frontier.
+
+![Phase 7 in one figure — the bake-off frontier](exp1/figs_p7_1/BAKEOFF.png)
+*The phase in one glance. **Left** — the accuracy×forgetting frontier: **RanPAC** sits at the top-right, tied with the
+gradient MLP and the un-projected RLS, two of the top three using **no gradient**; the direction-pure cosine-softmax and
+the max-magnitude FeCAM fall below, and the bare prototype heads collapse sub-floor (greyed). **Right** — the scorecard:
+RanPAC carries the highest static accuracy, while only the two **cosine** heads are perfectly spine-clean (flip 0). The
+whole Phase-7 tension is this one picture: the frontier peaks off the direction-pure corner, so **the spine bends** — but
+it bends toward a *no-gradient* winner.*
 
 ---
 

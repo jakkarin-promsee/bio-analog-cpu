@@ -55,12 +55,20 @@ gap is expected and *is the P4 characterization at the naming stage*: SCFF is a 
 accuracy competitor; its value shows up on the forgetting axis, not the static curve.
 
 **The RanDumb control (the one genuine "uh-oh", not pre-excused).** OURS-bulk vs a random ReLU projection at a fair
-2000-D expansion, two arms, same head *(figure: RANDUMB)*:
+2000-D expansion, two arms, same head:
 
 | head | OURS-bulk | random-from-taps | random-from-pixels | read |
 | --- | --- | --- | --- | --- |
 | linear | 0.608 | 0.606 | 0.461 | earns keep vs pixels; **ties** a random expansion of its own taps |
 | rls (ridge) | 0.579 | 0.385 | 0.314 | **earns keep on both arms** |
+
+![RanDumb — did the trained bulk earn its keep?](exp0/figs_p7_0/RANDUMB.png)
+*The two-arm skeptic on the synthetic home, n=5: OURS-bulk vs a random ReLU expansion of the same input, for three
+heads. Against **random-from-pixels** (raw input — the harsher arm) OURS wins on every head: the 80% SCFF earns its keep
+vs a random projection. Against **random-from-taps** (a random remix of OURS's own features) a plain **linear** namer
+ties (0.608 vs 0.606 — the expected ELM/reservoir effect, since a random expansion of good features is itself the RanPAC
+mechanism), but the **ridge** head separates them (0.579 vs 0.385): the structured taps carry second-moment information a
+random remix destroys. The bulk's naming-stage value is thus verified for the analytic namer and decisive vs raw pixels.*
 
 **Both readings, honestly:** *(i)* OURS beats **random-from-pixels** for every head (the decisive skeptic — the 80%
 SCFF earns its keep vs raw input); *(ii)* the **random-from-taps tie** for a plain *linear* namer is the expected
@@ -74,8 +82,7 @@ INV: dead-frac 0.000, effective-rank 58.7 (the per-layer-normed all-tap is low-r
 ## 3. The bake-off (P7.1) — the headline
 
 Nine heads raced the same frozen all-tap taps, each at a val-selected knob (the `race_bp` fairness protocol), scored on
-static accuracy, continual AA/BWT (via the shared stream-cache), spine-cleanliness, and cost-proxy *(figures: BAKEOFF,
-SPINE-CLEAN, COST-PROXY)*.
+static accuracy, continual AA/BWT (via the shared stream-cache), spine-cleanliness, and cost-proxy.
 
 **The frontier top is a statistical three-way tie — led by no-gradient heads.** On accuracy×BWT (operationalized as the
 continual AA), the top three are **MLP 0.623, RanPAC 0.617, SLDA 0.604**, mutually within-noise (mlp−ranpac +0.007 not
@@ -84,13 +91,29 @@ and, among the tied cluster, is the **most spine-clean** (argmax-flip 0.54 vs ML
 tie-break selects it. **The projection earns its keep**: RanPAC (ridge on a 2000-D random expansion) beats plain RLS
 (ridge, no projection) by **+0.047, real (5/5)**.
 
+![BAKEOFF — where accuracy×BWT peaks on the direction→magnitude axis](exp1/figs_p7_1/BAKEOFF.png)
+*The headline, two panels. **Left** — the accuracy×forgetting frontier (x = BWT, 0 = no forgetting; y = readout
+accuracy): **RanPAC sits at the top-right**, in a statistical tie with the gradient MLP and the un-projected RLS, with
+SLDA on the floor line; the direction-pure cosine-softmax and the max-magnitude FeCAM sit below, and the two prototype
+heads (ncm, cosine-ncm) collapse sub-floor (greyed out). **Right** — the scorecard: RanPAC carries the **highest static
+accuracy (0.647)**, while only the two **cosine** heads reach spine-clean = 1.0 (argmax-flip 0). Two of the top three
+(RanPAC, SLDA) use **no gradient** — the frontier is led from the no-gradient corner.*
+
 **The spine bends — numerically.** The pinned verdict cut: `Δ = the paired-by-seed median of [AA(RanPAC) −
 AA(cosine-softmax)] = +0.128` (head medians AA 0.617 vs 0.480; the paired median differs slightly from the
 difference-of-medians because the median is not linear), **real** (paired IQR excludes 0, 5/5 sign), `|Δ| > δ=0.02` →
 **magnitude-wins-spine-bends**, with the mechanism condition satisfied: the winning magnitude head is **not** more
 fragile than cosine under the bursty stream (RanPAC BWT −0.157 vs cosine-softmax −0.234). The two cosine heads are the
-only argmax-flip-0 heads (spine-clean by construction, *figure: SPINE-CLEAN*), but they sit well below the frontier —
-so the tension is **named, not resolved silently toward accuracy**.
+only argmax-flip-0 heads (spine-clean by construction), but they sit well below the frontier — so the tension is
+**named, not resolved silently toward accuracy**.
+
+![SPINE-CLEAN — how a pure magnitude nuisance moves each verdict](exp1/figs_p7_1/SPINE_CLEAN.png)
+*The spine axis, two probes. **Left** — argmax-flip rate as each class prototype's norm is randomly re-scaled: the two
+**cosine** heads stay flat at **0.000** (scale-invariant by construction — the only direction-pure verdicts), while
+every magnitude head flips (RanPAC 0.54, least among the competitive heads; SLDA 0.89, most). **Right** — the
+task-recency read (old-class accuracy drop under the actual bursty stream). The tension is named, not hidden: cosine is
+perfectly spine-clean but sub-competitive, and the committed RanPAC reads a magnitude yet is among the least
+recency-fragile — recency-robust ≠ direction-reading.*
 
 **Why the spine bends, mechanistically.** (i) The all-tap SCFF space is *anisotropic* — a tied-covariance whitening
 buys +0.19 on natural data (P7.2) — so an angle-only metric leaves structure on the table. (ii) The no-gradient winners
@@ -103,8 +126,8 @@ it is.
 ## 4. The closed-form cliff (P7.2) — it is anisotropy, not multimodality
 
 Is the frozen space multi-modal (one prototype underfits → a non-convex mixture looms), or unimodal? The decision was
-made on the **natural** tap space (digits), with a synthetic multi-blob task as apparatus-sanity only *(figure:
-MULTIMODAL)*. Natural per-class features are **unimodal** (per-class n-modes = **1.0**). The accuracy lever is a
+made on the **natural** tap space (digits), with a synthetic multi-blob task as apparatus-sanity only. Natural per-class
+features are **unimodal** (per-class n-modes = **1.0**). The accuracy lever is a
 **tied covariance**: NCM (one Euclidean mean) 0.754 → **SLDA (tied cov) 0.946** (+0.19), closed-form. Per-class
 covariance (FeCAM) *overfits* the limited per-class sample (0.921 < SLDA); a non-convex **mixture hurts** (−0.12). The
 synth-blob sanity inverts as it must (GKEAL kernel 0.857 / mixture 0.693 rescue a *provably* multimodal task where
@@ -113,6 +136,14 @@ plan's "non-convex mixture or bust" was wrong; a shared whitening is the escape,
 whitening is a *magnitude* tool — whitening was rejected-as-a-lever in P5 — so P7.2 *sharpens* the spine tension rather
 than dodging it.)
 
+![MULTIMODAL — the closed-form fallback ladder (natural data decides)](exp2/figs_p7_2/MULTIMODAL.png)
+*The fallback ladder (mean → SLDA → FeCAM → GKEAL → mixture). On **natural digits** (the decision-bearer, orange)
+accuracy jumps at the **tied-covariance** rung — NCM one-mean 0.754 → SLDA **0.946** (+0.19) — and rises no further:
+per-class covariance (FeCAM) overfits and a non-convex mixture *hurts* (−0.12). On the synthetic multi-blob sanity task
+(grey, provably multimodal) the pattern **inverts** — only the kernel/mixture rescue it — which confirms the ladder
+apparatus works. With per-class n-modes measured at 1.0, the classes are **unimodal**: the lever is an anisotropic
+metric, not multimodality, and it stays closed-form.*
+
 ---
 
 ## 5. The bursty-imbalance guard (P7.3) — cbrs, not AIR
@@ -120,7 +151,7 @@ than dodging it.)
 Our A6 mechanism consolidates on a balanced replay buffer, so imbalance was **induced**: a bounded (cap=800)
 recency-skewed reservoir (all classes present, recent tasks over-represented). With no guard, every head over-predicts
 recent classes; the **trained cosine-softmax is worst** (recency-gap +0.659 — the classic BiC/WA/SCR magnitude bias),
-the no-gradient RanPAC (+0.495) and SLDA (+0.361) less so *(figure: IMBALANCE)*. The guards:
+the no-gradient RanPAC (+0.495) and SLDA (+0.361) less so. The guards:
 
 | head | none | family guard | **class-balanced reservoir (cbrs)** |
 | --- | --- | --- | --- |
@@ -128,6 +159,14 @@ the no-gradient RanPAC (+0.495) and SLDA (+0.361) less so *(figure: IMBALANCE)*.
 | SLDA (analytic) | +0.361 | AIR −0.315 (recent→0) | +0.055 |
 | cosine-softmax (trained) | +0.659 | logit-adjust +0.214 | +0.195 |
 | MLP (trained) | +0.498 | logit-adjust +0.254 | +0.094 |
+
+![IMBALANCE — old vs recent classes, guard on/off](exp3/figs_p7_3/IMBALANCE.png)
+*Old-class (blue) vs recent-class (orange) accuracy under a bursty, recency-skewed replay buffer, for each head and
+guard. With no guard every head over-predicts recent classes; the **trained cosine-softmax is worst** (gap +0.659). The
+reliable fix is **class-balanced reservoir (cbrs, buffer-side)** — it collapses RanPAC's gap from +0.495 to **+0.013**
+while lifting old-class accuracy 0.18 → 0.56. **AIR** — the analytic head-side guard the plan expected to ship —
+**over-corrects**: it re-weights a strongly-skewed fit until SLDA's recent classes crater to 0. Re-balancing the input
+beats re-weighting the output.*
 
 **The design guess was overturned:** AIR (the analytic-family head-side guard) **over-corrects** — inverse-frequency
 re-weighting a strongly-skewed fit over-shoots (SLDA's recent classes collapse to 0). The reliable fix is
@@ -140,12 +179,19 @@ re-weighting a strongly-skewed fit over-shoots (SLDA's recent classes collapse t
 
 Each candidate ran through the built `continual_safety_heads` harness under its native online+sleep rule (closed-form:
 recompute statistics on the replay buffer; gradient: sleep-refit by GD), vs the **floor-head-on-the-same-bulk baseline**
-(not the P5 readout, which would confound cell- and head-forgetting), 5 seeds, with a paired-sign veto *(figure:
-CONT-SAFETY)*:
+(not the P5 readout, which would confound cell- and head-forgetting), 5 seeds, with a paired-sign veto:
 
 - **RanPAC PASSES** — BWT −0.157, **+0.023 vs the floor baseline, 0/5 seeds negative** → adoption stands.
 - SLDA, MLP, cosine-ncm, RLS also pass.
 - **cosine-softmax STRUCK** (−0.030 vs floor, **5/5 negative**) and **FeCAM STRUCK** (−0.127, 5/5) — dent A6.
+
+![CONT-SAFETY — each head vs the floor-head-on-the-same-bulk (the A6 gate)](exp4/figs_p7_4/CONT_SAFETY.png)
+*The un-skippable gate — AA / BWT / forgetting for every head vs the linear floor-head on the *same* frozen bulk, 5
+seeds with a paired-sign veto. The committed **RanPAC keeps the win** (BWT −0.157, +0.023 vs floor, 0/5 seeds negative).
+The gate **strikes** the two most magnitude-inflating heads: the gradient **cosine-softmax** (−0.234, 5/5 negative) and
+the per-class-covariance **FeCAM** (−0.302 BWT, worst forgetting, 5/5). Read the decisive control off the bars:
+cosine-ncm passes while cosine-softmax — the *same angle metric* — is struck, so the recency dent comes from the
+**trained weights**, not the readout's geometry.*
 
 **The decisive mechanism control is cosine-ncm vs cosine-softmax:** *same angle metric*, but the no-gradient ncm variant
 **passes** (+0.059) while the **gradient** softmax variant is **struck** (−0.030, 5/5). So the recency dent is caused by
@@ -157,7 +203,7 @@ task's shape, forgetting the rest). This banks evidence **for** the no-gradient 
 
 ## 7. Natural-data confirmation (P7.5) — RanPAC #1 on digits; the spine bend shrinks
 
-The head set re-ran on **digits (64-D, 5 seeds)** and **CIFAR-flat (3072-D, 3 seeds)** *(figure: NAT-ANCHOR)*:
+The head set re-ran on **digits (64-D, 5 seeds)** and **CIFAR-flat (3072-D, 3 seeds)**:
 
 - **Digits:** the analytic/magnitude heads cluster at the top (0.94–0.95) with **RanPAC #1 (0.949)** and **near-zero
   forgetting (BWT −0.012)**; cosine-softmax is **competitive (0.913, gap −0.036)** — the synthetic spine-price shrinks
@@ -166,6 +212,13 @@ The head set re-ran on **digits (64-D, 5 seeds)** and **CIFAR-flat (3072-D, 3 se
   "wall"), so there is little class structure to name. The ordering compresses, RanPAC's random expansion of near-useless
   features actively hurts (0.265 < SLDA 0.325), and the **spine tension vanishes** (cosine-softmax 0.324 ≈ the SLDA top
   0.325).
+
+![NAT-ANCHOR — the bake-off headline on real flat data](exp5/figs_p7_5/NAT_ANCHOR.png)
+*The bake-off re-run on real inputs. On **digits** (left — where SCFF composes class structure) the analytic/magnitude
+heads cluster at the top with **RanPAC #1 (0.949)** and near-zero forgetting, while cosine-softmax is competitive
+(0.913) — the synthetic spine-price shrinks **4×** (−0.128 → −0.036). On **CIFAR-flat** (right — the established SCFF
+depth-wall) *every* head collapses to ~0.3, the ordering compresses, and the spine tension vanishes: this is a **bulk**
+failure, not a namer failure, and it is where the cheaper SLDA (0.325) even edges RanPAC (0.265).*
 
 **Read:** the readout choice is *real*, not a synthetic artifact — RanPAC is confirmed on the SCFF-working natural home
 (digits, #1). The CIFAR result is a **bulk** failure, not a namer failure (all heads ~0.3), but it teaches the honest
@@ -181,6 +234,12 @@ solo AA 0.617 by more than the §B band 0.02 → revert). It **HOLDS**: assemble
 (−0.157 → −0.132). On the balanced A6 home the guard is near-idempotent (a slight gain from cleaner per-class balance);
 under the P7.3 recency skew it is the decisive fix. The levers stack — no optimizer interaction to destabilize, because
 the head is closed-form.
+
+![CONT-SAFETY — the assembled pipeline (RanPAC + cbrs) vs RanPAC solo](exp6/figs_p7_6/CONT_SAFETY.png)
+*The committed pipeline end-to-end on the balanced A6 home. Adding the class-balanced-reservoir guard is
+**non-degrading** — AA 0.617 → 0.627 and BWT −0.157 → −0.132 both *improve* — so the levers stack. Because RanPAC is
+closed-form, "consolidation" is just a re-solve on a cleaner (balanced) buffer: there is no optimizer interaction to
+destabilize, so the P7.3 guard composes with the P7.1 head by construction.*
 
 ---
 
@@ -207,6 +266,12 @@ no-gradient alternative** — it sits in the top-3 tie, passes the A6 gate, is *
 and its only weakness is spine-cleanliness (argmax-flip 0.89 vs RanPAC 0.54). **Handed to Phase 8:** if the substrate
 cost meter makes RanPAC's projection prohibitive, **SLDA is the committed fallback**; the cost meter's job is to price
 RanPAC's projection vs SLDA's tied-covariance solve.
+
+![COST-PROXY — descriptive only, NOT a decision axis in Phase 7](exp1/figs_p7_1/COST_PROXY.png)
+*The cost proxy (readout forward-MACs, log scale). It was **never a tie-break in Phase 7** — the spine was — and the
+real substrate meter is Phase 8. But it is the single reason SLDA is flagged forward: RanPAC's 2000-D random projection
+makes it **~200× SLDA's** cost, and since SLDA sits within-noise of RanPAC on the frontier, passes the A6 gate, and is
+more robust on depth-less inputs, it is the pragmatic fallback the moment cost stops being free.*
 
 **Also handed forward:** the class-balanced-reservoir guard (to carry; AIR available-but-not-shipped); and — deferred
 from Phase 6 on purpose — the **read-side noise residual** (input-transducer directional + ADC < 3-bit), a calibration

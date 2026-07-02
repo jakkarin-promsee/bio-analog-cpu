@@ -13,7 +13,7 @@ on the frozen `NoiseAugContrast` bulk (GD reads taps, never writes; the P2.5 env
 - **The spine bends (honest):** the spine-pure **cosine** head is direction-clean (argmax-flip 0.000) but
   **sub-competitive** on the synthetic home (**magnitude-wins-spine-bends**, Δ=0.128 vs δ=0.02). On **natural digits**
   the price **shrinks** (cosine ≈ competitive). The winner (RanPAC) reads a *magnitude* (ridge) but is recency-robust
-  by having **no trained softmax weights** — recency-robust ≠ direction-reading (density≠class, 8th coat).
+  by having **no trained softmax weights** — recency-robust ≠ direction-reading (density≠class, 7th coat).
 - **Two design guesses the sims overturned:** (1) **AIR is NOT the no-gradient imbalance guard** — it over-corrects;
   the reliable guard is **class-balanced reservoir (buffer-side)**. (2) The multimodality "cliff" is **not**
   multimodality (natural features are unimodal, n-modes 1.0) — it's an **anisotropic metric**; a **tied covariance**

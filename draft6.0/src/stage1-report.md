@@ -275,14 +275,25 @@ measured what it is, Phase 5 closed its one open *learning* wound, and Phase 6 h
 The cheap brain is finished, characterized, and noise-hardened — its *design* complete (ideal-float behavioral sim
 plus a behavioral analog-noise model; not silicon- or benchmark-validated). Every remaining knob is on the precise
 ~20% GD **back**, not the SCFF front, so Stage 1 hands **Stage 2** a settled, noise-characterized cell and a precise
-brief:
+brief. **Stage 2 is now underway — P7 (the readout) is done (2026-07-02); P8–P9 follow:**
 
-- **P7 — the readout.** Learn the class names on the frozen bulk with a **direction-pure** readout (cosine / RanPAC —
-  distance-based heads like NCM/SLDA read *magnitude*, which the spine forbids). Boosting is dropped: a single bulk +
-  per-depth read-only heads.
+- **P7 — the readout. ✓ DONE (2026-07-02) — and, in the Stage-1 tradition, the prediction above was _overturned_.** The
+  plan expected a **direction-pure** readout (cosine / RanPAC), reading NCM/SLDA out as forbidden *magnitudes*. The sims
+  disagreed: on the frozen bulk the direction-pure **cosine is sub-competitive**, and the committed namer is **RanPAC** —
+  a **no-gradient, closed-form analytic head** (random projection → running-Gram ridge prototype) that *reads a
+  magnitude* yet ties the gradient MLP on accuracy×forgetting (a 3-way tie with SLDA), leads on natural digits (#1,
+  0.949), and **passes the A6 continual gate** (the trained cosine-softmax and the max-magnitude FeCAM are struck). So
+  **the spine bends** — _magnitude-wins-spine-bends_, Δ = 0.128 synthetic → −0.036 digits → ≈ 0 CIFAR — because the
+  winner is recency-robust not by reading direction but by having *no trained weights to inflate*: density ≠ class, a
+  seventh time. The headline: **the "20% GD" is a role, not a method — the precise brain names the world with no backward
+  pass at all.** Boosting is dropped (single frozen bulk + read-only heads; N3 superseded), and two more guesses fell to
+  the sims — the imbalance guard is **cbrs, not AIR**, and the "multimodality cliff" is **anisotropy (a tied covariance),
+  not multimodality**. Cost → P8 (**SLDA** is the ~200× cheaper no-gradient fallback). → [Phase 7 report](phase7/phase7-report.md).
 - **P8 — the economy gate + the cost meter.** The **Ch7 learning-gate** (cheap SCFF most steps, expensive GD only
   when the cheap path stalls — a drift-detection trigger) and a **depth-aware, temporal** cost meter, because the
-  80/20 lives in the gate + sleep cadence, not a per-pass number.
+  80/20 lives in the gate + sleep cadence, not a per-pass number. **P7 hands it a concrete first job:** price RanPAC's
+  random projection against SLDA's tied-covariance solve — is "no-gradient" actually cheaper on our substrate, and if
+  the projection is prohibitive, is SLDA the committed fallback?
 - **P9 — the maintenance loop + the owed baselines.** Tune the sleep cadence + gate, now **readout-aware**
   (consolidate the *extractor-depth* features the fixed reader actually reads; shallow on the flat home, deep on
   compositional tasks) against *this* cell's measured drift; and settle the owed old-world baselines — the fairer
@@ -295,7 +306,7 @@ manufacture base robustness, but it can defend a channel the base can't reach fo
 parked-with-evidence threads wait here too: the **oracle-exit headroom** (a better per-sample depth-selector than
 max-softmax could unlock large gains on the continual home — but it is a selector / north-star problem), and a
 *compositional* continual stream to test whether an adaptive exit ever earns its keep off the flat home. Full map:
-[`stage2-design.md`](stage2-design.md).
+[`stage2-design.md`](stage2-design.md); the Stage-2 arc as it unfolds: [`stage2-report.md`](stage2-report.md).
 
 After Stage 2, the analog-realism layer (SPICE / PVT) opens. The **recurrent lifelong brain** — a time-series
 prefrontal↔hippocampus loop where "correctness is a self-generated feeling" — remains the north star, beyond the
