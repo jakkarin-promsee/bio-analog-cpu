@@ -5,10 +5,11 @@
 > brain that *organizes* the world; Stage 2 makes it *answer in our language.* This is the last component of the
 > neocortex brain.
 >
-> **⚠ This is a LIVING report — Stage 2 is IN PROGRESS.** Of its three phases, **P7 (the readout) is DONE
-> (2026-07-02)**; **P8 (economy + cost) and P9 (maintenance + owed baselines) are planned, not run.** The headline result
-> is real and natural-confirmed, but the stage's *existential* test — the fair same-budget BP+replay baseline — lives in
-> P9 and is **still owed** (§6). Read this section as "the arc so far," not "the arc closed."
+> **⚠ This is a LIVING report — Stage 2 is IN PROGRESS.** Of its three phases, **P7 (the readout) and P8 (economy +
+> cost) are DONE (both 2026-07-02)**; **P9 (maintenance + owed baselines) is planned, not run.** The headline results are
+> real and, for P7, natural-confirmed; P8 put the first honest hardware cost on the 80/20 and ran both brains live. But
+> the stage's *existential* test — the fair same-budget BP+replay **accuracy** baseline — lives in P9 and is **still
+> owed** (P8 settled the *energy* comparison, not the accuracy fight; §6). Read this as "the arc so far," not "closed."
 >
 > The plan this executes: [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). The frozen cell it
 > builds on: [`phase6-final-architecture.md`](phase6-final-architecture.md). The
@@ -61,12 +62,13 @@ GD heads** — the "two GD organs" collapse to **one: the readout.**
 ## 2 · The arc so far — one thread, still running
 
 Stage 1's arc was "we kept being right about *where* the cell wins and wrong about *how*." Stage 2 has its own thread,
-and one phase in, it already has a shape:
+and two phases in, it has a shape:
 
-> **The "20% GD" is a role, not a method — and the spine bends toward the cheap answer.** We expected to pay gradient
-> descent for the precise brain and to pay a forgetting cost to stay direction-pure. The sims said neither: the best
-> namer uses **no gradient at all**, and it wins by reading a *magnitude* — while dodging the forgetting the spine feared,
-> for a reason that is *not* direction-reading.
+> **The "20% GD" is a role, not a method — and the economy that pays for it is a *safety* mechanism, not just a cost
+> saver.** We expected to pay gradient descent for the precise brain and to pay a forgetting cost to stay direction-pure.
+> The sims said neither: the best namer uses **no gradient at all** and wins by reading a *magnitude*; and when we ran
+> both brains live, the disciplined drift-gated economy turned out **cheaper *and* safer** than firing the namer every
+> step — because firing more chases the recency-skewed stream and forgets more. The cheap answer was also the safe one.
 
 The connective tissue is Stage 1's recurring fault, **density ≠ class**, wearing its **7th** coat. The project's spine
 says *read the class direction, never a magnitude* — and the tempting move in a readout is to declare the direction-pure
@@ -76,11 +78,12 @@ prototype) — yet it is **recency-robust**, not because it reads direction, but
 weights to inflate.** Recency-robustness ≠ direction-reading. The spine bent, honestly and numerically, and we named the
 tension rather than resolving it silently toward accuracy.
 
-**The honest status, stated up front.** One phase of three is done. The headline — *the precise brain names the world
-with no backward pass* — is a real, natural-confirmed **P7** result on the frozen bulk. But the architecture's *founding*
-claim (an 80/20 continual learner that beats backprop's economics) is **not** yet fully re-validated in Stage 2: the fair
-same-budget **BP+replay** baseline is P9's job and is still owed, and the "80/20" cost number is a proxy until P8's meter.
-Stage 2 is going well; it is not finished.
+**The honest status, stated up front.** Two phases of three are done. The headline — *the precise brain names the world
+with no backward pass* — is a real, natural-confirmed **P7** result on the frozen bulk; and **P8** ran both brains live,
+metered the 80/20 for the first time (GD-share 0.121, no longer a proxy), and showed the loop is continual-safe live.
+But the architecture's *founding* claim (an 80/20 continual learner that beats backprop's **economics *and* accuracy**)
+is **not** yet fully re-validated: P8 settled the *energy* comparison (OURS ≈ half of BP+replay), but the fair same-budget
+**BP+replay accuracy** baseline is P9's job and is **still owed**. Stage 2 is going well; it is not finished.
 
 ---
 
@@ -127,20 +130,33 @@ mixture needed (a mixture *hurts*). Both hedges from §1 held: the naming was co
 confirmed the trained bulk earns its keep vs a raw-pixel random projection (though a random *expansion of its own taps*
 ties a plain linear namer — the expected ELM effect — a flag carried forward). → [full Phase 7 report](phase7/phase7-report.md).
 
-### Phase 8 — the economy gate + the cost meter → *when does the namer fire, and what does it truly cost?*  **[NEXT — not run]**
+### Phase 8 — the economy gate + the cost meter → *the two-brain economy is real, cheaper and safer, run live* 🔥  **[DONE]**
 
-Phase 7 picked *what* the namer is; Phase 8 decides *when* it fires and *what it actually costs on the substrate.* Two
-deliverables. First, the **Ch7 learning-gate** Stage 1 punted here: the architecture pays cheap local SCFF most steps and
-the expensive GD namer only when the cheap path stalls — a **concept-drift detector**, not a magic threshold. The planned
-bake-off is *absolute-θ vs DDM two-threshold vs ADWIN two-window vs a learned budget-gate*, scored on (accuracy held) ×
-(fraction of steps paying GD), with **false-fire rate as an explicit failure axis** — because a false fire burns the
-80/20, so the gate is not "solved" until it detects the *harmful* stall earliest without firing on nuisance drift. The
-appealing bet: fire on a **label-free SCFF-tap drift detector** (SCFF drift *leads* the readout's error), so a refit is
-scheduled *before* accuracy drops; the gate and the sleep-cadence are the same detector at two timescales. Second, the
-**honest cost meter** — charge cycles / ADC / write energy, replacing the op-count proxy — a required deliverable,
-because every "80/20" and vs-BP claim depends on it. Phase 7 hands it a concrete first job: **price RanPAC's random
-projection against SLDA's tied-covariance solve** (the ~200× cost gap Phase 7 flagged) — is "no-gradient" actually
-cheaper on our substrate, and if the projection is prohibitive, is **SLDA** the committed fallback?
+Phase 7 picked *what* the namer is; Phase 8 turned **both brains on together for the first time** and answered *when* it
+fires and *what it truly costs.* SCFF was run **live** (forward-only on every input; it never forgets but its feature map
+drifts), and the namer tracked that drift through an awake gate + periodic sleep — on a new streaming **`partial_fit`**
+primitive (a running Gram, guarded ≡ a batch fit to 4e-15). The bake-off settled every knob: the awake gate is **DDM**
+(two-threshold error, FAR 0.000, fires ~0.3% of steps); the trigger is a **label-free class-direction tap-drift** signal
+that leads the error by ~8 steps (MTD 6 vs 14) while a magnitude-of-shift null false-fires on 94% of nuisance steps — the
+spine, made a measurement; the sleep cadence is **grid-8 / full LUT history** (regular cadence beats boundary-aligned;
+full history is load-bearing). The honest ADC-centred meter priced the ~200× Phase-7 caveat: **SLDA names 69× cheaper**
+than RanPAC and, freshly measured live, ties or beats its accuracy — **commit SLDA** (RanPAC kept as the reference).
+
+![Phase 8 in one figure — the live economy is cheaper and safer](phase8/exp6/figs_p8_6/CONT_SAFETY.png)
+*The headline. The committed drift-gated economy holds worst-point (pre-sleep) BWT at **0.000** — identical to the
+known-boundary oracle — in 5/5 seeds at **GD-share 0.155**, while the profligate **always-pay** loop (namer every step)
+**forgets** (worst-BWT −0.137) at **GD-share 0.747**. Firing more chases the recency-skewed stream and forgets more, so
+the gate is a **safety mechanism**, not just a cost saver — the disciplined economy is cheaper *and* safer.*
+
+The metered 80/20 is finally a hardware number, not a proxy: with the gate on the GD namer is **12.1% of total substrate
+energy** (GD-share 0.121 ≤ 0.25); turn the gate off and it balloons to 77.8% — the gate *creates* the split. Against a
+fair BP+replay learner at matched retention on the same substrate table, **OURS draws ~half the energy** (bp_ratio
+0.501). And the loop is **LIVE-SAFE** — the co-adapting system keeps the A6 continual win at the awake gate's worst point
+(the honest read; post-sleep would hide it). Two design guesses the sims overturned: the gate's value is **safety, not
+just cost** (more GD forgets more), and **regular cadence beats boundary-aligned sleep** (the worst mid-stream point
+falls inside a segment, not at a boundary). The live-vs-frozen accuracy gap (0.447 vs the 0.614 block-mode promise) is
+**task difficulty**, not forgetting (worst-BWT 0.000) — the natural multi-class number (A5) and the fair BP+replay
+*accuracy* fight remain Phase 9's. → [full Phase 8 report](phase8/phase8-report.md).
 
 ### Phase 9 — the maintenance loop + the owed baselines → *the honest fights Stage 1 deferred*  **[LAST — not run]**
 
@@ -169,8 +185,12 @@ frozen architecture snapshots.
 | Two GD organs (interface / output) | **S4** | collapsed at P7 close | _**S11**: collapses to **one** — the namer (Interface-GD retired with the blocks)_ |
 | Readout = fixed short-stack placement | **S9** | extended at P7 close | _**S11**: extended with the committed *head* (**RanPAC**, analytic), not just the placement_ |
 | The namer is a *method* (gradient descent) | — (implicit) | overturned at P7 | _**S11 new supporting decision**: the namer is a **closed-form/streaming analytic head** — "20% GD" is a role, not a method_ |
-| Threshold-gated learning (Ch7 gate) | **S6** | **owed → Phase 8** | _open; resolves to a drift-detector once P8 picks one_ |
-| EMA-view slow coordination | **N2** | **owed → Phase 9** | _a *proposed* promotion (standby → default) pending the P9 sim — not yet_ |
+| Threshold-gated learning (Ch7 gate) | **S6** | **resolved at P8 close** | _**S12**: the awake gate is **DDM** on a **class-direction tap-drift** trigger (magnitude-of-shift is the false-fire null)_ |
+| The committed head's cost | **S11 caveat** | **resolved at P8 close** | _**S12**: metered E-ratio 69× → **commit SLDA** as the deployed namer (RanPAC kept as the accuracy/spine reference)_ |
+| Sleep consolidation cadence | **S7** | **extended at P8 close** | _**S12**: **grid-8 / full LUT history / λ_ema 1.0** detector-driven cadence (was oracle-boundary); drift-rate-conditional_ |
+| The "80/20" cost number | proxy (Stage-1) | **metered at P8 close** | _**S12**: real — GD-share **0.121** with the gate on (0.778 off); replaces the proxy tag; bp_ratio 0.501 vs BP+replay_ |
+| The live two-brain loop is continual-safe | — (untested) | **set at P8 close** | _**S12 new supporting decision**: LIVE-SAFE (worst-BWT 0.000, 0/5 regress); the gate is a **safety** mechanism (more GD forgets more)_ |
+| EMA-view slow coordination | **N2** | **owed → Phase 9** | _a *proposed* promotion (standby → default) pending the P9 sim; the P8 cadence is conditional on it — not yet_ |
 | SCFF carries a noise-aware objective | **S10** | Phase 6 (Stage-1 ext) | _done — the frozen cell already carries it_ |
 
 ---
@@ -200,21 +220,24 @@ collapse to ~0.3 and the cheaper SLDA edges it). What Phase 8/9 inherit:
 
 ## 6 · Honest scope of Stage 2 so far
 
-- **One phase of three is done.** P7 (the readout) is complete and natural-confirmed. P8 (economy + cost) and P9
-  (maintenance + owed baselines) are planned, not run. This report is a *living* document; the stage is not closed.
-- **The existential test is still owed.** The architecture's headline continual claim rests on a fair same-budget
-  **BP+replay** baseline that is Phase 9's deliverable. Phase 4's WIN was vs *naive* online-BP; until P9 runs the fair
+- **Two phases of three are done.** P7 (the readout) is complete and natural-confirmed; P8 (economy + cost) ran both
+  brains live, metered the 80/20, and confirmed live continual-safety. P9 (maintenance + owed baselines) is planned, not
+  run. This report is a *living* document; the stage is not closed.
+- **The existential *accuracy* test is still owed.** The architecture's headline continual claim rests on a fair
+  same-budget **BP+replay accuracy** baseline that is Phase 9's deliverable. P8 settled the *energy* comparison (OURS ≈
+  half of BP+replay, bp_ratio 0.501), and Phase 4's WIN was vs *naive* online-BP; until P9 runs the fair *accuracy*
   fight, the 80/20 continual claim is *supported but not fully validated in Stage 2.* We say so on purpose.
-- **The cost claim is a proxy.** Phase 7's cost numbers are op-count / solve-dim proxies, descriptive-only. The honest
-  hardware-meaningful meter (charge / ADC / write energy) is Phase 8's; no settled "80/20" or vs-BP energy claim exists
-  yet.
+- **The cost claim is now metered (no longer a proxy) — as a behavioral number.** P8's ADC-centred meter gives GD-share
+  0.121 and bp_ratio 0.501, replacing Phase 7's op-count proxy. It is a **behavioral** macro-model (relative-pJ,
+  NeuroSim / ISAAC / PUMA level, params + citations logged), not SPICE — the absolute-Joule and PVT layer is later.
 - **Behavioral simulation only** — numpy ideal floats plus Phase 6's behavioral analog-noise model; no SPICE, no device
   physics, no fabrication.
-- **Small, partly synthetic tasks** — the continual home, digits, CIFAR-flat. The headline "20% is not GD" is confirmed
-  on the SCFF-working natural home (digits); CIFAR-flat is a *bulk* limitation (no composable depth there), not a namer
-  result.
-- **Key machinery is unbuilt** — the Ch7 gate (P8) and the tuned sleep cadence (P9). What is committed is the *readout
-  family*, not the whole neocortex loop.
+- **Small, partly synthetic tasks** — the continual home, digits, CIFAR-flat. The P8 economy is measured on the
+  synthetic CI+nuisance stream; absolute live AA there is modest (0.447; the gap to the 0.614 block-mode promise is task
+  difficulty, not forgetting). The natural multi-class number (A5) is Phase 9's.
+- **Key machinery for maintenance is still unbuilt** — the tuned readout-aware cadence and the owed baselines (P9). What
+  is committed now is the *readout family* (P7) + the *economy* (P8: gate, trigger, cadence, deployed head, meter), not
+  yet the fully-tuned neocortex loop with its honest accuracy baseline.
 
 ---
 
@@ -227,21 +250,26 @@ confidence or distance magnitude) is *the feeling.* Phase 7 sharpened this hones
 **magnitude**, and the direction-pure cosine head turned out sub-competitive as a *classifier* — so the "feeling" is **not**
 the deployed head. But the cosine margin survives as an **available, perfectly spine-clean direction signal** (argmax-flip
 0), decoupled from the classifier: the recurrent brain can read the *angle* for its self-generated confidence even while
-the *names* come from the magnitude head. The gate half of the seed is intact and forward to Phase 8: build it on a
-**direction / drift** trigger, never a confidence magnitude (why P5 struck the adaptive exit) — a confidence gate would be
-torn out later; a direction gate is the seed. Light touch, held to a tie-break — **simple intelligence first.**
+the *names* come from the magnitude head. The gate half of the seed was carried into Phase 8 and
+**built exactly that way**: the committed trigger is a **class-direction tap-drift** signal, never a confidence magnitude
+(why P5 struck the adaptive exit) — a confidence gate would be torn out later; the direction gate is the seed, and the
+sims confirmed it both *leads* the error and stays invariant to nuisance while the magnitude null false-fires. Light
+touch, held to a tie-break — **simple intelligence first.**
 
 ---
 
 ## 8 · What's next
 
-Phase 8 — the economy gate + the cost meter — is the live line: build the drift-triggered Ch7 gate (with false-fire as a
-first-class failure axis) and the honest substrate cost meter that finally prices RanPAC against SLDA. Then Phase 9 runs
-the fair BP+replay baseline that gives the architecture's headline its honest test, closes the owed natural multi-class
-number, and tunes the maintenance loop. When P9 closes, this report is rewritten as a Stage-2 *close-out* (the way
-[`stage1-report.md`](stage1-report.md) closed Stage 1), and the neocortex brain — cheap unsupervised structure + a
-precise continual-safe namer + a metered economy — is done. After that, the analog-realism layer (SPICE / PVT); and,
-beyond the numbered phases, the recurrent lifelong brain remains the north star. *Simple intelligence first.*
+Phase 8 is done: the drift-gated economy is built and metered, both brains run live, and the loop is continual-safe. **Phase 9
+— the maintenance loop + the owed baselines — is now the live line**, and it carries the stage's *existential* test: the
+fair same-budget **BP+replay accuracy** baseline that gives the architecture's headline its honest fight (P8 settled the
+energy half; P9 owes the accuracy half). Phase 9 also closes the owed natural multi-class number (A5) on the continual
+harness, addresses the read-side noise residual (the Phase-6 brief), tunes the readout-aware sleep cadence, and re-tunes
+the drift-rate-conditional cadence if N2 slows the SCFF drift. When P9 closes, this report is rewritten as a Stage-2
+*close-out* (the way [`stage1-report.md`](stage1-report.md) closed Stage 1), and the neocortex brain — cheap unsupervised
+structure + a precise continual-safe namer + a metered economy — is done. After that, the analog-realism layer
+(SPICE / PVT); and, beyond the numbered phases, the recurrent lifelong brain remains the north star. *Simple intelligence
+first.*
 
 ---
 
@@ -251,9 +279,10 @@ beyond the numbered phases, the recurrent lifelong brain remains the north star.
 self-contained, noise-hardened account of the whole cell (the frozen bulk Stage 2 names). **For the plan Stage 2
 executes:** [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). **For the result so far:** this file
 (the arc) → [Phase 7 front door](phase7/README.md) →
-[Phase 7 report](phase7/phase7-report.md) (the deep story, every figure) → [`phase7/RESULTS.md`](phase7/RESULTS.md) (the
-scalar ledger) → the `phase7/expK/experiment-K.md` cards. Terms, metrics, and papers are defined in
-[`ref-report/`](ref-report/README.md); the committed decisions in [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md).
+[Phase 8 front door](phase8/README.md) → the `phaseN/phaseN-report.md` deep stories (every figure) →
+`phaseN/RESULTS.md` (the scalar ledgers) → the `phaseN/expK/experiment-K.md` cards. Terms, metrics, and papers are
+defined in [`ref-report/`](ref-report/README.md); the committed decisions in
+[`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md).
 
-*Prev:* [the Stage-1 arc](stage1-report.md) · *Up:* [draft 6.0 context](../CLAUDE.md) · *Next:* Phase 8 — the economy gate
-+ the cost meter (the live line).
+*Prev:* [the Stage-1 arc](stage1-report.md) · *Up:* [draft 6.0 context](../CLAUDE.md) · *Next:* Phase 9 — the maintenance
+loop + the owed BP+replay accuracy baseline (the live line).
