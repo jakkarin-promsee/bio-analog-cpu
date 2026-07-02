@@ -13,7 +13,17 @@
 > extension** (make SCFF noise-robust *before* the GD namer reads it; a frozen head can't manufacture robustness the
 > backbone lacks — LP-FT). This file (was `phase6/design.md`) is now **`stage2-design.md`**, and the GD phases renumbered
 > **6→7 (readout) · 7→8 (economy+cost) · 8→9 (maintenance)**; the old "Phase 9 noise verdict" and "P0 de-risk probe"
-> **moved into Phase 6** ([`phase6/design.md`](phase6/design.md)). Stage 2 = Phases 7–9.
+> **moved into Phase 6** ([`phase6/design.md`](phase6/design.md)).
+>
+> **⚠ Re-plan (2026-07-02, post-P8).** With P7+P8 done, the old single "Phase 9 (maintenance + owed baselines)" is
+> **split into two**: **Phase 9 = *close & freeze* the maintenance loop** (tune the genuinely-open knobs — N2,
+> cadence-depth, eviction, bulk-drift, read-side noise — against *internal* signals, then **lock the object**) and
+> **Phase 10 = the validation / showcase** (race the **frozen** object vs a **fair** BP+replay baseline: the existential
+> accuracy fight + a multi-domain adaptive gauntlet + the noise showcase → an honest Pareto verdict). The split enforces
+> the one discipline that keeps the headline honest — **freeze in P9, judge in P10** (never tune against the baseline you
+> are judged by). The author's kickoff "P9 = optimize the Namer" is **retired**: the Namer bake-off is *already done*
+> (P7/P8 committed SLDA); re-opening it violates rule 8. **Stage 2 = Phases 7–10.** Rough plans:
+> [`phase9/design.md`](phase9/design.md) · [`phase10/design.md`](phase10/design.md).
 >
 > **Tone, honestly:** excited. 🔥 Stage 1 was a five-phase grind to make the cheap brain compose depth. Stage 2 looks
 > *smaller than it has any right to be*, for a reason that took the whole research pass to see (§2). Let's go.
@@ -220,16 +230,32 @@ firms up.)
     required deliverable, because the metered-80/20 and the vs-BP comparisons all depend on it.
   - **Deliverable:** the committed gate **+ the honest cost meter.**
 
-- **Phase 9 — The Maintenance loop (sleep + drift, tuned) + the owed baselines.** *Tune the validated A6 win against *this* cell.*
-  - **the fair baseline: OURS vs `race_bp` + a replay buffer** (A-GEM-style) at matched buffer+compute (close Phase 4's
-    owed comparison — Phase 4's WIN was vs *naive* online-BP);
-  - **close Phase-4's owed A5**: multi-class on **natural data** (digits/CIFAR), riding the same continual-stream harness
-    — the synthetic overstates the static gap, so this is where the honest multi-class number lands;
-  - sleep cadence = the drift detector slow; **readout-aware consolidation**;
-  - the slow-coordination knob (EMA-view / late-layer slowdown, both *proposals pending the sim*);
-  - **first-class risk, not a sub-bullet: bounded-LUT eviction under a bursty, class-imbalanced stream** (CBRS / balanced
-    buffer) vs continual-safety — and **measure the bulk-drift rate** (the "bulk doesn't forget" cheapness assumes it).
-  - **Deliverable:** the tuned continual loop + the honest baselines (BP+replay, natural multi-class).
+- **Phase 9 — Close & *freeze* the maintenance loop.** *Tune the genuinely-open knobs against **internal** signals, then
+  lock the object.* (Full rough plan: [`phase9/design.md`](phase9/design.md).) **NOT "optimize the Namer"** — that
+  bake-off is done (P7/P8 → SLDA). The open machinery:
+  - **measure the bulk-drift rate** (the "bulk doesn't forget → sleep is cheap" story assumes it — P6.5 debt);
+  - **N2** — the last un-resolved decision-record knob (EMA-view / late-layer drift-slowdown), tested **read-side /
+    rate-only** so it does not reopen the frozen SCFF objective;
+  - sleep cadence **consolidation *depth*** — *what* extractor depth to re-fit (P8 set *how often*; readout-aware);
+  - **bounded-LUT eviction** under the bursty, class-imbalanced stream (cbrs vs continual-safety) — a first-class risk;
+  - the **read-side noise residual** (the Phase-6 brief — input-transducer directional + ADC<3-bit) — include if it earns
+    its place, else → the analog-realism layer.
+  - **Deliverable:** the fully-tuned neocortex loop, **frozen** (a commit hash Phase 10 races). The discipline:
+    **freeze in P9, judge in P10** — never tune against the P10 baseline.
+
+- **Phase 10 — The validation / the showcase.** *Race the **frozen** object across the lifelong gauntlet — the document
+  the professor reads.* (Full rough plan: [`phase10/design.md`](phase10/design.md); bar set with the author:
+  **professor-convinced / showcase** — one fair baseline *family*, a legible gauntlet, an honest Pareto.) Three jobs:
+  - **the existential fight** — OURS vs **`race_bp` + replay** (ER / A-GEM, matched buffer+compute), on **accuracy ×
+    energy**, continual (closes Phase 4's owed comparison — its WIN was vs *naive* online-BP; the load-bearing test);
+  - **the multi-domain adaptive gauntlet** (the money figure) — ≈5 distinct datasets/domains in sequence; measure
+    **new / 1-back / all-previous accuracy + cumulative OURS-vs-BP cost** (the author's four asks = ACC / BWT /
+    Forgetting + the cost curve); + the **SCFF:Namer ratio characterized across difficulty** (the "final ratio," not
+    assumed);
+  - **the noise showcase** — the gauntlet under {clean · iid · directional · ADC<3b · nuisance-dim}; OURS-hardened vs
+    BP+replay vs naive (the Phase-6 arc, cashed in); + **A5** natural multi-class.
+  - **Deliverable:** the **Pareto frontier** (win / tie / loss, stated) + the Stage-2 **close-out** report. *The object is
+    frozen; P10 measures — the fight may lose, and the honest Pareto is the deliverable either way.*
 
 - **(was Phase 9 — Noise) → promoted to Phase 6**, the Stage-1 noise extension that runs *first*. The arc-diagnosis no
   longer waits at the *end* of Stage 2 for the Stage-2-built cell — the LP-FT prior says a frozen head can't manufacture
@@ -242,7 +268,8 @@ firms up.)
   would have conflicted.*
 
 *(Dependency: **Phase 6 (noise) runs first**, on the existing Phase-5 cell — its verdict can reshape everything below (a
-NO reopens the SCFF objective *before* the namer is built). Phases 7→8→9 then proceed in order on the noise-hardened cell.)*
+NO reopens the SCFF objective *before* the namer is built). Phases 7→8→9→10 then proceed in order on the noise-hardened
+cell — and the **P9→P10 boundary is a hard freeze**: P10 races the object P9 locked, no knob-tuning across it.)*
 
 ---
 
