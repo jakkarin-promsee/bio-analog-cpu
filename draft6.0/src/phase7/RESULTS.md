@@ -25,7 +25,24 @@ is the expected ELM effect (flagged to Stage 2, both readings); static ceiling c
 static-accuracy, competitor (P4-consistent).
 
 ## P7.1 — the readout bake-off (headline)  `exp1`
-*(running — section inserted here when complete)*
+*(controls: pinned all-tap taps, synthetic CI home, seeds ×5, PROBE_EP=120; wall 54.6 min. head swept)*
+
+| head | acc | AA | BWT | spine-flip@2 | recency-drop | cost-proxy | vs-floor(AA) | verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| linear-softmax (floor) | 0.591 [.591–.595] | 0.584 | −0.181 | 0.684 | 0.181 | 7.7e3 | (floor) | the floor |
+| cosine-ncm (spine, no-grad) | 0.262 | 0.319 | −0.142 | **0.000** | 0.142 | 7.7e3 | −0.265 | spine-clean, sub-floor (greyed) |
+| cosine-softmax (spine, grad) | 0.537 | 0.480 | −0.234 | **0.000** | 0.234 | 7.7e3 | −0.104 | spine-clean, trails frontier |
+| NCM | 0.264 | 0.331 | −0.157 | 0.577 | 0.157 | 7.7e3 | −0.253 | magnitude, sub-floor (greyed) |
+| SLDA (tied cov, no-grad) | 0.583 | 0.604 | −0.162 | 0.893 | 0.162 | 7.7e3 | +0.020 | top-cluster; norm-sensitive |
+| FeCAM (per-class cov, no-grad) | 0.531 | 0.459 | −0.302 | 0.764 | 0.302 | 5.9e6 | −0.125 | max-magnitude; worst BWT |
+| **RanPAC (proj+ridge, no-grad)** | **0.647** | **0.617** | −0.157 | 0.537 | 0.157 | 1.6e6 | **+0.033** | **committed (top acc, spine tie-break)** |
+| RLS (ridge, no proj, no-grad) | 0.623 | 0.558 | −0.197 | 0.561 | 0.197 | 7.7e3 | −0.026 | proj earns keep (RanPAC−RLS +0.047 real) |
+| MLP head (non-convex, grad) | 0.625 | 0.623 | −0.147 | 0.604 | 0.147 | 2.5e4 | +0.039 | top-cluster (the "if we paid GD" anchor) |
+
+**Verdict:** frontier top = 3-way tie {MLP 0.623, **RanPAC 0.617**, SLDA 0.604} (mutually within-noise); best is
+**no-gradient RanPAC** (highest acc 0.647, spine tie-break) → *the 20% is not gradient descent*. Spine-tension =
+**magnitude-wins-spine-bends** (Δ=AA(ranpac)−AA(cosine-softmax) = **+0.128**, real 5/5, >δ=0.02; cosine spine-clean at
+flip 0 but sub-competitive). Cost proxy: RanPAC ~200× SLDA (→ P8; SLDA = cheaper within-noise no-grad alternative).
 
 ---
 
