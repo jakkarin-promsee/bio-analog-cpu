@@ -1,0 +1,61 @@
+{
+  "rung": "P8.6",
+  "git": "e6993d55b4397f0f0124a959451905bcefdd0d00",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "committed_head": "ranpac",
+  "ranpac_knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "stream": {
+    "BATCH": 32,
+    "WARMUP": 40,
+    "STAT": 40,
+    "ONSET_RAMP": 24,
+    "PLATEAU": 24,
+    "SETTLE": 40,
+    "NUIS": 48,
+    "NUIS_GAIN": 3.0,
+    "NUIS_OFFSET": 4.0,
+    "WIN_W": 4,
+    "WIN_LAG": 8
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "wall_s": 397.7,
+  "head": "slda",
+  "awake_gate": "ddm",
+  "cbrs": true,
+  "sleep_cadence": {
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "lut_frac": 1.0,
+    "lam_ema": 1.0
+  },
+  "veto_pass": true,
+  "neg_of_n": 0,
+  "aa_match": true,
+  "safe": true,
+  "verdict": "LIVE-SAFE: the two-brain economy keeps the A6 win run live",
+  "summary": {
+    "aa_committed": "0.447 [0.426-0.448]",
+    "aa_oracle": "0.447 [0.426-0.448]",
+    "aa_block_frozen_promise": "0.614 [0.606-0.622]",
+    "wbwt_committed": "0.000 [0.000-0.000]",
+    "wbwt_oracle": "0.000 [0.000-0.000]",
+    "wbwt_always": "-0.137 [-0.153--0.135]",
+    "gdshare_committed": "0.155 [0.155-0.155]"
+  }
+}

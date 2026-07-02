@@ -1,0 +1,90 @@
+{
+  "rung": "P8.1",
+  "git": "e6993d55b4397f0f0124a959451905bcefdd0d00",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "committed_head": "ranpac",
+  "ranpac_knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "stream": {
+    "BATCH": 32,
+    "WARMUP": 40,
+    "STAT": 40,
+    "ONSET_RAMP": 24,
+    "PLATEAU": 24,
+    "SETTLE": 40,
+    "NUIS": 48,
+    "NUIS_GAIN": 3.0,
+    "NUIS_OFFSET": 4.0,
+    "WIN_W": 4,
+    "WIN_LAG": 8
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "wall_s": 1511.0,
+  "sleep_policy": "checkpoint",
+  "trigger": "error_ema",
+  "summary": {
+    "always": {
+      "aa": "0.448 [0.445-0.471]",
+      "f": 1.0,
+      "far": 1.0,
+      "mtd": 0.0,
+      "wbwt": -0.29500000000000004,
+      "verdict": "ceiling"
+    },
+    "oracle": {
+      "aa": "0.448 [0.445-0.471]",
+      "f": 0.2857142857142857,
+      "far": 0.0,
+      "mtd": 0.0,
+      "wbwt": -0.2081481481481481,
+      "verdict": "reference"
+    },
+    "abs": {
+      "aa": "0.448 [0.445-0.471]",
+      "f": 0.026785714285714284,
+      "far": 0.041666666666666664,
+      "mtd": 19.0,
+      "wbwt": -0.16666666666666663,
+      "verdict": "held-not-clean"
+    },
+    "ddm": {
+      "aa": "0.448 [0.445-0.471]",
+      "f": 0.002976190476190476,
+      "far": 0.0,
+      "mtd": 40.0,
+      "wbwt": -0.4388888888888889,
+      "verdict": "committed-eligible"
+    },
+    "adwin": {
+      "aa": "0.448 [0.445-0.471]",
+      "f": 0.002976190476190476,
+      "far": 0.0,
+      "mtd": 40.0,
+      "wbwt": -0.4388888888888889,
+      "verdict": "committed-eligible"
+    },
+    "budget": {
+      "aa": "0.448 [0.445-0.471]",
+      "f": 0.0,
+      "far": 0.0,
+      "mtd": 40.0,
+      "wbwt": -0.4444444444444444,
+      "verdict": "committed-eligible"
+    }
+  }
+}

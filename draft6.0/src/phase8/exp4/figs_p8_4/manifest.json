@@ -1,0 +1,78 @@
+{
+  "rung": "P8.4",
+  "git": "e6993d55b4397f0f0124a959451905bcefdd0d00",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "committed_head": "ranpac",
+  "ranpac_knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "stream": {
+    "BATCH": 32,
+    "WARMUP": 40,
+    "STAT": 40,
+    "ONSET_RAMP": 24,
+    "PLATEAU": 24,
+    "SETTLE": 40,
+    "NUIS": 48,
+    "NUIS_GAIN": 3.0,
+    "NUIS_OFFSET": 4.0,
+    "WIN_W": 4,
+    "WIN_LAG": 8
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "wall_s": 156.7,
+  "meter": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "meter_params": {
+    "E_ADC_STEP": 0.2,
+    "ADC_BITS": 8,
+    "E_MAC": 0.01,
+    "E_WRITE": 10.0,
+    "E_DIGITAL": 0.0005
+  },
+  "verdict": "commit SLDA (cheaper namer, AA ties live)",
+  "ratio_gd": 69.08938734621438,
+  "ratio_total": 9.259151814369384,
+  "d_aa": -0.015333333333333254,
+  "adc_bits_sweep": {
+    "4": 60.955341463004466,
+    "6": 62.69965753505905,
+    "8": 64.40105576293546,
+    "10": 66.06110084883669
+  },
+  "summary": {
+    "aa_ranpac": "0.448 [0.445-0.471]",
+    "aa_slda": "0.463 [0.445-0.469]",
+    "E_gd_ranpac": 225143552.0,
+    "E_gd_slda": 3258728.448,
+    "E_total_ranpac": 248750151.68,
+    "E_total_slda": 26865328.128
+  }
+}

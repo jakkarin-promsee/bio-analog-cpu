@@ -1,0 +1,75 @@
+{
+  "rung": "P8.0",
+  "git": "e6993d55b4397f0f0124a959451905bcefdd0d00",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "committed_head": "ranpac",
+  "ranpac_knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "stream": {
+    "BATCH": 32,
+    "WARMUP": 40,
+    "STAT": 40,
+    "ONSET_RAMP": 24,
+    "PLATEAU": 24,
+    "SETTLE": 40,
+    "NUIS": 48,
+    "NUIS_GAIN": 3.0,
+    "NUIS_OFFSET": 4.0,
+    "WIN_W": 4,
+    "WIN_LAG": 8
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "live_path_anchor": true,
+    "cache_replay": true
+  },
+  "wall_s": 850.1,
+  "n_steps": 336,
+  "summary": {
+    "bulk_min": 0.6267718295566275,
+    "bulk_max": 0.9997322437687087,
+    "acc_always": 0.4477777777777778,
+    "acc_oracle": 0.4477777777777778,
+    "f_always": 1.0,
+    "f_oracle": 0.2857142857142857,
+    "far_always": 1.0,
+    "far_oracle": 0.0,
+    "driftvis_median": [
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.38,
+        1.3,
+        1.02
+      ],
+      [
+        0.84,
+        10.0,
+        0.83
+      ]
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "rung": "P8.3",
+  "git": "e6993d55b4397f0f0124a959451905bcefdd0d00",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "committed_head": "ranpac",
+  "ranpac_knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "stream": {
+    "BATCH": 32,
+    "WARMUP": 40,
+    "STAT": 40,
+    "ONSET_RAMP": 24,
+    "PLATEAU": 24,
+    "SETTLE": 40,
+    "NUIS": 48,
+    "NUIS_GAIN": 3.0,
+    "NUIS_OFFSET": 4.0,
+    "WIN_W": 4,
+    "WIN_LAG": 8
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "wall_s": 1205.8,
+  "awake_gate": "ddm",
+  "aa_reference": 0.4477777777777778,
+  "committed_cadence": {
+    "freq": "grid-8",
+    "hist": "full/l1.0",
+    "aa": 0.44644444444444453,
+    "bwt": 0.0,
+    "sleep_cost": 10.0
+  },
+  "drift_conditional": true,
+  "summary": {
+    "aa_grid": [
+      [
+        0.448,
+        0.416,
+        0.356,
+        0.448
+      ],
+      [
+        0.448,
+        0.416,
+        0.356,
+        0.448
+      ],
+      [
+        0.446,
+        0.406,
+        0.35,
+        0.446
+      ],
+      [
+        0.446,
+        0.406,
+        0.35,
+        0.446
+      ]
+    ],
+    "bwt_grid": [
+      [
+        -0.439,
+        -0.356,
+        -0.333,
+        -0.439
+      ],
+      [
+        0.0,
+        -0.015,
+        -0.017,
+        0.0
+      ],
+      [
+        0.0,
+        -0.015,
+        -0.061,
+        0.0
+      ],
+      [
+        0.0,
+        -0.058,
+        0.0,
+        0.0
+      ]
+    ]
+  }
+}

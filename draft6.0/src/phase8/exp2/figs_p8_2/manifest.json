@@ -1,0 +1,73 @@
+{
+  "rung": "P8.2",
+  "git": "e6993d55b4397f0f0124a959451905bcefdd0d00",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "committed_head": "ranpac",
+  "ranpac_knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "stream": {
+    "BATCH": 32,
+    "WARMUP": 40,
+    "STAT": 40,
+    "ONSET_RAMP": 24,
+    "PLATEAU": 24,
+    "SETTLE": 40,
+    "NUIS": 48,
+    "NUIS_GAIN": 3.0,
+    "NUIS_OFFSET": 4.0,
+    "WIN_W": 4,
+    "WIN_LAG": 8
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "wall_s": 1207.3,
+  "detection_rule": "threshold-crossing @ calib-interior 97.5pct*1.10",
+  "tap_verdict": "earns-early",
+  "magnitude_null_far": 0.9375,
+  "summary": {
+    "error_ema": {
+      "mtd": "14.000 [10.000-40.000]",
+      "far": "0.000 [0.000-0.000]",
+      "excess_far": 0.0,
+      "mtfa": 32.0
+    },
+    "tap_dir": {
+      "mtd": "6.000 [5.000-11.000]",
+      "far": "0.021 [0.000-0.042]",
+      "excess_far": 0.0,
+      "mtfa": 32.0
+    },
+    "tap_mag": {
+      "mtd": "6.500 [5.000-6.500]",
+      "far": "0.938 [0.938-0.938]",
+      "excess_far": 0.90625,
+      "mtfa": 32.0
+    },
+    "driftlens": {
+      "mtd": "6.000 [5.000-11.000]",
+      "far": "0.021 [0.000-0.042]",
+      "excess_far": 0.0,
+      "mtfa": 32.0
+    },
+    "studd": {
+      "mtd": "0.000 [0.000-0.000]",
+      "far": "0.896 [0.854-0.917]",
+      "excess_far": 0.8958333333333334,
+      "mtfa": 32.0
+    }
+  }
+}
