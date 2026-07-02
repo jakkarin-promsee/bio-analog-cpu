@@ -1,0 +1,61 @@
+{
+  "rung": "P7.5",
+  "git": "15d61ff51f12859e032eed7d8fa1469b377a76bd",
+  "quick": false,
+  "seeds_digits": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "seeds_cifar": [
+    42,
+    137,
+    271
+  ],
+  "wall_s": 454.7,
+  "digits_AA": {
+    "linear": 0.9456124227975602,
+    "cosine-ncm": 0.5679068948753625,
+    "cosine-softmax": 0.9134260999925761,
+    "slda": 0.9424056028795104,
+    "fecam": 0.9127108711428338,
+    "ranpac": 0.9489130425304622,
+    "rls": 0.9441913171652245,
+    "mlp": 0.9435165715128819
+  },
+  "digits_order": [
+    "ranpac",
+    "linear",
+    "rls",
+    "mlp",
+    "slda",
+    "cosine-softmax",
+    "fecam",
+    "cosine-ncm"
+  ],
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "cifar_AA": {
+    "linear": 0.2934552329826522,
+    "cosine-ncm": 0.23560847090298376,
+    "cosine-softmax": 0.3237440559668826,
+    "slda": 0.32467845056505495,
+    "fecam": 0.30956466587213427,
+    "ranpac": 0.2653261879569201,
+    "rls": 0.31968719987944033,
+    "mlp": 0.2966107371028101
+  },
+  "cifar_order": [
+    "slda",
+    "cosine-softmax",
+    "rls",
+    "fecam",
+    "mlp",
+    "linear",
+    "ranpac",
+    "cosine-ncm"
+  ]
+}

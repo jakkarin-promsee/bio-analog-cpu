@@ -586,12 +586,17 @@ def stream_cache(cell_factory, Xtr, Ytr, Xte, Yte, tasks, C, seed,
     return cache
 
 
-def eval_head_on_cache(cache, head_factory, seed):
+def eval_head_on_cache(cache, head_factory, seed, *, buffer_cap=None, C=None):
     """Replay one head's sleep-consolidation on a stream_cache → the AA/BWT/forget dict + acc matrix (the fast
-    per-head path for the P7.1 bake-off; identical to continual_safety_heads by construction)."""
+    per-head path for the P7.1 bake-off; identical to continual_safety_heads by construction when buffer_cap=None).
+    `buffer_cap` (+ C): apply class-balanced reservoir sampling to the replay buffer before each sleep-fit — the P7.3
+    cbrs imbalance guard, for the P7.6 assembled-head confirmation. On the balanced A6 home this is a near-no-op."""
     T = len(cache); a = [[0.0] * T for _ in range(T)]
     for t in range(T):
-        head = head_factory(seed).fit(cache[t]["FB"], cache[t]["YB"])
+        FB, YB = cache[t]["FB"], cache[t]["YB"]
+        if buffer_cap is not None and C is not None:
+            FB, YB = class_balanced_reservoir(FB, YB, C, buffer_cap, np.random.default_rng(seed + t))
+        head = head_factory(seed).fit(FB, YB)
         for k in range(t + 1):
             Fk, Yk = cache[t]["te"][k]
             a[t][k] = float((head.predict(Fk) == Yk).mean())

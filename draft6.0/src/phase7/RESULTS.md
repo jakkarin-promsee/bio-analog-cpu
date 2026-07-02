@@ -78,8 +78,6 @@ dodges) the spine tension.
 **shipped guard = class-balanced reservoir (cbrs)**, buffer-side + family-agnostic (RanPAC → +0.013). **AIR
 over-corrects** → the design's "AIR is the no-gradient guard" is **overturned** (buffer balance beats output re-weighting).
 
-<!-- P7.5 .. P7.6 rows appended as they run -->
-
 ---
 
 ## P7.4 — continual-safety: the home-turf GATE  `exp4`
@@ -100,4 +98,45 @@ over-corrects** → the design's "AIR is the no-gradient guard" is **overturned*
 and the max-magnitude FeCAM (5/5 each). Mechanism control: cosine-ncm (no-grad) passes but cosine-softmax (grad, same
 angle metric) is struck → the **trained weights**, not the metric, cause the recency dent (BiC/WA/SCR confirmed).
 
-<!-- P7.5 .. P7.6 rows appended as they run -->
+## P7.5 — natural-data confirmation  `exp5`
+*(controls: pinned bulk, committed knobs, continual stream; digits ×5, CIFAR-flat ×3; wall 7.6 min)*
+
+| head | digits AA | digits BWT | CIFAR-flat AA | verdict |
+| --- | --- | --- | --- | --- |
+| **RanPAC (committed)** | **0.949 [.947–.956]** | −0.012 | 0.265 [.261–.269] | **#1 on digits**; projection idle on depth-less CIFAR |
+| linear-softmax (floor) | 0.946 [.941–.959] | −0.014 | 0.293 | strong digits; ~chance-band CIFAR |
+| RLS (no-grad) | 0.944 | −0.017 | 0.320 | robust on CIFAR |
+| MLP (grad) | 0.944 | −0.017 | 0.297 | GD anchor = no better than no-grad |
+| SLDA (no-grad) | 0.942 | −0.015 | **0.325** | **top on CIFAR**; cheap robust alt |
+| cosine-softmax (spine) | 0.913 [.909–.923] | −0.033 | 0.324 | competitive digits (−0.036); top-tier CIFAR |
+| cosine-ncm (spine) | 0.568 | −0.147 | 0.236 | sub-competitive |
+
+**Verdict:** RanPAC **confirmed #1 on the SCFF-working natural home (digits)** with near-zero forgetting; the spine
+price **shrinks 4×** (synthetic −0.128 → digits −0.036) and **vanishes on CIFAR-flat** (all heads ~0.3; SCFF has no
+depth there — P4/P5/P6 wall; SLDA edges RanPAC). Ordering confirms RanPAC; the CIFAR caveat flags SLDA to P8.
+
+---
+
+## P7.6 — assembled-head confirmation  `exp6`
+*(committed pipeline = RanPAC + cbrs; synthetic CI home, seeds ×5; wall 44s)*
+
+| pipeline | AA | BWT | vs P7.1 solo bar (0.617, band 0.02) | verdict |
+| --- | --- | --- | --- | --- |
+| RanPAC solo | 0.617 | −0.157 | (bar) | the P7.1/P7.4 committed head |
+| **RanPAC + cbrs (assembled)** | **0.627** | **−0.132** | **+0.010 (HOLDS)** | **levers stack — guard non-degrading, BWT improves** |
+
+**Verdict:** the assembled committed pipeline HOLDS above the P7.1 solo bar (AA 0.627 ≥ 0.597; BWT improves). The
+imbalance guard does not degrade the balanced home and fixes the bursty skew (P7.3).
+
+---
+
+## The verdict (Phase 7)
+
+**Committed namer = RanPAC** (frozen random ReLU projection → running-Gram ridge prototype) **+ class-balanced-reservoir
+guard**. **The 20% is NOT gradient descent** — RanPAC is closed-form/streaming analytic; it ties the gradient MLP anchor
+on acc×BWT (3-way tie) and leads on natural digits (0.949, #1). **Spine-tension = magnitude-wins-spine-bends**
+(Δ=0.128 synthetic, shrinking to −0.036 on digits, ≈0 on CIFAR): cosine is spine-clean (argmax-flip 0.000) but
+sub-competitive where the bulk has structure to exploit; the winner reads a magnitude (ridge) but is recency-robust by
+having no trained weights. **RanDumb:** the bulk earns its keep vs a raw-pixel random projection (all heads). **A6
+gate:** RanPAC PASSES; the trained cosine-softmax + max-magnitude FeCAM are struck. **Cost (proxy, → P8):** RanPAC ~200×
+SLDA — **SLDA is the cheaper within-noise no-gradient alternative** flagged to Phase 8.

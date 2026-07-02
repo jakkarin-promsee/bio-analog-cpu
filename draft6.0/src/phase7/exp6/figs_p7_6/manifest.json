@@ -1,0 +1,27 @@
+{
+  "rung": "P7.6",
+  "git": "15d61ff51f12859e032eed7d8fa1469b377a76bd",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "wall_s": 43.9,
+  "committed_head": "ranpac",
+  "knob": {
+    "proj_dim": 2000,
+    "ridge_lambda": 1.0
+  },
+  "cbrs_cap": 2000,
+  "assembled_aa": 0.6273128084706162,
+  "solo_aa": 0.6165076121392434,
+  "p71_solo_aa": 0.617,
+  "band": 0.02,
+  "holds": true,
+  "versions": {
+    "numpy": "2.3.5"
+  }
+}
