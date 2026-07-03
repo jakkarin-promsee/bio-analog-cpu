@@ -5,14 +5,16 @@
 > brain that *organizes* the world; Stage 2 makes it *answer in our language.* This is the last component of the
 > neocortex brain.
 >
-> **⚠ This is a LIVING report — Stage 2 is IN PROGRESS.** Of its four phases (re-planned 2026-07-02 into *freeze in P9,
-> judge in P10*), **P7 (the readout), P8 (economy + cost), and P9 (maintenance — the loop now FROZEN) are DONE (all
-> 2026-07-02)**; **P10 (validation / showcase) is the live line, not yet run.** The headline results are real and, for P7,
-> natural-confirmed; P8 put the first honest hardware cost on the 80/20 and ran both brains live; P9 measured the
-> bulk-drift (it **rotates**, does not forget), tuned the loop's open knobs, and **locked the object** at a commit hash.
-> But the stage's *existential* test — the fair same-budget BP+replay **accuracy** baseline (plus natural multi-class
-> **A5** and the multi-domain gauntlet) — moved to **P10** (the re-plan; P8 settled the *energy* comparison, not the
-> accuracy fight; §6) and is **still owed**. Read this as "the arc so far," not "closed."
+> **✅ Stage 2 is COMPLETE (all four phases ran, July 2026).** **P7 (the readout), P8 (economy + cost), P9 (maintenance —
+> the loop FROZEN), and P10 (validation / showcase — the frozen object raced against a fair BP+replay baseline) are all
+> DONE.** P7 picked the namer (no gradient); P8 put the first honest hardware cost on the 80/20 and ran both brains live;
+> P9 measured the bulk-drift (it **rotates**, does not forget), tuned the loop's open knobs, and **locked the object** at a
+> commit hash; **P10 discharged the stage's *existential* debt** — it raced the frozen object, untouched, against a fair,
+> budgeted, tuned BP+replay learner and delivered an honest **Pareto** verdict. The founding bet is **refined, not
+> inflated:** a substrate-native continual learner — competitive on the continual home, decisively **safer**, far more
+> **noise-robust**, its energy edge over conventional GD **substrate-realized** — exactly the P4 identity, now validated
+> against the strongest fair opponent. Read this as the **closed Stage-2 arc.** (The discipline that made it honest:
+> *freeze in P9, judge in P10.*)
 >
 > The plan this executes: [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). The frozen cell it
 > builds on: [`phase6-final-architecture.md`](phase6-final-architecture.md). The
@@ -61,16 +63,16 @@ GD heads** — the "two GD organs" collapse to **one: the readout.**
   (rotates, doesn't forget), N2 (struck), cadence *depth* (all-tap) + frequency (grid-8→grid-4), bounded-LUT eviction
   (CBRS), the read-side noise residual (proto-reanchor) — then **locked the object**. **NOT** re-opening the Namer (SLDA
   committed). **✓ DONE — frozen.**
-- **P10 — the validation / showcase.** Race the **frozen** object: the existential fair BP+replay *accuracy* fight, the
+- **P10 — the validation / showcase.** Raced the **frozen** object: the existential fair BP+replay *accuracy* fight, the
   multi-domain adaptive gauntlet (new/1-back/all-prev acc + cost), the noise showcase, natural multi-class A5 → an honest
-  **Pareto** verdict + the Stage-2 close-out. Discipline: **freeze in P9, judge in P10.** *Next (live).*
+  **Pareto** verdict + the Stage-2 close-out. Discipline: **freeze in P9, judge in P10.** **✓ DONE — the close-out.**
 
 ---
 
-## 2 · The arc so far — one thread, still running
+## 2 · The arc — one thread, closed
 
 Stage 1's arc was "we kept being right about *where* the cell wins and wrong about *how*." Stage 2 has its own thread,
-and two phases in, it has a shape:
+and now that all four phases have run, it has a shape:
 
 > **The "20% GD" is a role, not a method — and the economy that pays for it is a *safety* mechanism, not just a cost
 > saver.** We expected to pay gradient descent for the precise brain and to pay a forgetting cost to stay direction-pure.
@@ -86,12 +88,23 @@ prototype) — yet it is **recency-robust**, not because it reads direction, but
 weights to inflate.** Recency-robustness ≠ direction-reading. The spine bent, honestly and numerically, and we named the
 tension rather than resolving it silently toward accuracy.
 
-**The honest status, stated up front.** Two phases of three are done. The headline — *the precise brain names the world
-with no backward pass* — is a real, natural-confirmed **P7** result on the frozen bulk; and **P8** ran both brains live,
-metered the 80/20 for the first time (GD-share 0.121, no longer a proxy), and showed the loop is continual-safe live.
-But the architecture's *founding* claim (an 80/20 continual learner that beats backprop's **economics *and* accuracy**)
-is **not** yet fully re-validated: P8 settled the *energy* comparison (OURS ≈ half of BP+replay), but the fair same-budget
-**BP+replay accuracy** baseline is P9's job and is **still owed**. Stage 2 is going well; it is not finished.
+And a second thread closes the stage, from Phase 10:
+
+> **The founding bet, raced against the strongest fair opponent, is *refined* — not inflated.** We bet on an 80/20
+> continual learner that beats backprop's **economics *and* accuracy.** Against a tuned, budget-matched experience replay
+> the honest numbers split the bet cleanly: the **economics** win is **substrate-realized** (the 80/20 *algorithm* is
+> actually 1.5× *more* than a small tuned net on the same digital substrate — the analog crossbar carries the win), and
+> the **accuracy** win is **continual stability**, not static accuracy (OURS ties on the hard home, trails on easy static
+> digits, and forgets ~10× less at its worst point). The claim survives, narrowed to exactly what the project always said
+> it was: a **substrate-native continual learner**, safest and most noise-robust of the fair field.
+
+**The honest status, stated plainly.** All four phases are done. The headline — *the precise brain names the world with no
+backward pass* — is a real, natural-confirmed **P7** result; **P8** ran both brains live and metered the 80/20 (GD-share
+0.121, no longer a proxy); **P9** measured the bulk-drift (rotation, not forgetting) and **froze** the object; and **P10**
+discharged the existential debt — the fair same-budget **BP+replay accuracy** baseline that Phases 4/8/9 each carried
+forward. The verdict is not a clean "beats backprop on everything" — it is the honest map (§3, Phase 10): a tie on the
+continual home, a static-accuracy loss on easy natural data, a decisive continual-safety and noise-robustness win, and a
+substrate-realized energy advantage. Stage 2 is **finished, and validated honestly.**
 
 ---
 
@@ -192,16 +205,35 @@ real gap: the P8 **grid-8** sleep cadence, tuned on a single pass, was too spars
 continual-safety (worst-BWT **−0.028**, ties the oracle 0/5, at held AA and metered GD-share 0.178 ≤ 0.25). Delta **S13**;
 the object is locked for Phase 10. → [Phase 9 report](phase9/phase9-report.md).
 
-### Phase 10 — the validation / showcase → *the honest fights Stage 1 deferred*  **[LAST — not run]**
+### Phase 10 — the validation / showcase → *the honest Pareto: a substrate-native continual learner, refined not inflated* 🔥  **[DONE — the close-out]**
 
-Phase 10 races the **frozen** object (it touches no knob) and settles the debts. The load-bearing one is **existential**:
-Phase 4's continual WIN was measured vs *naive* online-backprop-without-replay — not a fair fight. Phase 10 owes **OURS vs
-`race_bp` + a replay buffer (A-GEM-style) at matched buffer and compute.** We may still win — only the readout replays,
-and the bulk doesn't forget (P9.0 measured it) — but we have to *show* it, and this is where the architecture's headline
-claim gets its honest test. Phase 10 also closes Phase 4's owed **A5** (multi-class on natural digits/CIFAR on the
-continual-stream harness — synthetic overstates the static gap), runs the **multi-domain adaptive gauntlet**
-(new/1-back/all-prev acc + cost — the money figure), and the **noise showcase** on a **held-out** battery (P9.4 tuned only
-on the home residual). Deliverable: an honest **Pareto** verdict + the Stage-2 close-out.
+Phase 10 raced the **frozen** object (it touched no knob) against the opponent Phases 4/8/9 kept deferring — not the
+*naive* online-backprop-without-replay of the old wins, but a **fair, budgeted, tuned experience replay** (Prabhu CVPR'23:
+under a matched FLOPs/sample + memory-bytes budget, ER is the *strong* baseline). The object was locked before any baseline
+number existed; the verdict shapes were pinned **BLIND** before the racer ran; the only dial that moved was the declared
+sleep-cadence cost axis. It measured, and reported whatever the numbers said.
+
+![Phase 10 in one figure — the money figure](phase10/exp3/figs_p10_3/GAUNTLET.png)
+*The money figure. Across 5 native domain-IL digit worlds, OURS(grid-4) holds worst-pre-sleep all-prev retention at
+**0.490** while the tuned ER-strong dips to **0.350** mid-stream (steadier anytime accuracy, AAA 0.519 vs 0.433); sleep
+positions and domain boundaries overlaid. The bulk **rotates, does not forget** — so only the tiny namer replays, and the
+sleep loop out-protects a tuned end-to-end learner across shifting worlds, at substrate-realized cost. (n=5, worst-pre-sleep
+read, ER at the same convention.)*
+
+**The verdict is an honest Pareto close-out, and it splits the founding bet into two halves banked separately.** On
+**accuracy**, OURS **ties** ER-strong on the hard continual home (0.494 vs 0.498, within δ) but a tuned ER **beats** it on
+recognizable natural digits by **+0.071** (0.950 vs 0.879) — OURS is **not** a static-accuracy competitor (P4, re-confirmed).
+Its real accuracy edge is **continual stability**: on the honest worst-pre-sleep read it is the safest of the field —
+worst-BWT **−0.028 vs ER's −0.272** (≈10× less forgetting) on the lifelong home, worst-point retention **0.490 vs 0.350**
+across the gauntlet, order-robust. On **noise** (a held-out, margin-disjoint battery) OURS-hardened **≫ BP+replay on every
+channel** (0.92–1.10 vs 0.23–0.61) — the Phase-6 arc cashed on the whole object; a small directional/ADC residual is
+**named → the analog-realism layer.** On **economics**, the honest **R1** outcome: on the *same digital substrate* OURS's
+12-layer unsupervised bulk costs **1.5× MORE** than a small tuned ER (it forwards more FLOPs/sample — pre-registered), so
+the 80/20 *algorithm* does not win the same-substrate energy race; the **chip (analog crossbar) is 3.4–3.5× cheaper** than
+that same GD model on a conventional digital accelerator, and *that* is the win — a **meter-structural floor**, the whole
+"why analog." On an (accuracy × energy) Pareto a small tuned ER **dominates** OURS; OURS's wins live on the axes that
+Pareto omits — **safety, noise, and the substrate.** Delta **S14**; the object is the Stage-2 close-out. → [full Phase 10
+report](phase10/phase10-report.md).
 
 ---
 
@@ -223,7 +255,16 @@ frozen architecture snapshots.
 | The "80/20" cost number | proxy (Stage-1) | **metered at P8 close** | _**S12**: real — GD-share **0.121** with the gate on (0.778 off); replaces the proxy tag; bp_ratio 0.501 vs BP+replay_ |
 | Why analog (substrate vs algorithm) | unquantified | **decomposed at P8.7** | _**S12 note**: the chip is **15.4× cheaper** than conventional GD-on-digital = **5.4× substrate (CIM)** × **2.9× algorithm (80/20)**; analog advantage is a floor (behavioral, Horowitz-anchored)_ |
 | The live two-brain loop is continual-safe | — (untested) | **set at P8 close** | _**S12 new supporting decision**: LIVE-SAFE (worst-BWT 0.000, 0/5 regress); the gate is a **safety** mechanism (more GD forgets more)_ |
-| EMA-view slow coordination | **N2** | **owed → Phase 9** | _a *proposed* promotion (standby → default) pending the P9 sim; the P8 cadence is conditional on it — not yet_ |
+| EMA-view slow coordination | **N2** | **resolved at P9 close** | _**S13**: **STRUCK** — the drift is rotation-only and already tracked, so N2 has nothing to grip (EMA-view *worsens* BWT)_ |
+| The bulk-drift cheapness assumption | founding (implicit) | **measured at P9 close** | _**S13**: the bulk **rotates but does not forget** (re-fit probe holds ≥ birth; Davari protocol) — cheap-replay holds_ |
+| Consolidation depth + bounded-LUT eviction | — (open) | **set at P9 close** | _**S13**: **all-tap** consolidation (trunc forgets more) + **CBRS** eviction (best-bounded; cap grows with #classes)_ |
+| The read-side noise residual | S10 residual | **resolved at P9 close** | _**S13**: **proto-reanchor** (re-forward the raw LUT under shift — direction-grounded, no covariance) recovers 0.79→0.99_ |
+| Sleep cadence (lifelong) | **S7** / grid-8 | **re-confirmed at P9 close** | _**S13**: grid-8 was too sparse for a revisit stream (−0.317) → **grid-4** (worst-BWT −0.028, ties oracle) — the object LOCKED_ |
+| The founding bet — **economics** half | the bet | **judged at P10 close** | _**S14**: **substrate-realized** — the 80/20 *algorithm* is 1.5× more same-substrate; the **chip** is 3.4× cheaper (analog floor, R1)_ |
+| The founding bet — **accuracy** half | the bet | **judged at P10 close** | _**S14**: competitive-on-home (tie 0.494/0.498) / trails-on-static (−0.071 digits) / **WINS** continual-safety (−0.028 vs −0.272) + noise_ |
+| The cadence cost-frontier family | — | **set at P10 close** | _**S14**: `{4,5,6,8,16}` a declared cost axis; grid-4 headline (no swap); grid-5 the δ-eligible rep; Tier-2 {8,16} the break_ |
+| The final SCFF:Namer ratio | assumed ~0.12–0.18 | **characterized at P10 close** | _**S14**: metered GD-share **0.107–0.178** ≤ 0.25 across difficulty (the gate rarely fires; the loop consolidates via sleep)_ |
+| The noise arc, on the assembled object | **S10** (scoped-YES) | **cashed at P10 close** | _**S14**: OURS ≫ BP on every held-out channel; the small directional/ADC residual **named → the analog-realism layer**_ |
 | SCFF carries a noise-aware objective | **S10** | Phase 6 (Stage-1 ext) | _done — the frozen cell already carries it_ |
 
 ---
@@ -253,27 +294,31 @@ collapse to ~0.3 and the cheaper SLDA edges it). What Phase 8/9 inherit:
 
 ## 6 · Honest scope of Stage 2 so far
 
-- **Three phases of four are done.** P7 (the readout) is complete and natural-confirmed; P8 (economy + cost) ran both
-  brains live, metered the 80/20, and confirmed live continual-safety; P9 (maintenance) measured the bulk-drift, tuned the
-  loop's open knobs, and **froze the object**. P10 (validation / showcase) is the live line, not run. This report is a
-  *living* document; the stage is not closed.
-- **The existential *accuracy* test is still owed — now Phase 10's.** The architecture's headline continual claim rests
-  on a fair same-budget **BP+replay accuracy** baseline that the re-plan made **Phase 10's** deliverable (freeze in P9,
-  judge in P10). P8 settled the *energy* comparison (OURS ≈ half of BP+replay, bp_ratio 0.501), and Phase 4's WIN was vs
-  *naive* online-BP; until P10 runs the fair *accuracy* fight, the 80/20 continual claim is *supported but not fully
-  validated in Stage 2.* We say so on purpose.
-- **The cost claim is now metered (no longer a proxy) — as a behavioral number.** P8's ADC-centred meter gives GD-share
-  0.121 and bp_ratio 0.501, replacing Phase 7's op-count proxy. It is a **behavioral** macro-model (relative-pJ,
-  NeuroSim / ISAAC / PUMA level, params + citations logged), not SPICE — the absolute-Joule and PVT layer is later.
+- **All four phases are done.** P7 (the readout) is complete and natural-confirmed; P8 (economy + cost) ran both brains
+  live, metered the 80/20, and confirmed live continual-safety; P9 (maintenance) measured the bulk-drift, tuned the loop's
+  open knobs, and **froze the object**; P10 (validation / showcase) raced the frozen object against a fair BP+replay
+  baseline and delivered the honest **Pareto** close-out. **The stage is closed.**
+- **The existential *accuracy* test is discharged — and the honest answer is a *refined* claim.** P10 ran the fair
+  same-budget **BP+replay accuracy** fight the re-plan owed (freeze in P9, judge in P10). Against a tuned, budget-matched
+  ER, OURS **ties** on the continual home (0.494 vs 0.498) and **trails** on easy natural digits (0.879 vs 0.950) — so
+  "beats backprop accuracy" is **not supported** on static accuracy. But it **wins continual safety decisively** (worst-BWT
+  −0.028 vs −0.272, ≈10× less forgetting; gauntlet retention 0.490 vs 0.350) and **noise** on every held-out channel. The
+  80/20 continual claim is **validated as *stability*, not static accuracy** — exactly the P4 identity. We say so plainly.
+- **The cost claim is metered — and the honest energy verdict is *substrate-realized*.** P8's ADC-centred behavioral meter
+  (GD-share 0.121; bp_ratio 0.501) is not SPICE. P10's fair fight sharpened it (R1): on the **same digital substrate** the
+  80/20 *algorithm* is 1.5× *more* than a small tuned ER (OURS forwards a 12-layer bulk every step); the **chip** is
+  3.4–3.5× cheaper via the analog crossbar (a meter-structural floor). "Less energy than modern GD" holds **for the chip**
+  — the win is the substrate, reported plainly, never the contestable claim. The absolute-Joule + PVT layer is later.
 - **Behavioral simulation only** — numpy ideal floats plus Phase 6's behavioral analog-noise model; no SPICE, no device
   physics, no fabrication.
-- **Small, partly synthetic tasks** — the continual home, digits, CIFAR-flat. The P8 economy is measured on the
-  synthetic CI+nuisance stream; absolute live AA there is modest (0.447; the gap to the 0.614 block-mode promise is task
-  difficulty, not forgetting). The natural multi-class number (A5) is Phase 10's.
-- **The maintenance loop is now built and frozen; the honest baselines remain (P10).** The readout-aware cadence,
-  eviction, and the read-side residual are tuned and the loop is locked (P9). What is committed now is the *readout
-  family* (P7) + the *economy* (P8: gate, trigger, cadence, deployed head, meter) + the *frozen neocortex maintenance
-  loop* (P9); still owed is its honest same-budget accuracy baseline (P10).
+- **Small, partly synthetic tasks** — the continual home, digits, CIFAR-flat, and P10's transformed-digit gauntlet.
+  Synthetic **overstates** static gaps both ways (P10.5's natural digits are the honest read — they *reveal* the ER edge
+  the hard synthetic home masked); the gauntlet depends on its domain set + order (the reversed-order control is
+  order-robust, AA Δ −0.014). The behavioral meter's analog factor is meter-structural, never the contestable claim.
+- **The maintenance loop is built, frozen, and validated.** What is committed is the *readout family* (P7) + the *economy*
+  (P8: gate, trigger, cadence, deployed head, meter) + the *frozen neocortex maintenance loop* (P9) + its *honest Pareto
+  verdict* (P10). The named residual (directional/ADC noise) hands to the analog-realism layer; the static-accuracy gap on
+  natural data is flagged to a future draft (a convolutional / larger bulk), never a Stage-2 re-run.
 
 ---
 
@@ -296,18 +341,20 @@ touch, held to a tie-break — **simple intelligence first.**
 
 ## 8 · What's next
 
-Phase 9 is done: the maintenance loop is tuned against internal signals and **frozen** — the bulk was measured to
-*rotate, not forget*, four knobs kept the committed loop (N2 struck, all-tap, CBRS, proto-reanchor), and the freeze
-re-confirmed the sleep cadence (grid-8 → grid-4) to restore near-flat continual-safety on a lifelong revisit stream.
-**Phase 10 — the validation / showcase — is now the live line**, and it carries the stage's *existential* test: the fair
-same-budget **BP+replay accuracy** baseline that gives the architecture's headline its honest fight (P8 settled the energy
-half; P10 owes the accuracy half). Phase 10 also closes the owed natural multi-class number (A5) on the continual harness,
-runs the multi-domain adaptive gauntlet, and the noise showcase on a **held-out** battery — racing the **frozen** object
-(it touches no knob) → an honest **Pareto** verdict. When P10 closes, this report is rewritten as a Stage-2 *close-out*
-(the way [`stage1-report.md`](stage1-report.md) closed Stage 1), and the neocortex brain — cheap unsupervised structure +
-a precise continual-safe namer + a metered economy + a frozen lifelong maintenance loop — is done. After that, the
-analog-realism layer (SPICE / PVT); and, beyond the numbered phases, the recurrent lifelong brain remains the north star.
-*Simple intelligence first.*
+**Stage 2 is done.** The neocortex brain — cheap unsupervised structure (SCFF) + a precise, gradient-free, continual-safe
+namer (SLDA) + a metered economy (the DDM gate) + a frozen lifelong maintenance loop (grid-4) — is built, frozen, and
+**validated honestly** against the strongest fair opponent. Phase 10 discharged the existential debt Phases 4/8/9 carried:
+raced against a tuned, budget-matched BP+replay learner, the object is a **substrate-native continual learner** — it ties
+on the continual home, trails on easy static data, and wins decisively on continual safety, noise robustness, and the
+substrate energy floor. The founding bet survives, refined into exactly what the project always said it was, with two
+remainders **named, not hidden**: a small directional/ADC noise residual → the analog-realism layer, and a static-accuracy
+gap on easy natural data → a future draft (a convolutional / larger bulk). Both drafts, never a Stage-2 re-run.
+
+**What's next, beyond Stage 2:** the **analog-realism layer** (SPICE / PVT — the absolute-Joule and device-physics the
+behavioral meter cannot give, and the read-side noise residual it must reach); and, beyond the numbered phases, the
+recurrent, lifelong-learning prefrontal↔hippocampus **thinking loop** where *correctness is a self-generated feeling* —
+the north star. Stage 2 touched it only as a tie-break bias (a spine-clean cosine direction, a drift gate that is the
+*halt*), so the later brain can reuse these signals instead of tearing them out. *Simple intelligence first.*
 
 ---
 
@@ -316,12 +363,13 @@ analog-realism layer (SPICE / PVT); and, beyond the numbered phases, the recurre
 **If you read only one file for the model:** [`phase9-final-architecture.md`](phase9-final-architecture.md) — the v2.0.0
 self-contained account of the **complete two-brain neocortex, frozen** (both brains + the maintenance loop; the
 cheap-brain-only snapshot is [`phase6-final-architecture.md`](phase6-final-architecture.md)). **For the plan Stage 2
-executes:** [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). **For the result so far:** this file
-(the arc) → [Phase 7 front door](phase7/README.md) →
-[Phase 8 front door](phase8/README.md) → the `phaseN/phaseN-report.md` deep stories (every figure) →
-`phaseN/RESULTS.md` (the scalar ledgers) → the `phaseN/expK/experiment-K.md` cards. Terms, metrics, and papers are
-defined in [`ref-report/`](ref-report/README.md); the committed decisions in
+executes:** [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). **For the closed result:** this file
+(the arc) → [Phase 7](phase7/README.md) → [Phase 8](phase8/README.md) → [Phase 9](phase9/README.md) →
+[Phase 10](phase10/README.md) front doors → the `phaseN/phaseN-report.md` deep stories (every figure) →
+`phaseN/RESULTS.md` (the scalar ledgers) → the `phaseN/expK/experiment-K.md` cards. **For the professor meeting:**
+[`phase10/professor-brief.md`](phase10/professor-brief.md). Terms, metrics, and papers are defined in
+[`ref-report/`](ref-report/README.md); the committed decisions (through **S14**) in
 [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md).
 
-*Prev:* [the Stage-1 arc](stage1-report.md) · *Up:* [draft 6.0 context](../CLAUDE.md) · *Next:* Phase 9 — the maintenance
-loop + the owed BP+replay accuracy baseline (the live line).
+*Prev:* [the Stage-1 arc](stage1-report.md) · *Up:* [draft 6.0 context](../CLAUDE.md) · *Next:* the analog-realism layer
+(SPICE / PVT), and beyond the numbered phases, the recurrent lifelong brain — the north star.
