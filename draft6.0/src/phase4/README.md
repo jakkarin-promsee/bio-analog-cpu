@@ -7,13 +7,15 @@
 >
 > **Verdict in one line:** a gap-to-*genuinely-tuned*-backprop map across seven controlled axes says it plainly —
 > **a substrate-native continual learner, not a static-accuracy competitor.** No algorithm bug hid in the breadth.
+>
+> *↑ In the arc:* **Phase 4** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
 ## The problem
 
 By the end of Phase 3 we trusted the cell on *two* axes (continual + depth-composition). Two axes is not a map.
-Before Phase 6 optimizes the maintenance loop on top of this cell, we wanted the whole orthogonal scorecard — run
+Before the maintenance loop is optimized on top of this cell (that is Stage 2's job), we wanted the whole orthogonal scorecard — run
 for **coverage, not triage** — because a breadth sweep is the cheapest place to catch a latent algorithm bug
 before any optimization is built on a flaw. **Characterize before optimize.** (It earned the framing twice:
 the breadth caught a latent OOM bug *and* refuted the plan's optimistic noise-win — the pre-flight gate working.)
@@ -63,18 +65,19 @@ training untested.)*
 ## What it set (the hand-off brief)
 
 Picked from data, not guesses. In the final numbering these split: the open wound this map flagged — the **depth
-decay** past ~layer 5 — became **Phase 5** (the SCFF close-out); the **maintenance-loop optimizations** below became
-**Phase 6** (the GD side).
+decay** past ~layer 5 — became **Phase 5** (the SCFF close-out); the **noise-hardening** became **Phase 6** (closing Stage 1);
+and the **maintenance-loop optimizations** below became **Stage 2** (Phases 7–10 — the GD namer, the economy, the
+frozen loop).
 
-1. **Optimize the continual mechanism** (sleep cadence + the Ch7 gate) — A6 is the validated win. **Phase 6's core.**
+1. **Optimize the continual mechanism** (sleep cadence + the Ch7 gate) — A6 is the validated win. **Stage 2's core (the P8 economy + the P9 frozen loop).**
 2. **Build deep, but gate depth on headroom** — depth is cheap (A4) and composes (A3), but only *pays* with
    headroom, and the deep representation *decays* past ~layer 5; scale the coordination window with headroom (w=2
    hard regime → w=4 easy+deep). **(→ Phase 5 closed the decay.)**
 3. **Make the cost meter depth-aware and temporal** — the 80/20 is depth-gated; meter the gated/sleep online cost,
    not one per-pass number.
 4. **Run the train-with-noise (hardware-aware) test** before any analog noise claim (A7); treat layernorm as a
-   tunable nuisance-robustness ↔ noise-sensitivity knob.
-5. **Validate multi-class on natural data** (A5) — the synthetic overstates the static gap.
+   tunable nuisance-robustness ↔ noise-sensitivity knob. **(→ Phase 6 ran exactly this.)**
+5. **Validate multi-class on natural data** (A5) — the synthetic overstates the static gap. **(→ Phase 10.)**
 6. **Don't compete** on static accuracy, many-class, or eval-time noise — not the architecture's place.
 
 ## Validated vs not

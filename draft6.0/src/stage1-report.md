@@ -10,7 +10,7 @@
 > [Phase 3](phase3/phase3-report.md) · [Phase 4](phase4/phase4-report.md) · [Phase 5](phase5/phase5-report.md) ·
 > [Phase 6](phase6/phase6-report.md). Terms and metrics are defined in [`ref-report/`](ref-report/README.md); the
 > committed design is the [decision record](../idea/main.ideas.v1.md); the project's origin is told in
-> [`the-essence`](../../docs/essence/the-essence.md).
+> [`the-essence2`](../../docs/essence/the-essence2.md) (the soul — the grown spine; `the-essence.md` is the seed).
 
 ---
 

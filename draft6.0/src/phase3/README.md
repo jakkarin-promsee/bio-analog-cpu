@@ -10,6 +10,8 @@
 > **cross-layer coordination window (w≥2)** and depth **composes** (on a task with the headroom to show it), while
 > re-earning and slightly *improving* the continual win. **This is adopted; it supersedes energy-goodness as the
 > SCFF objective for draft 6.0.**
+>
+> *↑ In the arc:* **Phase 3** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

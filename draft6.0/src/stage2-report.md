@@ -19,7 +19,8 @@
 > The plan this executes: [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). The frozen cell it
 > builds on: [`phase6-final-architecture.md`](phase6-final-architecture.md). The
 > committed design record: [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md). Terms and metrics:
-> [`ref-report/`](ref-report/README.md). The Stage-1 arc it inherits: [`stage1-report.md`](stage1-report.md).
+> [`ref-report/`](ref-report/README.md). The Stage-1 arc it inherits: [`stage1-report.md`](stage1-report.md). The
+> soul under it all: [`the-essence2`](../../docs/essence/the-essence2.md).
 
 ---
 

@@ -5,6 +5,8 @@
 > plan. Phase 6 is a **Stage-1 extension** — it hardens the *frozen Phase-5 cell* against noise **before** the GD
 > namer (Stage 2), because a frozen head cannot manufacture backbone robustness (LP-FT). Ran 2026-07-01, P6.0→P6.8,
 > single-thread, seeds `[42,137,271,314,1729]`, all guards pass.
+>
+> *↑ In the arc:* **Phase 6** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
@@ -97,4 +99,4 @@ objective is noiseless" and is the Phase-6 supporting decision for `idea/main.id
 | The literature behind every mechanism | [`../../research/papers/phase6/`](../../research/papers/phase6/README.md) |
 | The Stage-1 arc (Phase 6 is its noise-hardening extension) | [`../stage1-report.md`](../stage1-report.md) |
 
-*Prev:* [Phase 5](../phase5/README.md) · *Next:* [Stage 2 / Phases 7–9 — the GD namer](../stage2-design.md).
+*Prev:* [Phase 5](../phase5/README.md) · *Next:* [Phase 7 — the GD namer](../phase7/README.md) (Stage 2 begins).

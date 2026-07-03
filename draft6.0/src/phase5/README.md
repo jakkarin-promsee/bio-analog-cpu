@@ -9,7 +9,10 @@
 > (a sharper objective makes the readout **beat** a genuinely-tuned backprop, and the probe tail reaches the objective
 > ceiling), **read CHEAPLY** (a fixed short reader, ~8× under the all-tap readout), **continual-SAFE** (the A6
 > sleep-recovery continual win is intact), and **natural-CONFIRMED on composable data** (the fix is real on digits;
-> null-but-safe on the no-depth CIFAR-flat wall). The project now pivots to Phase 6 — the GD side.
+> null-but-safe on the no-depth CIFAR-flat wall). Next: **Phase 6** hardens this finished cell against noise (the last
+> Stage-1 step), then **Stage 2** (Phases 7–10) builds the GD namer.
+>
+> *↑ In the arc:* **Phase 5** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
@@ -83,13 +86,13 @@ weak-but-decorrelated, so **pooling beats placement** (the exact inverse of the 
 > wanted; **w4** the bounded depth-closer for compositional tasks. Forward-only, per-sample, sleep-consolidated.
 > This is the cheap brain, closed.
 
-## What it set / closed (the Phase-6 hand-off)
+## What it set / closed (the hand-off forward)
 
 Picked from data, not guesses:
 
 1. **The deployed recipe to optimize:** temp0.2/w2 SCFF bulk + a sleep-consolidated **fixed** reader + the Ch7 gate +
    sleep cadence — now **readout-aware** (consolidate the *extractor-depth* features the reader reads: shallow on the
-   flat home, deep on compositional tasks; re-validate the gate online under shift). **This is Phase 6's core.**
+   flat home, deep on compositional tasks; re-validate the gate online under shift). **This is the maintenance loop — Stage 2's core (the P8 economy + the P9 freeze).**
 2. **Earn depth with the objective, not machinery** — temperature is the free lever; **w4** is the bounded
    depth-closer for compositional tasks. Genuine global-credit machinery stays **deferred** (the cheap levers sufficed).
 3. **Read shallow on the flat home** — a short fixed stack, not the adaptive exit (struck). Reserve the deep L12 bulk
@@ -127,4 +130,4 @@ Picked from data, not guesses:
 | The binding reporting contract (figures · tables · the 8-slot summary) | [`result-format.md`](result-format.md) |
 | The run-cards | `exp0`…`exp9/` `experiment-*.md` (P5.0–P5.9; exp6 = the documented skip) |
 | The literature behind it | [`../../research/papers/phase5/`](../../research/papers/phase5/README.md) |
-| The Stage-1 arc | [`../stage1-report.md`](../stage1-report.md) · **Prev:** [Phase 4](../phase4/README.md) |
+| The Stage-1 arc | [`../stage1-report.md`](../stage1-report.md) · **Prev:** [Phase 4](../phase4/README.md) · **Next:** [Phase 6](../phase6/README.md) |
