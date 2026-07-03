@@ -5,10 +5,11 @@ wins / ties / loses (each with its number + mechanism), and bank the founding be
 halves **separately** (§7/R4). Not a scalar — the honest map.
 
 **Setup.** Integration rung — reads P10.1's + P10.2's saved arrays (+ the P10.3–P10.5 verdicts); runs nothing new.
-The Pareto is on (final AA × analog energy) across the P10.1 roster {ours_g4, ours_g5, er_strong, er_budget, agem,
-derpp, gdumb, naive} **+ the §10 E4 full-family merge {g6, g8, g12, g16} from P10.2** (merge guard: exp1's `ours_g4`
-== exp2's `g4` bit-for-bit — the merge is legal only because both rungs measured the identical object); the two
-energy cuts (same-substrate algorithm + chip-vs-conventional total) restated as the verdict map. Figure PARETO + INV.
+The Pareto is on (final AA × analog energy) across the P10.1 roster {ours_g4, er_strong, er_budget, agem, derpp,
+gdumb, naive} **+ the §10 E4+E7 merge of EVERY measured cadence point from P10.2 — the family {g5, g6, g8, g12, g16}
+and the cliff probes {g7, g13, g14, g15}** (merge guard: exp1's `ours_g4` == exp2's `g4` bit-for-bit — the merge is
+legal only because both rungs measured the identical object); the two energy cuts (same-substrate algorithm +
+chip-vs-conventional total) restated as the verdict map. Figure PARETO + INV.
 
 **Result / figures.**
 
@@ -25,12 +26,13 @@ energy cuts (same-substrate algorithm + chip-vs-conventional total) restated as 
 - **PARETO** (verdict figure): on (accuracy × analog energy) the non-dominated frontier is **{er_strong, gdumb}** —
   OURS(grid-4) is **dominated** (er_strong has higher accuracy *and* lower analog energy, being a small tuned net).
   OURS's genuine wins are on the axes this scatter omits (worst-case safety, noise, the substrate floor).
-- **The §10 E4 money line:** the full OURS family {ours_g4 ⭐, ours_g5, g6, g8, g12, g16} sweeps the top of the
-  scatter — a near-flat ~0.49-AA line from 6.7e7 down to 4.3e7 pJ with the single g16 accuracy-cliff outlier
-  (0.458 at 4.0e7). The picture states the model's whole operating range in one stroke *and* keeps the verdict
-  honest: the family line rides above every BP field point except ER-strong, and the frontier membership is
-  **unchanged** — what the scatter cannot show (the g8/g12 points' broken worst-case safety, −0.32/−0.34) is exactly
-  why grid-4 is the committed headline and not the cheapest family point.
+- **The §10 E4+E7 money line (all ten cadence points):** {ours_g4 ⭐, g5, g6, g7, g8, g12, g13, g14, g15, g16} sweep
+  the top of the scatter — a ~0.49-AA plateau from 6.7e7 down to 4.0e7 pJ with the **accuracy cliff visible on the
+  line itself**: the g13 wobble (0.474) and the g16 drop (0.458), so a reader sees exactly where the operating range
+  ends and which cadence to test next. The picture states the model's whole range in one stroke *and* keeps the
+  verdict honest: the line rides above every BP field point except ER-strong, and the frontier membership is
+  **unchanged** — what the scatter cannot show (everything from g7 rightward is safety-broken, −0.32 … −0.44) is
+  exactly why grid-4 is the committed headline and not the cheapest plateau point.
 - **INV**: assembled from the green-guard rungs.
 
 **Read (8 slots).**
@@ -41,7 +43,8 @@ energy cuts (same-substrate algorithm + chip-vs-conventional total) restated as 
    (algorithm 1.54× same-substrate, total 3.4× analog-floor); **accuracy half = competitive-on-home / trails-on-static
    / wins-on-safety** (the automated P10.6 read says "validated" from P10.1's synthetic tie; the honest close-out
    integrates P10.5's natural −0.071 and re-labels it as above).
-3. *Figures* — PARETO (the frontier + the hero's dominated position + the §10 full-family money line), INV.
+3. *Figures* — PARETO (the frontier + the hero's dominated position + the §10 all-grid money line, accuracy cliff
+   on-line), INV.
 4. *Mechanism* — a small tuned ER is cheaper *and* higher-accuracy on the same substrate because OURS pays for a
    12-layer unsupervised bulk every step; that bulk is affordable only on the analog crossbar (near-free MACs), which
    is the whole "why analog." OURS's off-Pareto wins come from the sleep-consolidated loop (steady worst-case

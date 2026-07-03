@@ -6,9 +6,11 @@ P8 economy+cost · P9 maintenance/close+freeze · **P10 validate/showcase**). Ph
 raced it — untouched — against a fair, budgeted, tuned BP+replay baseline** across the continual gauntlet. It *measured*;
 it tuned nothing (the only dial moved was the declared cadence cost axis). Discipline: **freeze in P9, judge in P10.** The
 verdict shapes were pinned **BLIND** in `design.md` §2.3 before any baseline number was seen. **+ §10 post-close
-extension (same evening, author-directed; pre-registered in design §10, measurement-only, every carried array
-bit-exact):** grid-12 in the family (the Tier-2 break = a two-cliff plateau), grid-5 in the fight, the per-batch
-**GAUNTLET-STREAM** view, the full-family Pareto money line.
+extension (two same-day rounds, author-directed; pre-registered in design §10, measurement-only, every carried array
+bit-exact):** the cadence break fully localized (grid-12 + probes {7,13,14,15} → a **plateau + two cliffs**: safety
+plunges at 6→7, accuracy cliffs at 15→16 where equal-count sleeps turn timing-sensitive); the per-batch
+**GAUNTLET-STREAM** view forward + REVERSED (ER order-sensitive 0.343-vs-0.504, OURS order-invariant); the all-grid
+Pareto money line. (A grid-5 fight point was added then withdrawn — within noise.)
 
 - **Verdict — an honest Pareto close-out; the founding bet REFINED, not inflated (banked as two halves, R4):** OURS is a
   **substrate-native continual learner** — competitive on the continual home, decisively **safer**, far more
@@ -23,22 +25,24 @@ bit-exact):** grid-12 in the family (the Tier-2 break = a two-cliff plateau), gr
   3/5 seeds, within δ); **continual-safety WIN** — worst-pre-sleep BWT **−0.028 vs −0.272** (≈10× less forgetting, the
   honest read the final-BWT masked). Same-substrate energy 1.54× more (the deep bulk); chip-vs-conventional-GD total 3.35×
   cheaper (substrate-realized). AAA favors ER (0.503 vs 0.392 — the sleep-cadence anytime tax). Joint-BP ceiling 0.870.
-  §10: **ours_g5** drawn beside the headline (0.495, worst-BWT −0.039, −11% energy — the family's cheaper viable point;
-  the verdict stays grid-4's).
-- **P10.2 — the cadence frontier (the 6-grid cost-frontier family; +grid-12 by the §10 post-close extension).** grid-4
-  the **committed headline** (never swapped, bit-exact); **grid-5 = the Tier-1 showcase rep** (worst-BWT −0.039 within δ
-  of grid-4, cheaper); grid-6 **fails** the δ-BWT gate (−0.087); Tier-2 {8,12,16} break confirmed on **both** axes — with
-  a **two-cliff shape** (§10): the *safety* cliff falls at 6→8 (−0.087 → −0.317; grid-12 still broken at −0.339) while
-  *final AA* stays flat down to grid-12 (0.496 at 4.28e7) and only cliffs at 12→16 (0.458) — worst-case safety degrades a
-  full tier before average accuracy. Energy monotone with cadence density (6.70e7 → 3.99e7); GD-share 0.178 → 0.107 (all
-  ≤ 0.25). A declared cost axis, not a knob.
+  (§10: an ours_g5 roster point was added then withdrawn — within noise; grid-5 lives in P10.2/P10.6.)
+- **P10.2 — the cadence frontier (family {4,5,6,8,12,16} + §10 cliff probes {7,13,14,15}).** grid-4 the **committed
+  headline** (never swapped, bit-exact); **grid-5 = the Tier-1 showcase rep** (worst-BWT −0.039 within δ of grid-4,
+  cheaper); the Tier-2 break fully localized as a **plateau + two cliffs**: the *safety* axis breaks in two steps — the
+  δ-edge at grid-6 (−0.087) and the **plunge at grid-7** (−0.322, already g8-deep; from g7 outward everything is
+  −0.32…−0.44) — while *final AA* plateaus (0.494–0.496) through grid-15 (one δ-boundary wobble at g13) and cliffs
+  **exactly at 15→16** (0.495 → 0.458 at the SAME energy AND sleep count — at ~6 sleeps the outcome turns
+  sleep-TIMING-sensitive, not count-limited). Worst-case safety degrades a full tier before average accuracy. Energy
+  monotone (6.70e7 → 3.99e7); GD-share 0.178 → 0.107 (all ≤ 0.25). A declared cost axis + probes, not a knob.
 - **P10.3 — the multi-domain gauntlet (the money figure).** 5 native domain-IL digit worlds (identity/permuted/rotated/
   covariate/noised → shared 40-D, shared head, cross-domain replay probe = domain-IL-fair). OURS worst-point all-prev
   retention **0.490 vs ER 0.350**, AAA **0.519 vs 0.433** (steadier anytime) at competitive final AA (0.490 vs 0.504,
   within δ), **order-robust** (reversed-order AA Δ −0.014). Same-substrate 1.47× more; substrate total 3.5× cheaper.
   §10 **GAUNTLET-STREAM** (per-batch, triple-guarded replay): ER **saw-tooths** — crashes to ~0.1 at every domain onset
   and re-climbs (live-batch mean 0.273) — while OURS rides near-flat (0.469); energy at batch resolution = OURS sleep
-  staircase vs ER ramp (the 1.47×, exact).
+  staircase vs ER ramp (the 1.47×, exact). §10 E6 **REVERSED** (noised first; completes K9's ER leg): **ER is
+  order-SENSITIVE — reversed final AA 0.343 vs forward 0.504 (Δ −0.161)** while OURS holds 0.494 vs 0.490; the low
+  region moves with the noise, not the position; the forward gauntlet was ER's *favorable* ordering.
 - **P10.4 — the noise showcase (held-out, margin-disjoint battery).** OURS-hardened **≫ BP+replay on EVERY channel** (iid
   1.095 vs 0.608, directional 0.978 vs 0.225, adc3b 0.923 vs 0.300, nuisance 1.000 vs 0.469). A small directional/ADC
   residual (0.978 / 0.923, > δ) → **named → the analog-realism layer**; the battery is re-parameterized not
@@ -50,8 +54,9 @@ bit-exact):** grid-12 in the family (the Tier-2 break = a two-cliff plateau), gr
   **{er_strong, gdumb}** — OURS(g4) is **dominated** (a small tuned ER is cheaper *and* higher-accuracy same-substrate).
   OURS's genuine wins live on the axes the Pareto omits: **safety, noise, the substrate floor.** Two halves banked
   **separately:** economics = substrate-realized; accuracy = competitive-on-home / trails-on-static / wins-on-safety.
-  §10: the **full OURS family** {ours_g4 ⭐, ours_g5, g6, g8, g12, g16} drawn as the money line (~0.49 AA sweeping
-  6.7e7→4.3e7 pJ; merge guard exp1-g4 == exp2-g4 bit-exact); frontier membership unchanged.
+  §10: **every measured cadence point** {ours_g4 ⭐ + g5,g6,g7,g8,g12,g13,g14,g15,g16} drawn as the money line (a
+  ~0.49-AA plateau sweeping 6.7e7→4.0e7 pJ, the accuracy cliff visible on-line; merge guard exp1-g4 == exp2-g4
+  bit-exact); frontier membership unchanged.
 - **Two things the sims sharpened (the honest close-out):** the energy win is **substrate-realized, not algorithmic**
   (R1 measured — a small tuned ER is cheaper same-substrate; the analog crossbar is the whole "why analog"); and OURS's
   accuracy value is **continual stability on hard/long/multi-domain streams**, invisible on short easy static data (P10.5).

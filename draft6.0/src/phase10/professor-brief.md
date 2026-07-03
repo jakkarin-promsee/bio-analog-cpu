@@ -42,12 +42,16 @@ backprop learner (the strong fair baseline).
 ## The four figures
 - **GAUNTLET** (`exp3/figs_p10_3/GAUNTLET.png`) — 5 domains learned with steady retention (worst-point 0.490 vs 0.350)
   at substrate-realized lower energy; sleep-position + domain markers overlaid.
-- **GAUNTLET-STREAM** (`exp3/figs_p10_3/GAUNTLET_STREAM.png`) — the same race at **batch resolution**: the replay
-  learner crashes to ~0.1 accuracy at every domain switch and re-climbs (a saw-tooth), while OURS holds ~0.5 flat —
-  live-batch mean 0.469 vs 0.273; the energy panel shows OURS's sleep staircase vs the replay learner's every-step ramp.
+- **GAUNTLET-STREAM** (`exp3/figs_p10_3/GAUNTLET_STREAM.png` + `_REV.png`) — the same race at **batch resolution**:
+  the replay learner crashes to ~0.1 accuracy at every domain switch and re-climbs (a saw-tooth), while OURS holds
+  ~0.5 flat (live-batch mean 0.469 vs 0.273); the energy panel shows OURS's sleep staircase vs the replay learner's
+  every-step ramp. **The reversed-order twin is the sharpest single comparison:** put the hard noisy world FIRST and
+  the replay learner never recovers (final 0.343 vs its forward 0.504) while OURS lands at the same endpoint either
+  way (0.494 vs 0.490) — a lifelong learner does not get to choose the order the world arrives in.
 - **PARETO** (`exp6/figs_p10_6/PARETO.png`) — the (accuracy × energy) frontier: a small tuned ER dominates on
-  same-substrate acc×energy; OURS's wins are the axes it omits (safety, noise, substrate). The full cadence family
-  {4,5,6,8,12,16} is drawn as the model's own cost line (~0.49 AA from 6.7e7 down to 4.3e7 pJ).
+  same-substrate acc×energy; OURS's wins are the axes it omits (safety, noise, substrate). Every measured cadence
+  point is drawn as the model's own cost line (a ~0.49-AA plateau from 6.7e7 down to 4.0e7 pJ, its accuracy cliff
+  visible on the line).
 - **SUBSTRATE** (`exp3/figs_p10_3/SUBSTRATE.png`) — the 2×2 {OURS,GD}×{analog,digital}: the chip 3.5× under
   conventional GD-on-digital, decomposed into substrate × algorithm.
 

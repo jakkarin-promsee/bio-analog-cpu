@@ -97,10 +97,10 @@ leg — the Split-X complement the research names, so the gauntlet stays purely 
 ![P10.1 — the existential fight](exp1/figs_p10_1/FIGHT.png)
 *The fight. **Left** — accuracy: OURS(grid-4) **0.494** and ER-strong **0.498** sit inside the δ=0.02 band (a tie; OURS
 wins 3/5 seeds), both far above the field (ER-budget 0.376, A-GEM 0.320, DER++ 0.360, naive 0.308) and well below the
-offline joint-BP ceiling (0.870, dash-dot); the §10 **OURS grid-5** bar beside the headline shows the family's cheaper
-Tier-1 point riding δ-equal (0.495). **Right** — energy per substrate: OURS's 12-layer bulk costs more than the small
-tuned ER on the digital substrate (grid-5 trims ~11% off grid-4), and the gap collapses on the analog substrate — the
-whole "why analog" in one pair of bars. (n=5, continual home; behavioral ADC-centred meter.)*
+offline joint-BP ceiling (0.870, dash-dot). **Right** — energy per substrate: OURS's 12-layer bulk costs more than the
+small tuned ER on the digital substrate, and the gap collapses on the analog substrate — the whole "why analog" in one
+pair of bars. (n=5, continual home; behavioral ADC-centred meter.) (A §10 grid-5 roster point was added then withdrawn
+by the author — within noise, it added confusion; the family's cheaper cadence points live on the P10.6 scatter.)*
 
 The raw accuracy read is a **tie within δ** — exactly the *live accuracy-loss branch* the plan pre-registered ("on a
 ~0.49-AA synthetic home a budgeted ER may well edge us"). But the **corrected worst-pre-sleep BWT reveals the real
@@ -115,18 +115,19 @@ small tuned ER. The energy win is **substrate-realized**: OURS-analog 6.70e7 is 
 win (10× safer)**, **algorithm-energy not a same-substrate win**, **total energy substrate-realized.** AAA favors ER
 (0.503 vs 0.392) — the sleep-cadence anytime tax, reported beside AA. The two halves are banked separately from here on.
 
-### P10.2 — the cadence frontier → *grid-4 the headline, grid-5 the cheaper rep, the Tier-2 break has TWO cliffs*
+### P10.2 — the cadence frontier → *grid-4 the headline, grid-5 the cheaper rep, the Tier-2 break has TWO localized cliffs*
 
-The frozen object as a cost-frontier family (six points after the §10 extension added grid-12) — only the sleep interval
-varies; grid-4 reproduces the P9 freeze bit-for-bit (the guard's core check).
+The frozen object as a cost-frontier family (ten points after the §10 extension added grid-12 and the cliff probes
+{7,13,14,15}) — only the sleep interval varies; grid-4 reproduces the P9 freeze bit-for-bit (the guard's core check).
 
 ![P10.2 — the cadence cost-frontier family](exp2/figs_p10_2/CADENCE_FRONTIER.png)
-*The frontier. Six operating points on (accuracy × energy), worst-BWT the marker read. **grid-4** (⭐, committed
+*The frontier. Ten operating points on (accuracy × energy), worst-BWT the marker read. **grid-4** (⭐, committed
 headline) anchors the safe/dense end (worst-BWT −0.028, energy 6.70e7); **grid-5** is the δ-eligible Tier-1 showcase rep
-(−0.039, within δ of grid-4, IQR-disjointly cheaper at 5.99e7); **grid-6** fails the δ-BWT gate (−0.087); the Tier-2 arms
-(orange) make the scaling break legible — **grid-8** forgets (−0.317, fails the veto), **grid-12** (§10) still forgets
-(−0.339) yet *holds* final AA (0.496 at 4.28e7), and **grid-16** drops accuracy (0.458, over-sparse). Energy is monotone
-with cadence density (6.70e7 → 3.99e7); GD-share falls 0.178 → 0.107. (n=5.)*
+(−0.039, within δ of grid-4, IQR-disjointly cheaper at 5.99e7); **grid-6** fails the δ-BWT gate (−0.087 — the safety
+*edge*); **grid-7** is the safety *plunge* (−0.322, already grid-8-deep); the sparse arms {8,12,13,14,15} stay
+safety-broken (−0.32 … −0.44) while final AA **plateaus at 0.494–0.496 through grid-15** (one δ-boundary wobble at g13,
+0.474) and cliffs **only at 15→16** (0.458). Energy is monotone with cadence density (6.70e7 → 3.99e7); GD-share falls
+0.178 → 0.107. (n=5.)*
 
 grid-4 is the committed headline, **never swapped, always plotted.** The Tier-1 *showcase rep* (for the 3-line
 visualization only) is **grid-5** — the only δ-worst-BWT-eligible candidate; grid-6's −0.087 is > δ worse than grid-4's
@@ -134,14 +135,23 @@ visualization only) is **grid-5** — the only δ-worst-BWT-eligible candidate; 
 free). The Tier-2 break is confirmed on **both** axes: grid-8 fails the *veto* (forgetting), grid-16 fails *AA-held*
 (over-consolidation gap). The family is a declared cost axis — no per-dataset best grid is ever passed off as "OURS."
 
-**The §10 grid-12 finding — the break is a plateau + cliff, not a smooth decay.** The author read the AA-vs-energy trend
-as roughly exponential and asked for the missing 8→16 point; grid-12 (never run before, not even in P9.5) shows the
-opposite shape. **Final AA stays flat all the way down to grid-12** (0.496 — statistically grid-4's 0.494) because even 8
-sleeps still cover the stream's revisits on *average*; it **cliffs only at grid-16** (0.458, 6 sleeps). Meanwhile the
-**safety axis broke a full tier earlier** — the worst pre-sleep trough plunges at 6→8 (−0.087 → −0.317) and stays broken
-at grid-12 (−0.339, where even the same-cadence oracle sits at −0.461, so it is pure sparsity, not gate timing). The
-frontier's honest shape: **worst-case safety degrades a full tier before average accuracy does** — which is exactly why
-the freeze committed the knee at grid-4 on the worst-point read, not the final-AA read.
+**The §10 finding — the break is a plateau + two localized cliffs, not a smooth decay.** The author read the
+AA-vs-energy trend as roughly exponential and asked for the missing points; grid-12 (round 1) and the probes
+{7,13,14,15} (round 2 — none ever run before) show the opposite shape, with edges:
+
+- **The safety axis breaks in two steps.** The δ-edge at grid-6 (−0.087) and the **plunge at grid-7** (−0.322 —
+  already grid-8-deep). Between nsleep 16 and 14 the mid-interval pre-sleep troughs outrun the consolidations; from
+  grid-7 outward every cadence is safety-broken (−0.32 … −0.44, where even the same-cadence oracles sit at −0.35 …
+  −0.54 — pure sparsity, not gate timing).
+- **The accuracy axis plateaus through grid-15 and cliffs exactly at 15→16** (0.495 → 0.458). The sharpest mechanism
+  read of the sweep: **grid-15 and grid-16 sleep the same number of times (6) at the same energy (3.99e7) — only the
+  sleep *positions* differ** — so at ~6 sleeps the outcome stops being count-limited and becomes **timing-sensitive**
+  (whether the sparse consolidations happen to cover the revisit structure; grid-13's wobble to exactly the δ boundary,
+  0.474 at nsleep 7, is the same zone's signature). At the plateau's edge the loop is one unlucky sleep-phase from the
+  cliff.
+
+The frontier's honest shape: **worst-case safety degrades a full tier before average accuracy does** — which is exactly
+why the freeze committed the knee at grid-4 on the worst-point read, not the final-AA read.
 
 ### P10.3 — the multi-domain gauntlet → *the money figure: steadier retention across 5 worlds at substrate-realized cost*
 
@@ -193,6 +203,25 @@ The stream view is the money figure's mechanism made visible: **ER buys its marg
 crash-and-relearn cycle at every domain switch; OURS's forward-only bulk + sleep loop holds both the live and the
 remembered read near-flat.** The steadiness is the product.
 
+**The §10 E6 reversed order — the steadiness is curriculum-robust, and ER's is not.** The same view with the domains
+reversed (noised **first**), which also completes K9's letter (the committed reversed control had run OURS only; ER now
+runs it too):
+
+![P10.3 §10 — the reversed stream view](exp3/figs_p10_3/GAUNTLET_STREAM_REV.png)
+*The reversed gauntlet (noised first). Both learners open near-chance on the hard noised world — but **ER never
+recovers**: its reversed final AA collapses to **0.343 vs its forward 0.504** (Δ −0.161, ≫ δ; its live-batch stays
+~0.1–0.2 even on the easy late domains) because the discriminative net and its reservoir are shaped by noise early and
+every later world is learned on that damaged base. **OURS lands at the same endpoint either way** (0.494 reversed vs
+0.490 forward) — the unsupervised bulk extracts structure even from the all-noisy opener (Phase-6's Door-B result,
+visible live) and each onset's sleep re-anchors the namer. (n=5; the same triple-guarded replay.)*
+
+Two pinned questions, answered: **(a) ER's low start is real and consequential** — a hard-first curriculum wrecks its
+whole trajectory, so the committed forward gauntlet was ER's *favorable* ordering; **(b) the late-stream drop follows
+the noise, not the position** — reversed, the low region moves to the start with the noised domain, and there is no
+end-of-stream collapse. The single order-delta scalar (−0.014) was OURS-only and could not show this asymmetry; the
+completed control can: **OURS is order-invariant, the tuned ER is not — and a lifelong learner does not get to choose
+the order the world arrives in.**
+
 ### P10.4 — the noise showcase → *OURS ≫ BP+replay on every held-out channel; a small residual named*
 
 The Phase-6 noise arc, cashed on the assembled object under a **margin-disjoint held-out battery** (directional RMS 2.5
@@ -238,12 +267,13 @@ halves separately.
 ![P10.6 — the Pareto verdict](exp6/figs_p10_6/PARETO.png)
 *The verdict. On (final AA × analog energy) the non-dominated staircase is **{er_strong, gdumb}** — OURS(grid-4,
 hero-ringed) is **dominated** (a small tuned ER has higher accuracy *and* lower energy, and GDumb anchors the cheap
-corner, cost-pathologically). The §10 **full-family money line** {g4 ⭐, g5, g6, g8, g12, g16} sweeps the top of the
-scatter — a near-flat ~0.49-AA line from 6.7e7 down to 4.3e7 pJ, with the single g16 accuracy-cliff outlier — the model's
-whole operating range in one stroke; what the scatter cannot show (g8/g12's broken worst-case safety) is why grid-4 is
-the headline and not the cheapest point. OURS's genuine wins are on the axes this scatter does not have: worst-case
-continual safety, noise robustness, and the substrate floor. (n=5; GDumb annotated — it retrains from scratch at eval,
-not an energy competitor.)*
+corner, cost-pathologically). The §10 **all-grid money line** {g4 ⭐, g5, g6, g7, g8, g12, g13, g14, g15, g16} sweeps
+the top of the scatter — a ~0.49-AA plateau from 6.7e7 down to 4.0e7 pJ with the **accuracy cliff visible on the line
+itself** (the g13 wobble, the g16 drop) — the model's whole operating range in one stroke, cliff edges included; what
+the scatter cannot show (everything from g7 rightward is safety-broken) is why grid-4 is the headline and not the
+cheapest plateau point. OURS's genuine wins are on the axes this scatter does not have: worst-case continual safety,
+noise robustness, and the substrate floor. (n=5; GDumb annotated — it retrains from scratch at eval, not an energy
+competitor.)*
 
 On the (accuracy × energy) Pareto a small tuned ER **dominates** OURS — because OURS pays for a 12-layer unsupervised bulk
 every step, and that bulk is affordable only on the analog crossbar (near-free MACs), which is the whole "why analog."
@@ -290,10 +320,11 @@ and refined, not inflated.
 - **NOISE — a clean win.** Under the held-out battery OURS holds 0.92–1.10 on every channel while BP+replay collapses to
   0.23–0.61. A small directional/ADC residual is **named → the device-physics layer.**
 
-**New supporting decisions banked:** the cadence cost-frontier `{4,5,6,8,12,16}` (grid-4 headline, no swap; grid-5 the
-δ-eligible rep; the §10 grid-12 point gives the Tier-2 break its **two-cliff shape** — safety falls at 6→8, final AA only
-at 12→16) and the characterized SCFF:Namer ratio (GD-share 0.107–0.178 ≤ 0.25). The founding bet is **refined, not
-inflated** — the honest-science outcome the project's whole method is built to produce.
+**New supporting decisions banked:** the cadence cost-frontier `{4,5,6,8,12,16}` + the §10 cliff probes {7,13,14,15}
+(grid-4 headline, no swap; grid-5 the δ-eligible rep; the Tier-2 break fully localized as a **plateau + two cliffs** —
+the safety δ-edge at grid-6 with the plunge at **6→7**, the accuracy cliff at **15→16** where equal-count sleeps turn
+timing-sensitive) and the characterized SCFF:Namer ratio (GD-share 0.107–0.178 ≤ 0.25). The founding bet is **refined,
+not inflated** — the honest-science outcome the project's whole method is built to produce.
 
 ---
 
@@ -326,7 +357,9 @@ inflated** — the honest-science outcome the project's whole method is built to
   *and* tuned strong on a disjoint seed; both budget and strong points are reported. The racer's shape is its own uncapped
   best choice (threat h) — which is *why* the same-substrate energy cut goes against OURS, reported not hidden.
 - **The gauntlet depends on the domain set + order + the frozen-config-vs-per-domain-tuning asymmetry.** All three are
-  stated; the reversed-order control (grid-4 + ER-strong, 5 seeds) was run and is order-robust (AA Δ −0.014).
+  stated; the completed reversed-order control (grid-4 + ER-strong, 5 seeds — §10 E6) shows OURS order-robust (AA Δ
+  −0.014 scalar; 0.494 vs 0.490 at batch resolution) while **ER is order-sensitive** (reversed 0.343 vs forward 0.504)
+  — the forward gauntlet was ER's favorable ordering, so the asymmetry strengthens, not weakens, the comparison.
 - **Synthetic overstates static gaps** — the natural digits (P10.5) are the honest read, and they *reveal* ER's
   static-accuracy edge the hard synthetic home masked.
 - **The noise battery is a margin-disjoint operating point of the same transducer model** — a genuinely-novel channel

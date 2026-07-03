@@ -53,6 +53,18 @@ replay; wall ≈ 3.6 min.
   ER's ramp converges toward OURS just before the first sleep, then each sleep staircases OURS back above — OURS
   stays the pricier same-substrate line throughout, exactly the committed 1.47× read, now visible per batch (this
   exact read supersedes the proportional per-domain shape).
+- **GAUNTLET-STREAM-REV (§10 E6)** — the same view, domain order **reversed** {noised → identity}, answering the two
+  pinned questions + completing K9's ER leg. **(a) ER's low start is real, and it is not just a start:** both
+  learners open ~0.1 on the noised block (a hard opener hits both), but ER **never recovers** — its reversed final AA
+  collapses to **0.343 [0.336–0.370] vs its forward 0.504 (Δ −0.161, ≫ δ)**: the discriminative net + reservoir get
+  shaped by noise early and every later domain is learned on that damaged base (its live-batch stays ~0.1–0.2 even on
+  the easy late domains; live mean 0.225). **OURS holds 0.494 vs forward 0.490 (Δ +0.004)** — it climbs
+  domain-by-domain to the same endpoint regardless of order (the unsupervised bulk extracts structure even from the
+  all-noisy opener — Phase-6's Door-B, now visible live; each onset's sleep re-anchors the namer). **(b) the drop
+  follows the NOISE, not the position:** reversed, there is no late-stream collapse — the low region moves to the
+  start with the noised domain; noise suppresses the live read *while it is the live world* and drags the seen-so-far
+  average *while it is included*, in both orders. **The committed forward gauntlet was ER's favorable ordering; OURS
+  is order-invariant** — the asymmetry the single order-delta number (−0.014, OURS only) could not show.
 
 **Read (8 slots).**
 1. *Claim* — across 5 domains OURS holds **steadier** retention than a budgeted ER (worst-point all-prev 0.490 vs
@@ -61,7 +73,7 @@ replay; wall ≈ 3.6 min.
 2. *Headline* — worst pre-sleep all-prev **0.490 (OURS g4) vs 0.350 (ER)**; final 0.490 vs 0.504 (within δ); AAA 0.519
    vs 0.433; same-substrate E 1.47× more; substrate total 3.5× cheaper; reversed-order Δ −0.014 (n=5).
 3. *Figures* — GAUNTLET (twin panel + sleep/domain overlay), GAUNTLET-STREAM (§10 — the per-batch live/seen/energy
-   view), SUBSTRATE (2×2 re-metered), INV.
+   view), GAUNTLET-STREAM-REV (§10 E6 — the reversed order), SUBSTRATE (2×2 re-metered), INV.
 4. *Mechanism* — OURS's sleep-consolidation gives a **steady** trajectory (high anytime + high worst-point), while ER's
    every-step replay is more variable (dips to 0.350 mid-stream as it chases the newest domain, then recovers by
    stream-end to a marginally higher final). density ≠ class holds at the buffer: OURS's cross-domain CBRS probe
@@ -71,9 +83,11 @@ replay; wall ≈ 3.6 min.
 5. *Threats to validity* — (a) behavioral meter (params logged); (b) ER tuned + byte/FLOPs-matched (its shape is its
    own race_bp choice, not capped — threat h, so it is FLOPs-lighter); (c) the domain set/order/tuning-asymmetry: OURS
    runs a **frozen** config, ER gets its **own best** per-domain config — the retention edge is *despite* that
-   handicap; the reversed-order control is order-robust (Δ −0.014); **the cross-domain probe is mildly non-causal (all
-   domains present at t0) — benign: re-forwarding an unseen-domain input through an unadapted bulk yields uninformative
-   features, no future-domain knowledge leaks**; (d) single-pass gauntlet → forgetting is milder than the lifelong
+   handicap; the reversed-order control is order-robust for OURS (Δ −0.014) — and the §10 E6 completion shows the
+   asymmetry: **ER is order-SENSITIVE (reversed final AA 0.343 vs forward 0.504)**, so the forward gauntlet was ER's
+   *favorable* ordering, strengthening not weakening the OURS comparison; **the cross-domain probe is mildly
+   non-causal (all domains present at t0) — benign: re-forwarding an unseen-domain input through an unadapted bulk
+   yields uninformative features, no future-domain knowledge leaks**; (d) single-pass gauntlet → forgetting is milder than the lifelong
    P10.1 stream (where ER's worst-BWT reached −0.272); the per-DOMAIN cumulative-energy curve is a
    proportional-to-steps shape, now **superseded at batch resolution** by the §10 exact prefix-priced stream view
    (endpoint guarded == the committed meter total). Rule-1: one variable (grid / learner); the §10 stream view is a
@@ -87,7 +101,9 @@ replay; wall ≈ 3.6 min.
 8. *Where-it-stands* — the money figure shows the substrate-native continual learner's real edge: **steady multi-domain
    retention** (higher worst-point + anytime) at a substrate-realized 3.5× energy advantage over conventional GD. The
    honest caveat carried from P10.1 holds: on the same digital substrate against a small tuned ER, OURS's deep bulk
-   costs more — the win needs the analog crossbar. The §10 stream view makes the *mechanism* visible at batch
+   costs more — the win needs the analog crossbar. The §10 stream views make the *mechanism* visible at batch
    resolution: ER buys its higher final AA with a crash-and-relearn cycle at every domain switch (live-batch mean
    0.273), while OURS's forward-only bulk + sleep loop holds both the live and the remembered read near-flat (0.469)
-   — the steadiness IS the product.
+   — the steadiness IS the product. And the reversed order (E6) shows the steadiness is **curriculum-robust**: swap
+   the hard noisy world to the front and ER's whole run collapses (0.343) while OURS lands at the same endpoint
+   (0.494) — a lifelong learner cannot choose the order the world arrives in.

@@ -232,12 +232,16 @@ channel** (0.92–1.10 vs 0.23–0.61) — the Phase-6 arc cashed on the whole o
 the 80/20 *algorithm* does not win the same-substrate energy race; the **chip (analog crossbar) is 3.4–3.5× cheaper** than
 that same GD model on a conventional digital accelerator, and *that* is the win — a **meter-structural floor**, the whole
 "why analog." On an (accuracy × energy) Pareto a small tuned ER **dominates** OURS; OURS's wins live on the axes that
-Pareto omits — **safety, noise, and the substrate.** Delta **S14**; the object is the Stage-2 close-out. *(A same-evening
-§10 extension — pre-registered, measurement-only, every carried array bit-exact — enriched the showcase: **grid-12**
-gave the Tier-2 break its true **two-cliff shape** (worst-case safety falls at cadence 6→8, final accuracy only at
-12→16); the per-batch **GAUNTLET-STREAM** view made the mechanism visible (the replay learner saw-tooths at every
-domain switch, live-batch mean 0.273, while OURS rides flat at 0.469); and the verdict Pareto now carries the full
-cadence family as the model's own cost line.)* → [full Phase 10 report](phase10/phase10-report.md).
+Pareto omits — **safety, noise, and the substrate.** Delta **S14**; the object is the Stage-2 close-out. *(A two-round
+§10 extension — pre-registered, measurement-only, every carried array bit-exact — enriched the showcase: grid-12 + the
+cliff probes {7,13,14,15} localized the Tier-2 break as a **plateau + two cliffs** (the worst-case-safety plunge at
+cadence **6→7**; the final-accuracy cliff at **15→16**, where grids with the SAME sleep count and energy differ 0.495
+vs 0.458 — at ~6 sleeps the outcome turns sleep-timing-sensitive); the per-batch **GAUNTLET-STREAM** view made the
+mechanism visible (the replay learner saw-tooths at every domain switch, live-batch mean 0.273, while OURS rides flat
+at 0.469) — and its **reversed-order** twin exposed a new asymmetry: **the tuned ER is order-SENSITIVE (noised-first
+collapses it to 0.343 vs its forward 0.504) while OURS is order-invariant (0.494 vs 0.490)** — the committed forward
+gauntlet was ER's favorable ordering; the verdict Pareto now carries every measured cadence point as the model's own
+cost line, cliff edges visible on it.)* → [full Phase 10 report](phase10/phase10-report.md).
 
 ---
 
@@ -266,7 +270,7 @@ frozen architecture snapshots.
 | Sleep cadence (lifelong) | **S7** / grid-8 | **re-confirmed at P9 close** | _**S13**: grid-8 was too sparse for a revisit stream (−0.317) → **grid-4** (worst-BWT −0.028, ties oracle) — the object LOCKED_ |
 | The founding bet — **economics** half | the bet | **judged at P10 close** | _**S14**: **substrate-realized** — the 80/20 *algorithm* is 1.5× more same-substrate; the **chip** is 3.4× cheaper (analog floor, R1)_ |
 | The founding bet — **accuracy** half | the bet | **judged at P10 close** | _**S14**: competitive-on-home (tie 0.494/0.498) / trails-on-static (−0.071 digits) / **WINS** continual-safety (−0.028 vs −0.272) + noise_ |
-| The cadence cost-frontier family | — | **set at P10 close** | _**S14**: `{4,5,6,8,12,16}` a declared cost axis (grid-12 = the post-close gap-filler); grid-4 headline (no swap); grid-5 the δ-eligible rep; Tier-2 {8,12,16} the break — **two cliffs**: safety falls at 6→8, final AA only at 12→16_ |
+| The cadence cost-frontier family | — | **set at P10 close** | _**S14**: `{4,5,6,8,12,16}` a declared cost axis + §10 probes {7,13,14,15}; grid-4 headline (no swap); grid-5 the δ-eligible rep; the break = a **plateau + two localized cliffs** — the safety plunge at **6→7**, the accuracy cliff at **15→16** (equal-count sleeps turn timing-sensitive)_ |
 | The final SCFF:Namer ratio | assumed ~0.12–0.18 | **characterized at P10 close** | _**S14**: metered GD-share **0.107–0.178** ≤ 0.25 across difficulty (the gate rarely fires; the loop consolidates via sleep)_ |
 | The noise arc, on the assembled object | **S10** (scoped-YES) | **cashed at P10 close** | _**S14**: OURS ≫ BP on every held-out channel; the small directional/ADC residual **named → the analog-realism layer**_ |
 | SCFF carries a noise-aware objective | **S10** | Phase 6 (Stage-1 ext) | _done — the frozen cell already carries it_ |

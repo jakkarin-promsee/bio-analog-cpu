@@ -12,10 +12,12 @@
 Ran 2026-07-03 (seeds `[42,137,271,314,1729]`, `--quick` off, single-thread CPU/float64, numpy 2.3.5). All fourteen
 guards (8 carried P8/P9 + `fair_budget` + `freeze_content` + `cadence_family` + `gauntlet_data` + `noise_holdout` +
 `substrate_identity`) green every rung; grid-4 reproduced bit-for-bit against the P9 freeze. **§10 post-close
-extension re-ran P10.1/P10.2/P10.3/P10.6 the same evening (design §10 — grid-12, ours_g5-in-fight, the per-batch
-GAUNTLET-STREAM view, the full-family Pareto): measurement-only; every carried array reproduced bit-exactly
-(snapshot-diffed); the three new replay guards (cell fingerprint+phi_b · err_trace · energy-endpoint) held on all
-seeds.**
+extension re-ran P10.1/P10.2/P10.3/P10.6 in two rounds (design §10 — round 1: grid-12, the per-batch GAUNTLET-STREAM
+view, the full-family Pareto; round 2: the ours_g5 fight point withdrawn by the author, the cliff probes {7,13,14,15},
+the REVERSED stream view completing K9's ER leg, the all-grid Pareto): measurement-only; every carried array
+reproduced bit-exactly each round (snapshot-diffed; the E1 withdrawal reproduced the committed P10.1 arrays
+IDENTICALLY); the three replay guards (cell fingerprint+phi_b · err_trace · energy-endpoint) held on all seeds, both
+stream orders.**
 
 ---
 
@@ -57,7 +59,6 @@ tension: OURS uses *more* FLOPs/sample than ER-strong → the same-substrate ene
 | learner | accuracy | E(analog) | E(digital) | worst-BWT | AAA | vs-OURS · verdict |
 | --- | --- | --- | --- | --- | --- | --- |
 | **ours_g4 (OURS)** | **0.494 [0.478–0.502]** | 6.70e7 | 3.46e8 | **−0.028** | 0.392 | (ref) · safest of the field |
-| ours_g5 (§10 — cheaper Tier-1 point) | 0.495 [0.483–0.523] | 5.99e7 | 3.16e8 | −0.039 | 0.395 | δ-equal to g4 at −11% energy |
 | er_strong | 0.498 [0.490–0.501] | 3.71e7 | 2.25e8 | −0.272 | 0.503 | acc tie (+0.004); worst-BWT 10× worse |
 | er_budget | 0.376 [0.375–0.380] | 1.55e7 | 9.41e7 | −0.807 | 0.461 | OURS +0.118 acc |
 | agem | 0.320 [0.320–0.333] | 3.40e7 | 2.26e8 | −0.900 | 0.445 | OURS +0.174 acc |
@@ -72,33 +73,41 @@ tension: OURS uses *more* FLOPs/sample than ER-strong → the same-substrate ene
 **Verdict:** ACCURACY-COMPETITIVE (tie within δ, OURS 3/5 seeds) / **continual-safety WIN** (worst-BWT −0.028 vs
 −0.272) / algorithm-energy NOT a win same-substrate / energy win is **substrate-realized** (3.35× via analog). AAA
 favors ER (0.503 vs 0.392 — the sleep-cadence anytime tax). Two halves banked separately: accuracy **supported**,
-economics **substrate-realized**. *(§10 E1: the ours_g5 row is the declared cheaper Tier-1 cadence point drawn beside
-the committed headline — the verdict is grid-4's; all carried arrays reproduced bit-exactly on the extension re-run.)*
+economics **substrate-realized**. *(§10 E1: an ours_g5 roster point was added, then **withdrawn** by the author in
+round 2 — within-noise, added confusion; grid-5 lives in P10.2 + the P10.6 family line. The withdrawal re-run
+reproduced the committed arrays IDENTICALLY, every key bit-for-bit.)*
 
 ---
 
-## P10.2 — the cadence frontier: the frozen object as a 6-point cost-frontier family *(cadence swept; +g12 §10)*
+## P10.2 — the cadence frontier: the family {4,5,6,8,12,16} + the §10 cliff probes {7,13,14,15} *(cadence swept)*
 
 *Controls: frozen object, lifelong synthetic home, 5 seeds. grid-4 bit-exact vs `figs_p9_5_cadence` (guard). §10
-extension re-run: all 35 carried arrays bit-exact; grid-12 (never run before, not even in P9.5) fills the 8→16 gap.*
+re-runs: all carried arrays bit-exact each round; grid-12 (E2) filled the 8→16 gap, the probes (E5) localized both
+cliff edges. Probes are characterization points, NOT family members.*
 
 | grid | accuracy | energy (pJ) | worst-BWT | oracle-wBWT | GD-share | nsleep | Pareto? · verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **g4 ⭐** | 0.494 [0.478–0.502] | 6.70e7 | **−0.028 [−0.039–−0.022]** | −0.028 | 0.178 | 25 | committed headline (no swap) |
 | g5 | 0.495 [0.483–0.523] | 5.99e7 | −0.039 [−0.050–−0.033] | −0.167 | 0.166 | 20 | **Tier-1 showcase rep** (δ-eligible) |
-| g6 | 0.495 [0.483–0.523] | 5.42e7 | −0.087 [−0.093–−0.067] | −0.087 | 0.153 | 16 | Tier-1, fails δ-BWT gate |
+| g6 | 0.495 [0.483–0.523] | 5.42e7 | −0.087 [−0.093–−0.067] | −0.087 | 0.153 | 16 | Tier-1, fails δ-BWT gate (the safety **edge**) |
+| g7 (probe) | 0.496 [0.473–0.508] | 5.13e7 | −0.322 [−0.356–−0.278] | −0.350 | 0.146 | 14 | ⚠ the safety **plunge** (already g8-deep) |
 | g8 | 0.494 [0.478–0.502] | 4.85e7 | −0.317 [−0.439–−0.267] | −0.289 | 0.138 | 12 | ⚠ Tier-2 forgets (veto-fail) |
 | g12 (§10) | 0.496 [0.473–0.508] | 4.28e7 | −0.339 [−0.367–−0.333] | −0.461 | 0.119 | 8 | ⚠ Tier-2 forgets; AA still holds |
-| g16 | 0.458 [0.458–0.478] | 3.99e7 | −0.367 [−0.383–−0.367] | −0.540 | 0.107 | 6 | ⚠ Tier-2 AA drop > δ |
+| g13 (probe) | 0.474 [0.438–0.478] | 4.13e7 | −0.433 [−0.461–−0.400] | −0.447 | 0.113 | 7 | ⚠ AA wobbles to the exact δ boundary |
+| g14 (probe) | 0.496 [0.473–0.508] | 4.13e7 | −0.444 [−0.450–−0.328] | −0.533 | 0.113 | 7 | ⚠ AA back to plateau (timing-sensitive zone) |
+| g15 (probe) | 0.495 [0.483–0.523] | 3.99e7 | −0.428 [−0.444–−0.406] | −0.500 | 0.107 | 6 | ⚠ AA holds at the SAME energy/nsleep as g16 |
+| g16 | 0.458 [0.458–0.478] | 3.99e7 | −0.367 [−0.383–−0.367] | −0.540 | 0.107 | 6 | ⚠ Tier-2 AA drop > δ (the accuracy **cliff**) |
 
-**Verdict:** grid-4 = committed headline (never swapped, bit-exact). Tier-1 showcase rep = **grid-5** (worst-BWT −0.039
-within δ of grid-4, energy IQR-disjointly lower); grid-6 fails the δ-BWT gate (−0.087). Tier-2 break confirmed on both
-axes — and grid-12 gives it a **two-cliff shape**: the **safety cliff falls at 6→8** (−0.087 → −0.317, still broken at
-g12's −0.339) while **final AA stays flat down to grid-12** (0.496 at 4.28e7) and only **cliffs at 12→16** (0.458) —
-the AA-vs-energy trend is a plateau + cliff, not a smooth exponential; worst-case safety degrades a full tier before
-average accuracy. (g12's *pinned* cuts both read "hold" — its gate ties its own same-cadence oracle at −0.461, so the
-forgetting is pure cadence sparsity, not gate timing; the absolute worst-BWT is what disqualifies it.) Energy monotone
-with cadence density (6.70e7 → 3.99e7); GD-share 0.178 → 0.107 (all ≤ 0.25). Declared cost axis.
+**Verdict:** grid-4 = committed headline (never swapped, bit-exact). Tier-1 showcase rep = **grid-5**; grid-6 fails the
+δ-BWT gate (−0.087). The Tier-2 break is a **two-cliff plateau**, now localized by the probes: the **safety axis breaks
+in two steps** — the δ-edge at grid-6 (−0.087) and the **plunge at grid-7** (−0.322, already grid-8-deep; nsleep 16→14
+is where mid-interval troughs outrun the sleeps) — while **final AA plateaus (0.494–0.496) all the way through
+grid-15** (one borderline wobble at g13, 0.474 = exactly the δ boundary) and **cliffs only at 15→16** (0.458). The
+sharpest mechanism read: **g15 and g16 have the SAME energy (3.99e7) and the SAME sleep count (6) but AA 0.495 vs
+0.458** — at ~6 sleeps the outcome stops being count-limited and becomes **sleep-TIMING-sensitive** (whether the sparse
+consolidations happen to cover the revisit structure); the g13/g14 wobble is the same zone's signature. Worst-case
+safety degrades ~a full tier before average accuracy. Energy monotone with cadence (6.70e7 → 3.99e7); GD-share 0.178 →
+0.107 (all ≤ 0.25). Declared cost axis + characterization probes.
 
 ---
 
@@ -121,11 +130,18 @@ worst pre-sleep all-prev AA (R6).*
   rel-complexity 0.71× (FLOPs-lighter), steps-behind 0.
 - SCFF:Namer GD-share per domain (grid-4): stored (`gdshare_g4`) — low across domains (gate rarely fires; the loop
   consolidates via sleep).
-- **§10 E3 — the per-batch GAUNTLET-STREAM view (triple-guarded lockstep replay; all 62 carried arrays bit-exact):**
+- **§10 E3 — the per-batch GAUNTLET-STREAM view (triple-guarded lockstep replay; all carried arrays bit-exact):**
   live-batch (prequential) mean **OURS 0.469 vs ER 0.273** — ER crashes to ~0.1 at every domain onset and re-climbs
   (the saw-tooth), OURS rides near-flat; final seen-so-far equals the committed final all-prev (0.490 vs 0.504).
   Cumulative energy at batch resolution: OURS = a sleep **staircase**, ER = a smooth ramp; OURS stays the pricier
   same-substrate line throughout (the 1.47×, now exact per batch — supersedes the proportional per-domain shape).
+- **§10 E6 — the REVERSED stream view (noised FIRST; completes K9's ER leg):** the low region **moves with the noise**
+  (both learners start ~0.1 on the noised block — position-independent, noise-specific), and the order-sensitivity is
+  starkly **asymmetric**: **ER's reversed final AA collapses to 0.343 [0.336–0.370] vs its forward 0.504 (Δ −0.161)**
+  — a hard/noisy-first curriculum wrecks its whole trajectory (its net + reservoir are shaped by noise early) — while
+  **OURS holds 0.494 vs 0.490 (Δ +0.004)**, climbing domain-by-domain regardless of order (the unsupervised bulk
+  learns structure even from the all-noisy start — the Phase-6 Door-B result, visible live). ER's committed forward
+  number was the *favorable* ordering; OURS's is order-invariant. Live-batch means (rev): OURS 0.445 vs ER 0.225.
 
 **Verdict:** RETENTION-COMPETITIVE/BETTER (OURS worst-point all-prev 0.490 vs ER 0.350; AAA 0.519 vs 0.433) at
 competitive final AA (0.490 vs 0.504, within δ), order-robust / algorithm-energy NOT a win same-substrate (1.47×) /
@@ -196,10 +212,12 @@ restated as the verdict map. The founding bet's economics & accuracy halves bank
 - **PARETO** (final AA × analog energy): non-dominated frontier = **{er_strong, gdumb}** — OURS(g4) is **dominated**
   (ER-strong has higher accuracy *and* lower analog energy, being a small tuned net; the same-substrate digital cut also
   has OURS dominated). OURS's genuine wins are on the axes this scatter omits: worst-case safety, noise, the substrate floor.
-- **§10 E4 — the full OURS family on the verdict scatter** (merge guard: exp1 `ours_g4` == exp2 `g4` bit-for-bit):
-  {ours_g4 ⭐, ours_g5, g6, g8, g12, g16} draw the model's own cost line sweeping ~0.49 AA from 6.7e7 down to 4.3e7
-  (g16 the accuracy-cliff outlier at 0.458/4.0e7). Frontier membership unchanged — the family enriches the picture,
-  it does not move the verdict.
+- **§10 E4+E7 — every measured cadence point on the verdict scatter** (merge guard: exp1 `ours_g4` == exp2 `g4`
+  bit-for-bit): {ours_g4 ⭐, g5, g6, g7, g8, g12, g13, g14, g15, g16} draw the model's own cost line — a ~0.49-AA
+  plateau sweeping 6.7e7 → 4.0e7 pJ with the g13 wobble (0.474) and the g16 accuracy-cliff outlier (0.458) visible ON
+  the money line, so a reader sees exactly which cadence to test next. Frontier membership unchanged — the family
+  enriches the picture, it does not move the verdict (and the scatter cannot show the g7+ safety break — that is why
+  grid-4 stays the headline).
 - **INV**: assembled from the green-guard rungs.
 
 **Verdict:** an honest Pareto close-out. **Economics half = substrate-realized** (the 80/20 algorithm is NOT a
