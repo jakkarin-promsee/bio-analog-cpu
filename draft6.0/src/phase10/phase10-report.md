@@ -231,9 +231,13 @@ the **current bulk with the current namer**, and the two update on different clo
 on *every* batch (it **rotates** — P9.0), while the SLDA namer is fully re-anchored only at a **sleep**. Between
 sleeps the namer's prototypes are frozen in the *old* feature frame; as the bulk rotates under it, that stale frame
 reads all the old worlds progressively worse — the sag. Each sleep re-forwards the cross-domain LUT through the
-current bulk and re-fits — the snap back up. The sag is deepest in the covariate block because the noise-warmed bulk
-meets its first *clean, structured* world there and rotates hardest; the sags shallow out as the bulk settles
-(−0.17 → −0.11 → −0.12 → ≈flat). Three in-figure facts pin it as staleness, not loss: every sleep recovers to a
+current bulk and re-fits — the snap back up. A side probe (seed 42, the P9.0 rotation instrument) sharpens the
+attribution: the frame-turn per block is **comparable in both orders** (forward 0.026–0.052, reversed 0.023–0.043 —
+forward's *permuted* block turns the most of all, with no sag) — so the sag depth tracks **the read's margin, not the
+turn's size**: the noise-warmed early-reversed feature space holds its classes near the decision boundary (thin
+margins — the same turn flips many reads), and the sags shallow out (−0.17 → −0.11 → −0.12 → ≈flat) as accumulated
+structure widens the margins, not because the rotation slows. The reversed average also carries the fragile
+noised-eval member from step 0, which decays first under any turn. Three in-figure facts pin it as staleness, not loss: every sleep recovers to a
 **higher** tread than the last (the floor climbs 0.17 → 0.42 → 0.44 → 0.46 → 0.49); the endpoint equals the forward
 endpoint (0.494 vs 0.490 — nothing was lost either way); and the thin live line on the *current* world stays high
 throughout — only the averaged-over-old-worlds read sags, exactly what a stale linear frame does. The sag bottoms are
