@@ -1,0 +1,23 @@
+P10.2 — cadence frontier  (QUICK=False, seeds=[42, 137, 271, 314, 1729], grids=[4, 5, 6, 8, 16])
+  guards: all green
+  seed 42: g4 aa=0.443 wBWT=-0.073 | g5 aa=0.483 wBWT=-0.056 | g6 aa=0.483 wBWT=-0.087 | g8 aa=0.443 wBWT=-0.317 | g16 aa=0.403 wBWT=-0.456
+  seed 137: g4 aa=0.478 wBWT=-0.022 | g5 aa=0.476 wBWT=-0.033 | g6 aa=0.476 wBWT=-0.093 | g8 aa=0.478 wBWT=-0.517 | g16 aa=0.458 wBWT=-0.367
+  seed 271: g4 aa=0.526 wBWT=-0.011 | g5 aa=0.532 wBWT=-0.050 | g6 aa=0.532 wBWT=-0.094 | g8 aa=0.526 wBWT=-0.267 | g16 aa=0.513 wBWT=-0.367
+  seed 314: g4 aa=0.502 wBWT=-0.028 | g5 aa=0.523 wBWT=-0.028 | g6 aa=0.523 wBWT=-0.067 | g8 aa=0.502 wBWT=-0.439 | g16 aa=0.478 wBWT=-0.383
+  seed 1729: g4 aa=0.494 wBWT=-0.039 | g5 aa=0.495 wBWT=-0.039 | g6 aa=0.495 wBWT=-0.040 | g8 aa=0.494 wBWT=-0.222 | g16 aa=0.458 wBWT=-0.267
+
+  == CADENCE FRONTIER (delta_acc=0.02) ==
+   grid                acc   energy(pJ)          worst-BWT  oracle-wBWT   GD-share  nsleep
+     g4 0.494 [0.478-0.502]    6.702e+07 -0.028 [-0.039--0.022]       -0.028      0.178      25
+     g5 0.495 [0.483-0.523]    5.988e+07 -0.039 [-0.050--0.033]       -0.167      0.166      20
+     g6 0.495 [0.483-0.523]    5.417e+07 -0.087 [-0.093--0.067]       -0.087      0.153      16
+     g8 0.494 [0.478-0.502]    4.846e+07 -0.317 [-0.439--0.267]       -0.289      0.138      12
+    g16 0.458 [0.458-0.478]    3.989e+07 -0.367 [-0.383--0.367]       -0.540      0.107       6
+  grid-4 = COMMITTED HEADLINE (never swapped). Tier-1 showcase rep: grid-5
+  Tier-2 break: grid-8 forgets (veto-fail vs oracle)=True | grid-16 AA drop>delta=True
+C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase10\exp2\..\plot_p10.py:123: UserWarning: You passed a edgecolor/edgecolors ('#d9690a') for an unfilled marker ('x').  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  axL.scatter(_med(en), _med(acc), c=col, marker=mk or "o", s=90 if ring else 55,
+  fig CADENCE_FRONTIER.png
+  fig INV.png
+
+== P10.2 done (wall 602.5s) ==

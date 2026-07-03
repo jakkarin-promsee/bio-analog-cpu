@@ -1,0 +1,116 @@
+{
+  "rung": "P10.2",
+  "git": "e5215ea32abbe83c07564f1d0a8ad0effd926939",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cadence_headline": 4,
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "frozen_provenance": "59d2720 (P9 freeze commit; a provenance LABEL, not a runtime git ==)",
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "judged_against_external_baseline": true,
+  "verdict_shapes_pinned_blind": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true,
+    "fair_budget": true,
+    "freeze_content": true,
+    "cadence_family": true,
+    "gauntlet_data": true,
+    "noise_holdout": true,
+    "substrate_identity": true
+  },
+  "wall_s": 602.5,
+  "grids": [
+    4,
+    5,
+    6,
+    8,
+    16
+  ],
+  "tier1_rep": "grid-5",
+  "grid4_headline_no_swap": true,
+  "tier2_break": {
+    "grid8_forgets": true,
+    "grid16_aa_drop": true
+  },
+  "summary": {
+    "grid-4": {
+      "acc": "0.494 [0.478-0.502]",
+      "energy": 67020587.008,
+      "worst_bwt": "-0.028 [-0.039--0.022]",
+      "gdshare": 0.1782659905168224,
+      "nsleep": 25.0
+    },
+    "grid-5": {
+      "acc": "0.495 [0.483-0.523]",
+      "energy": 59881996.288,
+      "worst_bwt": "-0.039 [-0.050--0.033]",
+      "gdshare": 0.1657222741919288,
+      "nsleep": 20.0
+    },
+    "grid-6": {
+      "acc": "0.495 [0.483-0.523]",
+      "energy": 54171123.712,
+      "worst_bwt": "-0.087 [-0.093--0.067]",
+      "gdshare": 0.15330699204528989,
+      "nsleep": 16.0
+    },
+    "grid-8": {
+      "acc": "0.494 [0.478-0.502]",
+      "energy": 48460251.136,
+      "worst_bwt": "-0.317 [-0.439--0.267]",
+      "gdshare": 0.13796551398870568,
+      "nsleep": 12.0
+    },
+    "grid-16": {
+      "acc": "0.458 [0.458-0.478]",
+      "energy": 39893942.272,
+      "worst_bwt": "-0.367 [-0.383--0.367]",
+      "gdshare": 0.10671772077506854,
+      "nsleep": 6.0
+    }
+  }
+}

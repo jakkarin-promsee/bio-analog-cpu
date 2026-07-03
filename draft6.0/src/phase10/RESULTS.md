@@ -70,3 +70,21 @@ favors ER (0.503 vs 0.392 — the sleep-cadence anytime tax). Two halves banked 
 economics **substrate-realized**.
 
 ---
+
+## P10.2 — the cadence frontier: the frozen object as a 5-point cost-frontier family *(cadence swept)*
+
+*Controls: frozen object, lifelong synthetic home, 5 seeds. grid-4 bit-exact vs `figs_p9_5_cadence` (guard).*
+
+| grid | accuracy | energy (pJ) | worst-BWT | oracle-wBWT | GD-share | nsleep | Pareto? · verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **g4 ⭐** | 0.494 [0.478–0.502] | 6.70e7 | **−0.028 [−0.039–−0.022]** | −0.028 | 0.178 | 25 | committed headline (no swap) |
+| g5 | 0.495 [0.483–0.523] | 5.99e7 | −0.039 [−0.050–−0.033] | −0.167 | 0.166 | 20 | **Tier-1 showcase rep** (δ-eligible) |
+| g6 | 0.495 [0.483–0.523] | 5.42e7 | −0.087 [−0.093–−0.067] | −0.087 | 0.153 | 16 | Tier-1, fails δ-BWT gate |
+| g8 | 0.494 [0.478–0.502] | 4.85e7 | −0.317 [−0.439–−0.267] | −0.289 | 0.138 | 12 | ⚠ Tier-2 forgets (veto-fail) |
+| g16 | 0.458 [0.458–0.478] | 3.99e7 | −0.367 [−0.383–−0.367] | −0.540 | 0.107 | 6 | ⚠ Tier-2 AA drop > δ |
+
+**Verdict:** grid-4 = committed headline (never swapped, bit-exact). Tier-1 showcase rep = **grid-5** (worst-BWT −0.039
+within δ of grid-4, energy IQR-disjointly lower); grid-6 fails the δ-BWT gate (−0.087). Tier-2 break confirmed on both
+axes. Energy monotone with cadence density (6.70e7 → 3.99e7); GD-share 0.178 → 0.107 (all ≤ 0.25). Declared cost axis.
+
+---
