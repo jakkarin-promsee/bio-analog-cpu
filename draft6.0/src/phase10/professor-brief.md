@@ -30,7 +30,7 @@ backprop learner (the strong fair baseline).
   and *improves* under iid noise (1.095, from noise-augmented training). A small directional/ADC residual remains,
   named to the device-physics (SPICE/PVT) layer.
 
-## The two honesty lines a reviewer will test first
+## The three honesty lines a reviewer will test first
 1. **The analog energy factor is a meter-structural floor, not a measured Joule** — the crossbar prices in-memory MACs
    near-zero *by construction of the behavioral model*; the contestable, load-bearing energy cut is **same-substrate**
    (`E(OURS-digital)` vs `E(ER-digital)`), and there OURS is *not* cheaper than a small tuned net (its win is the
@@ -38,16 +38,23 @@ backprop learner (the strong fair baseline).
 2. **The accuracy claim is continual, not static** — a tuned budget replay learner matches OURS on the continual home
    and beats it on static natural data; OURS's measured edge is worst-case **retention/stability** + **noise
    survival**, on a substrate that makes a deep unsupervised backbone affordable. That is the contribution.
+3. **The retention win is switch-frequency-scoped, and the sleep schedule was cleared of coincidence** — we caught our
+   own potential artifact (the gauntlet's domain length equalled the sleep period, so every sleep landed on a domain
+   boundary) and re-ran with long randomized blocks + an aligned control: sleep/boundary **alignment moves OURS by
+   +0.002 (nothing)**; what changes on long stationary domains is the *opponent* (the replay learner re-converges per
+   block, 0.504→0.675). OURS leads where the world switches faster than a plastic learner can re-converge — the
+   lifelong regime it is built for; on slow-switching worlds a tuned replay net catches up.
 
 ## The four figures
 - **GAUNTLET** (`exp3/figs_p10_3/GAUNTLET.png`) — 5 domains learned with steady retention (worst-point 0.490 vs 0.350)
   at substrate-realized lower energy; sleep-position + domain markers overlaid.
-- **GAUNTLET-STREAM** (`exp3/figs_p10_3/GAUNTLET_STREAM.png` + `_REV.png`) — the same race at **batch resolution**:
-  the replay learner crashes to ~0.1 accuracy at every domain switch and re-climbs (a saw-tooth), while OURS holds
-  ~0.5 flat (live-batch mean 0.469 vs 0.273); the energy panel shows OURS's sleep staircase vs the replay learner's
-  every-step ramp. **The reversed-order twin is the sharpest single comparison:** put the hard noisy world FIRST and
-  the replay learner never recovers (final 0.343 vs its forward 0.504) while OURS lands at the same endpoint either
-  way (0.494 vs 0.490) — a lifelong learner does not get to choose the order the world arrives in.
+- **GAUNTLET-STREAM** (`exp3/figs_p10_3/GAUNTLET_STREAM.png` + `_REV.png` + `_LONG.png`) — the same race at **batch
+  resolution**: the replay learner crashes to ~0.1 accuracy at every domain switch and re-climbs (a saw-tooth), while
+  OURS holds ~0.5 flat (live-batch mean 0.469 vs 0.273); the energy panel shows OURS's sleep staircase vs the replay
+  learner's every-step ramp. **The reversed-order twin is the sharpest single comparison:** put the hard noisy world
+  FIRST and the replay learner never recovers (final 0.343 vs its forward 0.504) while OURS lands at the same endpoint
+  either way (0.494 vs 0.490) — a lifelong learner does not get to choose the order the world arrives in. The `_LONG`
+  twin is the alignment-break control behind honesty line 3.
 - **PARETO** (`exp6/figs_p10_6/PARETO.png`) — the (accuracy × energy) frontier: a small tuned ER dominates on
   same-substrate acc×energy; OURS's wins are the axes it omits (safety, noise, substrate). Every measured cadence
   point is drawn as the model's own cost line (a ~0.49-AA plateau from 6.7e7 down to 4.0e7 pJ, its accuracy cliff

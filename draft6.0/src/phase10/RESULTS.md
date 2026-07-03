@@ -12,12 +12,13 @@
 Ran 2026-07-03 (seeds `[42,137,271,314,1729]`, `--quick` off, single-thread CPU/float64, numpy 2.3.5). All fourteen
 guards (8 carried P8/P9 + `fair_budget` + `freeze_content` + `cadence_family` + `gauntlet_data` + `noise_holdout` +
 `substrate_identity`) green every rung; grid-4 reproduced bit-for-bit against the P9 freeze. **§10 post-close
-extension re-ran P10.1/P10.2/P10.3/P10.6 in two rounds (design §10 — round 1: grid-12, the per-batch GAUNTLET-STREAM
+extension re-ran P10.1/P10.2/P10.3/P10.6 in three rounds (design §10 — round 1: grid-12, the per-batch GAUNTLET-STREAM
 view, the full-family Pareto; round 2: the ours_g5 fight point withdrawn by the author, the cliff probes {7,13,14,15},
-the REVERSED stream view completing K9's ER leg, the all-grid Pareto): measurement-only; every carried array
+the REVERSED stream view completing K9's ER leg, the all-grid Pareto; round 3: the E8 ALIGNMENT-BREAK long stream +
+the E8b aligned-long control + the E9 numbered-point legibility redraw): measurement-only; every carried array
 reproduced bit-exactly each round (snapshot-diffed; the E1 withdrawal reproduced the committed P10.1 arrays
-IDENTICALLY); the three replay guards (cell fingerprint+phi_b · err_trace · energy-endpoint) held on all seeds, both
-stream orders.**
+IDENTICALLY; round 3 reproduced all 86 carried keys); the three replay guards (cell fingerprint+phi_b · err_trace ·
+energy-endpoint) held on all seeds, all stream layouts.**
 
 ---
 
@@ -142,10 +143,27 @@ worst pre-sleep all-prev AA (R6).*
   **OURS holds 0.494 vs 0.490 (Δ +0.004)**, climbing domain-by-domain regardless of order (the unsupervised bulk
   learns structure even from the all-noisy start — the Phase-6 Door-B result, visible live). ER's committed forward
   number was the *favorable* ordering; OURS's is order-invariant. Live-batch means (rev): OURS 0.445 vs ER 0.225.
+- **§10 E8/E8b — the ALIGNMENT-BREAK long stream (round 3; blocks [68,63,56,57,68] = 312 steps, sleeps MID-domain) +
+  the aligned-72 control:**
+
+| arm | OURS g4 worst all-prev | OURS final AA | ER final AA | read |
+| --- | --- | --- | --- | --- |
+| committed (block 24, aligned) | 0.490 | 0.490 [0.480–0.499] | 0.504 [0.488–0.515] | the money figure |
+| E8 misaligned long | 0.533 | 0.533 [0.532–0.557] | **0.675 [0.674–0.675]** | sleeps mid-domain; live means 0.501 vs 0.446 |
+| E8b aligned long (72×5) | 0.538 | 0.538 [0.536–0.542] | — (control is OURS-only) | paired gap vs E8 **+0.002 ≤ δ** |
+
+  **Pinned branch fired: LENGTH-EFFECT.** Sleep/boundary **alignment is a NON-FACTOR for OURS** (+0.002; its retention
+  *rises* on longer domains and its live line still never crashes at a switch) — the flat line was never alignment
+  luck. What moves is the **opponent**: with ~68 steps per world ER re-converges before every domain-end checkpoint
+  (onset crashes still happen — the checkpoint read just no longer catches them) → **the P10.3 relative retention win
+  is switch-frequency-scoped** (OURS leads where switches are frequent relative to ER's re-convergence time; on long
+  stationary blocks the tuned ER overtakes the checkpoint read).
 
 **Verdict:** RETENTION-COMPETITIVE/BETTER (OURS worst-point all-prev 0.490 vs ER 0.350; AAA 0.519 vs 0.433) at
 competitive final AA (0.490 vs 0.504, within δ), order-robust / algorithm-energy NOT a win same-substrate (1.47×) /
 energy win **substrate-realized** (3.5×). Continual half **supported** (steadier), economics **substrate-realized**.
+**§10 E8 scope line (stated on the money figure):** the relative retention win belongs to the **rapid-switch regime**;
+alignment is a non-factor (E8b); OURS's own steadiness is order-, alignment-, and length-invariant.
 
 ---
 

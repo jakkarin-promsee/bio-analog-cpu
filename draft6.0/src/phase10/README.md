@@ -5,12 +5,17 @@
 > validate**). Phase 10 **measured** the frozen two-brain object against a **fair, budgeted, tuned** BP+replay
 > baseline across the continual gauntlet — it tuned nothing (the object was locked in P9; the only dial that moved was
 > the declared cadence cost axis). The verdict shapes were pinned **BLIND** before any baseline number was seen.
-> **+ §10 post-close extension (two same-day rounds, author-directed; measurement-only, every carried array
-> bit-exact):** the cadence break fully localized — a **plateau + two cliffs** (the safety plunge at cadence **6→7**;
-> the accuracy cliff at **15→16**, where equal-count sleeps turn *timing*-sensitive) via grid-12 + the probes
-> {7,13,14,15}; the per-batch **GAUNTLET-STREAM** view forward *and reversed* (ER is **order-sensitive** — reversed
-> final AA 0.343 vs forward 0.504 — while OURS is order-invariant, 0.494 vs 0.490); every measured cadence point on
-> the verdict Pareto. (A grid-5 fight point was added then withdrawn — within noise.)
+> **+ §10 post-close extension (three rounds, author-directed; measurement-only, every carried array bit-exact):**
+> the cadence break fully localized — a **plateau + two cliffs** (the safety plunge at cadence **6→7**; the accuracy
+> cliff at **15→16**, where equal-count sleeps turn *timing*-sensitive) via grid-12 + the probes {7,13,14,15}; the
+> per-batch **GAUNTLET-STREAM** view forward *and reversed* (ER is **order-sensitive** — reversed final AA 0.343 vs
+> forward 0.504 — while OURS is order-invariant, 0.494 vs 0.490); every measured cadence point on the verdict Pareto
+> (numbered-point encoding). **Round 3 — the ALIGNMENT-BREAK test (E8/E8b):** the committed gauntlet's block (24)
+> equalled the grid-4 sleep period exactly (every sleep landed on a domain's last step); re-run with long randomized
+> non-multiple blocks (sleeps mid-domain) + an aligned-72 control → **alignment is a NON-FACTOR for OURS** (paired gap
+> +0.002; its retention *rises*, 0.490→0.533) — but ER strengthens on long stationary blocks (0.504→0.675), so **the
+> gauntlet retention win is switch-frequency-scoped** (a stated money-figure scope line, not a defeat). (A grid-5
+> fight point was added then withdrawn — within noise.)
 > Read this for the verdict; numbers in [`RESULTS.md`](RESULTS.md); per-rung stories in [`expK/experiment-K.md`](exp0/experiment-0.md); the
 > spec in [`design.md`](design.md) (§10 = the extension's pre-run record); the contract in [`result-format.md`](result-format.md).
 
@@ -57,7 +62,7 @@ lifelong stability + noise-survival + the analog energy floor, not a static-accu
 | **P10.0** bench + 6 new guards | is the racer fair + the object provably frozen? | 14/14 green; grid-4 **bit-exact**; ER-strong tuned on seed-7; full roster real code. Pre-registered: OURS uses *more* FLOPs than ER. |
 | **P10.1** existential fight | OURS(g4) vs tuned ER + field, continual home | accuracy **tie** (0.494 vs 0.498); worst-BWT **−0.028 vs −0.272** (safety win); same-substrate energy 1.54× more; substrate total 3.35×. |
 | **P10.2** cadence frontier | the family {4,5,6,8,12,16} + §10 probes {7,13,14,15} | grid-4 headline (bit-exact); **grid-5 = Tier-1 rep**; grid-6 = the safety δ-edge (−0.087), **grid-7 = the plunge** (−0.322); final AA plateaus to g15 and cliffs **at 15→16** (0.495→0.458 at the SAME energy/nsleep — timing-sensitive, not count-limited); energy monotone 6.7e7→4.0e7. |
-| **P10.3** gauntlet (money figure) | 5 domain-IL worlds, all grids vs ER | worst-point all-prev **0.490 vs 0.350**, AAA **0.519 vs 0.433** (steadier); final 0.490 vs 0.504 (within δ); 1.47× / 3.5× energy. §10 **GAUNTLET-STREAM** (fwd+rev): ER saw-tooths per batch (live 0.273, ~0.1 at onsets) while OURS rides flat (0.469) — and reversed (noised first) **ER collapses to 0.343 vs its forward 0.504** while OURS holds 0.494 — the steadiness is curriculum-robust; ER's is not. |
+| **P10.3** gauntlet (money figure) | 5 domain-IL worlds, all grids vs ER | worst-point all-prev **0.490 vs 0.350**, AAA **0.519 vs 0.433** (steadier); final 0.490 vs 0.504 (within δ); 1.47× / 3.5× energy. §10 **GAUNTLET-STREAM** (fwd+rev+long): ER saw-tooths per batch (live 0.273, ~0.1 at onsets) while OURS rides flat (0.469) — reversed (noised first) **ER collapses to 0.343 vs its forward 0.504** while OURS holds 0.494 — and the E8 alignment-break clears the flat line (**alignment a non-factor**, E8b gap +0.002) while scoping the win: on long stationary blocks ER re-converges per checkpoint (0.675 vs 0.533) → **the retention win is switch-frequency-scoped**. |
 | **P10.4** noise showcase (held-out) | directional retention OURS vs BP vs naive | OURS **≫ BP+replay on every channel**; residual (dir 0.978 / adc3b 0.923) **named → analog layer**. |
 | **P10.5** A5 natural (digits) | the fight a professor recognizes | ER-strong **beats OURS by +0.071** (0.950 vs 0.879) — synthetic masked ER's static-accuracy edge; OURS is a continual, not static, learner. |
 | **P10.6** Pareto verdict | assemble the frontier + the map | same-substrate Pareto frontier = **{er_strong, gdumb}** (OURS dominated on acc×energy); OURS's wins are off-Pareto (safety/noise/substrate). §10: **every measured cadence point** (family + probes, 10 grids) drawn as the money line (~0.49-AA plateau, 6.7e7→4.0e7 pJ, the accuracy cliff visible on-line); frontier membership unchanged. |
@@ -71,7 +76,7 @@ lifelong stability + noise-survival + the analog energy floor, not a static-accu
 | final accuracy (continual synthetic home) | 0.494 | ER-strong 0.498 | **tie** (within δ) |
 | final accuracy (natural digits, static-ish) | 0.879 | ER-strong 0.950 | **loss** (−0.071 — not a static competitor) |
 | worst-pre-sleep BWT (lifelong) | **−0.028** | ER-strong −0.272 | **win** (≈10× safer) |
-| worst-point all-prev retention (gauntlet) | **0.490** | ER-strong 0.350 | **win** (steadier) + AAA 0.519 vs 0.433 |
+| worst-point all-prev retention (gauntlet) | **0.490** | ER-strong 0.350 | **win** (steadier) + AAA 0.519 vs 0.433 — rapid-switch regime (§10 E8 scope; alignment a non-factor, E8b) |
 | noise robustness (held-out, vs BP) | 0.92–1.10 | BP+replay 0.23–0.61 | **win** on every channel |
 | energy — same substrate (algorithm) | 3.46e8 | ER-strong 2.25e8 | **loss** (1.54× — the deep bulk) |
 | energy — chip vs conventional GD (total) | 6.70e7 (analog) | ER-digital 2.25e8 | **win** (3.4×, substrate-realized floor) |

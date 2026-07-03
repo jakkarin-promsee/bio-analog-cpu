@@ -6,11 +6,15 @@ P8 economy+cost · P9 maintenance/close+freeze · **P10 validate/showcase**). Ph
 raced it — untouched — against a fair, budgeted, tuned BP+replay baseline** across the continual gauntlet. It *measured*;
 it tuned nothing (the only dial moved was the declared cadence cost axis). Discipline: **freeze in P9, judge in P10.** The
 verdict shapes were pinned **BLIND** in `design.md` §2.3 before any baseline number was seen. **+ §10 post-close
-extension (two same-day rounds, author-directed; pre-registered in design §10, measurement-only, every carried array
+extension (three rounds, author-directed; pre-registered in design §10, measurement-only, every carried array
 bit-exact):** the cadence break fully localized (grid-12 + probes {7,13,14,15} → a **plateau + two cliffs**: safety
 plunges at 6→7, accuracy cliffs at 15→16 where equal-count sleeps turn timing-sensitive); the per-batch
-**GAUNTLET-STREAM** view forward + REVERSED (ER order-sensitive 0.343-vs-0.504, OURS order-invariant); the all-grid
-Pareto money line. (A grid-5 fight point was added then withdrawn — within noise.)
+**GAUNTLET-STREAM** view forward + REVERSED (ER order-sensitive 0.343-vs-0.504, OURS order-invariant) + the round-3
+**ALIGNMENT-BREAK** view (E8 long randomized blocks + E8b aligned-72 control → **sleep/boundary alignment is a
+NON-FACTOR for OURS**, paired gap +0.002; ER strengthens on long stationary blocks 0.504→0.675 → **the gauntlet
+retention win is switch-frequency-scoped**, a stated money-figure scope line); the all-grid Pareto money line, now in
+the **numbered-point encoding** (E9 — number = grid, tier colours, no marker zoo). (A grid-5 fight point was added
+then withdrawn — within noise.)
 
 - **Verdict — an honest Pareto close-out; the founding bet REFINED, not inflated (banked as two halves, R4):** OURS is a
   **substrate-native continual learner** — competitive on the continual home, decisively **safer**, far more
@@ -42,7 +46,12 @@ Pareto money line. (A grid-5 fight point was added then withdrawn — within noi
   and re-climbs (live-batch mean 0.273) — while OURS rides near-flat (0.469); energy at batch resolution = OURS sleep
   staircase vs ER ramp (the 1.47×, exact). §10 E6 **REVERSED** (noised first; completes K9's ER leg): **ER is
   order-SENSITIVE — reversed final AA 0.343 vs forward 0.504 (Δ −0.161)** while OURS holds 0.494 vs 0.490; the low
-  region moves with the noise, not the position; the forward gauntlet was ER's *favorable* ordering.
+  region moves with the noise, not the position; the forward gauntlet was ER's *favorable* ordering. §10 E8/E8b
+  **ALIGNMENT-BREAK** (round 3): the committed block (24) == the grid-4 sleep period (every sleep sat on a domain's
+  last step — the author's catch); long randomized non-multiple blocks [68,63,56,57,68] put 2–3 sleeps INSIDE each
+  domain → OURS unchanged-to-better (0.533; live never crashes) and the aligned-72 control ties it (**gap +0.002 →
+  alignment a NON-FACTOR**); ER re-converges per long block (0.675) → **LENGTH-EFFECT: the retention win is
+  switch-frequency-scoped** (rapid-switch regime), stated on the money figure.
 - **P10.4 — the noise showcase (held-out, margin-disjoint battery).** OURS-hardened **≫ BP+replay on EVERY channel** (iid
   1.095 vs 0.608, directional 0.978 vs 0.225, adc3b 0.923 vs 0.300, nuisance 1.000 vs 0.469). A small directional/ADC
   residual (0.978 / 0.923, > δ) → **named → the analog-realism layer**; the battery is re-parameterized not

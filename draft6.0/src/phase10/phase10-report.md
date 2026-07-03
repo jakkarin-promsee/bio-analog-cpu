@@ -121,7 +121,8 @@ The frozen object as a cost-frontier family (ten points after the §10 extension
 {7,13,14,15}) — only the sleep interval varies; grid-4 reproduces the P9 freeze bit-for-bit (the guard's core check).
 
 ![P10.2 — the cadence cost-frontier family](exp2/figs_p10_2/CADENCE_FRONTIER.png)
-*The frontier. Ten operating points on (accuracy × energy), worst-BWT the marker read. **grid-4** (⭐, committed
+*The frontier. Ten operating points on (accuracy × energy) — each point a tier-coloured circle carrying its grid
+number (the §10 E9 encoding: teal Tier-1 / orange Tier-2 / open = probe), worst-BWT in the right panel. **grid-4** (⭐, committed
 headline) anchors the safe/dense end (worst-BWT −0.028, energy 6.70e7); **grid-5** is the δ-eligible Tier-1 showcase rep
 (−0.039, within δ of grid-4, IQR-disjointly cheaper at 5.99e7); **grid-6** fails the δ-BWT gate (−0.087 — the safety
 *edge*); **grid-7** is the safety *plunge* (−0.322, already grid-8-deep); the sparse arms {8,12,13,14,15} stay
@@ -222,6 +223,31 @@ end-of-stream collapse. The single order-delta scalar (−0.014) was OURS-only a
 completed control can: **OURS is order-invariant, the tuned ER is not — and a lifelong learner does not get to choose
 the order the world arrives in.**
 
+**The §10 E8 alignment-break — was the flat line a scheduling coincidence? (No — and the honest scope it bought.)**
+The author caught a structural convenience the committed stream hid: the domain block (24 steps) equals the grid-4
+sleep period *exactly*, so every sleep landed on a domain's final step — one perfectly-timed consolidation right
+before every switch. If OURS's flat line depended on that, the money figure would be part scheduling luck. Round 3
+breaks the alignment: the same five worlds in the same order, but with per-domain lengths pinned at `[68,63,56,57,68]`
+(drawn once, non-multiples of the sleep period) — now **2–3 sleeps land inside every domain and no sleep touches a
+boundary** — plus an **aligned-long control** (block 72 = exactly 3× the sleep period, sleeps back on the boundaries)
+that separates "the alignment broke" from "the domains got longer":
+
+![P10.3 §10 — the alignment-break stream view](exp3/figs_p10_3/GAUNTLET_STREAM_LONG.png)
+*The alignment-break view (blocks [68,63,56,57,68]; sleep ticks now mid-domain). OURS's thick line rides flat as ever —
+worst-point all-prev **0.533** (vs its committed 0.490), live-batch mean **0.501**, and the aligned-72 control lands at
+**0.538 (paired gap +0.002 ≤ δ)**: sleep/boundary alignment is a **non-factor** for OURS. The change is the opponent's:
+given ~68 steps per world, ER-strong fully re-converges before every domain-end checkpoint (its onset crashes are still
+visible in the thin line — live mean 0.446 — the checkpoint read just stops catching them) and finishes at **0.675** vs
+its committed 0.504. (n=5; replay guards anchored to this run's own cache — the stream is new by construction.)*
+
+The pinned branch that fired is **LENGTH-EFFECT**, and it buys the money figure an honest scope line: **the relative
+retention win over a tuned ER belongs to the rapid-switch regime** — where domain switches arrive faster than the
+plastic learner can re-converge (the committed gauntlet's 24-step blocks, the lifelong home stream). Give the world
+long stationary blocks and the tuned ER out-converges the checkpoint read. What does *not* move, in any layout tested,
+is OURS itself: order-invariant (E6), **alignment-invariant (E8b, +0.002)**, length-stable (retention rises with more
+data), live line never crashing at a switch. The steadiness is OURS's product in every regime; the *ranking* depends
+on how fast the world moves — which is exactly the claim a continual-learning substrate should make, and no more.
+
 ### P10.4 — the noise showcase → *OURS ≫ BP+replay on every held-out channel; a small residual named*
 
 The Phase-6 noise arc, cashed on the assembled object under a **margin-disjoint held-out battery** (directional RMS 2.5
@@ -291,7 +317,7 @@ algorithm claim); **accuracy = competitive-on-home / trails-on-static / wins-on-
 | final accuracy (continual synthetic home) | 0.494 | ER-strong 0.498 | **tie** | +0.004 (< δ) |
 | final accuracy (natural digits, static-ish) | 0.879 | ER-strong 0.950 | **loss** | −0.071 (not a static competitor) |
 | worst-pre-sleep BWT (lifelong) | **−0.028** | ER-strong −0.272 | **win** | ≈10× safer |
-| worst-point all-prev retention (gauntlet) | **0.490** | ER-strong 0.350 | **win** | +0.140 (AAA 0.519 vs 0.433) |
+| worst-point all-prev retention (gauntlet) | **0.490** | ER-strong 0.350 | **win** | +0.140 (AAA 0.519 vs 0.433); rapid-switch regime — §10 E8 scope |
 | noise robustness (held-out, vs BP) | 0.92–1.10 | BP+replay 0.23–0.61 | **win** | every channel |
 | energy — algorithm (same digital substrate) | 3.46e8 | ER-strong 2.25e8 | **loss** | 1.54× (the deep bulk) |
 | energy — chip vs conventional GD (total) | 6.70e7 (analog) | ER-digital 2.25e8 | **win** | 3.4× (substrate-realized floor) |
@@ -360,6 +386,11 @@ not inflated** — the honest-science outcome the project's whole method is buil
   stated; the completed reversed-order control (grid-4 + ER-strong, 5 seeds — §10 E6) shows OURS order-robust (AA Δ
   −0.014 scalar; 0.494 vs 0.490 at batch resolution) while **ER is order-sensitive** (reversed 0.343 vs forward 0.504)
   — the forward gauntlet was ER's favorable ordering, so the asymmetry strengthens, not weakens, the comparison.
+- **The gauntlet retention win is switch-frequency-scoped (§10 E8/E8b).** The committed blocks (24 steps) are the
+  rapid-switch regime; on long stationary blocks (~68 steps/domain) the tuned ER re-converges before every checkpoint
+  and overtakes the checkpoint read (0.675 vs 0.533). The alignment-break control clears the object itself: sleep/
+  boundary alignment is a **non-factor** for OURS (aligned-72 vs misaligned paired gap +0.002), its retention rises
+  with longer domains, and its live line never crashes at a switch — the scope belongs to the comparison, not to OURS.
 - **Synthetic overstates static gaps** — the natural digits (P10.5) are the honest read, and they *reveal* ER's
   static-accuracy edge the hard synthetic home masked.
 - **The noise battery is a margin-disjoint operating point of the same transducer model** — a genuinely-novel channel

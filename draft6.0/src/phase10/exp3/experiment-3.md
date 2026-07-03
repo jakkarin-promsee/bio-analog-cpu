@@ -19,7 +19,14 @@ accuracy** (post-update) + **exact prefix-priced cumulative energy**. Measuremen
 lockstep replay (`gauntlet_batch_curves`): the SCFF cell pass asserted bit-exact vs the committed cache
 (rng-fingerprint + `phi_b` every step), the head states asserted vs the committed `err_trace` every step, the
 cumulative-energy endpoint asserted == the committed meter total. All asserts held on all 5 seeds; **all 62 carried
-arrays reproduced bit-exactly** on the re-run.
+arrays reproduced bit-exactly** on the re-run. **§10 round 3 (E8/E8b — the alignment-break test):** the author caught
+that the committed stream's block (24) equals the grid-4 sleep period exactly (every sleep landed on a domain's last
+step), so the flat OURS line could be alignment luck. E8 re-runs the forward gauntlet with per-domain blocks pinned
+`[68,63,56,57,68]` (drawn once, rng(20260703), non-multiples of 6 — sleeps land MID-domain, switches at drifting sleep
+phases; 312 steps); **E8b** is the de-confounding control (block 72 = exactly 3× the sleep period — same length scale,
+sleeps back ON the boundaries; OURS only), because E8 changes two things at once (alignment AND length). g4 +
+ER-strong, 5 seeds; the replay guards anchor to this run's own cache (the stream is new by construction). **All 86
+carried arrays reproduced bit-exactly** on the round-3 re-run.
 
 **Run.** 5 grids × 5 seeds on the gauntlet cache + ER-strong (curves on) + the reversed-order control + the §10
 replay; wall ≈ 3.6 min.
@@ -73,7 +80,8 @@ replay; wall ≈ 3.6 min.
 2. *Headline* — worst pre-sleep all-prev **0.490 (OURS g4) vs 0.350 (ER)**; final 0.490 vs 0.504 (within δ); AAA 0.519
    vs 0.433; same-substrate E 1.47× more; substrate total 3.5× cheaper; reversed-order Δ −0.014 (n=5).
 3. *Figures* — GAUNTLET (twin panel + sleep/domain overlay), GAUNTLET-STREAM (§10 — the per-batch live/seen/energy
-   view), GAUNTLET-STREAM-REV (§10 E6 — the reversed order), SUBSTRATE (2×2 re-metered), INV.
+   view), GAUNTLET-STREAM-REV (§10 E6 — the reversed order), GAUNTLET-STREAM-LONG (§10 E8 — the alignment-break),
+   SUBSTRATE (2×2 re-metered), INV.
 4. *Mechanism* — OURS's sleep-consolidation gives a **steady** trajectory (high anytime + high worst-point), while ER's
    every-step replay is more variable (dips to 0.350 mid-stream as it chases the newest domain, then recovers by
    stream-end to a marginally higher final). density ≠ class holds at the buffer: OURS's cross-domain CBRS probe
@@ -90,11 +98,18 @@ replay; wall ≈ 3.6 min.
    yields uninformative features, no future-domain knowledge leaks**; (d) single-pass gauntlet → forgetting is milder than the lifelong
    P10.1 stream (where ER's worst-BWT reached −0.272); the per-DOMAIN cumulative-energy curve is a
    proportional-to-steps shape, now **superseded at batch resolution** by the §10 exact prefix-priced stream view
-   (endpoint guarded == the committed meter total). Rule-1: one variable (grid / learner); the §10 stream view is a
-   guarded REPLAY of the committed run, not a new arm.
+   (endpoint guarded == the committed meter total); **(e — §10 E8) the retention win is switch-frequency-scoped:** on
+   long stationary blocks (~68 steps/domain) a tuned ER re-converges before every checkpoint and overtakes the
+   checkpoint retention read (0.675 vs 0.533) — the committed gauntlet's short blocks (24) are the rapid-drift regime
+   where OURS leads; the E8b control shows the sleep/boundary alignment itself moves nothing (paired gap +0.002).
+   Rule-1: one variable (grid / learner); the §10 stream views are guarded replays / pre-registered measurement arms,
+   never new tuning.
 6. *Decision / verdict* — **RETENTION-COMPETITIVE/BETTER** (OURS worst-point all-prev ≥ ER, AAA higher) /
    **algorithm-energy NOT a win** same-substrate (1.47×) / **substrate-realized** (3.5×). The accuracy/continual half
    is **supported** (steadier retention at competitive final AA); the economics half is **substrate-realized**.
+   **§10 E8 banks the scope:** LENGTH-EFFECT — the retention win holds in the rapid-switch regime; alignment is a
+   non-factor (E8b); on long stationary blocks the tuned ER overtakes the checkpoint read (stated on the money figure,
+   not silently absorbed).
 7. *Freeze-honesty* — object frozen before the run (grid-4 bit-exact, `59d2720`); only the cadence dial moves; verdict
    shape pinned BLIND; the cross-domain probe changes the replay *source* (domain-IL-appropriate), not the learned
    object; meter = P8 ADC-centred model.
@@ -106,4 +121,24 @@ replay; wall ≈ 3.6 min.
    0.273), while OURS's forward-only bulk + sleep loop holds both the live and the remembered read near-flat (0.469)
    — the steadiness IS the product. And the reversed order (E6) shows the steadiness is **curriculum-robust**: swap
    the hard noisy world to the front and ER's whole run collapses (0.343) while OURS lands at the same endpoint
-   (0.494) — a lifelong learner cannot choose the order the world arrives in.
+   (0.494) — a lifelong learner cannot choose the order the world arrives in. And the alignment-break round (E8/E8b)
+   closes the last suspicion about the flat line: it is not the sleep schedule happening to fit the world — OURS's
+   retention is alignment-invariant (paired gap +0.002) and rises on longer domains — while honestly bounding the
+   claim: the *relative* win over a tuned ER belongs to the rapid-switch regime; give a plastic learner long
+   stationary blocks and it out-converges the checkpoint read (0.675 vs 0.533). The steadiness stays OURS's product
+   in every regime (live 0.501 vs 0.446 even there); the *ranking* depends on how fast the world moves.
+- **GAUNTLET-STREAM-LONG (§10 E8/E8b)** — the **alignment-break** view, answering "was the flat OURS line alignment
+  luck?" **NO — and the control proves it.** On the misaligned long stream (sleeps at steps
+  [23,47,67,89,…] vs onsets [0,68,131,187,244] — 2–3 sleeps *inside* every domain, no sleep on a boundary) OURS's
+  retention is **unchanged-to-better** (worst-point all-prev **0.533** vs its committed 0.490; final AA 0.533
+  [0.532–0.557]), its live line still never crashes at a switch (live-batch mean **0.501**), and the E8b aligned-72
+  control lands at the same place: **0.538 vs 0.533, paired gap +0.002 ≤ δ — sleep/boundary alignment is a NON-FACTOR
+  for OURS.** What the long stream *does* change is the **opponent**: ER-strong strengthens dramatically when domains
+  are long (final AA **0.675** [0.674–0.675] vs its committed 0.504) — with ~68 steps per world it fully re-converges
+  before every domain-end checkpoint (its onset crashes are still there, live mean 0.446, but the checkpoint read no
+  longer catches them) and its 5-domain reservoir covers this easy digit world. Pinned branch fired: **LENGTH-EFFECT**
+  (E8b's rule) — **the P10.3 relative retention win is switch-frequency-scoped**: OURS leads where domain switches are
+  frequent relative to the opponent's re-convergence time (the committed gauntlet, the lifelong home); on long
+  stationary blocks a tuned plastic learner catches up and overtakes the checkpoint read. OURS's own steadiness is
+  order-invariant (E6), alignment-invariant (E8b), and length-stable — the scope line belongs to the *comparison*,
+  not the object.
