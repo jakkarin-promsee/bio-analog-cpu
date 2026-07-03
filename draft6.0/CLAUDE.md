@@ -16,7 +16,7 @@ where it counts.** The two chain as **residual boosting blocks**; learning is **
 SCFF most steps, expensive GD only when the cheap path stalls) and **sleep-consolidated** (periodic full-batch GD
 over a **hippocampus LUT** prototype memory). It runs via **mono-forward** — one forward sweep carrying a positive
 + negative world side by side through a shared weight crossbar (only the cheap activation buffers double, not the
-Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md).
+Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md); the **soul** (the *why* under the why): [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md).
 
 ---
 
@@ -55,8 +55,8 @@ recurrent lifelong brain (the north star).** One-glance ladder — the depth liv
 
 ## The decision record
 
-The live record is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (N1–N3 approved + S1–S8 supporting); the full
-derivation (story form) is [`idea/ideas1.md`](idea/ideas1.md). **6.0 is young** — the spine is committed but treat
+The live record is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (N1–N3 approved + S1–S14 supporting); the full
+derivation (story form) is [`idea/ideas1.md`](idea/ideas1.md); the folder index + decision timeline is [`idea/README.md`](idea/README.md). **6.0 is young** — the spine is committed but treat
 decisions as *settling*, not frozen the way draft-5.1's "14 locked decisions" were presented; the open knobs are
 listed there and the sims set them. What carried forward from the old world *in spirit*: residual connections (now
 boosting theory), the two-timescale Cortex/Hippocampus (now sleep + the LUT), resident-weight / sign-as-digital /
@@ -80,18 +80,22 @@ draft6.0/
   CLAUDE.md        this file (auto-loads in-draft)
   README.md        the pivot story (why 5.x died, what 6.0 is)
   context.md       ★ full cold-start dump (what / why / how / the person)
-  idea/
-    main.ideas.v1.md   the decision record (N1–N3 + S1–S8) — the plan
-    ideas1.md          the full derivation, story form
+  idea/            the design (index: idea/README.md)
+    README.md          the idea index + decision timeline (ideas1 → P1-6 → gd-replan → P7-10)
+    ideas1.md          the origin blueprint (full derivation, story form)
+    main.ideas.v1.md   the decision record (N1–N3 + S1–S14) — the committed plan
+    phase4-opinion.md · phase4-problem.md · gd-replan/   the GD-era development of ideas1
   research/        the reading, by role:
     survey/        learning-rule survey (the options considered)
     papers/        paper stories — phase1-2/ (the adopted design) + phase3/ (the depth reframe)
     north-star/    the north-star dossier (21 files + th/ Thai mirror) — beyond the phases, not the live line
-  src/             ★ Stage-1 report set + run-specs
-    phase9-final-architecture.md  ★ the v2.0.0 WHOLE neocortex in one file (both brains, frozen — the CURRENT HEAD)
-    phase6-final-architecture.md  the v1.1.0 cheap-brain-only snapshot (SCFF alone, noise-hardened — the base v2.0.0 builds on)
+  src/             ★ the results (index: README.md) — Stage-1 + Stage-2 report sets + run-specs
+    README.md          ★ the src front door — the arc map + the document-system key
+    phase9-final-architecture.md  the v2.0.0 WHOLE neocortex in one file (both brains, frozen — validated by P10)
+    phase6-final-architecture.md  the v1.1.0 cheap-brain-only snapshot (SCFF alone, noise-hardened)
     phase5-final-architecture.md  the v1.0.0 ideal-data snapshot (kept as the pre-noise base)
-    stage1-report.md   the five-phase executive arc (the cheap brain, closed out)
+    stage1-report.md   the six-phase executive arc (P1–6, the cheap brain built + hardened)
+    stage2-report.md   the four-phase executive arc (P7–10, the namer, validated)
     result-format.md   the canonical house style (figures · metrics · the 6-slot template)
     ref-report/        glossary the reports cite (methods · metrics · papers)
     phaseN/            per phase: README.md (front door / synthesis) · design.md (the pre-run design) ·
@@ -110,7 +114,7 @@ draft6.0/
 | What did Phase N find? | `src/phaseN/README.md` (front-door synthesis) + `RESULTS.md` (the scalar ledger) |
 | Code / read a Phase-N experiment | `src/phaseN/` — start *in* that folder to load only its context; `expK/experiment-K.md` cards; `pNlib.py` apparatus |
 | Draw a figure / write up a result | [`src/result-format.md`](src/result-format.md) (canonical house style + base figure catalog; per-phase additions in `src/phaseN/result-format.md`) |
-| The papers behind a decision | [`research/papers/`](research/papers/README.md) — `phase1-2/` (design) · `phase3/` (the reframe) |
+| The papers behind a decision | [`research/papers/`](research/papers/README.md) — `phase1-2/` (design) · `phase3/` (the reframe) · `phase5/` (the depth-readout) |
 | The learning-rule survey | [`research/survey/summary.detail.md`](research/survey/summary.detail.md) |
 | The north-star / recurrent-brain research | [`research/north-star/`](research/north-star/README.md) — free-time reading, *not* the live plan |
 
