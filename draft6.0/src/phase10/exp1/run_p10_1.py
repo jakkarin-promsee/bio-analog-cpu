@@ -1,8 +1,9 @@
 """
-P10.1 — the EXISTENTIAL FIGHT (design §3 P10.1 + §10 E1). Swept variable = learner ∈ {OURS(grid-4), OURS(grid-5),
-ER-strong, ER-budget, A-GEM, DER++, GDumb, naive-BP} (+ the joint-BP CEILING as a non-raced dashed reference — K1;
-OURS grid-5 = the §10 declared cheaper Tier-1 point drawn beside the committed headline — the VERDICT is grid-4's,
-the no-swap clause stands), continual home
+P10.1 — the EXISTENTIAL FIGHT (design §3 P10.1). Swept variable = learner ∈ {OURS(grid-4), ER-strong, ER-budget,
+A-GEM, DER++, GDumb, naive-BP} (+ the joint-BP CEILING as a non-raced dashed reference — K1). §10 E1 note: an
+OURS(grid-5) roster point was added then WITHDRAWN by the author (design §10 round 2 — the rendered gap was within
+noise, the extra bar added confusion not information; grid-5's numbers stay banked in P10.2 + the P10.6 family
+line), continual home
 (the lifelong synthetic stream = the class-IL leg, K13), 5 seeds. Score accuracy × same-substrate energy (the Pareto
 point) + BWT + AAA. The LOAD-BEARING rung: OURS's continual accuracy has only ever been raced against naive online-BP
 (a strawman); here it races a BUDGETED, TUNED experience replay (Prabhu CVPR'23 — ER is strong under a matched
@@ -36,9 +37,9 @@ import plot_p10                                                        # noqa: E
 QUICK = "--quick" in sys.argv
 OUT = os.path.join(_HERE, "figs_p10_1" + ("_quick" if QUICK else ""))
 SEEDS = CFG.SEEDS[:2] if QUICK else CFG.SEEDS
-ROSTER = ["ours_g4", "ours_g5", "er_strong", "er_budget", "agem", "derpp", "gdumb", "naive"]
-OURS_GRIDS = {"ours_g4": 4, "ours_g5": 5}                              # §10 E1 — grid-5 = the declared cheaper Tier-1
-BP_ROSTER = [k for k in ROSTER if k not in OURS_GRIDS]                 # point beside the committed grid-4 headline
+ROSTER = ["ours_g4", "er_strong", "er_budget", "agem", "derpp", "gdumb", "naive"]
+OURS_GRIDS = {"ours_g4": 4}                                            # §10 E1 withdrawn — grid-5 lives in P10.2/P10.6
+BP_ROSTER = [k for k in ROSTER if k not in OURS_GRIDS]
 
 
 def load_er_cfg():

@@ -10,6 +10,9 @@ vs difficulty; overlay sleep positions; re-meter the substrate 2x2.
 (prequential) + seen-so-far all-domain accuracy + EXACT prefix-priced cumulative energy for OURS(g4) vs ER-strong,
 via the triple-guarded lockstep replay (cell bit-exact vs the cache; head vs the committed err_trace; energy
 endpoint vs the committed meter total). Measurement-only — every committed key must reproduce bit-exactly.
+§10 E6 (round 2): the SAME view on the REVERSED domain order {noised first} — answers (a) is ER's low start real
+and (b) is the late-stream drop noise- or position-specific; ER-strong now runs the reversed stream too
+(completing K9's grid-4 + ER-strong letter; its reversed final AA reported).
 
 Read (pinned BLIND): showcase-win iff OURS worst-point all-prev retention within delta of ER-strong AND E(OURS-
 digital) strictly lower at every domain boundary; scaling-limit iff retention decays with #domains; ratio-not-scale-
@@ -85,6 +88,9 @@ def main():
     slive = {"g4": [], "er_strong": []}; sseen = {"g4": [], "er_strong": []}    # §10 E3 — the per-batch stream view
     scume = {("g4", "analog"): [], ("g4", "digital"): [], ("er_strong", "analog"): [], ("er_strong", "digital"): []}
     sfires = []; ssleeps = []; onsets = None
+    rlive = {"g4": [], "er_strong": []}; rseen = {"g4": [], "er_strong": []}    # §10 E6 — the REVERSED stream view
+    rcume = {("g4", "analog"): [], ("g4", "digital"): [], ("er_strong", "analog"): [], ("er_strong", "digital"): []}
+    rfires = []; rsleeps = []; ronsets = None; er_rev_aa = []
     for s in SEEDS:
         gstream = P.make_gauntlet_stream(CFG, s, domains=domains)
         cache = P.build_cache_p9(P.make_committed_cell, gstream, s, CFG, store_reps=False, quick=QUICK)
@@ -132,8 +138,26 @@ def main():
         # reversed-order control (grid-4 + ER-strong)
         grev = P.make_gauntlet_stream(CFG, s, domains=domains, order="reversed")
         crev = P.build_cache_p9(P.make_committed_cell, grev, s, CFG, store_reps=False, quick=QUICK)
-        o_fwd = P.ours_bundle(cache, hf, CFG, 4)["aa"]; o_rev = P.ours_bundle(crev, hf, CFG, 4)["aa"]
+        ra_rev = P.ours_bundle(crev, hf, CFG, 4)
+        o_fwd = P.ours_bundle(cache, hf, CFG, 4)["aa"]; o_rev = ra_rev["aa"]
         order_delta.append(o_rev - o_fwd)
+        # §10 E6 — the REVERSED per-batch stream view (same triple-guarded replay + ER-strong on the reversed stream,
+        # completing K9's grid-4 + ER-strong letter)
+        curves_r = P.gauntlet_batch_curves(grev, crev, ra_rev, hf, CFG, s)
+        rlive["g4"].append(curves_r["live"]); rseen["g4"].append(curves_r["seen"])
+        m_rev = P.run_bp_stream(grev, "er", er["bp_dims"], CFG, s, lr=er["lr"], l2=er["l2"],
+                                replay=er["replay"], buffer_cap=er["buffer_cap"], curves=True)
+        rlive["er_strong"].append(m_rev["live_curve"]); rseen["er_strong"].append(m_rev["seen_curve"])
+        er_rev_aa.append(m_rev["aa"])
+        rcume[("g4", "analog")].append(P.ours_cum_energy(CFG, crev, ra_rev, substrate="analog"))
+        rcume[("g4", "digital")].append(P.ours_cum_energy(CFG, crev, ra_rev, substrate="digital"))
+        n_steps_rev = len(crev["steps"])
+        rcume[("er_strong", "analog")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps_rev,
+                                                              replay=er["replay"], substrate="analog"))
+        rcume[("er_strong", "digital")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps_rev,
+                                                               replay=er["replay"], substrate="digital"))
+        rfires.append(np.asarray(ra_rev["fires"], bool)); rsleeps.append(np.asarray(ra_rev["sleeps"], bool))
+        ronsets = list(grev["real_onsets"])
         # throughput FLOPs (once)
         if not flops:
             fb_o = P.fair_budget_meter(CFG, learner="ours", ours_res=P.ours_bundle(cache, hf, CFG, 4), ours_cache=cache)
@@ -180,6 +204,11 @@ def main():
           f"{R.med(np.array(sseen['g4'])[:, -1]):.3f} vs ER {R.med(np.array(sseen['er_strong'])[:, -1]):.3f} | "
           f"live-batch mean OURS {np.nanmean(np.array(slive['g4'])):.3f} vs ER "
           f"{np.nanmean(np.array(slive['er_strong'])):.3f}", flush=True)
+    print(f"  §10 E6 REVERSED stream view (noised first): final seen-so-far OURS g4 "
+          f"{R.med(np.array(rseen['g4'])[:, -1]):.3f} vs ER {R.med(np.array(rseen['er_strong'])[:, -1]):.3f} | "
+          f"live-batch mean OURS {np.nanmean(np.array(rlive['g4'])):.3f} vs ER "
+          f"{np.nanmean(np.array(rlive['er_strong'])):.3f} | ER reversed final AA {R.fmt(er_rev_aa)} "
+          f"(vs forward {R.fmt(np.array(allprev['er_strong'])[:, -1])}) — K9's ER leg completed", flush=True)
     print(f"  VERDICT: {verdict}", flush=True)
 
     # arrays
@@ -205,6 +234,14 @@ def main():
         A[f"streamcume_{c}_digital"] = np.array(scume[(c, "digital")])
     A["streamfires_g4"] = np.array(sfires); A["streamsleeps_g4"] = np.array(ssleeps)
     A["stream_onsets"] = np.array(onsets, int)
+    # §10 E6 — the REVERSED stream view (GAUNTLET-STREAM-REV)
+    for c in ("g4", "er_strong"):
+        A[f"streamrevlive_{c}"] = np.array(rlive[c]); A[f"streamrevseen_{c}"] = np.array(rseen[c])
+        A[f"streamrevcume_{c}_analog"] = np.array(rcume[(c, "analog")])
+        A[f"streamrevcume_{c}_digital"] = np.array(rcume[(c, "digital")])
+    A["streamrevfires_g4"] = np.array(rfires); A["streamrevsleeps_g4"] = np.array(rsleeps)
+    A["streamrev_onsets"] = np.array(ronsets, int)
+    A["domains_rev"] = np.array(domains[::-1]); A["er_rev_aa"] = np.array(er_rev_aa)
     man = R.base_manifest("P10.3", SEEDS, QUICK, guards=g, wall_s=round(time.time() - t0, 1),
                           domains=domains, tier1_rep=f"grid-{rep}", cfgs=cfgs, verdict=verdict,
                           worst_allprev=dict(ours_g4=worst_o, er_strong=worst_e),

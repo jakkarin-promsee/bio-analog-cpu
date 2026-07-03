@@ -29,6 +29,8 @@ ENC = {
     "g5":       ("#0b8f6a", "-", "^", False),  "g6":  ("#0b8f6a", "--", "^", False),
     "g8":       ("#d9690a", "-", "s", False),  "g12": ("#d9690a", "-.", "v", False),
     "g16":      ("#d9690a", ":", "x", False),
+    "g7":       ("#d9690a", "", "p", False),   "g13": ("#d9690a", "", "<", False),   # §10 E5 cliff probes
+    "g14":      ("#d9690a", "", ">", False),   "g15": ("#d9690a", "", "d", False),   # (scatter-only)
     "er_strong": ("#8a1b8a", "-", "o", False), "er_budget": ("#8a1b8a", "--", "o", False),
     "agem":     ("#c98ac9", "-", "s", False),  "derpp": ("#6a1b6a", "-", "^", False),
     "gdumb":    ("#7f7f7f", "-", "D", False),  "naive": ("#111111", ":", None, False),
@@ -39,7 +41,9 @@ ENC = {
 }
 _LBL = {"ours_g4": "OURS grid-4", "ours_g5": "OURS grid-5", "g4": "OURS g4", "g5": "OURS g5", "g6": "OURS g6",
         "g8": "OURS g8 (Tier-2)", "g12": "OURS g12 (Tier-2)",
-        "g16": "OURS g16 (Tier-2)", "er_strong": "ER-strong", "er_budget": "ER-budget", "agem": "A-GEM",
+        "g16": "OURS g16 (Tier-2)", "g7": "OURS g7 (probe)", "g13": "OURS g13 (probe)",
+        "g14": "OURS g14 (probe)", "g15": "OURS g15 (probe)",
+        "er_strong": "ER-strong", "er_budget": "ER-budget", "agem": "A-GEM",
         "derpp": "DER++", "gdumb": "GDumb", "naive": "naive-BP", "joint": "joint-BP ceiling"}
 plt.rcParams.update({"font.family": STYLE["font"], "font.size": STYLE["base"],
                      "figure.dpi": STYLE["dpi"], "savefig.dpi": STYLE["dpi"],
@@ -182,20 +186,21 @@ def fig_gauntlet(d, out):
 
 
 # ============================================================ GAUNTLET-STREAM (§10 ext — the per-batch view, P10.3)
-def fig_gauntlet_stream(d, out):
-    """The training-curve read: per-BATCH live-batch acc (thin, prequential) + seen-so-far all-domain acc (thick)
-    for OURS(g4) vs ER-strong, sleep ticks + domain onsets; bottom = per-batch prefix-priced cumulative energy."""
-    if "streamseen_g4" not in _keys(d):
+def _gauntlet_stream_panel(d, out, *, pre, onset_key, dom_key, fname, suptitle):
+    """Shared drawer for the per-batch stream view (forward + reversed): live-batch acc (thin, prequential) +
+    seen-so-far all-domain acc (thick) for OURS(g4) vs ER-strong, sleep ticks + domain onsets; bottom = per-batch
+    prefix-priced cumulative energy. `pre` = the arrays key prefix ('stream' / 'streamrev')."""
+    if f"{pre}seen_g4" not in _keys(d):
         return []
     import warnings
     fig, (axT, axB) = plt.subplots(2, 1, figsize=(10, 5.6), sharex=True,
                                    gridspec_kw={"height_ratios": [3, 2]})
-    N = np.atleast_2d(np.asarray(d["streamseen_g4"], float)).shape[1]
+    N = np.atleast_2d(np.asarray(d[f"{pre}seen_g4"], float)).shape[1]
     x = np.arange(N)
     for c in ("g4", "er_strong"):
         col = _enc("ours_g4" if c == "g4" else c)[0]
-        L = np.atleast_2d(np.asarray(d[f"streamlive_{c}"], float))
-        S = np.atleast_2d(np.asarray(d[f"streamseen_{c}"], float))
+        L = np.atleast_2d(np.asarray(d[f"{pre}live_{c}"], float))
+        S = np.atleast_2d(np.asarray(d[f"{pre}seen_{c}"], float))
         with warnings.catch_warnings():                                # step-0 live is NaN by construction (head unfit)
             warnings.simplefilter("ignore", RuntimeWarning)
             medL = np.nanmedian(L, 0); medS = np.nanmedian(S, 0)
@@ -204,12 +209,12 @@ def fig_gauntlet_stream(d, out):
         axT.plot(x, medS, "-", color=col, lw=2.0, label=_lbl("ours_g4" if c == "g4" else c))
         if S.shape[0] > 1:
             axT.fill_between(x, q25, q75, color=col, alpha=STYLE["band_alpha"])
-    if "streamsleeps_g4" in _keys(d):                                  # sleep ticks (grid cadence — seed-invariant)
-        sl = np.atleast_2d(np.asarray(d["streamsleeps_g4"], float))[0]
+    if f"{pre}sleeps_g4" in _keys(d):                                  # sleep ticks (grid cadence — seed-invariant)
+        sl = np.atleast_2d(np.asarray(d[f"{pre}sleeps_g4"], float))[0]
         for sp in np.where(sl > 0.5)[0]:
             axT.axvline(sp, color="#bdbdbd", ls="-", lw=0.7, alpha=0.5)
-    onsets = np.atleast_1d(np.asarray(d["stream_onsets"], int)) if "stream_onsets" in _keys(d) else []
-    doms = _names(d, "domains")
+    onsets = np.atleast_1d(np.asarray(d[onset_key], int)) if onset_key in _keys(d) else []
+    doms = _names(d, dom_key) or _names(d, "domains")
     for i, sp in enumerate(onsets):
         axT.axvline(sp, color="#7f7f7f", ls="--", lw=0.8); axB.axvline(sp, color="#7f7f7f", ls="--", lw=0.8)
         if i < len(doms):
@@ -219,15 +224,28 @@ def fig_gauntlet_stream(d, out):
     axT.set_title("batch-by-batch — live-batch acc (thin) vs all-seen-domains acc (thick); sleep ticks light-grey")
     for c in ("g4", "er_strong"):
         col = _enc("ours_g4" if c == "g4" else c)[0]
-        k = f"streamcume_{c}_analog"
+        k = f"{pre}cume_{c}_analog"
         if k in _keys(d):
             E = np.atleast_2d(np.asarray(d[k], float))
             axB.plot(x, np.median(E, 0), "-", color=col, lw=STYLE["lw"], label=_lbl(c))
     axB.set_yscale("log"); axB.set_xlabel("stream batch"); axB.set_ylabel("cum. E (pJ)")
     axB.set_title("per-batch cumulative metered energy (exact prefix pricing; sleeps cluster where they fire)")
     axB.legend(fontsize=6.5, loc="lower right")
-    fig.suptitle("GAUNTLET-STREAM — the in-domain vs domain-switch activity, batch by batch", fontsize=10)
-    return [_save(fig, out, "GAUNTLET_STREAM.png")]
+    fig.suptitle(suptitle, fontsize=10)
+    return [_save(fig, out, fname)]
+
+
+def fig_gauntlet_stream(d, out):
+    return _gauntlet_stream_panel(d, out, pre="stream", onset_key="stream_onsets", dom_key="domains",
+                                  fname="GAUNTLET_STREAM.png",
+                                  suptitle="GAUNTLET-STREAM — the in-domain vs domain-switch activity, batch by batch")
+
+
+def fig_gauntlet_stream_rev(d, out):
+    return _gauntlet_stream_panel(d, out, pre="streamrev", onset_key="streamrev_onsets", dom_key="domains_rev",
+                                  fname="GAUNTLET_STREAM_REV.png",
+                                  suptitle="GAUNTLET-STREAM-REV — the SAME view, domain order reversed "
+                                           "(noised first) — §10 E6")
 
 
 # ============================================================ SUBSTRATE (carried from plot_p8; re-metered)
@@ -316,8 +334,8 @@ def fig_inv(d, out):
     return [_save(fig, out, "INV.png")]
 
 
-_ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_gauntlet_stream, fig_substrate, fig_noise_showcase,
-        fig_pareto, fig_inv]
+_ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_gauntlet_stream, fig_gauntlet_stream_rev, fig_substrate,
+        fig_noise_showcase, fig_pareto, fig_inv]
 
 
 def regen(run_dir):

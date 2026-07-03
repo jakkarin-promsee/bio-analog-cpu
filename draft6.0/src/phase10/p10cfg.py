@@ -25,6 +25,9 @@ CAD_FAMILY = [4, 5, 6, 8, 12, 16]
 CAD_TIER1 = [4, 5, 6]
 CAD_TIER2 = [8, 12, 16]
 CAD_HEADLINE = 4                                                       # the committed frozen headline — NEVER swapped
+CLIFF_PROBES = [7, 13, 14, 15]                                         # §10 E5 — characterization probes bracketing the
+                                                                       # two cliffs (NOT family members; P10.2 sweep +
+                                                                       # P10.6 scatter only; CAD_FAMILY/guard untouched)
 GAUNTLET_GRIDS = [4, 5, 6, 8, 16]                                      # the gauntlet keeps its committed five (E2 scope)
 
 # ============================================================ the fair BP+replay racer (P10.0/P10.1 — the anti-strawman)

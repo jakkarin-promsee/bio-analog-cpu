@@ -46,6 +46,7 @@ substrate 3/4-way race reuses it. **P10-new entities (colour · style — fixed 
 | **OURS grid-5 / grid-6** (Tier-1) | `#0b8f6a` (teal) | solid (grid-5) / dashed (grid-6), triangle | the sweet-spot frontier — cheaper viable cadences; grid-5 is the only δ_acc-worst-BWT-eligible *showcase* rep (grid-6 −0.087 fails) |
 | **OURS grid-8** (Tier-2) | `#d9690a` (orange) | solid, square | ⚠ the forgetting arm (fails the P9 veto) — a degradation point |
 | **OURS grid-12** (Tier-2; §10 ext) | `#d9690a` (orange) | dash-dot, v | ⚠ the 8→16 gap-filler — makes the Tier-2 break's shape legible (home stream only) |
+| **OURS grid-7 / 13 / 14 / 15** (§10 cliff probes) | `#d9690a` (orange) | none (scatter-only): p / < / > / d | characterization probes bracketing the two cliffs (NOT family members; home stream only, P10.2 sweep + P10.6 scatter) |
 | **OURS grid-16** (Tier-2) | `#d9690a` (orange) | dotted, x | ⚠ the under-consolidation arm (fails accuracy) — a degradation point |
 | **ER-strong** (the fair racer) | `#8a1b8a` (magenta) | solid, circle | ⭐ the load-bearing opponent — tuned experience replay, metered |
 | **ER-budget** (FLOPs/bytes matched) | `#8a1b8a` (magenta) | dashed, circle | ER throttled to OURS's budget — the same-budget point |
@@ -72,6 +73,7 @@ fig_fight(run)               # F: FIGHT            (P10.1 — the existential fi
 fig_cadence_frontier(run)    # F: CADENCE-FRONTIER (P10.2 — the 5-grid family on accuracy × energy × worst-BWT; Tier-1 knee, Tier-2 break; + the per-domain small-multiple strip when P10.3 per-domain grid arrays are present — K7)
 fig_gauntlet(run)            # F: GAUNTLET         (THE money figure — twin panel: all-prev retention (+ sleep-overlay + domain markers) AND cumulative energy, OURS headline lines vs BP; optional one-interval zoom inset: trough → sleep → recovery)
 fig_gauntlet_stream(run)     # F: GAUNTLET-STREAM  (§10 ext — the per-BATCH training-curve view: live-batch acc + seen-so-far acc (OURS g4 vs ER-strong) over the stream, sleep ticks + domain onsets; twin panel with the per-batch prefix-priced cumulative energy)
+fig_gauntlet_stream_rev(run) # F: GAUNTLET-STREAM-REV (§10 E6 — the identical view on the REVERSED domain order {noised→identity}; answers "is ER's low start real" + "is the late drop noise- or position-specific"; completes K9's ER-on-reversed-stream letter)
 fig_substrate(run)          # F: SUBSTRATE        (carried from plot_p8 — the 2×2 {OURS,GD}×{analog,digital}, re-metered across the gauntlet)
 fig_noise_showcase(run)      # F: NOISE-SHOWCASE   (P10.4 — directional-retention per held-out environment, OURS-hardened vs BP vs naive)
 fig_pareto(run)              # F: PARETO           (THE verdict — the (accuracy, energy) frontier across OURS-family + the field; hero ringed; win/tie/loss regions)
@@ -106,6 +108,7 @@ functions**, and **every rung writes `arrays.npz` to the schema below.**
 | `streamcume_<cfg>_<sub>` | `[S, N]` | §10 ext — per-batch cumulative metered energy (exact prefix pricing of the fires/sleeps masks; final point ≡ the committed total, guarded) (P10.3) |
 | `streamsleeps_<cfg>` · `streamfires_<cfg>` | `[S, N]` (bool) | §10 ext — the per-step sleep/fire masks behind the stream view's ticks (P10.3) |
 | `stream_onsets` | `[D]` | §10 ext — the step index where each gauntlet domain begins (the onset markers) (P10.3) |
+| `streamrev*_<cfg>` · `domains_rev` | as above · `[D]` (str) | §10 E6 — the identical stream-view key set on the REVERSED domain order (`streamrevlive_`, `streamrevseen_`, `streamrevcume_`, `streamrevsleeps_`, `streamrevfires_`, `streamrev_onsets`) + the reversed domain names (P10.3) |
 | `throughput_<cfg>` · `stepsbehind_<cfg>` | `[S, D]` or `[S]` | the Ghunaim real-time read — stream samples a per-step BP+replay drops vs OURS under a fixed wall-clock-per-sample budget (P10.3) |
 | `gdshare_<domain>` | `[S]` | the SCFF:Namer ratio per domain — the "final ratio" vs difficulty (P10.3) |
 | `noise_envs` | `[E]` (str) | held-out environments — {clean, iid, directional, adc3b, nuisance} (P10.4) |

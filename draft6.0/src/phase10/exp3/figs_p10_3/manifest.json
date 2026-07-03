@@ -1,6 +1,6 @@
 {
   "rung": "P10.3",
-  "git": "c7ca4e8316d1346e47f1d24e38b029229866c9ba",
+  "git": "83fde3fa0a4e0351d225ea77420b3fbd5d36da1a",
   "quick": false,
   "seeds": [
     42,
@@ -62,7 +62,7 @@
     "noise_holdout": true,
     "substrate_identity": true
   },
-  "wall_s": 217.0,
+  "wall_s": 235.6,
   "domains": [
     "identity",
     "permuted",

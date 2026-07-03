@@ -11,6 +11,9 @@ Read (pinned BLIND): grid-4 is the committed headline — NEVER swapped, always 
 (paired) AND its energy is IQR-disjointly lower -> grid-5 the only candidate (grid-6 -0.087 fails the BWT gate).
 Tier-2 break confirmed iff grid-8 worst-BWT < -delta vs oracle (forgetting) and/or grid-16 AA drop > delta.
 grid-12 read (§10, expectation-free): does it fail the veto (grid-8's axis), AA-held (grid-16's axis), both, or hold?
+§10 E5 (round 2): cliff PROBES {7,13,14,15} localize the two cliff edges (safety in 6..8, accuracy in 12..16) —
+characterization probes, NOT family members (CAD_FAMILY + its guard untouched); per-probe read = which side of each
+cliff (absolute: |wBWT - g4's| <= delta = safe; AA >= g4 - delta = holds), banked wherever the numbers land.
 
 Run: OMP_NUM_THREADS=1 PYTHONIOENCODING=utf-8 python -u run_p10_2.py [--quick]
 """
@@ -33,7 +36,8 @@ import plot_p10                                                        # noqa: E
 QUICK = "--quick" in sys.argv
 OUT = os.path.join(_HERE, "figs_p10_2" + ("_quick" if QUICK else ""))
 SEEDS = CFG.SEEDS[:2] if QUICK else CFG.SEEDS
-GRIDS = [4, 5, 6, 8, 12, 16]                                           # +grid-12 (§10 E2 — the Tier-2 gap-filler)
+GRIDS = sorted([4, 5, 6, 8, 12, 16] + [7, 13, 14, 15])                 # family (+g12, §10 E2) + the §10 E5 cliff probes
+PROBES = [7, 13, 14, 15]                                               # characterization probes, NOT family members
 
 
 def main():
@@ -74,6 +78,17 @@ def main():
     g12_veto_fail = R.paired_sign_neg(wbwt[12], orc[12], tol=dacc) > len(SEEDS) - 4
     g12_aa_drop = R.med(acc[12]) < R.med(acc[4]) - dacc
 
+    # --- §10 E5 cliff localization (per probe: which side of each cliff — absolute reads, expectation-free) ---
+    # safety side: worst-BWT within delta of grid-4's (safe) vs beyond (broken); accuracy side: AA >= g4 - delta.
+    cliff = {}
+    for gr in GRIDS:
+        safe = abs(R.med(wbwt[gr]) - R.med(wbwt[4])) <= dacc
+        aa_holds = R.med(acc[gr]) >= R.med(acc[4]) - dacc
+        cliff[gr] = dict(safety_holds=bool(safe), aa_holds=bool(aa_holds),
+                         wbwt=R.med(wbwt[gr]), aa=R.med(acc[gr]), nsleep=int(R.med(nslp[gr])))
+    safety_edge = next((gr for gr in GRIDS if not cliff[gr]["safety_holds"]), None)
+    aa_edge = next((gr for gr in GRIDS if not cliff[gr]["aa_holds"]), None)
+
     print(f"\n  == CADENCE FRONTIER (delta_acc={dacc}) ==", flush=True)
     print(f"  {'grid':>5} {'acc':>18} {'energy(pJ)':>12} {'worst-BWT':>18} {'oracle-wBWT':>12} {'GD-share':>10} {'nsleep':>7}", flush=True)
     for gr in GRIDS:
@@ -82,6 +97,12 @@ def main():
     print(f"  grid-4 = COMMITTED HEADLINE (never swapped). Tier-1 showcase rep: {tier1_rep}", flush=True)
     print(f"  Tier-2 break: grid-8 forgets (veto-fail vs oracle)={g8_break} | grid-16 AA drop>delta={g16_aa_drop}", flush=True)
     print(f"  grid-12 (the §10 gap-filler): veto-fail={g12_veto_fail} | AA drop>delta={g12_aa_drop}", flush=True)
+    print(f"  §10 E5 cliff map (per grid: safety-holds / AA-holds / nsleep):", flush=True)
+    for gr in GRIDS:
+        c = cliff[gr]
+        print(f"    g{gr:<3} safety={'HOLD' if c['safety_holds'] else 'BROKEN'} (wBWT {c['wbwt']:+.3f}) | "
+              f"AA={'HOLD' if c['aa_holds'] else 'DROP'} ({c['aa']:.3f}) | nsleep {c['nsleep']}", flush=True)
+    print(f"  -> SAFETY cliff edge: first broken grid = g{safety_edge} | ACCURACY cliff edge: first dropped grid = g{aa_edge}", flush=True)
 
     A = dict(seeds=np.array(SEEDS), grids=np.array([f"g{gr}" for gr in GRIDS]),
              tier1_rep=np.array(tier1_rep), **R.inv_arrays(g))
@@ -89,9 +110,10 @@ def main():
         A[f"acc_g{gr}"] = np.array(acc[gr]); A[f"energy_g{gr}"] = np.array(en[gr])
         A[f"bwtworst_g{gr}"] = np.array(wbwt[gr]); A[f"gdshare_g{gr}"] = np.array(gd[gr])
     man = R.base_manifest("P10.2", SEEDS, QUICK, guards=g, wall_s=round(time.time() - t0, 1),
-                          grids=GRIDS, tier1_rep=tier1_rep, grid4_headline_no_swap=True,
+                          grids=GRIDS, probes=PROBES, tier1_rep=tier1_rep, grid4_headline_no_swap=True,
                           tier2_break=dict(grid8_forgets=bool(g8_break), grid16_aa_drop=bool(g16_aa_drop),
                                            grid12_veto_fail=bool(g12_veto_fail), grid12_aa_drop=bool(g12_aa_drop)),
+                          cliff_map=cliff, safety_cliff_first_broken=safety_edge, accuracy_cliff_first_dropped=aa_edge,
                           summary={f"grid-{gr}": dict(acc=R.fmt(acc[gr]), energy=R.med(en[gr]),
                                                       worst_bwt=R.fmt(wbwt[gr]), gdshare=R.med(gd[gr]),
                                                       nsleep=R.med(nslp[gr])) for gr in GRIDS})

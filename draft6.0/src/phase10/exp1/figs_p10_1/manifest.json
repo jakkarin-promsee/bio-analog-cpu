@@ -1,6 +1,6 @@
 {
   "rung": "P10.1",
-  "git": "c7ca4e8316d1346e47f1d24e38b029229866c9ba",
+  "git": "83fde3fa0a4e0351d225ea77420b3fbd5d36da1a",
   "quick": false,
   "seeds": [
     42,
@@ -62,7 +62,7 @@
     "noise_holdout": true,
     "substrate_identity": true
   },
-  "wall_s": 395.9,
+  "wall_s": 434.0,
   "er_strong_config": {
     "bp_dims": [
       40,
@@ -82,7 +82,6 @@
   },
   "roster": [
     "ours_g4",
-    "ours_g5",
     "er_strong",
     "er_budget",
     "agem",
@@ -98,13 +97,6 @@
       "e_digital": 346098659.328,
       "bwt": "-0.028 [-0.039--0.022]",
       "aaa": "0.392 [0.389-0.440]"
-    },
-    "ours_g5": {
-      "acc": "0.495 [0.483-0.523]",
-      "e_analog": 59881996.288,
-      "e_digital": 315870148.60800004,
-      "bwt": "-0.039 [-0.050--0.033]",
-      "aaa": "0.395 [0.382-0.434]"
     },
     "er_strong": {
       "acc": "0.498 [0.490-0.501]",

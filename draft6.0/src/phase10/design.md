@@ -540,6 +540,35 @@ reproduce bit-exactly; the extension adds points and views, never re-judges). Re
 verdict shapes above pinned blind; failures are data. *(This section is the extension's pre-run record, in the P8.7
 extension pattern.)*
 
+### §10 round 2 (2026-07-03 morning — the author's read of the rendered E1–E4; pre-registered BEFORE the runs)
+
+- **E1 WITHDRAWN — ours_g5 leaves the P10.1 fight roster.** The author's pre-render expectation was a *notable* gap;
+  the rendered FIGHT showed grid-5 δ-equal to grid-4 on every read — so the extra bar adds confusion, not information.
+  Removed for clarity; **the grid-5 numbers stay banked in P10.2 and on the P10.6 family line** (nothing is lost, the
+  roster returns to the committed seven + ceiling). The withdrawal is recorded here, not silently reverted.
+- **E5 — cliff probes {7, 13, 14, 15} localize the two cliffs.** E2 found the break is two cliffs: safety falls
+  somewhere in 6→8, final AA somewhere in 12→16. The probes bracket both: **grid-7** (the safety cliff's interior) and
+  **grid-13/14/15** (the accuracy cliff's interior). They are **characterization probes, not family members** — the
+  declared family stays `{4,5,6,8,12,16}` (grid-4 headline, grid-5 rep, `CAD_FAMILY` and its guard untouched); the
+  probes ride only the P10.2 sweep + the P10.6 scatter. **Read (expectation-free, per probe):** its worst-BWT (which
+  side of the safety cliff) and its final AA vs grid-4 − δ (which side of the accuracy cliff) — the two cliff edges
+  land wherever the numbers say. Free mechanism read: map both cliffs onto **nsleep** (sleeps-per-stream coverage).
+- **E6 — the REVERSED GAUNTLET-STREAM.** The same per-batch view (E3's guarded replay) on the **reversed** domain
+  order {noised, covariate, rotated, permuted, identity}, OURS(grid-4) vs ER-strong. Two author questions, pinned:
+  (a) **is ER's low start real** — does ER always start near-chance and climb, even when the first world is the hard
+  noised one (prediction-free: the curve answers); (b) **is the late-stream drop noise-specific or position-specific**
+  — in the forward run both learners' seen-so-far dropped when *noised* arrived last; with noised FIRST, does the drop
+  follow the noise (it re-appears early / at noised-eval inclusion) or the position (it re-appears late on whatever
+  domain is last)? This also **completes K9's letter**: the committed reversed-order control ran OURS only; ER-strong
+  now runs the reversed stream too (its reversed final AA is reported beside OURS's committed order-delta).
+- **E7 — the all-grid P10.6 Pareto.** The verdict scatter draws **every** measured cadence point — the family
+  {4,5,6,8,12,16} + the E5 probes {7,13,14,15} — so the accuracy cliff is visible on the money line itself and a
+  reader can see *which grid to test next*. grid-4 stays the ringed committed hero; frontier recomputed over all
+  points + the field; membership is whatever the numbers say.
+
+Same discipline: snapshot-then-diff (bit-exact carries or STOP); the replay guards on every stream view; nothing
+learned moves.
+
 ---
 
 ## Grounding (what the field does — and what we adopt)

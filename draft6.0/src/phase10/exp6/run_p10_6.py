@@ -2,9 +2,10 @@
 P10.6 — the PARETO VERDICT + the Stage-2 close-out (design §3 P10.6 + §10 E4). NOT a scalar: assemble the
 (accuracy, energy) frontier across the OURS-family + the BP+replay field (from P10.1/P10.2/P10.3), state WHERE OURS
 wins / ties / loses (each with its number + mechanism), and bank the founding bet's ECONOMICS and ACCURACY halves
-SEPARATELY (§7 / R4). §10 E4: the FULL OURS cadence family {4,5,6,8,12,16} is drawn on the verdict Pareto (the
-author's money line) beside the field — grid-4 stays the ringed committed headline; exp1's ours_g4 is asserted ==
-exp2's g4 bit-for-bit (same cache, same loop) before the merge.
+SEPARATELY (§7 / R4). §10 E4+E7: EVERY measured cadence point — the family {4,5,6,8,12,16} + the E5 cliff probes
+{7,13,14,15} — is drawn on the verdict Pareto (the author's money line, the accuracy cliff visible on it) beside
+the field; grid-4 stays the ringed committed headline; exp1's ours_g4 is asserted == exp2's g4 bit-for-bit (same
+cache, same loop) before the merge.
 Emits the PARETO figure + the win/tie/loss map + the arrays the close-out doc and the professor brief cite.
 
 This rung READS the prior rungs' manifests/arrays (it runs nothing new) and integrates. Run AFTER P10.1–P10.4.
