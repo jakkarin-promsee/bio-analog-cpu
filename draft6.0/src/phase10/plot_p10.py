@@ -298,6 +298,13 @@ def fig_gauntlet_stream_long(d, out):
                                            "(long domains, sleeps land MID-domain) — §10 E8")
 
 
+def fig_gauntlet_stream_revlong(d, out):
+    return _gauntlet_stream_panel(d, out, pre="streamrevlong", onset_key="streamrevlong_onsets", dom_key="domains_rev",
+                                  fname="GAUNTLET_STREAM_REVLONG.png",
+                                  suptitle="GAUNTLET-STREAM-REVLONG — reversed order x long domains "
+                                           "(do mid-domain sleeps rescue the staircase sag?) — §10 E10")
+
+
 # ============================================================ SUBSTRATE (carried from plot_p8; re-metered)
 def fig_substrate(d, out):
     if "substrate_bars" not in _keys(d):
@@ -391,7 +398,7 @@ def fig_inv(d, out):
 
 
 _ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_gauntlet_stream, fig_gauntlet_stream_rev,
-        fig_gauntlet_stream_long, fig_substrate, fig_noise_showcase, fig_pareto, fig_inv]
+        fig_gauntlet_stream_long, fig_gauntlet_stream_revlong, fig_substrate, fig_noise_showcase, fig_pareto, fig_inv]
 
 
 def regen(run_dir):

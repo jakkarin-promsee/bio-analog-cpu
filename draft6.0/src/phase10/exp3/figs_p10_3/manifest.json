@@ -1,6 +1,6 @@
 {
   "rung": "P10.3",
-  "git": "656f0d8688ba44bc44eecc5d8f7660887bbae418",
+  "git": "9a0c85d6d2bcc8e8e45c5ab705ce8c9c81ba3687",
   "quick": false,
   "seeds": [
     42,
@@ -62,7 +62,7 @@
     "noise_holdout": true,
     "substrate_identity": true
   },
-  "wall_s": 407.6,
+  "wall_s": 581.2,
   "domains": [
     "identity",
     "permuted",
@@ -125,6 +125,16 @@
     "worst_allprev": 0.5384,
     "align_gap_paired": 0.0015999999999999348,
     "final_aa": "0.538 [0.536-0.542]"
+  },
+  "verdict_revlong": "STALENESS-DISCONFIRMED/PARTIAL (jump>0 in 5/5, sag-shallower in 3/5 \u2014 FLAG: the decay is not fully head-frame staleness; a bulk-level component must be named)",
+  "revlong": {
+    "final_aa_ours": "0.527 [0.519-0.529]",
+    "final_aa_er": "0.580 [0.577-0.600]",
+    "sag_jump": "0.052 [0.044-0.056]",
+    "sag_deep": "0.165 [0.161-0.167]",
+    "sag_deep_rev": "0.157 [0.153-0.210]",
+    "jump_pos": 5,
+    "shallower": 3
   },
   "notes": "retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point is the P9 honest read. Per-DOMAIN cumulative energy = proportional-to-steps shape; the \u00a710 GAUNTLET-STREAM arrays carry the EXACT per-batch prefix-priced cumulative energy (supersedes the shape note at batch resolution). GD-share per domain = fire-fraction within each domain block. \u00a710 stream view = triple-guarded lockstep replay (cell bit-exact vs cache fingerprint+phi_b; head vs committed err_trace; energy endpoint vs committed meter total).",
   "summary": {

@@ -75,6 +75,7 @@ fig_gauntlet(run)            # F: GAUNTLET         (THE money figure — twin pa
 fig_gauntlet_stream(run)     # F: GAUNTLET-STREAM  (§10 ext — the per-BATCH training-curve view: live-batch acc + seen-so-far acc (OURS g4 vs ER-strong) over the stream, sleep ticks + domain onsets; twin panel with the per-batch prefix-priced cumulative energy)
 fig_gauntlet_stream_rev(run) # F: GAUNTLET-STREAM-REV (§10 E6 — the identical view on the REVERSED domain order {noised→identity}; answers "is ER's low start real" + "is the late drop noise- or position-specific"; completes K9's ER-on-reversed-stream letter)
 fig_gauntlet_stream_long(run)# F: GAUNTLET-STREAM-LONG (§10 E8 — the ALIGNMENT-BREAK view: forward order, per-domain blocks pinned [68,63,56,57,68] (non-multiples of the 24-step sleep period), ~2-3 sleeps INSIDE each domain, switches mid-sleep-interval; answers "was the flat OURS line alignment luck")
+fig_gauntlet_stream_revlong(run) # F: GAUNTLET-STREAM-REVLONG (§10 E10 — the E8 layout with the domain order REVERSED (noised first): the staircase-mechanism test — do the mid-domain sleeps rescue the within-block sag (head-frame staleness) or does the decay run through them (bulk-level — flag)?)
 fig_substrate(run)          # F: SUBSTRATE        (carried from plot_p8 — the 2×2 {OURS,GD}×{analog,digital}, re-metered across the gauntlet)
 fig_noise_showcase(run)      # F: NOISE-SHOWCASE   (P10.4 — directional-retention per held-out environment, OURS-hardened vs BP vs naive)
 fig_pareto(run)              # F: PARETO           (THE verdict — the (accuracy, energy) frontier across OURS-family + the field; hero ringed; win/tie/loss regions)
@@ -112,6 +113,7 @@ functions**, and **every rung writes `arrays.npz` to the schema below.**
 | `streamrev*_<cfg>` · `domains_rev` | as above · `[D]` (str) | §10 E6 — the identical stream-view key set on the REVERSED domain order (`streamrevlive_`, `streamrevseen_`, `streamrevcume_`, `streamrevsleeps_`, `streamrevfires_`, `streamrev_onsets`) + the reversed domain names (P10.3) |
 | `streamlong*_<cfg>` · `blocklong` · `longallprev_<cfg>` · `ours_long_aa` · `er_long_aa` | as above · `[D]` (int) · `[S, D]` · `[S]` · `[S]` | §10 E8 — the ALIGNMENT-BREAK stream-view key set (`streamlonglive_`, `streamlongseen_`, `streamlongcume_`, `streamlongsleeps_`, `streamlongfires_`, `streamlong_onsets`) + the pinned per-domain block lengths + the long-stream all-prev retention + final AA per learner (P10.3) |
 | `alignedlongallprev_g4` · `ours_alignedlong_aa` · `alignedlongsleeps_g4` | `[S, D]` · `[S]` · `[S, N']` (bool) | §10 E8b — the ALIGNED-long control (OURS g4 only, block 72 = 3× the sleep period): retention + final AA + the sleep mask (verifies the sleeps sit back on the boundaries) — decides E8's mechanism attribution (alignment-luck vs length-effect) (P10.3) |
+| `streamrevlong*_<cfg>` · `revlongallprev_<cfg>` · `ours_revlong_aa` · `er_revlong_aa` · `sagjump_revlong` · `sagdeep_revlong` · `sagdeep_rev` | as the stream-view set · `[S, D]` · `[S]` · `[S]` · `[S]` · `[S]` · `[S]` | §10 E10 — the REVERSED-LONG stream-view key set (`streamrevlong{live,seen,cume,sleeps,fires}_`, `streamrevlong_onsets`) + retention/final-AA + the staircase stats: median seen-jump across sleep ticks, deepest within-segment sag (running-peak→trough, same estimator on the committed REV for the paired cut) (P10.3) |
 | `throughput_<cfg>` · `stepsbehind_<cfg>` | `[S, D]` or `[S]` | the Ghunaim real-time read — stream samples a per-step BP+replay drops vs OURS under a fixed wall-clock-per-sample budget (P10.3) |
 | `gdshare_<domain>` | `[S]` | the SCFF:Namer ratio per domain — the "final ratio" vs difficulty (P10.3) |
 | `noise_envs` | `[E]` (str) | held-out environments — {clean, iid, directional, adc3b, nuisance} (P10.4) |
@@ -364,7 +366,9 @@ freeze-honesty affirmed, the guards green.
   the **GAUNTLET-STREAM-LONG** alignment-break view is emitted with the same replay guards anchored to **its own
   run's** cache/err_trace (the stream is new by construction — stated); its read (alignment-independence vs
   alignment-luck) is banked per design §10 round 3, and an alignment-luck outcome is written into the GAUNTLET
-  caption as a stated limitation, never silently absorbed.
+  caption as a stated limitation, never silently absorbed. **§10 E10:** the **GAUNTLET-STREAM-REVLONG**
+  staircase-mechanism view is emitted with the same own-run replay guards; its verdict is banked exactly as the
+  pinned branch fired (a mis-specified cut is a logged estimator lesson, never a re-narration).
 - [ ] **P10.4** uses a **margin-disjoint held-out** noise battery (the `noise_holdout_guard` asserts a concrete margin from
   P9.4's residual **and** flags genuinely-novel-structure "payoff" vs re-parameterized "confirms"); the read is **directional
   retention** (a direction, not a magnitude — the spine); a residual that bites is **named → analog layer**.

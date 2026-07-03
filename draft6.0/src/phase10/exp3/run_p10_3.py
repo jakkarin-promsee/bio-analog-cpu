@@ -61,6 +61,21 @@ def load_tier1_rep():
         return 5
 
 
+def sag_stats(seen, sleeps):
+    """§10 E10 staircase stats on a seen-so-far curve: median jump across sleep ticks (seen[j+1]-seen[j-1]) and the
+    deepest within-segment sag (running-peak -> trough between consecutive sleeps). Same estimator on every stream."""
+    seen = np.asarray(seen, float); n = len(seen)
+    js = np.where(np.asarray(sleeps, bool))[0]
+    jumps = [seen[min(j + 1, n - 1)] - seen[j - 1] for j in js if j >= 1]
+    bounds = [0] + [int(j) + 1 for j in js] + [n]
+    deep = 0.0
+    for a, b in zip(bounds[:-1], bounds[1:]):
+        seg = seen[a:b]; seg = seg[~np.isnan(seg)]
+        if len(seg) >= 2:
+            deep = max(deep, float(np.max(np.maximum.accumulate(seg) - seg)))
+    return (float(np.median(jumps)) if jumps else 0.0), deep
+
+
 def domain_curves(res, D):
     """new/1-back/all-prev per domain from the acc-matrix + first_acc (learner-independent — R6/K12)."""
     mat = res["matrix"]; fa = res.get("first_acc", {})
@@ -99,6 +114,11 @@ def main():
     lfires = []; lsleeps = []; lonsets = None
     lallprev = {"g4": [], "er_strong": []}; ours_long_aa = []; er_long_aa = []
     lallprev_al = []; ours_alignedlong_aa = []; alsleeps = []                    # §10 E8b — the ALIGNED-long control
+    rllive = {"g4": [], "er_strong": []}; rlseen = {"g4": [], "er_strong": []}   # §10 E10 — the REVERSED-LONG view
+    rlcume = {("g4", "analog"): [], ("g4", "digital"): [], ("er_strong", "analog"): [], ("er_strong", "digital"): []}
+    rlfires = []; rlsleeps = []; rlonsets = None
+    rlallprev = {"g4": [], "er_strong": []}; ours_revlong_aa = []; er_revlong_aa = []
+    sagjump_rl = []; sagdeep_rl = []; sagdeep_rv = []                            # the staircase stats (paired vs REV)
     for s in SEEDS:
         gstream = P.make_gauntlet_stream(CFG, s, domains=domains)
         cache = P.build_cache_p9(P.make_committed_cell, gstream, s, CFG, store_reps=False, quick=QUICK)
@@ -198,6 +218,33 @@ def main():
         lallprev_al.append(ap_al); ours_alignedlong_aa.append(ra_aln["aa"])
         alsleeps.append(np.asarray(ra_aln["sleeps"], bool))
         del caln
+        # §10 E10 — the REVERSED-LONG stream (the E8 layout verbatim, domain order reversed; the staircase-mechanism
+        # test: do the 2-3 mid-domain sleeps rescue the within-block sag the committed REV could never show?)
+        grl = P.make_gauntlet_stream(CFG, s, domains=domains, block=LONG_BLOCKS, order="reversed")
+        crl = P.build_cache_p9(P.make_committed_cell, grl, s, CFG, store_reps=False, quick=QUICK)
+        ra_rl = P.ours_bundle(crl, hf, CFG, 4)
+        ap_rl, _, _ = domain_curves(ra_rl, D)
+        rlallprev["g4"].append(ap_rl); ours_revlong_aa.append(ra_rl["aa"])
+        curves_rl = P.gauntlet_batch_curves(grl, crl, ra_rl, hf, CFG, s)        # guards anchor to THIS run's cache
+        rllive["g4"].append(curves_rl["live"]); rlseen["g4"].append(curves_rl["seen"])
+        n_steps_rl = len(crl["steps"])
+        m_rl = P.run_bp_stream(grl, "er", er["bp_dims"], CFG, s, lr=er["lr"], l2=er["l2"],
+                               replay=er["replay"], buffer_cap=er["buffer_cap"], curves=True)
+        ap_rle, _, _ = domain_curves(m_rl, D)
+        rlallprev["er_strong"].append(ap_rle); er_revlong_aa.append(m_rl["aa"])
+        rllive["er_strong"].append(m_rl["live_curve"]); rlseen["er_strong"].append(m_rl["seen_curve"])
+        rlcume[("g4", "analog")].append(P.ours_cum_energy(CFG, crl, ra_rl, substrate="analog"))
+        rlcume[("g4", "digital")].append(P.ours_cum_energy(CFG, crl, ra_rl, substrate="digital"))
+        rlcume[("er_strong", "analog")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps_rl,
+                                                               replay=er["replay"], substrate="analog"))
+        rlcume[("er_strong", "digital")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps_rl,
+                                                                replay=er["replay"], substrate="digital"))
+        rlfires.append(np.asarray(ra_rl["fires"], bool)); rlsleeps.append(np.asarray(ra_rl["sleeps"], bool))
+        rlonsets = list(grl["real_onsets"])
+        j_rl, d_rl = sag_stats(curves_rl["seen"], ra_rl["sleeps"])              # this seed's revlong staircase
+        _, d_rv = sag_stats(curves_r["seen"], ra_rev["sleeps"])                 # the committed REV, same estimator
+        sagjump_rl.append(j_rl); sagdeep_rl.append(d_rl); sagdeep_rv.append(d_rv)
+        del crl
         # throughput FLOPs (once)
         if not flops:
             fb_o = P.fair_budget_meter(CFG, learner="ours", ours_res=P.ours_bundle(cache, hf, CFG, 4), ours_cache=cache)
@@ -279,6 +326,25 @@ def main():
           f"{worst_lo:.3f} (paired gap {align_gap:+.3f}) | final AA {R.fmt(ours_alignedlong_aa)} | sleeps (seed "
           f"{SEEDS[0]}) at steps {sl_al.tolist()} (boundaries at 71,143,215,287,359)", flush=True)
     print(f"  §10 E8 VERDICT: {verdict_long}", flush=True)
+    # --- §10 E10 — the REVERSED-LONG staircase-mechanism read (pinned BLIND: staleness confirmed vs disconfirmed) ---
+    jump_pos = sum(1 for j in sagjump_rl if j > 0)
+    shallower = sum(1 for a, b in zip(sagdeep_rl, sagdeep_rv) if a < b)
+    if jump_pos >= 4 and shallower >= 4:
+        verdict_revlong = (f"STALENESS-CONFIRMED (mid-domain sleeps rescue the sag: median seen-jump at sleeps "
+                           f"{np.median(sagjump_rl):+.3f} > 0 in {jump_pos}/5 seeds; deepest within-segment sag "
+                           f"{np.median(sagdeep_rl):.3f} < committed-REV {np.median(sagdeep_rv):.3f} in {shallower}/5 "
+                           f"paired — the sag is the GD-readout frame going stale between sleeps; the sleep is the cure)")
+    else:
+        verdict_revlong = (f"STALENESS-DISCONFIRMED/PARTIAL (jump>0 in {jump_pos}/5, sag-shallower in {shallower}/5 — "
+                           f"FLAG: the decay is not fully head-frame staleness; a bulk-level component must be named)")
+    print(f"  §10 E10 REVERSED-LONG stream (blocks {LONG_BLOCKS} reversed-order, {len(rlsleeps[0])} steps): "
+          f"final seen-so-far OURS g4 {R.med(np.array(rlseen['g4'])[:, -1]):.3f} vs ER "
+          f"{R.med(np.array(rlseen['er_strong'])[:, -1]):.3f} | live-batch mean OURS "
+          f"{np.nanmean(np.array(rllive['g4'])):.3f} vs ER {np.nanmean(np.array(rllive['er_strong'])):.3f} | "
+          f"final AA OURS {R.fmt(ours_revlong_aa)} vs ER {R.fmt(er_revlong_aa)} "
+          f"(ER rev-short {R.fmt(er_rev_aa)}, ER fwd-long {R.fmt(er_long_aa)}) | sag-jump {R.fmt(sagjump_rl)} | "
+          f"sag-deep revlong {R.fmt(sagdeep_rl)} vs REV {R.fmt(sagdeep_rv)}", flush=True)
+    print(f"  §10 E10 VERDICT: {verdict_revlong}", flush=True)
     print(f"  VERDICT: {verdict}", flush=True)
 
     # arrays
@@ -324,6 +390,17 @@ def main():
     # §10 E8b — the ALIGNED-long control
     A["alignedlongallprev_g4"] = np.array(lallprev_al); A["ours_alignedlong_aa"] = np.array(ours_alignedlong_aa)
     A["alignedlongsleeps_g4"] = np.array(alsleeps)
+    # §10 E10 — the REVERSED-LONG stream view (GAUNTLET-STREAM-REVLONG) + the staircase stats
+    for c in ("g4", "er_strong"):
+        A[f"streamrevlonglive_{c}"] = np.array(rllive[c]); A[f"streamrevlongseen_{c}"] = np.array(rlseen[c])
+        A[f"streamrevlongcume_{c}_analog"] = np.array(rlcume[(c, "analog")])
+        A[f"streamrevlongcume_{c}_digital"] = np.array(rlcume[(c, "digital")])
+        A[f"revlongallprev_{c}"] = np.array(rlallprev[c])
+    A["streamrevlongfires_g4"] = np.array(rlfires); A["streamrevlongsleeps_g4"] = np.array(rlsleeps)
+    A["streamrevlong_onsets"] = np.array(rlonsets, int)
+    A["ours_revlong_aa"] = np.array(ours_revlong_aa); A["er_revlong_aa"] = np.array(er_revlong_aa)
+    A["sagjump_revlong"] = np.array(sagjump_rl); A["sagdeep_revlong"] = np.array(sagdeep_rl)
+    A["sagdeep_rev"] = np.array(sagdeep_rv)
     man = R.base_manifest("P10.3", SEEDS, QUICK, guards=g, wall_s=round(time.time() - t0, 1),
                           domains=domains, tier1_rep=f"grid-{rep}", cfgs=cfgs, verdict=verdict,
                           worst_allprev=dict(ours_g4=worst_o, er_strong=worst_e),
@@ -335,6 +412,10 @@ def main():
                           long_sleeps_per_domain=per_dom_sleeps,
                           aligned_long=dict(block=72, worst_allprev=worst_al, align_gap_paired=align_gap,
                                             final_aa=R.fmt(ours_alignedlong_aa)),
+                          verdict_revlong=verdict_revlong,
+                          revlong=dict(final_aa_ours=R.fmt(ours_revlong_aa), final_aa_er=R.fmt(er_revlong_aa),
+                                       sag_jump=R.fmt(sagjump_rl), sag_deep=R.fmt(sagdeep_rl),
+                                       sag_deep_rev=R.fmt(sagdeep_rv), jump_pos=jump_pos, shallower=shallower),
                           notes="retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point "
                                 "is the P9 honest read. Per-DOMAIN cumulative energy = proportional-to-steps shape; the "
                                 "§10 GAUNTLET-STREAM arrays carry the EXACT per-batch prefix-priced cumulative energy "

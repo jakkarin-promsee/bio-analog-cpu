@@ -616,6 +616,33 @@ learned moves.
 Same discipline: snapshot-then-diff (bit-exact carries or STOP); the replay guards on every stream view; nothing
 learned moves.
 
+### §10 round 4 (2026-07-03 night — the author's read of the round-3 render + the REV staircase; pre-registered BEFORE the run)
+
+- **E10 — the REVERSED-LONG stream (the staircase-mechanism test).** The round-3 render surfaced a pattern in the
+  committed REV view the author asked about: OURS's seen-so-far line is a **rising staircase whose treads SAG** —
+  it jumps up at every sleep, then decays *within* each block (deepest in the covariate block, ~0.44→0.27). The
+  mechanism hypothesis (the P9.0 read): the sag is **GD-readout frame-staleness, not bulk forgetting** — the bulk
+  rotates on every batch while the SLDA frame is re-anchored only at sleeps; between sleeps the stale frame decays,
+  and each sleep snaps it back. The committed REV **cannot discriminate** this: each block contains exactly ONE
+  sleep, at its end (block 24 == the sleep period), so the sag always runs the full block unrescued. E10 puts the
+  rescue *inside* the blocks: the **E8 layout verbatim** (positional blocks `[68,63,56,57,68]`, 312 steps, 2–3
+  sleeps per block) with the **domain order reversed** (noised first) — vs E8 the only change is order, vs E6 the
+  only change is block length. Learners **OURS(g4) + ER-strong**, 5 seeds, same replay guards (anchored to this
+  run's own cache), every carried array bit-exact. **Reads (pinned BLIND):** *(a) staleness-CONFIRMED* iff the
+  mid-domain sleeps produce recovery jumps in seen-so-far (median jump across sleep ticks > 0, ≥4/5 seeds) **AND**
+  the deepest within-segment sag (running-peak→trough between consecutive sleeps, same estimator on both streams)
+  is **shallower than the committed REV's** in ≥4/5 paired seeds — the sag is the head going stale and the sleep is
+  the cure; *(b) staleness-DISCONFIRMED* iff the sleeps fail to recover (jumps ≤ 0 / the sag runs through the
+  sleeps) — then the decay is **bulk-level, not head-frame**, and it is FLAGGED (a finding against our own
+  mechanism story, banked as-is). *Secondary, expectation-free:* where ER-strong lands on reversed-LONG — its
+  rev-short collapse (0.343) vs its fwd-long strength (0.675): does a long hard-first curriculum still wreck a
+  plastic learner, or does length rescue it? Figure: **GAUNTLET-STREAM-REVLONG**, below the LONG view.
+- **D1 — the REV staircase description (doc-only).** The staircase-sag mechanism read is written under the REV
+  figure in `phase10-report.md` (+ the exp3 card) so the figure carries its own explanation.
+
+Same discipline: snapshot-then-diff (bit-exact carries or STOP); the replay guards on every stream view; nothing
+learned moves.
+
 ---
 
 ## Grounding (what the field does — and what we adopt)
