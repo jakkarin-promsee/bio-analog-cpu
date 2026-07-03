@@ -1,0 +1,15 @@
+P10.6 — the Pareto verdict + Stage-2 close-out (integration; runs nothing new)
+
+  == PARETO VERDICT MAP ==
+  axis                                                  OURS   best-field  w/t/l             number
+  accuracy (vs ER-strong)                              0.494        0.498    tie         gap +0.004
+  energy — algorithm (same digital substrate)      3.461e+08    2.247e+08   loss              1.54x
+  energy — total (OURS-analog vs ER-strong-digital)    6.702e+07    2.247e+08    win 3.4x (substrate-realized floor)
+
+  founding bet — ECONOMICS half: substrate-only (algorithm 1.54x same-substrate; total 3.4x analog-floor)
+  founding bet — ACCURACY half: validated (gap +0.004 vs delta 0.02)
+  Pareto frontier members: ['er_strong', 'gdumb']
+  fig PARETO.png
+  fig INV.png
+
+== P10.6 verdict assembled (wall 0.0s) ==

@@ -135,3 +135,54 @@ Deterministic (per-env offset, not `hash()`). naive incidentally ties OURS on di
 classifier) but collapses on nuisance — the load-bearing comparison is vs the fair continual opponent BP+replay.
 
 ---
+
+## P10.5 — A5 natural multi-class: the fight a professor recognizes *(learner swept; natural digits→40)*
+
+*Controls: 8×8 digits → shared 40-D bulk input (the same pinned 64→40 projection as the gauntlet), CISTREAM class-IL
+(5 tasks × 2 classes), 5 seeds. BWT = worst-pre-sleep every learner (R6). The natural class-IL leg complementing
+P10.3's natural domain-IL gauntlet. Figure FIGHT + INV.*
+
+| learner | accuracy | E(analog) | E(digital) | worst-BWT | vs-OURS · verdict |
+| --- | --- | --- | --- | --- | --- |
+| **ours_g4 (OURS)** | 0.879 [0.878–0.891] | 6.70e7 | 3.46e8 | −0.051 | (ref) · continual, not static |
+| **er_strong** | **0.950 [0.937–0.956]** | 3.71e7 | 2.25e8 | −0.019 | beats OURS **+0.071** (> δ, 5/5) |
+| er_budget | 0.922 [0.921–0.928] | 1.55e7 | 9.41e7 | −0.242 | beats OURS +0.043 (forgets more) |
+| naive | 0.866 [0.860–0.887] | 1.14e7 | 7.59e7 | −0.505 | OURS +0.013 (the floor) |
+| joint-BP ceiling | 0.982 [0.974–0.982] | — | — | — | near-saturated (digits easy) |
+
+**Verdict:** LOSS on static natural accuracy — ER-strong beats OURS **+0.071** (> δ, 5/5), and forgets slightly less
+(worst-BWT −0.019 vs −0.051). Synthetic *understated* ER's edge (both near-Bayes-hard at ~0.49); digits are easy so
+ER's flexible MLP + replay pull ahead. OURS's continual-safety edge (decisive on lifelong P10.1 −0.028 vs −0.272, and
+the 5-domain gauntlet P10.3 0.490 vs 0.350) does **not** appear on a short easy CI stream (nothing for the sleep loop
+to out-protect). OURS = a continual, not static-accuracy, learner (P4 confirmed). Static gap flagged → a future draft
+(convolutional / larger bulk), never a P10 re-run.
+
+---
+
+## P10.6 — the Pareto verdict + the Stage-2 close-out *(integration; the honest win/tie/loss map)*
+
+*Integration rung — reads P10.1's saved arrays + the P10.2–P10.5 verdicts; runs nothing new. Pareto on (final AA ×
+analog energy) across the P10.1 roster; the two energy cuts (same-substrate algorithm + chip-vs-conventional total)
+restated as the verdict map. The founding bet's economics & accuracy halves banked separately (R4). Figure PARETO + INV.*
+
+| axis | OURS | best fair opponent | w/t/l | number |
+| --- | --- | --- | --- | --- |
+| final accuracy (continual synthetic home) | 0.494 | ER-strong 0.498 | **tie** | +0.004 (< δ) |
+| final accuracy (natural digits, static-ish) | 0.879 | ER-strong 0.950 | **loss** | −0.071 (static trail) |
+| worst-pre-sleep BWT (lifelong) | **−0.028** | ER-strong −0.272 | **win** | ≈10× safer |
+| worst-point all-prev retention (gauntlet) | **0.490** | ER-strong 0.350 | **win** | +0.140 (AAA 0.519 vs 0.433) |
+| noise robustness (held-out, vs BP) | 0.92–1.10 | BP+replay 0.23–0.61 | **win** | every channel |
+| energy — algorithm (same digital substrate) | 3.46e8 | ER-strong 2.25e8 | **loss** | 1.54× (the deep bulk) |
+| energy — chip vs conventional GD (total) | 6.70e7 (analog) | ER-digital 2.25e8 | **win** | 3.4× (substrate-realized floor) |
+
+- **PARETO** (final AA × analog energy): non-dominated frontier = **{er_strong, gdumb}** — OURS(g4) is **dominated**
+  (ER-strong has higher accuracy *and* lower analog energy, being a small tuned net; the same-substrate digital cut also
+  has OURS dominated). OURS's genuine wins are on the axes this scatter omits: worst-case safety, noise, the substrate floor.
+- **INV**: assembled from the green-guard rungs.
+
+**Verdict:** an honest Pareto close-out. **Economics half = substrate-realized** (the 80/20 algorithm is NOT a
+same-substrate energy win against a small tuned ER — 1.54× more; "less energy than modern GD" holds for the *chip*,
+3.4× via the analog crossbar floor, R1). **Accuracy half = competitive-on-home / trails-on-static / WINS-on-continual-
+safety & noise.** A substrate-native continual learner — exactly the P4 identity. Stage 2 closes. Delta **S14**.
+
+---

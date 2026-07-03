@@ -1,0 +1,91 @@
+{
+  "rung": "P10.6",
+  "git": "7bed95d97cb4a9950b2d769027290812a851e986",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cadence_headline": 4,
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "frozen_provenance": "59d2720 (P9 freeze commit; a provenance LABEL, not a runtime git ==)",
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "judged_against_external_baseline": true,
+  "verdict_shapes_pinned_blind": true,
+  "wall_s": 0.0,
+  "verdict_map": [
+    [
+      "accuracy (vs ER-strong)",
+      "0.494",
+      "0.498",
+      "tie",
+      "gap +0.004"
+    ],
+    [
+      "energy \u2014 algorithm (same digital substrate)",
+      "3.461e+08",
+      "2.247e+08",
+      "loss",
+      "1.54x"
+    ],
+    [
+      "energy \u2014 total (OURS-analog vs ER-strong-digital)",
+      "6.702e+07",
+      "2.247e+08",
+      "win",
+      "3.4x (substrate-realized floor)"
+    ]
+  ],
+  "economics_half": "substrate-only",
+  "accuracy_half": "validated",
+  "algorithm_ratio": 1.5404566929398529,
+  "total_floor_ratio": 3.352294744496667,
+  "pareto_frontier": [
+    "er_strong",
+    "gdumb"
+  ],
+  "efficiency": {
+    "ours_g4": 0.29273543062144836,
+    "er_strong": 0.6732427143402496,
+    "er_budget": 0.5405611311151046,
+    "agem": 0.2763283236130393,
+    "derpp": 0.2283756753521522,
+    "gdumb": 0.7468690273582062,
+    "naive": 0.29289321881345254
+  },
+  "p10_1": "ACCURACY-COMPETITIVE / algorithm-energy NOT a win: OURS ties ER-strong on acc (gap +0.004) but is 1.54x MORE expensive same-substrate (the deep unsupervised bulk vs a small tuned net). The energy win is SUBSTRATE-realized: OURS-analog is 3.35x cheaper than ER-on-digital."
+}

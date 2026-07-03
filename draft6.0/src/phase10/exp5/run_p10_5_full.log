@@ -1,0 +1,19 @@
+P10.5 — A5 natural (digits->40) confirm  (QUICK=False, seeds=[42, 137, 271, 314, 1729])
+  guards: all green
+  seed 42: OURS=0.878 ER-strong=0.924 ER-budget=0.922 naive=0.898 joint=0.970
+  seed 137: OURS=0.873 ER-strong=0.937 ER-budget=0.921 naive=0.860 joint=0.974
+  seed 271: OURS=0.879 ER-strong=0.950 ER-budget=0.940 naive=0.887 joint=0.982
+  seed 314: OURS=0.891 ER-strong=0.958 ER-budget=0.928 naive=0.866 joint=0.992
+  seed 1729: OURS=0.899 ER-strong=0.956 ER-budget=0.908 naive=0.856 joint=0.982
+
+  == A5 NATURAL (digits->40, delta_acc=0.02) ==
+  learner                   acc   E(analog)  E(digital)      BWT
+  ours_g4    0.879 [0.878-0.891]   6.702e+07   3.461e+08   -0.051
+  er_strong  0.950 [0.937-0.956]   3.709e+07   2.247e+08   -0.019
+  er_budget  0.922 [0.921-0.928]   1.547e+07   9.407e+07   -0.242
+  naive      0.866 [0.860-0.887]   1.137e+07   7.587e+07   -0.505
+  joint ceiling 0.982 [0.974-0.982] | VERDICT: natural CONFIRMS P10.1: ER-strong edges OURS by +0.071
+  fig FIGHT.png
+  fig INV.png
+
+== P10.5 done (wall 283.3s) ==

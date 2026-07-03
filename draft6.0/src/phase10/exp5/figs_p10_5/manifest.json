@@ -1,0 +1,95 @@
+{
+  "rung": "P10.5",
+  "git": "7bed95d97cb4a9950b2d769027290812a851e986",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cadence_headline": 4,
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "frozen_provenance": "59d2720 (P9 freeze commit; a provenance LABEL, not a runtime git ==)",
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "judged_against_external_baseline": true,
+  "verdict_shapes_pinned_blind": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true,
+    "fair_budget": true,
+    "freeze_content": true,
+    "cadence_family": true,
+    "gauntlet_data": true,
+    "noise_holdout": true,
+    "substrate_identity": true
+  },
+  "wall_s": 283.3,
+  "data": "digits->40 class-IL",
+  "verdict": "natural CONFIRMS P10.1: ER-strong edges OURS by +0.071",
+  "joint": "0.982 [0.974-0.982]",
+  "summary": {
+    "ours_g4": {
+      "acc": "0.879 [0.878-0.891]",
+      "e_analog": 67020587.008,
+      "e_digital": 346098659.328,
+      "bwt": "-0.051 [-0.065--0.051]"
+    },
+    "er_strong": {
+      "acc": "0.950 [0.937-0.956]",
+      "e_analog": 37085132.480000004,
+      "e_digital": 224672761.60000002,
+      "bwt": "-0.019 [-0.034--0.011]"
+    },
+    "er_budget": {
+      "acc": "0.922 [0.921-0.928]",
+      "e_analog": 15474813.120000001,
+      "e_digital": 94067142.4,
+      "bwt": "-0.242 [-0.261--0.229]"
+    },
+    "naive": {
+      "acc": "0.866 [0.860-0.887]",
+      "e_analog": 11367659.52,
+      "e_digital": 75866726.4,
+      "bwt": "-0.505 [-0.514--0.455]"
+    }
+  }
+}
