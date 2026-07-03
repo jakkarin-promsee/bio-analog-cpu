@@ -232,7 +232,7 @@ channel** (0.92–1.10 vs 0.23–0.61) — the Phase-6 arc cashed on the whole o
 the 80/20 *algorithm* does not win the same-substrate energy race; the **chip (analog crossbar) is 3.4–3.5× cheaper** than
 that same GD model on a conventional digital accelerator, and *that* is the win — a **meter-structural floor**, the whole
 "why analog." On an (accuracy × energy) Pareto a small tuned ER **dominates** OURS; OURS's wins live on the axes that
-Pareto omits — **safety, noise, and the substrate.** Delta **S14**; the object is the Stage-2 close-out. *(A three-round
+Pareto omits — **safety, noise, and the substrate.** Delta **S14**; the object is the Stage-2 close-out. *(A four-round
 §10 extension — pre-registered, measurement-only, every carried array bit-exact — enriched the showcase: grid-12 + the
 cliff probes {7,13,14,15} localized the Tier-2 break as a **plateau + two cliffs** (the worst-case-safety plunge at
 cadence **6→7**; the final-accuracy cliff at **15→16**, where grids with the SAME sleep count and energy differ 0.495
@@ -246,7 +246,11 @@ equalled the grid-4 sleep period exactly (every sleep sat on a domain's last ste
 (long randomized non-multiple blocks, sleeps mid-domain) + an aligned-72 control proved **sleep/boundary alignment a
 NON-FACTOR for OURS** (paired gap +0.002; retention rises 0.490→0.533) — while the tuned ER re-converges on long
 stationary blocks (0.504→0.675), so **the gauntlet retention win is switch-frequency-scoped** (OURS leads where
-switches outpace the plastic learner's re-convergence — a stated scope line on the money figure, not a defeat).)* →
+switches outpace the plastic learner's re-convergence — a stated scope line on the money figure, not a defeat). Round
+4 tested the staircase mechanism itself: the REV view's within-block sag is the **namer frame going stale while the
+bulk rotates** — mid-domain sleeps demonstrably rescue it (jumps +0.052, 5/5; OURS order-invariant at length, 0.527
+vs 0.533; ER still order-sensitive, 0.580 vs 0.675) — banked **supported-not-confirmed** (the pre-registered
+confirming cut was mis-specified; a bulk-level component stays flagged).)* →
 [full Phase 10 report](phase10/phase10-report.md).
 
 ---

@@ -12,13 +12,14 @@
 Ran 2026-07-03 (seeds `[42,137,271,314,1729]`, `--quick` off, single-thread CPU/float64, numpy 2.3.5). All fourteen
 guards (8 carried P8/P9 + `fair_budget` + `freeze_content` + `cadence_family` + `gauntlet_data` + `noise_holdout` +
 `substrate_identity`) green every rung; grid-4 reproduced bit-for-bit against the P9 freeze. **§10 post-close
-extension re-ran P10.1/P10.2/P10.3/P10.6 in three rounds (design §10 — round 1: grid-12, the per-batch GAUNTLET-STREAM
+extension re-ran P10.1/P10.2/P10.3/P10.6 in four rounds (design §10 — round 1: grid-12, the per-batch GAUNTLET-STREAM
 view, the full-family Pareto; round 2: the ours_g5 fight point withdrawn by the author, the cliff probes {7,13,14,15},
 the REVERSED stream view completing K9's ER leg, the all-grid Pareto; round 3: the E8 ALIGNMENT-BREAK long stream +
-the E8b aligned-long control + the E9 numbered-point legibility redraw): measurement-only; every carried array
+the E8b aligned-long control + the E9 numbered-point legibility redraw; round 4: the E10 REVERSED-LONG
+staircase-mechanism test + the D1 staircase description): measurement-only; every carried array
 reproduced bit-exactly each round (snapshot-diffed; the E1 withdrawal reproduced the committed P10.1 arrays
-IDENTICALLY; round 3 reproduced all 86 carried keys); the three replay guards (cell fingerprint+phi_b · err_trace ·
-energy-endpoint) held on all seeds, all stream layouts.**
+IDENTICALLY; round 3 reproduced all 86 carried keys, round 4 all 105); the three replay guards (cell
+fingerprint+phi_b · err_trace · energy-endpoint) held on all seeds, all stream layouts.**
 
 ---
 
@@ -159,11 +160,25 @@ worst pre-sleep all-prev AA (R6).*
   is switch-frequency-scoped** (OURS leads where switches are frequent relative to ER's re-convergence time; on long
   stationary blocks the tuned ER overtakes the checkpoint read).
 
+- **§10 E10 — the REVERSED-LONG stream (round 4; the staircase-mechanism test — E8 layout, order reversed):** the
+  committed REV's staircase treads sag because each block holds exactly ONE sleep at its end; E10 puts 2–3 sleeps
+  inside each block. **Pinned verdict fired: STALENESS-DISCONFIRMED/PARTIAL** (rescue-jumps > 0 in **5/5** seeds,
+  median +0.052; sag-shallower in only **3/5** — banked as fired). The split is the finding: the **rescue is real
+  and repeats** (covariate: 0.435→0.296, sleep →0.416, →0.316, sleep →0.405; within-domain floors *rise*: rotated
+  0.347→0.368→0.445), and the endpoint **0.527 ≈ the forward-long 0.533** (OURS order-invariant at length too,
+  Δ −0.006) — but the sag-shallower cut was **mis-specified** (equal ~24-step inter-sleep segments on both streams
+  ⇒ it measures rotation *rate*, not cumulative run-down; estimator lesson logged), so the head-staleness mechanism
+  is **supported, not confirmed** — the bulk-level flag stands formally. Free ER read: rev-long final AA **0.580**
+  — between its rev-short collapse (0.343) and fwd-long strength (0.675): length partially rescues the hard-first
+  curriculum, but **ER stays order-sensitive even at length (Δ −0.095 > δ); OURS is order-invariant at both scales.**
+
 **Verdict:** RETENTION-COMPETITIVE/BETTER (OURS worst-point all-prev 0.490 vs ER 0.350; AAA 0.519 vs 0.433) at
 competitive final AA (0.490 vs 0.504, within δ), order-robust / algorithm-energy NOT a win same-substrate (1.47×) /
 energy win **substrate-realized** (3.5×). Continual half **supported** (steadier), economics **substrate-realized**.
 **§10 E8 scope line (stated on the money figure):** the relative retention win belongs to the **rapid-switch regime**;
-alignment is a non-factor (E8b); OURS's own steadiness is order-, alignment-, and length-invariant.
+alignment is a non-factor (E8b); OURS's own steadiness is order-, alignment-, and length-invariant. **§10 E10:** the
+staircase sag = head-frame staleness **supported-not-confirmed** (sleeps rescue, 5/5; the confirming cut was
+mis-specified; bulk-level component not excluded — flagged).
 
 ---
 

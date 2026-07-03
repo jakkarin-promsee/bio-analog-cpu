@@ -6,7 +6,7 @@ P8 economy+cost · P9 maintenance/close+freeze · **P10 validate/showcase**). Ph
 raced it — untouched — against a fair, budgeted, tuned BP+replay baseline** across the continual gauntlet. It *measured*;
 it tuned nothing (the only dial moved was the declared cadence cost axis). Discipline: **freeze in P9, judge in P10.** The
 verdict shapes were pinned **BLIND** in `design.md` §2.3 before any baseline number was seen. **+ §10 post-close
-extension (three rounds, author-directed; pre-registered in design §10, measurement-only, every carried array
+extension (four rounds, author-directed; pre-registered in design §10, measurement-only, every carried array
 bit-exact):** the cadence break fully localized (grid-12 + probes {7,13,14,15} → a **plateau + two cliffs**: safety
 plunges at 6→7, accuracy cliffs at 15→16 where equal-count sleeps turn timing-sensitive); the per-batch
 **GAUNTLET-STREAM** view forward + REVERSED (ER order-sensitive 0.343-vs-0.504, OURS order-invariant) + the round-3
@@ -51,7 +51,12 @@ then withdrawn — within noise.)
   last step — the author's catch); long randomized non-multiple blocks [68,63,56,57,68] put 2–3 sleeps INSIDE each
   domain → OURS unchanged-to-better (0.533; live never crashes) and the aligned-72 control ties it (**gap +0.002 →
   alignment a NON-FACTOR**); ER re-converges per long block (0.675) → **LENGTH-EFFECT: the retention win is
-  switch-frequency-scoped** (rapid-switch regime), stated on the money figure.
+  switch-frequency-scoped** (rapid-switch regime), stated on the money figure. §10 E10 **REVERSED-LONG** (round 4 —
+  the staircase-mechanism test): the REV staircase's within-block sag = the SLDA frame going stale while the bulk
+  rotates (P9.0), and mid-domain sleeps **rescue it** (jumps +0.052 5/5; floors rise; OURS order-invariant at length
+  0.527-vs-0.533) — pinned verdict fired **PARTIAL** (the sag-shallower cut was mis-specified: equal inter-sleep
+  segment lengths measure rotation rate, not run-down) → banked **supported-not-confirmed**, bulk-level component
+  flagged; ER rev-long 0.580 = still order-sensitive at length.
 - **P10.4 — the noise showcase (held-out, margin-disjoint battery).** OURS-hardened **≫ BP+replay on EVERY channel** (iid
   1.095 vs 0.608, directional 0.978 vs 0.225, adc3b 0.923 vs 0.300, nuisance 1.000 vs 0.469). A small directional/ADC
   residual (0.978 / 0.923, > δ) → **named → the analog-realism layer**; the battery is re-parameterized not

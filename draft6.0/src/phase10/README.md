@@ -5,7 +5,7 @@
 > validate**). Phase 10 **measured** the frozen two-brain object against a **fair, budgeted, tuned** BP+replay
 > baseline across the continual gauntlet — it tuned nothing (the object was locked in P9; the only dial that moved was
 > the declared cadence cost axis). The verdict shapes were pinned **BLIND** before any baseline number was seen.
-> **+ §10 post-close extension (three rounds, author-directed; measurement-only, every carried array bit-exact):**
+> **+ §10 post-close extension (four rounds, author-directed; measurement-only, every carried array bit-exact):**
 > the cadence break fully localized — a **plateau + two cliffs** (the safety plunge at cadence **6→7**; the accuracy
 > cliff at **15→16**, where equal-count sleeps turn *timing*-sensitive) via grid-12 + the probes {7,13,14,15}; the
 > per-batch **GAUNTLET-STREAM** view forward *and reversed* (ER is **order-sensitive** — reversed final AA 0.343 vs
@@ -14,8 +14,13 @@
 > equalled the grid-4 sleep period exactly (every sleep landed on a domain's last step); re-run with long randomized
 > non-multiple blocks (sleeps mid-domain) + an aligned-72 control → **alignment is a NON-FACTOR for OURS** (paired gap
 > +0.002; its retention *rises*, 0.490→0.533) — but ER strengthens on long stationary blocks (0.504→0.675), so **the
-> gauntlet retention win is switch-frequency-scoped** (a stated money-figure scope line, not a defeat). (A grid-5
-> fight point was added then withdrawn — within noise.)
+> gauntlet retention win is switch-frequency-scoped** (a stated money-figure scope line, not a defeat). **Round 4 —
+> the staircase-mechanism test (E10, reversed-long):** the REV staircase's sag is the GD-readout frame going stale
+> between sleeps (the bulk rotates every batch; only sleep re-anchors) — mid-domain sleeps demonstrably **rescue** it
+> (jumps +0.052, 5/5; floors rise; OURS order-invariant at length, 0.527 vs 0.533) but the pre-registered confirming
+> cut was mis-specified, so the mechanism is banked **supported-not-confirmed** (bulk-level component flagged, not
+> excluded); ER stays order-sensitive even at length (0.580 rev-long vs 0.675 fwd-long). (A grid-5 fight point was
+> added then withdrawn — within noise.)
 > Read this for the verdict; numbers in [`RESULTS.md`](RESULTS.md); per-rung stories in [`expK/experiment-K.md`](exp0/experiment-0.md); the
 > spec in [`design.md`](design.md) (§10 = the extension's pre-run record); the contract in [`result-format.md`](result-format.md).
 

@@ -223,6 +223,23 @@ end-of-stream collapse. The single order-delta scalar (−0.014) was OURS-only a
 completed control can: **OURS is order-invariant, the tuned ER is not — and a lifelong learner does not get to choose
 the order the world arrives in.**
 
+**Reading OURS's staircase (§10 D1 — the shape the author asked about).** In the reversed view OURS's thick line is a
+*rising staircase whose treads sag*: it jumps up at every sleep tick, then decays *within* each block (deepest in the
+covariate block, ~0.44 → 0.27) before the next sleep snaps it back. This is not forgetting — it is the two-timescale
+loop's own signature, visible because the reversed stream makes the bulk move fast. The seen-so-far read goes through
+the **current bulk with the current namer**, and the two update on different clocks: the SCFF bulk learns forward-only
+on *every* batch (it **rotates** — P9.0), while the SLDA namer is fully re-anchored only at a **sleep**. Between
+sleeps the namer's prototypes are frozen in the *old* feature frame; as the bulk rotates under it, that stale frame
+reads all the old worlds progressively worse — the sag. Each sleep re-forwards the cross-domain LUT through the
+current bulk and re-fits — the snap back up. The sag is deepest in the covariate block because the noise-warmed bulk
+meets its first *clean, structured* world there and rotates hardest; the sags shallow out as the bulk settles
+(−0.17 → −0.11 → −0.12 → ≈flat). Three in-figure facts pin it as staleness, not loss: every sleep recovers to a
+**higher** tread than the last (the floor climbs 0.17 → 0.42 → 0.44 → 0.46 → 0.49); the endpoint equals the forward
+endpoint (0.494 vs 0.490 — nothing was lost either way); and the thin live line on the *current* world stays high
+throughout — only the averaged-over-old-worlds read sags, exactly what a stale linear frame does. The sag bottoms are
+the **worst-pre-sleep points** in the flesh — the read the freeze chose grid-4 on, and the same mechanism that opens
+the P10.2 safety cliff when the cadence stretches (grid-7+: longer treads, deeper sags, no one pulls them back).
+
 **The §10 E8 alignment-break — was the flat line a scheduling coincidence? (No — and the honest scope it bought.)**
 The author caught a structural convenience the committed stream hid: the domain block (24 steps) equals the grid-4
 sleep period *exactly*, so every sleep landed on a domain's final step — one perfectly-timed consolidation right
@@ -247,6 +264,31 @@ long stationary blocks and the tuned ER out-converges the checkpoint read. What 
 is OURS itself: order-invariant (E6), **alignment-invariant (E8b, +0.002)**, length-stable (retention rises with more
 data), live line never crashing at a switch. The steadiness is OURS's product in every regime; the *ranking* depends
 on how fast the world moves — which is exactly the claim a continual-learning substrate should make, and no more.
+
+**The §10 E10 reversed-long — do the sleeps actually cure the staircase sag?** The staircase read (D1, above) makes a
+falsifiable prediction the committed REV can never test: if the sag is the GD-readout frame going stale between
+sleeps, then a sleep landing *mid-domain* should catch the sag mid-fall and pull it back — and the committed REV has
+exactly one sleep per block, at its end, so the sag always runs the full block unrescued. E10 runs the E8 layout
+verbatim with the order reversed (noised first): 2–3 sleeps now land *inside* every block.
+
+![P10.3 §10 — the reversed-long stream view](exp3/figs_p10_3/GAUNTLET_STREAM_REVLONG.png)
+*The staircase-mechanism test. Within every domain the sag is now caught and pulled back at each sleep tick (median
+seen-jump **+0.052 across sleeps, 5/5 seeds**; covariate: falls 0.435→0.296, sleep →0.416, falls →0.316, sleep
+→0.405) — the curve saw-tooths around a **rising** level (rotated floors 0.347→0.368→0.445) instead of running down
+the block, and the endpoint lands at **0.527 ≈ the forward-long 0.533**: OURS is order-invariant at the long scale
+too. ER (magenta) still crashes at every onset; its reversed-long final (0.580) sits between its rev-short collapse
+(0.343) and its fwd-long strength (0.675) — length partially rescues a hard-first curriculum, but ER stays
+order-sensitive even at length (Δ −0.095) while OURS's order delta is −0.006. (n=5; replay guards on this run's own
+cache.)*
+
+The bank is disciplined: the pre-registered verdict fired **STALENESS-DISCONFIRMED/PARTIAL** — the rescue-jump cut
+passed unanimously, but the "sag-shallower-than-REV" cut passed only 3/5, and it is banked exactly as fired. The
+post-mortem is itself a lesson: both streams' inter-sleep segments are the *same* ~24 steps (the sleep period), so
+per-segment sag depth measures the bulk's rotation *rate* — which the staleness hypothesis never predicted would
+change — rather than the *cumulative run-down* it did predict would be bounded (and which the floor read shows, but
+that read is post-hoc and labeled as such). So the staircase mechanism stands as **supported, not confirmed**: the
+sleeps demonstrably rescue the sag, order-invariance extends to the long scale, and the possibility of a small
+bulk-level decay component stays formally open — flagged, the way this project flags things it cannot yet exclude.
 
 ### P10.4 — the noise showcase → *OURS ≫ BP+replay on every held-out channel; a small residual named*
 

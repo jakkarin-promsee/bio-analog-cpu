@@ -71,7 +71,13 @@ replay; wall ≈ 3.6 min.
   follows the NOISE, not the position:** reversed, there is no late-stream collapse — the low region moves to the
   start with the noised domain; noise suppresses the live read *while it is the live world* and drags the seen-so-far
   average *while it is included*, in both orders. **The committed forward gauntlet was ER's favorable ordering; OURS
-  is order-invariant** — the asymmetry the single order-delta number (−0.014, OURS only) could not show.
+  is order-invariant** — the asymmetry the single order-delta number (−0.014, OURS only) could not show. **The
+  staircase shape (D1):** OURS's reversed line rises in sleep-jumps whose treads *sag* within each block — the
+  two-timescale signature, not forgetting: the bulk rotates every batch while the SLDA frame is re-anchored only at
+  sleeps, so between sleeps the stale frame reads the old worlds progressively worse and each sleep snaps it back
+  (every tread floor higher than the last: 0.17→0.42→0.44→0.46→0.49; endpoint == forward; the live line never sags).
+  The committed REV cannot show the *rescue* (block 24 = the sleep period → exactly one sleep per block, at its end)
+  — that is E10's job.
 
 **Read (8 slots).**
 1. *Claim* — across 5 domains OURS holds **steadier** retention than a budgeted ER (worst-point all-prev 0.490 vs
@@ -81,7 +87,7 @@ replay; wall ≈ 3.6 min.
    vs 0.433; same-substrate E 1.47× more; substrate total 3.5× cheaper; reversed-order Δ −0.014 (n=5).
 3. *Figures* — GAUNTLET (twin panel + sleep/domain overlay), GAUNTLET-STREAM (§10 — the per-batch live/seen/energy
    view), GAUNTLET-STREAM-REV (§10 E6 — the reversed order), GAUNTLET-STREAM-LONG (§10 E8 — the alignment-break),
-   SUBSTRATE (2×2 re-metered), INV.
+   GAUNTLET-STREAM-REVLONG (§10 E10 — the staircase-mechanism test), SUBSTRATE (2×2 re-metered), INV.
 4. *Mechanism* — OURS's sleep-consolidation gives a **steady** trajectory (high anytime + high worst-point), while ER's
    every-step replay is more variable (dips to 0.350 mid-stream as it chases the newest domain, then recovers by
    stream-end to a marginally higher final). density ≠ class holds at the buffer: OURS's cross-domain CBRS probe
@@ -101,7 +107,10 @@ replay; wall ≈ 3.6 min.
    (endpoint guarded == the committed meter total); **(e — §10 E8) the retention win is switch-frequency-scoped:** on
    long stationary blocks (~68 steps/domain) a tuned ER re-converges before every checkpoint and overtakes the
    checkpoint retention read (0.675 vs 0.533) — the committed gauntlet's short blocks (24) are the rapid-drift regime
-   where OURS leads; the E8b control shows the sleep/boundary alignment itself moves nothing (paired gap +0.002).
+   where OURS leads; the E8b control shows the sleep/boundary alignment itself moves nothing (paired gap +0.002);
+   **(f — §10 E10) the sag-shallower cut was mis-specified** — equal inter-sleep segment lengths on both streams
+   made "shallower" measure rotation rate, not cumulative run-down; the pinned PARTIAL verdict is banked as fired
+   and the floor-trend read is reported post-hoc, labeled — a bulk-level decay component is not excluded.
    Rule-1: one variable (grid / learner); the §10 stream views are guarded replays / pre-registered measurement arms,
    never new tuning.
 6. *Decision / verdict* — **RETENTION-COMPETITIVE/BETTER** (OURS worst-point all-prev ≥ ER, AAA higher) /
@@ -109,7 +118,9 @@ replay; wall ≈ 3.6 min.
    is **supported** (steadier retention at competitive final AA); the economics half is **substrate-realized**.
    **§10 E8 banks the scope:** LENGTH-EFFECT — the retention win holds in the rapid-switch regime; alignment is a
    non-factor (E8b); on long stationary blocks the tuned ER overtakes the checkpoint read (stated on the money figure,
-   not silently absorbed).
+   not silently absorbed). **§10 E10 banks the staircase mechanism at "supported, not confirmed":** the pinned
+   verdict fired PARTIAL (rescue-jumps 5/5, sag-shallower 3/5 — the second cut mis-specified); the sleeps demonstrably
+   rescue the sag and order-invariance holds at length (0.527 vs 0.533), but the bulk-level flag stands formally.
 7. *Freeze-honesty* — object frozen before the run (grid-4 bit-exact, `59d2720`); only the cadence dial moves; verdict
    shape pinned BLIND; the cross-domain probe changes the replay *source* (domain-IL-appropriate), not the learned
    object; meter = P8 ADC-centred model.
@@ -127,7 +138,22 @@ replay; wall ≈ 3.6 min.
    claim: the *relative* win over a tuned ER belongs to the rapid-switch regime; give a plastic learner long
    stationary blocks and it out-converges the checkpoint read (0.675 vs 0.533). The steadiness stays OURS's product
    in every regime (live 0.501 vs 0.446 even there); the *ranking* depends on how fast the world moves.
-- **GAUNTLET-STREAM-LONG (§10 E8/E8b)** — the **alignment-break** view, answering "was the flat OURS line alignment
+- **GAUNTLET-STREAM-REVLONG (§10 E10)** — the staircase-mechanism test: the E8 layout verbatim, domain order
+  reversed (noised first) — the committed REV could never show a *rescue* (one sleep per block, at its end); this
+  stream puts 2–3 sleeps inside every block. **Pinned verdict fired: STALENESS-DISCONFIRMED/PARTIAL** (jump>0 in
+  5/5, sag-shallower in only 3/5 — banked as fired). The two cuts split, and the split is informative: **(a) the
+  rescue is real and repeats** — every mid-domain sleep jumps seen-so-far back up (median +0.052, 5/5 seeds;
+  covariate: falls 0.435→0.296, sleep →0.416, falls →0.316, sleep →0.405), the within-domain floors *rise*
+  (rotated 0.347→0.368→0.445; identity 0.469→0.486→0.496), and the endpoint lands at **0.527 ≈ the forward-long
+  0.533** (order-invariance holds at length; Δ −0.006) — the saw-tooth oscillates around a rising level instead of
+  running down the block. **(b) the "sag-shallower" cut was mis-specified** (an estimator lesson, logged): both
+  streams' inter-sleep segments are the *same* ~24 steps (the sleep period), so per-segment depth measures the
+  rotation *rate*, which the hypothesis never predicted would change — it predicted the *cumulative* run-down would
+  be bounded, which the floor read (post-hoc, labeled) shows. The head-staleness mechanism is supported by every
+  read except the mis-specified cut; a bulk-level component is **not excluded by the pinned cut, so the flag
+  stands formally**. Free ER read: rev-long final AA **0.580** — between its rev-short collapse (0.343) and its
+  fwd-long strength (0.675): length *partially* rescues a hard-first curriculum for the plastic learner, but **ER
+  stays order-sensitive even at length (Δ −0.095 > δ) while OURS is order-invariant at both scales**.- **GAUNTLET-STREAM-LONG (§10 E8/E8b)** — the **alignment-break** view, answering "was the flat OURS line alignment
   luck?" **NO — and the control proves it.** On the misaligned long stream (sleeps at steps
   [23,47,67,89,…] vs onsets [0,68,131,187,244] — 2–3 sleeps *inside* every domain, no sleep on a boundary) OURS's
   retention is **unchanged-to-better** (worst-point all-prev **0.533** vs its committed 0.490; final AA 0.533
