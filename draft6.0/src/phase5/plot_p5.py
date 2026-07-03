@@ -54,7 +54,7 @@ def _band(ax, x, arr, color, label, *, ls="-", lw=None, marker=None):
 
 def _save(fig, run, name):
     out = os.path.join(run, name)
-    fig.savefig(out, bbox_inches="tight", transparent=True)
+    fig.savefig(out, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     return out
 

@@ -26,8 +26,8 @@ STYLE = dict(
 plt.rcParams.update({"font.family": STYLE["font"], "font.size": STYLE["base"],
                      "figure.dpi": STYLE["dpi"], "savefig.dpi": STYLE["dpi"],
                      "axes.grid": True, "grid.color": STYLE["grid"], "grid.linewidth": 0.6,
-                     "axes.axisbelow": True, "figure.facecolor": "none", "axes.facecolor": "none",
-                     "savefig.transparent": True})
+                     "axes.axisbelow": True, "figure.facecolor": "white", "axes.facecolor": "white",
+                     "savefig.transparent": False})
 
 
 def _band(ax, x, M, color, label, ls="-", marker=None):
