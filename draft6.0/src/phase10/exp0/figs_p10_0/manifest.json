@@ -1,0 +1,152 @@
+{
+  "rung": "P10.0",
+  "git": "0690c35186d4a6ceab5804d237a4395f33061e51",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cadence_headline": 4,
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "frozen_provenance": "59d2720 (P9 freeze commit; a provenance LABEL, not a runtime git ==)",
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "judged_against_external_baseline": true,
+  "verdict_shapes_pinned_blind": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true,
+    "fair_budget": true,
+    "freeze_content": true,
+    "cadence_family": true,
+    "gauntlet_data": true,
+    "noise_holdout": true,
+    "substrate_identity": true
+  },
+  "wall_s": 193.2,
+  "status": "ALL-GREEN",
+  "er_strong_config": {
+    "bp_dims": [
+      40,
+      49,
+      49,
+      49,
+      10
+    ],
+    "lr": 0.001,
+    "l2": 0.001,
+    "depth": 3,
+    "width": 49,
+    "replay": 64,
+    "buffer_cap": 600,
+    "tune_seed": 7,
+    "tune_aa": 0.5395555555555556
+  },
+  "fair_budget": {
+    "er_strong": {
+      "flops_per_sample": 65268.0,
+      "buffer_bytes": 196800,
+      "total_bytes": 374616,
+      "replay": 64,
+      "buffer_cap": 600
+    },
+    "er_budget": {
+      "flops_per_sample": 27195.0,
+      "buffer_bytes": 196800,
+      "total_bytes": 374616,
+      "replay": 8,
+      "buffer_cap": 600
+    },
+    "agem": {
+      "flops_per_sample": 65664.0,
+      "buffer_bytes": 196800,
+      "total_bytes": 375216,
+      "replay": 64,
+      "buffer_cap": 600
+    },
+    "derpp": {
+      "flops_per_sample": 109440.0,
+      "buffer_bytes": 244800,
+      "total_bytes": 423216,
+      "replay": 64,
+      "buffer_cap": 600
+    },
+    "gdumb": {
+      "flops_per_sample": 0.0,
+      "buffer_bytes": 196800,
+      "total_bytes": 375216,
+      "replay": 0,
+      "buffer_cap": 600
+    },
+    "naive": {
+      "flops_per_sample": 21888.0,
+      "buffer_bytes": 0,
+      "total_bytes": 178416,
+      "replay": 0,
+      "buffer_cap": 0
+    },
+    "ours_g4": {
+      "flops_per_sample": 96937.79104477612,
+      "buffer_bytes": 196800,
+      "total_bytes": 5357760,
+      "replay": 0,
+      "buffer_cap": 600
+    }
+  },
+  "agem_derpp_descope": false,
+  "gauntlet_domains": [
+    "identity",
+    "permuted",
+    "rotated",
+    "covariate",
+    "noised"
+  ],
+  "gauntlet_proj": "gauss",
+  "noise_envs": [
+    "clean",
+    "iid",
+    "directional",
+    "adc3b",
+    "nuisance"
+  ],
+  "notes": "bench green; frozen grid-4 bit-exact; ER-strong tuned on seed-7 only; full roster"
+}

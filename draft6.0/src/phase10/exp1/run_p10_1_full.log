@@ -1,0 +1,26 @@
+P10.1 — the existential fight  (QUICK=False, seeds=[42, 137, 271, 314, 1729])
+  guards: all green
+  ER-strong (from P10.0): dims=[40, 49, 49, 49, 10] lr=0.001 replay=64 cap=600
+  seed 42: OURS g4 aa=0.443 er_strong=0.501 er_budget=0.376 agem=0.282 derpp=0.332 gdumb=0.447 naive=0.275 joint=0.870
+  seed 137: OURS g4 aa=0.478 er_strong=0.490 er_budget=0.380 agem=0.333 derpp=0.396 gdumb=0.427 naive=0.317 joint=0.866
+  seed 271: OURS g4 aa=0.526 er_strong=0.507 er_budget=0.380 agem=0.343 derpp=0.365 gdumb=0.498 naive=0.328 joint=0.897
+  seed 314: OURS g4 aa=0.502 er_strong=0.498 er_budget=0.321 agem=0.320 derpp=0.358 gdumb=0.430 naive=0.297 joint=0.882
+  seed 1729: OURS g4 aa=0.494 er_strong=0.485 er_budget=0.375 agem=0.320 derpp=0.360 gdumb=0.409 naive=0.308 joint=0.870
+
+  == FIGHT (delta_acc=0.02) ==
+  learner                   acc   E(analog)  E(digital)      BWT      AAA
+  ours_g4    0.494 [0.478-0.502]   6.702e+07   3.461e+08   -0.028    0.392
+  er_strong  0.498 [0.490-0.501]   3.709e+07   2.247e+08   -0.272    0.503
+  er_budget  0.376 [0.375-0.380]   1.547e+07   9.407e+07   -0.807    0.461
+  agem       0.320 [0.320-0.333]   3.402e+07   2.260e+08   -0.900    0.445
+  derpp      0.360 [0.358-0.365]   5.668e+07   3.762e+08   -0.178    0.455
+  gdumb      0.430 [0.427-0.447]   1.137e+07   7.587e+07   -0.344    0.568
+  naive      0.308 [0.297-0.317]   1.137e+07   7.587e+07   -0.880    0.434
+  joint-BP ceiling AA = 0.870 [0.870-0.882]  (accuracy-axis reference only)
+  same-substrate (digital) algorithm cut: E(OURS)=3.461e+08 vs E(ER-strong)=2.247e+08 -> 1.540x
+  VERDICT: ACCURACY-COMPETITIVE / algorithm-energy NOT a win: OURS ties ER-strong on acc (gap +0.004) but is 1.54x MORE expensive same-substrate (the deep unsupervised bulk vs a small tuned net). The energy win is SUBSTRATE-realized: OURS-analog is 3.35x cheaper than ER-on-digital.
+  fig FIGHT.png
+  fig PARETO.png
+  fig INV.png
+
+== P10.1 done (wall 431.4s) ==

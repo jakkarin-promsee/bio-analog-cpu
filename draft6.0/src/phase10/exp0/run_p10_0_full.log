@@ -1,0 +1,38 @@
+P10.0 — bench + the six new guards  (QUICK=False)
+  [partial_fit_equiv ranpac] max|W_stream-W_batch|=4.11e-15 pred-miss=0  OK
+  [partial_fit_equiv slda] max|W_stream-W_batch|=2.22e-16 pred-miss=0  OK
+  [fd_budget_gate] max|analytic-FD|=3.47e-08  OK
+  [meter_proxy] our fwd-MAC=1556000 == readout_cost fwd_macs=1556000 solve_dim=2000  OK
+  [detector_far] stationary FAR floor {'abs': 0.0, 'ddm': 0.0, 'adwin': 0.0}  OK
+  [scff_static_frozen] frozen-tap reproducibility max|d|=0.00e+00 static RanPAC acc=0.566  OK
+  [cache_replay] deterministic replay max|d|=0.00e+00 fire-diff=0 firefrac=1.00  OK
+  [n2_readside] (a) p9==p8 max|dmat|=0.00e+00 fire-diff=0  OK
+  [n2_readside] (c) LLRD rho=1 max|dW|=0.00e+00 OK | rho<1 early/mid move=0.00e+00 late move=7.92e-03  early CLEAN (rate-only)
+  [evict_equiv] (a) cap=inf kept=140/140 appended=140  OK
+  [evict_equiv] (b) cap=30 recency == last-30 FIFO contents  OK
+  [fair_budget] OURS-LUT bytes=196800 == ER-budget buffer bytes=196800 match=True | ER FLOPs/sample=27360  OK
+  [freeze_content] manifest OK | grid-4 bit-exact dBWT=0.00e+00 dAA=0.00e+00 dGD=0.00e+00 dNslp=0 OK (provenance 59d2720)
+  [cadence_family] grid-4 bit-exact=True | nsleep by grid {4: 25, 5: 20, 6: 16, 8: 12, 16: 6} monotone-desc=True  OK
+  [gauntlet_data] 40-D dims=True proj(64->40)=True one-stream=True labels⊆10=True  OK
+  [noise_holdout] dir-RMS 2.5 vs P9.4 1.5 (margin +1.0) | ADC 3 vs 2  OK (margin-disjoint)
+  [substrate_identity] acc substrate-independent=True | E(analog)=2.882e+07 E(digital)=1.473e+08 differ=True  OK
+
+  guards: ALL GREEN
+
+  tuning ER-strong on the disjoint tuning stream (seed 7)...
+    ER-strong: dims=[40, 49, 49, 49, 10] lr=0.001 wd=0.001 replay=64 buffer_cap=600 (tune-AA 0.540, seed 7 only)
+
+  fair-budget audit (FLOPs/sample · replay-bytes · total-memory):
+    er_strong : FLOPs/sample=   65268  replay-bytes=  196800  total-bytes=   374616
+    er_budget : FLOPs/sample=   27195  replay-bytes=  196800  total-bytes=   374616
+    agem      : FLOPs/sample=   65664  replay-bytes=  196800  total-bytes=   375216
+    derpp     : FLOPs/sample=  109440  replay-bytes=  244800  total-bytes=   423216
+    gdumb     : FLOPs/sample=       0  replay-bytes=  196800  total-bytes=   375216
+    naive     : FLOPs/sample=   21888  replay-bytes=       0  total-bytes=   178416
+    ours_g4   : FLOPs/sample=   96938  replay-bytes=  196800  total-bytes=  5357760
+
+  A-GEM/DER++ descope: False (BPNet grad-handles clean -> full roster is REAL code)
+  gauntlet domains loaded: ['identity', 'permuted', 'rotated', 'covariate', 'noised'] @ 40-D (offline)
+  fig INV.png
+
+== P10.0 BENCH GREEN (wall 193.2s) — proceed to P10.1 ==
