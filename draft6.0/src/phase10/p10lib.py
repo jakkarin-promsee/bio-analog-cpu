@@ -629,13 +629,18 @@ def make_gauntlet_stream(cfg, seed, *, domains=None, block=None, revisit=1, orde
     """A domain-IL stream over ≈5 domains (the SAME 10 classes, a domain-specific input shift, a SHARED head). Each
     domain is presented as a block; the acc-matrix is domain x domain (retention across domains). Emits the fields
     build_cache_p9 + run_economy_p9 consume (steps/Xtr/Ytr/Xpr/Ypr/eval_by_task/checkpoints/monitor/probe_grid/…).
-    `order` reorders the domain sequence (the reversed-order control, K9). Every learner replays this SAME stream."""
+    `order` reorders the domain sequence (the reversed-order control, K9). Every learner replays this SAME stream.
+    `block` may be a scalar (every domain that long; default 24 — the committed stream, bit-identical) or a per-domain
+    list (§10 E8 — the alignment-break stream's pinned non-multiple lengths)."""
     domains = list(domains or cfg.GAUNTLET_DOMAINS)
     if order == "reversed":
         domains = domains[::-1]
     data = load_gauntlet_data(cfg, seed, domains)
     C = cfg.NCLASS; B = cfg.BATCH
-    block = block or 24                                                # steps per domain block
+    blocks = (list(block) if isinstance(block, (list, tuple, np.ndarray))
+              else [int(block or 24)] * len(domains))                  # steps per domain block (scalar or per-domain)
+    if len(blocks) != len(domains):
+        raise ValueError(f"per-domain block list length {len(blocks)} != {len(domains)} domains")
     # concatenate all domains' train pools; steps draw within the current domain's slice
     Xtr_all = []; Ytr_all = []; dom_slices = {}
     off = 0
@@ -655,7 +660,7 @@ def make_gauntlet_stream(cfg, seed, *, domains=None, block=None, revisit=1, orde
     for cyc in range(max(1, revisit)):
         for di, dm in enumerate(domains):
             real_onsets.append(len(steps))
-            for r in range(block):
+            for r in range(blocks[di]):
                 seg = f"onset{di}" if r < 4 else f"plateau{di}"        # first steps flagged onset (the oracle arm)
                 steps.append(dict(idx=draw(dm, B), seg=seg, nuis=None, seen=di))
             if cyc == 0:

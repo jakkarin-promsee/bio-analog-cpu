@@ -42,6 +42,9 @@ QUICK = "--quick" in sys.argv
 OUT = os.path.join(_HERE, "figs_p10_3" + ("_quick" if QUICK else ""))
 SEEDS = CFG.SEEDS[:2] if QUICK else CFG.SEEDS
 GRIDS = [4, 5, 6, 8, 16]
+LONG_BLOCKS = [68, 63, 56, 57, 68]                                     # §10 E8 — pinned per-domain lengths (rng(20260703),
+                                                                       # ints [50,70], %6 redrawn): non-multiples of the
+                                                                       # 24-step grid-4 sleep period; ~2-3 sleeps/domain
 
 
 def load_er_cfg():
@@ -91,6 +94,11 @@ def main():
     rlive = {"g4": [], "er_strong": []}; rseen = {"g4": [], "er_strong": []}    # §10 E6 — the REVERSED stream view
     rcume = {("g4", "analog"): [], ("g4", "digital"): [], ("er_strong", "analog"): [], ("er_strong", "digital"): []}
     rfires = []; rsleeps = []; ronsets = None; er_rev_aa = []
+    llive = {"g4": [], "er_strong": []}; lseen = {"g4": [], "er_strong": []}    # §10 E8 — the ALIGNMENT-BREAK stream view
+    lcume = {("g4", "analog"): [], ("g4", "digital"): [], ("er_strong", "analog"): [], ("er_strong", "digital"): []}
+    lfires = []; lsleeps = []; lonsets = None
+    lallprev = {"g4": [], "er_strong": []}; ours_long_aa = []; er_long_aa = []
+    lallprev_al = []; ours_alignedlong_aa = []; alsleeps = []                    # §10 E8b — the ALIGNED-long control
     for s in SEEDS:
         gstream = P.make_gauntlet_stream(CFG, s, domains=domains)
         cache = P.build_cache_p9(P.make_committed_cell, gstream, s, CFG, store_reps=False, quick=QUICK)
@@ -158,14 +166,46 @@ def main():
                                                                replay=er["replay"], substrate="digital"))
         rfires.append(np.asarray(ra_rev["fires"], bool)); rsleeps.append(np.asarray(ra_rev["sleeps"], bool))
         ronsets = list(grev["real_onsets"])
+        # §10 E8 — the ALIGNMENT-BREAK long stream (forward order, pinned non-multiple per-domain blocks; the sleeps
+        # land MID-domain and every switch lands at a drifting sleep phase — g4 + ER-strong, measurement-only)
+        glong = P.make_gauntlet_stream(CFG, s, domains=domains, block=LONG_BLOCKS)
+        clong = P.build_cache_p9(P.make_committed_cell, glong, s, CFG, store_reps=False, quick=QUICK)
+        ra_long = P.ours_bundle(clong, hf, CFG, 4)
+        ap_l, _, _ = domain_curves(ra_long, D)
+        lallprev["g4"].append(ap_l); ours_long_aa.append(ra_long["aa"])
+        curves_l = P.gauntlet_batch_curves(glong, clong, ra_long, hf, CFG, s)   # guards anchor to THIS run's cache
+        llive["g4"].append(curves_l["live"]); lseen["g4"].append(curves_l["seen"])
+        n_steps_long = len(clong["steps"])
+        m_long = P.run_bp_stream(glong, "er", er["bp_dims"], CFG, s, lr=er["lr"], l2=er["l2"],
+                                 replay=er["replay"], buffer_cap=er["buffer_cap"], curves=True)
+        ap_le, _, _ = domain_curves(m_long, D)
+        lallprev["er_strong"].append(ap_le); er_long_aa.append(m_long["aa"])
+        llive["er_strong"].append(m_long["live_curve"]); lseen["er_strong"].append(m_long["seen_curve"])
+        lcume[("g4", "analog")].append(P.ours_cum_energy(CFG, clong, ra_long, substrate="analog"))
+        lcume[("g4", "digital")].append(P.ours_cum_energy(CFG, clong, ra_long, substrate="digital"))
+        lcume[("er_strong", "analog")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps_long,
+                                                              replay=er["replay"], substrate="analog"))
+        lcume[("er_strong", "digital")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps_long,
+                                                               replay=er["replay"], substrate="digital"))
+        lfires.append(np.asarray(ra_long["fires"], bool)); lsleeps.append(np.asarray(ra_long["sleeps"], bool))
+        lonsets = list(glong["real_onsets"])
+        # §10 E8b — the ALIGNED-long control (block 72 = exactly 3x the 24-step sleep period -> sleeps back ON the
+        # boundaries; OURS g4 only) — de-confounds domain LENGTH from sleep ALIGNMENT (design §10 round 3)
+        galn = P.make_gauntlet_stream(CFG, s, domains=domains, block=[72] * D)
+        caln = P.build_cache_p9(P.make_committed_cell, galn, s, CFG, store_reps=False, quick=QUICK)
+        ra_aln = P.ours_bundle(caln, hf, CFG, 4)
+        ap_al, _, _ = domain_curves(ra_aln, D)
+        lallprev_al.append(ap_al); ours_alignedlong_aa.append(ra_aln["aa"])
+        alsleeps.append(np.asarray(ra_aln["sleeps"], bool))
+        del caln
         # throughput FLOPs (once)
         if not flops:
             fb_o = P.fair_budget_meter(CFG, learner="ours", ours_res=P.ours_bundle(cache, hf, CFG, 4), ours_cache=cache)
             fb_e = P.fair_budget_meter(CFG, learner="er", bp_dims=er["bp_dims"], replay=er["replay"], buffer_cap=er["buffer_cap"], in_dim=CFG.DIM)
             flops = {"ours_g4": fb_o["flops_per_sample"], "er_strong": fb_e["flops_per_sample"]}
         print(f"  seed {s}: OURS g4 allprev[-1]={allprev['g4'][-1][-1]:.3f} ER allprev[-1]={allprev['er_strong'][-1][-1]:.3f} "
-              f"order-delta={order_delta[-1]:+.3f}", flush=True)
-        del cache, crev
+              f"order-delta={order_delta[-1]:+.3f} | LONG worst-allprev OURS={min(ap_l):.3f} ER={min(ap_le):.3f}", flush=True)
+        del cache, crev, clong
 
     # --- verdict (the honest continual read = worst-point all-prev; the two halves banked separately) ---
     dacc = CFG.DELTA_ACC
@@ -209,6 +249,36 @@ def main():
           f"live-batch mean OURS {np.nanmean(np.array(rlive['g4'])):.3f} vs ER "
           f"{np.nanmean(np.array(rlive['er_strong'])):.3f} | ER reversed final AA {R.fmt(er_rev_aa)} "
           f"(vs forward {R.fmt(np.array(allprev['er_strong'])[:, -1])}) — K9's ER leg completed", flush=True)
+    # --- §10 E8/E8b — the ALIGNMENT-BREAK read (pinned BLIND; mechanism attribution decided by the E8b control) ---
+    worst_lo = R.med([min(a) for a in lallprev["g4"]]); worst_le = R.med([min(a) for a in lallprev["er_strong"]])
+    sl0 = np.where(lsleeps[0])[0]; per_dom_sleeps = [int(((sl0 >= a) & (sl0 < b)).sum())
+                                                    for a, b in zip(lonsets, lonsets[1:] + [len(lsleeps[0])])]
+    align_gap = R.med([min(a) - min(b) for a, b in zip(lallprev_al, lallprev["g4"])])   # paired: aligned-72 - misaligned
+    worst_al = R.med([min(a) for a in lallprev_al])
+    sl_al = np.where(alsleeps[0])[0]
+    if worst_lo >= worst_le - dacc:
+        verdict_long = (f"ALIGNMENT-INDEPENDENT (OURS worst-point all-prev {worst_lo:.3f} >= ER {worst_le:.3f} - delta "
+                        f"on the misaligned stream — the P10.3 retention mechanism survives sleep/boundary misalignment)")
+    elif abs(align_gap) <= dacc:
+        verdict_long = (f"LENGTH-EFFECT (OURS aligned-72 {worst_al:.3f} vs misaligned {worst_lo:.3f}, paired gap "
+                        f"{align_gap:+.3f} <= delta — alignment is a NON-FACTOR for OURS; ER strengthens on longer "
+                        f"domains (final AA {R.med(er_long_aa):.3f} long vs "
+                        f"{R.med(np.array(allprev['er_strong'])[:, -1]):.3f} committed) -> the P10.3 relative win is "
+                        f"switch-frequency-scoped, banked as a money-figure scope line)")
+    else:
+        verdict_long = (f"ALIGNMENT-LUCK (OURS aligned-72 {worst_al:.3f} vs misaligned {worst_lo:.3f}, paired gap "
+                        f"{align_gap:+.3f} > delta — the committed gauntlet's flat line was partly the 24-step "
+                        f"alignment; banked as a P10.3 caveat)")
+    print(f"  §10 E8 ALIGNMENT-BREAK stream (blocks {LONG_BLOCKS}, {len(lsleeps[0])} steps): final seen-so-far OURS g4 "
+          f"{R.med(np.array(lseen['g4'])[:, -1]):.3f} vs ER {R.med(np.array(lseen['er_strong'])[:, -1]):.3f} | "
+          f"live-batch mean OURS {np.nanmean(np.array(llive['g4'])):.3f} vs ER "
+          f"{np.nanmean(np.array(llive['er_strong'])):.3f} | final AA OURS {R.fmt(ours_long_aa)} vs ER {R.fmt(er_long_aa)} | "
+          f"sleeps/domain (seed {SEEDS[0]}) {per_dom_sleeps} at steps {sl0.tolist()} (onsets {lonsets}) — "
+          f"sleeps land MID-domain", flush=True)
+    print(f"  §10 E8b ALIGNED-long control (block 72x5): OURS worst-point all-prev {worst_al:.3f} vs misaligned "
+          f"{worst_lo:.3f} (paired gap {align_gap:+.3f}) | final AA {R.fmt(ours_alignedlong_aa)} | sleeps (seed "
+          f"{SEEDS[0]}) at steps {sl_al.tolist()} (boundaries at 71,143,215,287,359)", flush=True)
+    print(f"  §10 E8 VERDICT: {verdict_long}", flush=True)
     print(f"  VERDICT: {verdict}", flush=True)
 
     # arrays
@@ -242,11 +312,29 @@ def main():
     A["streamrevfires_g4"] = np.array(rfires); A["streamrevsleeps_g4"] = np.array(rsleeps)
     A["streamrev_onsets"] = np.array(ronsets, int)
     A["domains_rev"] = np.array(domains[::-1]); A["er_rev_aa"] = np.array(er_rev_aa)
+    # §10 E8 — the ALIGNMENT-BREAK stream view (GAUNTLET-STREAM-LONG)
+    for c in ("g4", "er_strong"):
+        A[f"streamlonglive_{c}"] = np.array(llive[c]); A[f"streamlongseen_{c}"] = np.array(lseen[c])
+        A[f"streamlongcume_{c}_analog"] = np.array(lcume[(c, "analog")])
+        A[f"streamlongcume_{c}_digital"] = np.array(lcume[(c, "digital")])
+        A[f"longallprev_{c}"] = np.array(lallprev[c])
+    A["streamlongfires_g4"] = np.array(lfires); A["streamlongsleeps_g4"] = np.array(lsleeps)
+    A["streamlong_onsets"] = np.array(lonsets, int); A["blocklong"] = np.array(LONG_BLOCKS, int)
+    A["ours_long_aa"] = np.array(ours_long_aa); A["er_long_aa"] = np.array(er_long_aa)
+    # §10 E8b — the ALIGNED-long control
+    A["alignedlongallprev_g4"] = np.array(lallprev_al); A["ours_alignedlong_aa"] = np.array(ours_alignedlong_aa)
+    A["alignedlongsleeps_g4"] = np.array(alsleeps)
     man = R.base_manifest("P10.3", SEEDS, QUICK, guards=g, wall_s=round(time.time() - t0, 1),
                           domains=domains, tier1_rep=f"grid-{rep}", cfgs=cfgs, verdict=verdict,
                           worst_allprev=dict(ours_g4=worst_o, er_strong=worst_e),
                           substrate_total_win=total_win, order_delta=R.fmt(order_delta),
                           throughput=thr,
+                          long_blocks=LONG_BLOCKS, verdict_long=verdict_long,
+                          worst_allprev_long=dict(ours_g4=worst_lo, er_strong=worst_le),
+                          long_final_aa=dict(ours_g4=R.fmt(ours_long_aa), er_strong=R.fmt(er_long_aa)),
+                          long_sleeps_per_domain=per_dom_sleeps,
+                          aligned_long=dict(block=72, worst_allprev=worst_al, align_gap_paired=align_gap,
+                                            final_aa=R.fmt(ours_alignedlong_aa)),
                           notes="retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point "
                                 "is the P9 honest read. Per-DOMAIN cumulative energy = proportional-to-steps shape; the "
                                 "§10 GAUNTLET-STREAM arrays carry the EXACT per-batch prefix-priced cumulative energy "

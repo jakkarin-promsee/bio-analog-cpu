@@ -84,6 +84,46 @@ def _lbl(k):
     return _LBL.get(k, k)
 
 
+# ============================================================ §10 E9 — the numbered-point cadence encoding
+_GRID_TIER1 = {"4", "5", "6"}
+_GRID_PROBES = {"7", "13", "14", "15"}
+
+
+def _grid_num(name):
+    import re
+    m = re.fullmatch(r"(?:ours_)?g(\d+)", str(name))
+    return m.group(1) if m else None
+
+
+def _grid_scatter(ax, name, x, y, *, idx=0):
+    """One cadence point = a tier-coloured circle with the grid NUMBER on it (result-format §A, §10 E9). Teal =
+    Tier-1, orange = Tier-2, grid-4 ringed — number WHITE INSIDE the filled circle; probes are OPEN circles with the
+    number beside (alternating above/below). The number IS the sign — no per-grid legend."""
+    num = _grid_num(name)
+    col = "#0b8f6a" if num in _GRID_TIER1 else "#d9690a"
+    ring = (num == "4"); probe = num in _GRID_PROBES
+    ax.scatter(x, y, marker="o", facecolors=("none" if probe else col),
+               edgecolors=("#000000" if ring else col), s=(135 if ring else (46 if probe else 95)),
+               linewidths=(1.6 if ring else 1.0), zorder=3)
+    if probe:                                                          # open circle -> number beside (fixed per probe,
+        dy = 9 if num in ("14", "15") else -14                         # so neighbouring labels never stack)
+        dx = {"14": 5, "15": -5}.get(num, 0)
+        ax.annotate(num, (x, y), textcoords="offset points", xytext=(dx, dy), ha="center",
+                    fontsize=6.5, color=col, fontweight="bold", zorder=4)
+    else:                                                              # filled circle -> number inside, white
+        ax.annotate(num, (x, y), ha="center", va="center", fontsize=(7 if ring else (6.5 if len(num) == 1 else 5.3)),
+                    color="#ffffff", fontweight="bold", zorder=4)
+    return num
+
+
+def _grid_legend_handles():
+    from matplotlib.lines import Line2D
+    return [Line2D([], [], ls="", marker="o", mfc="#0b8f6a", mec="#000000", mew=1.4, ms=9, label="g4 (committed)"),
+            Line2D([], [], ls="", marker="o", mfc="#0b8f6a", mec="#0b8f6a", ms=7, label="Tier-1"),
+            Line2D([], [], ls="", marker="o", mfc="#d9690a", mec="#d9690a", ms=7, label="Tier-2"),
+            Line2D([], [], ls="", marker="o", mfc="none", mec="#d9690a", ms=6, label="probe")]
+
+
 # ============================================================ FIGHT (P10.1 headline)
 def fig_fight(d, out):
     if "learners" not in _keys(d):
@@ -124,23 +164,26 @@ def fig_cadence_frontier(d, out):
         return []
     grids = _names(d, "grids")
     fig, (axL, axR) = plt.subplots(1, 2, figsize=STYLE["figsize_frontier"])
-    for g in grids:
-        col, ls, mk, ring = _enc(g)
+    for i, g in enumerate(grids):                                      # §10 E9 — numbered points, tier legend
         acc = np.atleast_1d(np.asarray(d[f"acc_{g}"], float)); en = np.atleast_1d(np.asarray(d[f"energy_{g}"], float))
-        axL.scatter(_med(en), _med(acc), c=col, marker=mk or "o", s=90 if ring else 55,
-                    edgecolors=("#000000" if ring else col), linewidths=1.5 if ring else 0.8, zorder=3,
-                    label=_lbl(g))
+        _grid_scatter(axL, g, _med(en), _med(acc), idx=i)
+    axL.margins(y=0.1)
     axL.set_xscale("log"); axL.set_xlabel("metered energy (pJ)"); axL.set_ylabel("final AA")
-    axL.set_title("cost-frontier (g4 ringed = committed)", fontsize=9); axL.legend(fontsize=6.5, loc="best")
+    axL.set_title("cost-frontier (number = grid; g4 ringed)", fontsize=9)
+    axL.legend(handles=_grid_legend_handles(), fontsize=6.5, loc="center right")
     xs = np.arange(len(grids))
     for xi, g in zip(xs, grids):
-        col = _enc(g)[0]; bw = np.atleast_1d(np.asarray(d[f"bwtworst_{g}"], float))
-        axR.bar(xi, _med(bw), color=col, width=0.7,
+        num = _grid_num(g) or ""; col = "#0b8f6a" if num in _GRID_TIER1 else "#d9690a"
+        probe = num in _GRID_PROBES; bw = np.atleast_1d(np.asarray(d[f"bwtworst_{g}"], float))
+        axR.bar(xi, _med(bw), color=col, width=0.7, hatch=("//" if probe else ""),
+                edgecolor=("#7a3c06" if probe else "none"), linewidth=0.6 if probe else 0,
                 yerr=[[_med(bw) - np.percentile(bw, 25)], [np.percentile(bw, 75) - _med(bw)]], capsize=3)
     axR.axhline(-float(d["delta_acc"]) if "delta_acc" in _keys(d) else -0.02, color="#d62728", ls=":", lw=1.0)
     axR.axhline(0.0, color="#111111", lw=0.8)
-    axR.set_xticks(xs); axR.set_xticklabels([_lbl(g) for g in grids], rotation=30, fontsize=7)
-    axR.set_ylabel("worst-point BWT"); axR.set_title("Tier-1 sweet spot vs Tier-2 break", fontsize=9)
+    axR.set_xticks(xs)
+    axR.set_xticklabels([f"g{_grid_num(g)}" if _grid_num(g) else _lbl(g) for g in grids], rotation=0, fontsize=7.5)
+    axR.set_ylabel("worst-point BWT")
+    axR.set_title("Tier-1 sweet spot vs Tier-2 break (hatch = probe)", fontsize=8)
     axR.grid(axis="x", visible=False)
     fig.suptitle(f"CADENCE-FRONTIER — the frozen object as a {len(grids)}-point cost-frontier family", fontsize=10)
     return [_save(fig, out, "CADENCE_FRONTIER.png")]
@@ -248,6 +291,13 @@ def fig_gauntlet_stream_rev(d, out):
                                            "(noised first) — §10 E6")
 
 
+def fig_gauntlet_stream_long(d, out):
+    return _gauntlet_stream_panel(d, out, pre="streamlong", onset_key="streamlong_onsets", dom_key="domains",
+                                  fname="GAUNTLET_STREAM_LONG.png",
+                                  suptitle="GAUNTLET-STREAM-LONG — the ALIGNMENT-BREAK view "
+                                           "(long domains, sleeps land MID-domain) — §10 E8")
+
+
 # ============================================================ SUBSTRATE (carried from plot_p8; re-metered)
 def fig_substrate(d, out):
     if "substrate_bars" not in _keys(d):
@@ -298,8 +348,12 @@ def fig_pareto(d, out):
     pts = np.atleast_2d(np.asarray(d["pareto_pts"], float))            # [N,3] acc, energy, is_frontier
     labs = _names(d, "pareto_labels")
     fig, ax = plt.subplots(figsize=STYLE["figsize_frontier"])
+    gi = 0
     for i in range(len(pts)):
         nm = labs[i] if i < len(labs) else str(i)
+        if _grid_num(nm):                                              # §10 E9 — OURS cadence points: numbered circles
+            _grid_scatter(ax, nm, pts[i, 1], pts[i, 0], idx=gi); gi += 1
+            continue
         col, ls, mk, ring = _enc(nm)
         ax.scatter(pts[i, 1], pts[i, 0], c=col, marker=mk or "o", s=110 if ring else 60,
                    edgecolors=("#000000" if ring else col), linewidths=1.6 if ring else 0.8, zorder=3, label=_lbl(nm))
@@ -308,7 +362,9 @@ def fig_pareto(d, out):
         order = np.argsort(fr[:, 1]); ax.step(fr[order, 1], fr[order, 0], where="post", color="#111111", lw=1.0,
                                               alpha=0.7, zorder=2)
     ax.set_xscale("log"); ax.set_xlabel("metered energy (pJ)"); ax.set_ylabel("final AA")
-    ax.legend(fontsize=6, loc="best", ncol=2)
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(handles=handles + _grid_legend_handles(), fontsize=6.5, loc="lower right", ncol=2,
+              title="OURS family: number = grid", title_fontsize=6.5)
     ax.set_title("PARETO — where the whole object stands vs the field (hero ringed)", fontsize=9)
     return [_save(fig, out, "PARETO.png")]
 
@@ -334,8 +390,8 @@ def fig_inv(d, out):
     return [_save(fig, out, "INV.png")]
 
 
-_ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_gauntlet_stream, fig_gauntlet_stream_rev, fig_substrate,
-        fig_noise_showcase, fig_pareto, fig_inv]
+_ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_gauntlet_stream, fig_gauntlet_stream_rev,
+        fig_gauntlet_stream_long, fig_substrate, fig_noise_showcase, fig_pareto, fig_inv]
 
 
 def regen(run_dir):

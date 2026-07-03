@@ -569,6 +569,53 @@ extension pattern.)*
 Same discipline: snapshot-then-diff (bit-exact carries or STOP); the replay guards on every stream view; nothing
 learned moves.
 
+### §10 round 3 (2026-07-03 night — the author's read of the round-2 render; pre-registered BEFORE the runs)
+
+- **E8 — the ALIGNMENT-BREAK GAUNTLET-STREAM (the author's "real data test").** The author caught a structural
+  convenience in the committed gauntlet, and the code confirms it: the domain block is **24 steps** and the grid-4
+  sleep period is **exactly 24 steps** (sleep fires every 4th probe-grid point × `LIFE_PROBE_EVERY=6`), so **every
+  sleep lands precisely on a domain's final step** — each domain gets one perfectly-timed consolidation immediately
+  before the switch. The flat OURS line in GAUNTLET-STREAM could therefore be partly **alignment luck**, not
+  retention. E8 breaks the alignment: the same five domains, same forward order, same data/projection/head/seeds,
+  but **per-domain block lengths pinned at `[68, 63, 56, 57, 68]`** (drawn ONCE from `rng(20260703)`, integers
+  `[50, 70]`, redrawn on `%6 == 0` — every length off both the probe-grid stride 6 and the 24-step sleep period;
+  total 312 steps vs the committed 120). Each domain now contains **~2.3–2.8 sleeps**, sleeps land **mid-domain**,
+  and every domain switch lands at a **different phase of the sleep interval** (the phase drifts). Learners:
+  **OURS(grid-4) + ER-strong** only (the stream-view convention), 5 seeds, per-batch view + the retention read.
+  **Measurement-only:** no learned knob moves; the loop mechanism is untouched (same gate/trigger/cadence rule on a
+  less convenient stream). The lockstep-replay guards anchor to **this run's own cache/err_trace** (the stream is
+  new by construction, so the committed-cache anchor is inapplicable — stated, not hidden); every committed P10.3
+  array snapshot-then-diffs bit-exact. **Read (pinned BLIND):** *(i) alignment-independence* iff OURS worst-point
+  all-prev ≥ ER-strong − δ_acc on the misaligned stream (the P10.3 convention, paired) — the retention mechanism
+  survives sleep/boundary misalignment; *(ii) alignment-luck* iff OURS worst-point all-prev < ER-strong − δ_acc —
+  the committed gauntlet's flat line was partly the 24-step alignment, banked honestly as a stated P10.3 caveat
+  (the money figure gains a limitation line; nothing is silently defended). Free mechanism reads: where the OURS
+  troughs move (post-onset vs pre-sleep) now that consolidation is mid-domain; ER on the same long stream is the
+  control (its saw-tooth has no sleep phase to care about). Figure: **GAUNTLET-STREAM-LONG**, drawn below the
+  reversed view.
+- **E8b — the ALIGNED-long control (added after the E8 quick smoke, pinned BEFORE the full 5-seed run; quick numbers
+  not banked).** The quick smoke exposed a **confound in E8**: it changes *two* things vs the committed stream —
+  the alignment AND the domain length — and the early pattern (OURS's own retention *unchanged or better*; ER
+  *strengthening* on longer domains) suggests any relative flip is a **length effect on the opponent**, not an
+  alignment effect on OURS. E8b de-confounds: **OURS(grid-4) only, block = 72 per domain** (the smallest exact
+  multiple of the 24-step sleep period near E8's mean 62.4 — sleeps land back ON the boundaries, 3 per domain;
+  360 steps vs E8's 312, the +15% stated). **Interpretation rule (pinned):** E8's branch *(ii)* fires only the
+  *relative* cut; its **mechanism attribution is decided by E8b** — *alignment-luck* is claimed **iff** the paired
+  OURS worst-point all-prev gap |aligned-72 − misaligned-E8| > δ_acc (alignment genuinely moves OURS); if the gap
+  ≤ δ_acc the (ii) outcome is re-labeled **LENGTH-EFFECT** (alignment is a non-factor for OURS; ER strengthens as
+  domains lengthen because a plastic learner converges per block — the P10.3 relative win is
+  **switch-frequency-scoped**, banked as a stated scope line on the money figure, not a defeat and not a cheat).
+- **E9 — the numbered-point legibility redraw (presentation-only, regen from committed arrays).** Round 2 left
+  CADENCE-FRONTIER and the all-grid PARETO with a 10-shape marker zoo (triangle/pentagon/square/v/</>/d/x) that is
+  unreadable without the legend. Redraw: **every cadence point becomes a tier-colored circle with its grid NUMBER
+  annotated on-point** (teal = Tier-1, orange = Tier-2, open-face = probe, grid-4 keeps the ring); the legend
+  collapses to the four tier roles + the field. **No array changes, no re-run** — `plot_p10.py regen` from the
+  committed `arrays.npz` (the result-format §A encoding table is updated to match — the binding contract moves
+  first).
+
+Same discipline: snapshot-then-diff (bit-exact carries or STOP); the replay guards on every stream view; nothing
+learned moves.
+
 ---
 
 ## Grounding (what the field does — and what we adopt)

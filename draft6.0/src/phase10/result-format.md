@@ -43,11 +43,9 @@ substrate 3/4-way race reuses it. **P10-new entities (colour · style — fixed 
 | entity | colour (hex) | line / marker | role |
 | --- | --- | --- | --- |
 | **OURS grid-4** (committed headline) | `#0b8f6a` (teal) | solid, thick, **ring** on scatter | ⭐ the frozen object; the existential-fight point — **always plotted** (never swapped out) |
-| **OURS grid-5 / grid-6** (Tier-1) | `#0b8f6a` (teal) | solid (grid-5) / dashed (grid-6), triangle | the sweet-spot frontier — cheaper viable cadences; grid-5 is the only δ_acc-worst-BWT-eligible *showcase* rep (grid-6 −0.087 fails) |
-| **OURS grid-8** (Tier-2) | `#d9690a` (orange) | solid, square | ⚠ the forgetting arm (fails the P9 veto) — a degradation point |
-| **OURS grid-12** (Tier-2; §10 ext) | `#d9690a` (orange) | dash-dot, v | ⚠ the 8→16 gap-filler — makes the Tier-2 break's shape legible (home stream only) |
-| **OURS grid-7 / 13 / 14 / 15** (§10 cliff probes) | `#d9690a` (orange) | none (scatter-only): p / < / > / d | characterization probes bracketing the two cliffs (NOT family members; home stream only, P10.2 sweep + P10.6 scatter) |
-| **OURS grid-16** (Tier-2) | `#d9690a` (orange) | dotted, x | ⚠ the under-consolidation arm (fails accuracy) — a degradation point |
+| **OURS grid-5 / grid-6** (Tier-1) | `#0b8f6a` (teal) | lines: solid (grid-5) / dashed (grid-6); **scatter (§10 E9): filled circle + the grid NUMBER annotated on-point** | the sweet-spot frontier — cheaper viable cadences; grid-5 is the only δ_acc-worst-BWT-eligible *showcase* rep (grid-6 −0.087 fails) |
+| **OURS grid-8 / grid-12 / grid-16** (Tier-2) | `#d9690a` (orange) | lines: solid (g8) / dash-dot (g12) / dotted (g16); **scatter (§10 E9): filled circle + the grid NUMBER on-point** | ⚠ the degradation arms (g8 fails the P9 veto; g16 fails accuracy; g12 the 8→16 gap-filler, home stream only) |
+| **OURS grid-7 / 13 / 14 / 15** (§10 cliff probes) | `#d9690a` (orange) | **scatter-only (§10 E9): OPEN circle + the grid NUMBER on-point** | characterization probes bracketing the two cliffs (NOT family members; home stream only, P10.2 sweep + P10.6 scatter) |
 | **ER-strong** (the fair racer) | `#8a1b8a` (magenta) | solid, circle | ⭐ the load-bearing opponent — tuned experience replay, metered |
 | **ER-budget** (FLOPs/bytes matched) | `#8a1b8a` (magenta) | dashed, circle | ER throttled to OURS's budget — the same-budget point |
 | **A-GEM** (efficient replay) | `#c98ac9` (light magenta) | solid, square | the compute-efficient BP+replay variant |
@@ -62,7 +60,9 @@ substrate 3/4-way race reuses it. **P10-new entities (colour · style — fixed 
 Read by role: **teal = OURS (grid-4 ringed = the committed object; Tier-1 solid/dashed)**; **orange = the Tier-2
 degradation arms** (they show the scaling break, greyed if they collapse below chance); **magenta family = the BP+replay
 opponent** (ER-strong the load-bearing one); **black staircase = the Pareto envelope**; **light-grey ticks = the sleep
-events.** **Frontiers order arms by the measured swept quantity** (energy on the Pareto x; cadence on the family sweep),
+events.** **§10 E9 scatter rule (CADENCE-FRONTIER left panel + PARETO):** every cadence point is a **circle in its tier
+colour with its grid NUMBER annotated on-point** (probes open-face, grid-4 ringed) — the number IS the sign; the legend
+carries only the four tier roles (committed / Tier-1 / Tier-2 / probe) + the field learners, never one entry per grid. **Frontiers order arms by the measured swept quantity** (energy on the Pareto x; cadence on the family sweep),
 never by an asserted order; arms failing the accuracy/veto cut are **greyed** (they don't anchor the frontier).
 
 **Required `plot_p10.py` API (one function per figure; signatures fixed):**
@@ -74,6 +74,7 @@ fig_cadence_frontier(run)    # F: CADENCE-FRONTIER (P10.2 — the 5-grid family 
 fig_gauntlet(run)            # F: GAUNTLET         (THE money figure — twin panel: all-prev retention (+ sleep-overlay + domain markers) AND cumulative energy, OURS headline lines vs BP; optional one-interval zoom inset: trough → sleep → recovery)
 fig_gauntlet_stream(run)     # F: GAUNTLET-STREAM  (§10 ext — the per-BATCH training-curve view: live-batch acc + seen-so-far acc (OURS g4 vs ER-strong) over the stream, sleep ticks + domain onsets; twin panel with the per-batch prefix-priced cumulative energy)
 fig_gauntlet_stream_rev(run) # F: GAUNTLET-STREAM-REV (§10 E6 — the identical view on the REVERSED domain order {noised→identity}; answers "is ER's low start real" + "is the late drop noise- or position-specific"; completes K9's ER-on-reversed-stream letter)
+fig_gauntlet_stream_long(run)# F: GAUNTLET-STREAM-LONG (§10 E8 — the ALIGNMENT-BREAK view: forward order, per-domain blocks pinned [68,63,56,57,68] (non-multiples of the 24-step sleep period), ~2-3 sleeps INSIDE each domain, switches mid-sleep-interval; answers "was the flat OURS line alignment luck")
 fig_substrate(run)          # F: SUBSTRATE        (carried from plot_p8 — the 2×2 {OURS,GD}×{analog,digital}, re-metered across the gauntlet)
 fig_noise_showcase(run)      # F: NOISE-SHOWCASE   (P10.4 — directional-retention per held-out environment, OURS-hardened vs BP vs naive)
 fig_pareto(run)              # F: PARETO           (THE verdict — the (accuracy, energy) frontier across OURS-family + the field; hero ringed; win/tie/loss regions)
@@ -109,6 +110,8 @@ functions**, and **every rung writes `arrays.npz` to the schema below.**
 | `streamsleeps_<cfg>` · `streamfires_<cfg>` | `[S, N]` (bool) | §10 ext — the per-step sleep/fire masks behind the stream view's ticks (P10.3) |
 | `stream_onsets` | `[D]` | §10 ext — the step index where each gauntlet domain begins (the onset markers) (P10.3) |
 | `streamrev*_<cfg>` · `domains_rev` | as above · `[D]` (str) | §10 E6 — the identical stream-view key set on the REVERSED domain order (`streamrevlive_`, `streamrevseen_`, `streamrevcume_`, `streamrevsleeps_`, `streamrevfires_`, `streamrev_onsets`) + the reversed domain names (P10.3) |
+| `streamlong*_<cfg>` · `blocklong` · `longallprev_<cfg>` · `ours_long_aa` · `er_long_aa` | as above · `[D]` (int) · `[S, D]` · `[S]` · `[S]` | §10 E8 — the ALIGNMENT-BREAK stream-view key set (`streamlonglive_`, `streamlongseen_`, `streamlongcume_`, `streamlongsleeps_`, `streamlongfires_`, `streamlong_onsets`) + the pinned per-domain block lengths + the long-stream all-prev retention + final AA per learner (P10.3) |
+| `alignedlongallprev_g4` · `ours_alignedlong_aa` · `alignedlongsleeps_g4` | `[S, D]` · `[S]` · `[S, N']` (bool) | §10 E8b — the ALIGNED-long control (OURS g4 only, block 72 = 3× the sleep period): retention + final AA + the sleep mask (verifies the sleeps sit back on the boundaries) — decides E8's mechanism attribution (alignment-luck vs length-effect) (P10.3) |
 | `throughput_<cfg>` · `stepsbehind_<cfg>` | `[S, D]` or `[S]` | the Ghunaim real-time read — stream samples a per-step BP+replay drops vs OURS under a fixed wall-clock-per-sample budget (P10.3) |
 | `gdshare_<domain>` | `[S]` | the SCFF:Namer ratio per domain — the "final ratio" vs difficulty (P10.3) |
 | `noise_envs` | `[E]` (str) | held-out environments — {clean, iid, directional, adc3b, nuisance} (P10.4) |
@@ -207,6 +210,7 @@ racer's shape is its own `race_bp`-tuned choice, not capped (K6).
 | **CADENCE-FRONTIER** *(P10.2)* | `fig_cadence_frontier` | the 5 grids on (accuracy × energy), worst-BWT as marker colour; Tier-1 solid, Tier-2 orange; the knee + the break | where the sizes sit; which Tier-1 rep; where Tier-2 degrades |
 | **GAUNTLET** *(THE money figure, P10.3)* | `fig_gauntlet` | **twin panel** — top: worst-pre-sleep all-prev retention vs stream (**grid-4 always + Tier-1 rep + grid-8 + grid-16** OURS lines + BP field, **sleep-position ticks + domain-boundary lines**; optional one-interval zoom inset: trough → sleep → recovery); bottom: cumulative energy vs stream (per substrate); **+ the throughput / steps-behind read** (the Ghunaim real-time payoff); **all five grids run** — the per-domain frontier strip (via `fig_cadence_frontier`) shows the full family per world (K7) | does it learn 5 worlds without forgetting, cheaper than BP and keeping up in real time; when do the sleeps land; which cadence does each world like |
 | **GAUNTLET-STREAM** *(§10 ext, P10.3)* | `fig_gauntlet_stream` | **twin panel, x = batch** — top: live-batch acc (thin, prequential) + seen-so-far all-domain acc (thick) for OURS(g4) vs ER-strong, sleep ticks + domain-onset lines; bottom: per-batch cumulative metered energy (exact prefix pricing) | the in-domain vs domain-switch activity — onset dips, sleep recoveries, and where the energy is actually spent, batch by batch |
+| **GAUNTLET-STREAM-LONG** *(§10 E8, P10.3)* | `fig_gauntlet_stream_long` | the identical twin panel on the **alignment-break** stream — forward order, per-domain blocks pinned `[68,63,56,57,68]` (~2–3 sleeps inside each domain; switches land mid-sleep-interval, phase drifting) | was the committed gauntlet's flat OURS line **alignment luck** (block 24 == the grid-4 sleep period), or does retention survive when sleeps land mid-domain |
 | **SUBSTRATE** *(carried from plot_p8)* | `fig_substrate` | the 2×2 {OURS,GD}×{analog,digital} total-energy bars (hero ringed) + the substrate/algorithm/total win box, re-metered over the gauntlet | how much of the win is the analog substrate vs the 80/20 algorithm |
 | **NOISE-SHOWCASE** *(P10.4)* | `fig_noise_showcase` | directional-retention vs noise level per held-out environment; OURS-hardened vs BP+replay vs naive | does the noise-hardened cell hold where naive/BP degrade (the directional enemy) |
 | **PARETO** *(THE verdict, P10.6)* | `fig_pareto` | the (accuracy, energy) scatter across OURS-family + the field; the non-dominated staircase; win/tie/loss regions; hero ringed | where the whole object stands vs the field — the close-out picture |
@@ -356,7 +360,11 @@ freeze-honesty affirmed, the guards green.
   **throughput / steps-behind** read, the **substrate re-meter**, and the **GD-share vs difficulty** sub-table; **AAA**
   reported beside AA. **§10 ext:** the **GAUNTLET-STREAM** per-batch view is emitted with its three guards green (cell
   replay bit-exact vs the committed cache; head replay ≡ the committed `err_trace`; cumulative-energy endpoint ≡ the
-  committed meter total) — a broken replay guard voids the stream view, never the committed money figure.
+  committed meter total) — a broken replay guard voids the stream view, never the committed money figure. **§10 E8:**
+  the **GAUNTLET-STREAM-LONG** alignment-break view is emitted with the same replay guards anchored to **its own
+  run's** cache/err_trace (the stream is new by construction — stated); its read (alignment-independence vs
+  alignment-luck) is banked per design §10 round 3, and an alignment-luck outcome is written into the GAUNTLET
+  caption as a stated limitation, never silently absorbed.
 - [ ] **P10.4** uses a **margin-disjoint held-out** noise battery (the `noise_holdout_guard` asserts a concrete margin from
   P9.4's residual **and** flags genuinely-novel-structure "payoff" vs re-parameterized "confirms"); the read is **directional
   retention** (a direction, not a magnitude — the spine); a residual that bites is **named → analog layer**.
@@ -385,7 +393,7 @@ freeze-honesty affirmed, the guards green.
 | **P10.0** bench + guards | INV (fair-budget + freeze-content + cadence-family + gauntlet-data + noise-holdout + substrate-identity + all P8/P9 guards) |
 | **P10.1** existential fight | **FIGHT** + **PARETO** (OURS-g4 vs the racer field), INV |
 | **P10.2** cadence frontier | **CADENCE-FRONTIER** (5 grids on acc × energy × worst-BWT), INV |
-| **P10.3** the gauntlet (money figure) | **GAUNTLET** (twin panel + sleep-overlay) + **GAUNTLET-STREAM** (§10 per-batch view) + **SUBSTRATE** (re-metered), INV |
+| **P10.3** the gauntlet (money figure) | **GAUNTLET** (twin panel + sleep-overlay) + **GAUNTLET-STREAM** (§10 per-batch view, fwd + REV + **LONG/alignment-break**) + **SUBSTRATE** (re-metered), INV |
 | **P10.4** noise showcase | **NOISE-SHOWCASE** (directional retention per held-out env), INV |
 | **P10.5** A5 natural *(may fold into P10.3)* | **FIGHT**/**PARETO** on natural data, INV |
 | **P10.6** the verdict + close-out | **PARETO** (the full frontier + win/tie/loss map) + the Stage-2 close-out rewrite |
