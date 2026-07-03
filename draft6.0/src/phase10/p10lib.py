@@ -593,8 +593,9 @@ def held_out_noise_battery(cell, Xpr, Ypr, Xte, Yte, cfg, seed, *, input_axis=No
                  directional=(cfg.NOISE_HOLDOUT_INPUT_RMS, "dir", 0),
                  adc3b=(cfg.NOISE_HOLDOUT_INPUT_RMS, "dir", cfg.NOISE_HOLDOUT_ADC_BITS),
                  nuisance=(cfg.NOISE_NUISANCE_GAIN, "nuisance", 0))
+    _env_off = {"clean": 0, "iid": 100, "directional": 200, "adc3b": 300, "nuisance": 400}   # deterministic (NOT hash())
     for env, (rms, variant, adc) in specs.items():
-        DEV = seed + 7 + hash(env) % 1000
+        DEV = seed + 7 + _env_off[env]                                 # reproducible device-offset seed; shared eval+reanchor
         if variant == "nuisance":                                      # layernorm-invariant covariate (SCFF removes it)
             Xte_n = cfg.NUIS_GAIN * Xte + cfg.NUIS_OFFSET
             reps_res = cell.infer(Xte_n)

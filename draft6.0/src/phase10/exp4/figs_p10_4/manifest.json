@@ -1,0 +1,102 @@
+{
+  "rung": "P10.4",
+  "git": "fd8d238f6f1f1f8d6de9aaf3d89688fe672440af",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cadence_headline": 4,
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "frozen_provenance": "59d2720 (P9 freeze commit; a provenance LABEL, not a runtime git ==)",
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "judged_against_external_baseline": true,
+  "verdict_shapes_pinned_blind": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true,
+    "fair_budget": true,
+    "freeze_content": true,
+    "cadence_family": true,
+    "gauntlet_data": true,
+    "noise_holdout": true,
+    "substrate_identity": true
+  },
+  "wall_s": 210.8,
+  "envs": [
+    "clean",
+    "iid",
+    "directional",
+    "adc3b",
+    "nuisance"
+  ],
+  "verdict": "CONFIRMS P9.4 at new levels: OURS-hardened >> BP+replay on EVERY held-out channel (iid/directional/adc3b/nuisance); a small residual persists (directional 0.978, adc3b 0.923, > delta) -> NAMED -> analog-realism layer",
+  "novel_structure": false,
+  "summary": {
+    "clean": {
+      "ours": "1.000 [1.000-1.000]",
+      "bp": "1.000 [1.000-1.000]",
+      "naive": "1.000 [1.000-1.000]"
+    },
+    "iid": {
+      "ours": "1.095 [1.076-1.151]",
+      "bp": "0.608 [0.589-0.693]",
+      "naive": "0.720 [0.661-0.773]"
+    },
+    "directional": {
+      "ours": "0.978 [0.969-0.980]",
+      "bp": "0.225 [0.150-0.237]",
+      "naive": "0.981 [0.978-0.986]"
+    },
+    "adc3b": {
+      "ours": "0.923 [0.923-0.925]",
+      "bp": "0.300 [0.215-0.504]",
+      "naive": "0.920 [0.739-0.973]"
+    },
+    "nuisance": {
+      "ours": "1.000 [1.000-1.000]",
+      "bp": "0.469 [0.459-0.539]",
+      "naive": "0.423 [0.419-0.441]"
+    }
+  }
+}

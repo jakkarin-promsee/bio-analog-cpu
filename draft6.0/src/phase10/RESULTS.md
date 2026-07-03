@@ -114,3 +114,24 @@ competitive final AA (0.490 vs 0.504, within δ), order-robust / algorithm-energ
 energy win **substrate-realized** (3.5×). Continual half **supported** (steadier), economics **substrate-realized**.
 
 ---
+
+## P10.4 — the noise showcase on a held-out battery *(environment swept; directional retention)*
+
+*Controls: committed cell, margin-disjoint battery (dir-RMS 2.5 vs P9.4's 1.5, +ADC-3b + nuisance), 5 seeds. Read =
+directional retention (acc under channel / clean) — a DIRECTION, the spine.*
+
+| environment | OURS-hardened | BP+replay | naive | holds? · verdict |
+| --- | --- | --- | --- | --- |
+| clean | 1.000 | 1.000 | 1.000 | reference |
+| iid | **1.095 [1.076–1.151]** | 0.608 [0.589–0.693] | 0.720 [0.661–0.773] | OURS ≫ (noise-aug helps) |
+| directional | 0.978 [0.969–0.980] | 0.225 [0.150–0.237] | 0.981 [0.978–0.986] | OURS ≫ BP; small residual > δ |
+| adc3b | 0.923 [0.923–0.925] | 0.300 [0.215–0.504] | 0.920 [0.739–0.973] | OURS ≫ BP; small residual > δ |
+| nuisance | **1.000 [1.000–1.000]** | 0.469 [0.459–0.539] | 0.423 [0.419–0.441] | OURS invariant (layernorm) |
+
+**Verdict:** CONFIRMS P9.4 at new levels — OURS-hardened ≫ BP+replay on **every** held-out channel; a small
+directional/ADC residual (0.978 / 0.923, > δ) persists → **named → the analog-realism layer** (Phase-6 arc cashed on
+the assembled object, honestly scoped; battery is re-parameterized, not structurally-novel → "confirms," not payoff).
+Deterministic (per-env offset, not `hash()`). naive incidentally ties OURS on directional/adc3b (shallow raw-input
+classifier) but collapses on nuisance — the load-bearing comparison is vs the fair continual opponent BP+replay.
+
+---
