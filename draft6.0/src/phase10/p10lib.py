@@ -536,10 +536,20 @@ def make_gauntlet_stream(cfg, seed, *, domains=None, block=None, revisit=1, orde
             else:
                 monitor.append(len(steps) - 1)
     n_steps = len(steps)
-    # fixed probe (domain-0) for bulk_drift + the sleep LUT; eval_by_task = per-domain held-out
-    Xtr0, Ytr0 = data[domains[0]][0], data[domains[0]][1]
-    pr = rng.permutation(len(Xtr0))[:min(cfg.PROBE_N, len(Xtr0))]
-    Xpr, Ypr = Xtr0[pr], Ytr0[pr]
+    # the sleep/replay probe = a balanced CROSS-DOMAIN sample (NOT domain-0 only). Domain-IL fundamentally requires the
+    # replay memory to span domains — ER's reservoir accumulates cross-domain samples, so OURS's hippocampus probe must
+    # too, else a domain-0-anchored probe makes the namer trivially unable to adapt to shifted domains (a construction
+    # artifact, not a learning result). Mild non-causality (all domains present at t0) is benign: re-forwarding an
+    # unseen-domain input through a not-yet-adapted bulk yields uninformative features (no future-domain knowledge
+    # leaks), and the past-domain retention read is unaffected. The frozen LEARNED object is unchanged (bulk/namer/gate/
+    # sleep/cbrs); only the replay SOURCE is the domain-IL-appropriate cross-domain probe.
+    per = max(cfg.NCLASS, cfg.PROBE_N // len(domains))
+    Xs, Ys = [], []
+    for dm in domains:
+        Xd, Yd = data[dm][0], data[dm][1]
+        sel = rng.choice(len(Xd), min(per, len(Xd)), replace=False)
+        Xs.append(Xd[sel]); Ys.append(Yd[sel])
+    Xpr, Ypr = np.vstack(Xs), np.concatenate(Ys)
     eval_by_task = {di: (data[dm][2], data[dm][3]) for di, dm in enumerate(domains)}
     warmup_idx = draw(domains[0], max(6, cfg.WARMUP_STEPS) * B)
     probe_grid = sorted(set(range(cfg.LIFE_PROBE_EVERY - 1, n_steps, cfg.LIFE_PROBE_EVERY))

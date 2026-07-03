@@ -1,0 +1,133 @@
+{
+  "rung": "P10.3",
+  "git": "0e0763e76cc2fbc3656572b5641dd059b4a122cb",
+  "quick": false,
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "committed_loop": {
+    "gate": "ddm",
+    "trigger": "error_ema",
+    "sleep_policy": "grid",
+    "cadence_every": 8,
+    "cbrs": true,
+    "lam_ema": 1.0
+  },
+  "head": "slda",
+  "slda_knob": {
+    "shrinkage": 0.001
+  },
+  "cadence_headline": 4,
+  "cell": "NoiseAugContrast(iid,sig_aug=1.0)+SCFFContrastOverlap temp0.2/w2/L12",
+  "frozen_provenance": "59d2720 (P9 freeze commit; a provenance LABEL, not a runtime git ==)",
+  "delta_acc": 0.02,
+  "gd_share_cap": 0.25,
+  "meter_cite": {
+    "sar_adc_pJ_per_step": 0.2,
+    "adc_energy_x2_per_bit": true,
+    "crossbar_8b_mac_fJ": "<100",
+    "adc_area_vs_crossbar": "5-50x",
+    "isaac_adc_share": "~half tile energy",
+    "refs": [
+      "DNN+NeuroSim",
+      "ISAAC ISCA'16",
+      "PUMA ASPLOS'19",
+      "AIHWKit",
+      "SAR-ADC Walden FoM"
+    ],
+    "scope": "behavioral macro-model, relative-energy pJ, NOT SPICE"
+  },
+  "versions": {
+    "numpy": "2.3.5"
+  },
+  "judged_against_external_baseline": true,
+  "verdict_shapes_pinned_blind": true,
+  "guards": {
+    "partial_fit_equiv": true,
+    "fd_budget_gate": true,
+    "meter_proxy": true,
+    "detector_far": true,
+    "scff_static_frozen": true,
+    "cache_replay": true,
+    "n2_readside": true,
+    "evict_equiv": true,
+    "fair_budget": true,
+    "freeze_content": true,
+    "cadence_family": true,
+    "gauntlet_data": true,
+    "noise_holdout": true,
+    "substrate_identity": true
+  },
+  "wall_s": 183.8,
+  "domains": [
+    "identity",
+    "permuted",
+    "rotated",
+    "covariate",
+    "noised"
+  ],
+  "tier1_rep": "grid-5",
+  "cfgs": [
+    "g4",
+    "g5",
+    "g8",
+    "g16",
+    "er_strong"
+  ],
+  "verdict": "RETENTION-COMPETITIVE/BETTER (OURS worst-point all-prev 0.490 vs ER 0.350; AAA 0.519 vs 0.433); algorithm-energy NOT a win (1.47x same-substrate); energy win SUBSTRATE-realized (3.5x OURS-analog vs ER-digital). Final all-prev 0.490 vs 0.504.",
+  "worst_allprev": {
+    "ours_g4": 0.4904,
+    "er_strong": 0.35
+  },
+  "substrate_total_win": 3.5085524099679777,
+  "order_delta": "-0.014 [-0.032-0.018]",
+  "throughput": {
+    "ours_g4": {
+      "flops": 92496.0,
+      "rel_complexity": 0.9999999999998919,
+      "steps_behind_frac": 1.0813572259849025e-13
+    },
+    "er_strong": {
+      "flops": 65268.0,
+      "rel_complexity": 0.7056305137518698,
+      "steps_behind_frac": 0.0
+    }
+  },
+  "notes": "retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point is the P9 honest read. cumulative energy = proportional-to-steps shape (sleeps cluster; noted). GD-share per domain = fire-fraction within each domain block.",
+  "summary": {
+    "g4": {
+      "allprev_last": "0.490 [0.480-0.499]",
+      "worst_allprev": 0.4904,
+      "aaa": "0.519 [0.513-0.547]",
+      "e_digital": 74002894.848
+    },
+    "g5": {
+      "allprev_last": "0.490 [0.480-0.499]",
+      "worst_allprev": 0.46299999999999997,
+      "aaa": "0.494 [0.489-0.526]",
+      "e_digital": 67957192.704
+    },
+    "g8": {
+      "allprev_last": "0.487 [0.483-0.491]",
+      "worst_allprev": 0.464,
+      "aaa": "0.505 [0.494-0.518]",
+      "e_digital": 55865788.416
+    },
+    "g16": {
+      "allprev_last": "0.487 [0.483-0.491]",
+      "worst_allprev": 0.22333333333333336,
+      "aaa": "0.409 [0.397-0.414]",
+      "e_digital": 49820086.272
+    },
+    "er_strong": {
+      "allprev_last": "0.504 [0.488-0.515]",
+      "worst_allprev": 0.35,
+      "aaa": "0.433 [0.430-0.453]",
+      "e_digital": 50299872.0
+    }
+  }
+}

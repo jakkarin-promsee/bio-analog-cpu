@@ -88,3 +88,29 @@ within δ of grid-4, energy IQR-disjointly lower); grid-6 fails the δ-BWT gate 
 axes. Energy monotone with cadence density (6.70e7 → 3.99e7); GD-share 0.178 → 0.107 (all ≤ 0.25). Declared cost axis.
 
 ---
+
+## P10.3 — the multi-domain gauntlet (the money figure) *(config swept; 5 native domain-IL digit worlds)*
+
+*Controls: frozen object at all 5 grids vs ER-strong; domains {identity,permuted,rotated,covariate,noised} → shared
+40-D input, shared head; cross-domain replay probe (domain-IL fair); 5 seeds + reversed-order control. Retention =
+worst pre-sleep all-prev AA (R6).*
+
+| config | final all-prev | worst all-prev | AAA | worst-BWT | cum-energy E(dig) | verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| **OURS grid-4 ⭐** | 0.490 [0.480–0.499] | **0.490** | **0.519** | −0.012 | 7.40e7 | steadiest retention |
+| OURS grid-5 (rep) | 0.490 [0.480–0.499] | 0.463 | 0.494 | −0.038 | 6.80e7 | Tier-1 cheaper rep |
+| OURS grid-8 | 0.487 [0.483–0.491] | 0.464 | 0.505 | −0.036 | 5.59e7 | Tier-2 (cheaper, less safe) |
+| OURS grid-16 | 0.487 [0.483–0.491] | 0.223 | 0.409 | −0.040 | 4.98e7 | Tier-2 (worst-point collapse) |
+| **ER-strong** | 0.504 [0.488–0.515] | 0.350 | 0.433 | 0.000 | 5.03e7 | higher final, dips mid-stream |
+
+- same-substrate (digital) cut: OURS g4 7.40e7 vs ER 5.03e7 → **1.47× more**; substrate total (OURS-analog vs
+  ER-digital): **3.5× cheaper**. reversed-order AA Δ (g4): **−0.014 [−0.032–+0.018]** (order-robust). throughput: ER
+  rel-complexity 0.71× (FLOPs-lighter), steps-behind 0.
+- SCFF:Namer GD-share per domain (grid-4): stored (`gdshare_g4`) — low across domains (gate rarely fires; the loop
+  consolidates via sleep).
+
+**Verdict:** RETENTION-COMPETITIVE/BETTER (OURS worst-point all-prev 0.490 vs ER 0.350; AAA 0.519 vs 0.433) at
+competitive final AA (0.490 vs 0.504, within δ), order-robust / algorithm-energy NOT a win same-substrate (1.47×) /
+energy win **substrate-realized** (3.5×). Continual half **supported** (steadier), economics **substrate-realized**.
+
+---
