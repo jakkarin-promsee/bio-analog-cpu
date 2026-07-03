@@ -32,13 +32,14 @@ baseline that beats the fancy CL methods (Prabhu CVPR'23; Ghunaim CVPR'23). Unti
 budgeted ER** on accuracy, the headline is *supported, not validated.* Phase 10 measures it — and reports whatever the
 numbers say, **win or lose.**
 
-**The reframe (the kickoff decision): present the frozen object as a 5-cadence cost-frontier *family*.** Rather than
+**The reframe (the kickoff decision): present the frozen object as a cadence cost-frontier *family*.** Rather than
 racing a single point, the object is shown as a family of operating points along its one runtime cost dial — the **sleep
-cadence** (`grid-N` = sleep every N segments), `grid ∈ {4,5,6,8,16}`. **Every *learned* part is frozen** (the SCFF bulk,
-the SLDA namer, the DDM gate, the CBRS eviction, the proto-reanchor defense); only the sleep *interval* changes. **grid-4
-is the committed frozen headline and is never swapped** — the family is a *declared, transparent cost axis* (the x of
-every Pareto plot), not a knob turned to beat the baseline. This matters beyond P10: the cadence *is* the sleep mechanism,
-so how the five score shapes the future of the sleep design.
+cadence** (`grid-N` = sleep every N segments), `grid ∈ {4,5,6,8,16}` (+ **grid-12**, added post-close by the §10
+extension to make the Tier-2 break's shape legible). **Every *learned* part is frozen** (the SCFF bulk, the SLDA namer,
+the DDM gate, the CBRS eviction, the proto-reanchor defense); only the sleep *interval* changes. **grid-4 is the
+committed frozen headline and is never swapped** — the family is a *declared, transparent cost axis* (the x of every
+Pareto plot), not a knob turned to beat the baseline. This matters beyond P10: the cadence *is* the sleep mechanism, so
+how the family scores shapes the future of the sleep design.
 
 ---
 
@@ -96,9 +97,10 @@ leg — the Split-X complement the research names, so the gauntlet stays purely 
 ![P10.1 — the existential fight](exp1/figs_p10_1/FIGHT.png)
 *The fight. **Left** — accuracy: OURS(grid-4) **0.494** and ER-strong **0.498** sit inside the δ=0.02 band (a tie; OURS
 wins 3/5 seeds), both far above the field (ER-budget 0.376, A-GEM 0.320, DER++ 0.360, naive 0.308) and well below the
-offline joint-BP ceiling (0.870, dash-dot). **Right** — energy per substrate: OURS's 12-layer bulk costs more than the
-small tuned ER on the digital substrate, and the gap collapses on the analog substrate — the whole "why analog" in one
-pair of bars. (n=5, continual home; behavioral ADC-centred meter.)*
+offline joint-BP ceiling (0.870, dash-dot); the §10 **OURS grid-5** bar beside the headline shows the family's cheaper
+Tier-1 point riding δ-equal (0.495). **Right** — energy per substrate: OURS's 12-layer bulk costs more than the small
+tuned ER on the digital substrate (grid-5 trims ~11% off grid-4), and the gap collapses on the analog substrate — the
+whole "why analog" in one pair of bars. (n=5, continual home; behavioral ADC-centred meter.)*
 
 The raw accuracy read is a **tie within δ** — exactly the *live accuracy-loss branch* the plan pre-registered ("on a
 ~0.49-AA synthetic home a budgeted ER may well edge us"). But the **corrected worst-pre-sleep BWT reveals the real
@@ -113,23 +115,33 @@ small tuned ER. The energy win is **substrate-realized**: OURS-analog 6.70e7 is 
 win (10× safer)**, **algorithm-energy not a same-substrate win**, **total energy substrate-realized.** AAA favors ER
 (0.503 vs 0.392) — the sleep-cadence anytime tax, reported beside AA. The two halves are banked separately from here on.
 
-### P10.2 — the cadence frontier → *grid-4 the headline, grid-5 the cheaper rep, the Tier-2 break legible*
+### P10.2 — the cadence frontier → *grid-4 the headline, grid-5 the cheaper rep, the Tier-2 break has TWO cliffs*
 
-The frozen object as a 5-point cost-frontier family — only the sleep interval varies; grid-4 reproduces the P9 freeze
-bit-for-bit (the guard's core check).
+The frozen object as a cost-frontier family (six points after the §10 extension added grid-12) — only the sleep interval
+varies; grid-4 reproduces the P9 freeze bit-for-bit (the guard's core check).
 
 ![P10.2 — the cadence cost-frontier family](exp2/figs_p10_2/CADENCE_FRONTIER.png)
-*The frontier. Five operating points on (accuracy × energy), worst-BWT the marker read. **grid-4** (⭐, committed
+*The frontier. Six operating points on (accuracy × energy), worst-BWT the marker read. **grid-4** (⭐, committed
 headline) anchors the safe/dense end (worst-BWT −0.028, energy 6.70e7); **grid-5** is the δ-eligible Tier-1 showcase rep
 (−0.039, within δ of grid-4, IQR-disjointly cheaper at 5.99e7); **grid-6** fails the δ-BWT gate (−0.087); the Tier-2 arms
-(orange) make the scaling break legible — **grid-8** forgets (−0.317, fails the veto) and **grid-16** drops accuracy
-(0.458, over-sparse). Energy is monotone with cadence density (6.70e7 → 3.99e7); GD-share falls 0.178 → 0.107. (n=5.)*
+(orange) make the scaling break legible — **grid-8** forgets (−0.317, fails the veto), **grid-12** (§10) still forgets
+(−0.339) yet *holds* final AA (0.496 at 4.28e7), and **grid-16** drops accuracy (0.458, over-sparse). Energy is monotone
+with cadence density (6.70e7 → 3.99e7); GD-share falls 0.178 → 0.107. (n=5.)*
 
 grid-4 is the committed headline, **never swapped, always plotted.** The Tier-1 *showcase rep* (for the 3-line
 visualization only) is **grid-5** — the only δ-worst-BWT-eligible candidate; grid-6's −0.087 is > δ worse than grid-4's
 −0.028, so it fails the gate (this closes the R2 "cadence-swap loophole" — a cheaper grid must earn its place, it is not
 free). The Tier-2 break is confirmed on **both** axes: grid-8 fails the *veto* (forgetting), grid-16 fails *AA-held*
 (over-consolidation gap). The family is a declared cost axis — no per-dataset best grid is ever passed off as "OURS."
+
+**The §10 grid-12 finding — the break is a plateau + cliff, not a smooth decay.** The author read the AA-vs-energy trend
+as roughly exponential and asked for the missing 8→16 point; grid-12 (never run before, not even in P9.5) shows the
+opposite shape. **Final AA stays flat all the way down to grid-12** (0.496 — statistically grid-4's 0.494) because even 8
+sleeps still cover the stream's revisits on *average*; it **cliffs only at grid-16** (0.458, 6 sleeps). Meanwhile the
+**safety axis broke a full tier earlier** — the worst pre-sleep trough plunges at 6→8 (−0.087 → −0.317) and stays broken
+at grid-12 (−0.339, where even the same-cadence oracle sits at −0.461, so it is pure sparsity, not gate timing). The
+frontier's honest shape: **worst-case safety degrades a full tier before average accuracy does** — which is exactly why
+the freeze committed the knee at grid-4 on the worst-point read, not the final-AA read.
 
 ### P10.3 — the multi-domain gauntlet → *the money figure: steadier retention across 5 worlds at substrate-realized cost*
 
@@ -162,6 +174,24 @@ The gauntlet's **tuning asymmetry is stated blind**: OURS runs a *frozen-config*
 gets its *own best per-domain config* (steel-manned). So OURS's retention win is *despite* the handicap — a frozen
 substrate holding steadier than a tuned end-to-end learner across 5 shifting worlds. This is the showcase's continual
 core: **plasticity across domains without catastrophic forgetting, at substrate-realized cost.**
+
+**The §10 GAUNTLET-STREAM view — the mechanism, batch by batch.** The per-domain money figure reads at checkpoints; the
+extension adds the training-curve view the author asked for — every batch, two measurements per model (the **live-batch**
+prequential accuracy and the **seen-so-far** all-domain accuracy) plus the **exact** prefix-priced cumulative energy. It
+is a *guarded replay* of the committed run, not a new arm (cell pass bit-exact vs the cache; head states bit-exact vs the
+committed error trace; energy endpoint equal to the committed meter total — any divergence aborts).
+
+![P10.3 §10 — the per-batch stream view](exp3/figs_p10_3/GAUNTLET_STREAM.png)
+*The in-domain vs domain-switch activity. **Top** — ER's seen-so-far line (thick magenta) **crashes at every domain onset
+and re-climbs** — the saw-tooth of an end-to-end learner re-fitting its representation to each new world — while
+OURS's (thick teal) rides near-flat ~0.5 across all five; the thin live-batch lines show it directly: ER dives to ~0.1 on
+arrival batches (live mean 0.273) while OURS barely moves (0.469). **Bottom** — cumulative energy at batch resolution:
+OURS is a sleep **staircase** (each consolidation a visible jump), ER a smooth every-step ramp; OURS stays the pricier
+same-substrate line (the 1.47×), now exact per batch. (n=5, median; IQR band on the seen-so-far lines.)*
+
+The stream view is the money figure's mechanism made visible: **ER buys its marginally higher final AA with a
+crash-and-relearn cycle at every domain switch; OURS's forward-only bulk + sleep loop holds both the live and the
+remembered read near-flat.** The steadiness is the product.
 
 ### P10.4 — the noise showcase → *OURS ≫ BP+replay on every held-out channel; a small residual named*
 
@@ -208,9 +238,12 @@ halves separately.
 ![P10.6 — the Pareto verdict](exp6/figs_p10_6/PARETO.png)
 *The verdict. On (final AA × analog energy) the non-dominated staircase is **{er_strong, gdumb}** — OURS(grid-4,
 hero-ringed) is **dominated** (a small tuned ER has higher accuracy *and* lower energy, and GDumb anchors the cheap
-corner, cost-pathologically). OURS's genuine wins are on the axes this scatter does not have: worst-case continual safety,
-noise robustness, and the substrate floor. (n=5; GDumb annotated — it retrains from scratch at eval, not an energy
-competitor.)*
+corner, cost-pathologically). The §10 **full-family money line** {g4 ⭐, g5, g6, g8, g12, g16} sweeps the top of the
+scatter — a near-flat ~0.49-AA line from 6.7e7 down to 4.3e7 pJ, with the single g16 accuracy-cliff outlier — the model's
+whole operating range in one stroke; what the scatter cannot show (g8/g12's broken worst-case safety) is why grid-4 is
+the headline and not the cheapest point. OURS's genuine wins are on the axes this scatter does not have: worst-case
+continual safety, noise robustness, and the substrate floor. (n=5; GDumb annotated — it retrains from scratch at eval,
+not an energy competitor.)*
 
 On the (accuracy × energy) Pareto a small tuned ER **dominates** OURS — because OURS pays for a 12-layer unsupervised bulk
 every step, and that bulk is affordable only on the analog crossbar (near-free MACs), which is the whole "why analog."
@@ -257,8 +290,9 @@ and refined, not inflated.
 - **NOISE — a clean win.** Under the held-out battery OURS holds 0.92–1.10 on every channel while BP+replay collapses to
   0.23–0.61. A small directional/ADC residual is **named → the device-physics layer.**
 
-**New supporting decisions banked:** the cadence cost-frontier `{4,5,6,8,16}` (grid-4 headline, no swap; grid-5 the
-δ-eligible rep) and the characterized SCFF:Namer ratio (GD-share 0.107–0.178 ≤ 0.25). The founding bet is **refined, not
+**New supporting decisions banked:** the cadence cost-frontier `{4,5,6,8,12,16}` (grid-4 headline, no swap; grid-5 the
+δ-eligible rep; the §10 grid-12 point gives the Tier-2 break its **two-cliff shape** — safety falls at 6→8, final AA only
+at 12→16) and the characterized SCFF:Namer ratio (GD-share 0.107–0.178 ≤ 0.25). The founding bet is **refined, not
 inflated** — the honest-science outcome the project's whole method is built to produce.
 
 ---

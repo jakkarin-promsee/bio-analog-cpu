@@ -5,8 +5,11 @@ Does the frozen object (grid-4) match/beat a **budgeted, tuned experience replay
 a matched FLOPs+bytes budget) on **accuracy**, and at what **same-substrate energy** — win, honest-Pareto, or
 dominated? The load-bearing rung.
 
-**Setup.** Swept variable = learner ∈ {ours_g4, er_strong, er_budget, agem, derpp, gdumb, naive} + the offline
-**joint-BP ceiling** (non-raced dashed reference). Controls locked: the frozen object (`59d2720`, grid-4), the
+**Setup.** Swept variable = learner ∈ {ours_g4, **ours_g5 (§10 E1)**, er_strong, er_budget, agem, derpp, gdumb, naive}
++ the offline **joint-BP ceiling** (non-raced dashed reference). ours_g5 = the declared cheaper Tier-1 cadence point
+(the P10.2 showcase rep) drawn beside the committed headline — a presentation enrichment of the declared cost axis,
+never a re-designation; **the verdict is grid-4's** and the no-swap clause stands. *(§10 re-run: all 51 carried arrays
+reproduced bit-exactly; the Pareto frontier membership is unchanged.)* Controls locked: the frozen object (`59d2720`, grid-4), the
 lifelong synthetic home (the class-IL leg — K13; `make_lifelong_stream`, n_steps 536), ER-strong = the P10.0
 seed-7-tuned config ([40,49,49,49,10], lr 1e-3, replay 64, buffer byte-matched to OURS's LUT), the same per-op energy
 table (analog + digital), seeds [42,137,271,314,1729]. Figures FIGHT + PARETO + INV. **Verdict shape pinned BLIND**
@@ -20,6 +23,7 @@ GDumb retrains from scratch at every eval. Wall ≈ 7.2 min.
 | learner | accuracy | E(analog) | E(digital) | worst-BWT | AAA | vs-OURS |
 | --- | --- | --- | --- | --- | --- | --- |
 | **ours_g4 (OURS)** | **0.494 [0.478–0.502]** | 6.70e7 | 3.46e8 | **−0.028** | 0.392 | (ref) |
+| ours_g5 (§10, the cheaper Tier-1 point) | 0.495 [0.483–0.523] | 5.99e7 | 3.16e8 | −0.039 | 0.395 | −11% energy vs g4 at δ-equal safety |
 | er_strong | 0.498 [0.490–0.501] | 3.71e7 | 2.25e8 | −0.272 | 0.503 | +0.004 acc (tie); 10× worse worst-BWT |
 | er_budget | 0.376 [0.375–0.380] | 1.55e7 | 9.41e7 | −0.807 | 0.461 | OURS +0.118 acc |
 | agem | 0.320 [0.320–0.333] | 3.40e7 | 2.26e8 | −0.900 | 0.445 | OURS +0.174 acc |
@@ -30,10 +34,12 @@ GDumb retrains from scratch at every eval. Wall ≈ 7.2 min.
 
 - **FIGHT** (headline): OURS ties ER-strong on final AA (0.494 vs 0.498, gap +0.004 < δ, OURS wins 3/5 seeds → within
   noise) and beats ER-budget / A-GEM / DER++ / naive; the joint ceiling (0.87) shows the synthetic home is far from
-  saturated. **On worst-pre-sleep BWT, OURS (−0.028) forgets ~10× less than tuned ER-strong (−0.272).**
-- **PARETO**: on (accuracy × analog-energy), the frontier is {gdumb, er_strong, ours_g4} — OURS sits on it (highest
-  accuracy of the safe learners); ER-strong is Pareto-adjacent but its cheaper analog energy comes with the −0.272
-  worst-BWT.
+  saturated. **On worst-pre-sleep BWT, OURS (−0.028) forgets ~10× less than tuned ER-strong (−0.272).** The §10
+  ours_g5 point sits δ-equal to grid-4 on every read (0.495 acc, −0.039 worst-BWT, AAA 0.395) at **−11% energy** —
+  the family's cheaper viable option, visible inside the fight itself.
+- **PARETO**: on (accuracy × analog-energy), the frontier membership is {er_strong, gdumb} — OURS (g4, and the §10 g5
+  point beside it) is accuracy-competitive but not frontier on this axis pair; its wins are the off-Pareto axes
+  (worst-case safety, noise). ER-strong's cheaper analog energy comes with the −0.272 worst-BWT.
 - **INV**: 14 guards green.
 
 **Read (8 slots).**

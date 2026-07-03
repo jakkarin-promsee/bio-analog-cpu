@@ -5,8 +5,11 @@
 > validate**). Phase 10 **measured** the frozen two-brain object against a **fair, budgeted, tuned** BP+replay
 > baseline across the continual gauntlet — it tuned nothing (the object was locked in P9; the only dial that moved was
 > the declared cadence cost axis). The verdict shapes were pinned **BLIND** before any baseline number was seen.
+> **+ §10 post-close extension (same evening, author-directed; measurement-only, every carried array bit-exact):**
+> grid-12 fills the Tier-2 gap (the break is a **two-cliff plateau**, not a smooth decay), grid-5 drawn inside the
+> fight, the per-batch **GAUNTLET-STREAM** training-curve view, and the full OURS family on the verdict Pareto.
 > Read this for the verdict; numbers in [`RESULTS.md`](RESULTS.md); per-rung stories in [`expK/experiment-K.md`](exp0/experiment-0.md); the
-> spec in [`design.md`](design.md); the contract in [`result-format.md`](result-format.md).
+> spec in [`design.md`](design.md) (§10 = the extension's pre-run record); the contract in [`result-format.md`](result-format.md).
 
 ---
 
@@ -50,11 +53,11 @@ lifelong stability + noise-survival + the analog energy floor, not a static-accu
 | --- | --- | --- |
 | **P10.0** bench + 6 new guards | is the racer fair + the object provably frozen? | 14/14 green; grid-4 **bit-exact**; ER-strong tuned on seed-7; full roster real code. Pre-registered: OURS uses *more* FLOPs than ER. |
 | **P10.1** existential fight | OURS(g4) vs tuned ER + field, continual home | accuracy **tie** (0.494 vs 0.498); worst-BWT **−0.028 vs −0.272** (safety win); same-substrate energy 1.54× more; substrate total 3.35×. |
-| **P10.2** cadence frontier | the 5-grid cost-frontier family | grid-4 headline (bit-exact); **grid-5 = Tier-1 rep**; grid-6 fails δ-gate; Tier-2 {8,16} break confirmed; energy monotone 6.7e7→4.0e7. |
-| **P10.3** gauntlet (money figure) | 5 domain-IL worlds, all grids vs ER | worst-point all-prev **0.490 vs 0.350**, AAA **0.519 vs 0.433** (steadier); final 0.490 vs 0.504 (within δ); order-robust; 1.47× / 3.5× energy. |
+| **P10.2** cadence frontier | the 6-grid cost-frontier family (+g12 §10) | grid-4 headline (bit-exact); **grid-5 = Tier-1 rep**; grid-6 fails δ-gate; Tier-2 {8,12,16} break has **two cliffs** — safety falls at 6→8 (−0.087→−0.317), final AA holds to g12 (0.496) and only cliffs at 12→16 (0.458); energy monotone 6.7e7→4.0e7. |
+| **P10.3** gauntlet (money figure) | 5 domain-IL worlds, all grids vs ER | worst-point all-prev **0.490 vs 0.350**, AAA **0.519 vs 0.433** (steadier); final 0.490 vs 0.504 (within δ); order-robust; 1.47× / 3.5× energy. §10 **GAUNTLET-STREAM**: per-batch, ER saw-tooths (live mean 0.273, ~0.1 at onsets) while OURS rides flat (0.469) — the steadiness made visible. |
 | **P10.4** noise showcase (held-out) | directional retention OURS vs BP vs naive | OURS **≫ BP+replay on every channel**; residual (dir 0.978 / adc3b 0.923) **named → analog layer**. |
 | **P10.5** A5 natural (digits) | the fight a professor recognizes | ER-strong **beats OURS by +0.071** (0.950 vs 0.879) — synthetic masked ER's static-accuracy edge; OURS is a continual, not static, learner. |
-| **P10.6** Pareto verdict | assemble the frontier + the map | same-substrate Pareto frontier = **{er_strong, gdumb}** (OURS dominated on acc×energy); OURS's wins are off-Pareto (safety/noise/substrate). |
+| **P10.6** Pareto verdict | assemble the frontier + the map | same-substrate Pareto frontier = **{er_strong, gdumb}** (OURS dominated on acc×energy); OURS's wins are off-Pareto (safety/noise/substrate). §10: the **full OURS family** {4,5,6,8,12,16} drawn as the money line (~0.49 AA, 6.7e7→4.3e7 pJ); frontier membership unchanged. |
 
 ---
 

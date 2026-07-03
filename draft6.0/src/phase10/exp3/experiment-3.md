@@ -12,9 +12,17 @@ covariate, noised}, all projected to the shared 40-D bulk input via one pinned s
 10-class head; 5 seeds + a reversed-order control (grid-4 + ER-strong; K9). **Fairness fix (commented in `p10lib`):**
 the sleep/replay probe is a balanced **cross-domain** sample — domain-IL requires the replay memory to span domains
 (ER's reservoir accumulates cross-domain, so OURS's hippocampus probe must too; a domain-0-only probe made the namer
-trivially unable to adapt — a construction artifact, not a learning result). Figures GAUNTLET + SUBSTRATE + INV.
+trivially unable to adapt — a construction artifact, not a learning result). Figures GAUNTLET + **GAUNTLET-STREAM
+(§10 E3)** + SUBSTRATE + INV. **§10 E3 extension (post-close, pre-registered):** the per-BATCH stream view — for
+OURS(g4) and ER-strong, per batch: **live-batch accuracy** (prequential, pre-update) + **seen-so-far all-domain
+accuracy** (post-update) + **exact prefix-priced cumulative energy**. Measurement-only, via the triple-guarded
+lockstep replay (`gauntlet_batch_curves`): the SCFF cell pass asserted bit-exact vs the committed cache
+(rng-fingerprint + `phi_b` every step), the head states asserted vs the committed `err_trace` every step, the
+cumulative-energy endpoint asserted == the committed meter total. All asserts held on all 5 seeds; **all 62 carried
+arrays reproduced bit-exactly** on the re-run.
 
-**Run.** 5 grids × 5 seeds on the gauntlet cache + ER-strong + the reversed-order control; wall ≈ 3.1 min.
+**Run.** 5 grids × 5 seeds on the gauntlet cache + ER-strong (curves on) + the reversed-order control + the §10
+replay; wall ≈ 3.6 min.
 
 **Result / figures.** *(retention = worst pre-sleep all-prev AA per inter-domain interval — R6/K12.)*
 | config | final all-prev | **worst all-prev** | AAA | worst-BWT | E(digital) |
@@ -32,8 +40,19 @@ trivially unable to adapt — a construction artifact, not a learning result). F
 - **GAUNTLET** (money figure): top panel — worst-pre-sleep all-prev retention across the 5 domains, OURS lines
   (grid-4 always + grid-5 rep + grid-8 + grid-16) vs ER, with sleep-position ticks + domain-boundary markers; OURS
   grid-4 holds a near-flat ~0.49 (worst 0.490) while ER dips to 0.350 mid-stream before recovering to 0.504. Bottom —
-  cumulative energy (OURS above ER on digital; the analog line far below). **SUBSTRATE**: the 2×2, OURS-analog ringed,
-  3.5× under ER-digital. **INV**: 14 guards green.
+  cumulative energy (OURS above ER on digital; the analog line far below). *(§10: the two panels' y-labels shortened —
+  they collided in the first render.)* **SUBSTRATE**: the 2×2, OURS-analog ringed, 3.5× under ER-digital. **INV**: 14
+  guards green.
+- **GAUNTLET-STREAM (§10 E3)** — the batch-resolution mechanism view. **Top:** OURS's seen-so-far line rides
+  near-flat ~0.5 across all five worlds while ER's saw-tooths — it **crashes at every domain onset and re-climbs**
+  (the thick-line envelope of its every-step replay chasing the newest domain); the live-batch (thin) lines show the
+  adaptation dips directly — ER dives to ~0.1 at each onset while OURS's live accuracy barely moves (live-batch mean
+  **0.469 vs ER 0.273**). Final seen-so-far converges to the committed final all-prev (0.490 vs 0.504) — the two
+  reads agree where they overlap. **Bottom:** the exact per-batch cumulative energy — OURS is a **staircase** (each
+  sleep's LUT re-forward + solve is a visible jump, clustering after domain onsets) vs ER's smooth every-step ramp;
+  ER's ramp converges toward OURS just before the first sleep, then each sleep staircases OURS back above — OURS
+  stays the pricier same-substrate line throughout, exactly the committed 1.47× read, now visible per batch (this
+  exact read supersedes the proportional per-domain shape).
 
 **Read (8 slots).**
 1. *Claim* — across 5 domains OURS holds **steadier** retention than a budgeted ER (worst-point all-prev 0.490 vs
@@ -41,7 +60,8 @@ trivially unable to adapt — a construction artifact, not a learning result). F
    substrate-realized (3.5× via analog), not a same-substrate algorithm win (1.47× more digital).
 2. *Headline* — worst pre-sleep all-prev **0.490 (OURS g4) vs 0.350 (ER)**; final 0.490 vs 0.504 (within δ); AAA 0.519
    vs 0.433; same-substrate E 1.47× more; substrate total 3.5× cheaper; reversed-order Δ −0.014 (n=5).
-3. *Figures* — GAUNTLET (twin panel + sleep/domain overlay), SUBSTRATE (2×2 re-metered), INV.
+3. *Figures* — GAUNTLET (twin panel + sleep/domain overlay), GAUNTLET-STREAM (§10 — the per-batch live/seen/energy
+   view), SUBSTRATE (2×2 re-metered), INV.
 4. *Mechanism* — OURS's sleep-consolidation gives a **steady** trajectory (high anytime + high worst-point), while ER's
    every-step replay is more variable (dips to 0.350 mid-stream as it chases the newest domain, then recovers by
    stream-end to a marginally higher final). density ≠ class holds at the buffer: OURS's cross-domain CBRS probe
@@ -54,8 +74,10 @@ trivially unable to adapt — a construction artifact, not a learning result). F
    handicap; the reversed-order control is order-robust (Δ −0.014); **the cross-domain probe is mildly non-causal (all
    domains present at t0) — benign: re-forwarding an unseen-domain input through an unadapted bulk yields uninformative
    features, no future-domain knowledge leaks**; (d) single-pass gauntlet → forgetting is milder than the lifelong
-   P10.1 stream (where ER's worst-BWT reached −0.272); cumulative energy is a proportional-to-steps shape (sleeps
-   cluster — noted). Rule-1: one variable (grid / learner).
+   P10.1 stream (where ER's worst-BWT reached −0.272); the per-DOMAIN cumulative-energy curve is a
+   proportional-to-steps shape, now **superseded at batch resolution** by the §10 exact prefix-priced stream view
+   (endpoint guarded == the committed meter total). Rule-1: one variable (grid / learner); the §10 stream view is a
+   guarded REPLAY of the committed run, not a new arm.
 6. *Decision / verdict* — **RETENTION-COMPETITIVE/BETTER** (OURS worst-point all-prev ≥ ER, AAA higher) /
    **algorithm-energy NOT a win** same-substrate (1.47×) / **substrate-realized** (3.5×). The accuracy/continual half
    is **supported** (steadier retention at competitive final AA); the economics half is **substrate-realized**.
@@ -65,4 +87,7 @@ trivially unable to adapt — a construction artifact, not a learning result). F
 8. *Where-it-stands* — the money figure shows the substrate-native continual learner's real edge: **steady multi-domain
    retention** (higher worst-point + anytime) at a substrate-realized 3.5× energy advantage over conventional GD. The
    honest caveat carried from P10.1 holds: on the same digital substrate against a small tuned ER, OURS's deep bulk
-   costs more — the win needs the analog crossbar.
+   costs more — the win needs the analog crossbar. The §10 stream view makes the *mechanism* visible at batch
+   resolution: ER buys its higher final AA with a crash-and-relearn cycle at every domain switch (live-batch mean
+   0.273), while OURS's forward-only bulk + sleep loop holds both the live and the remembered read near-flat (0.469)
+   — the steadiness IS the product.
