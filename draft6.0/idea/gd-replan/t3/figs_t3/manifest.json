@@ -1,0 +1,37 @@
+{
+  "experiment": "t3_cheap_credit",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "L": 12,
+  "W": 64,
+  "dim": 40,
+  "n_class": 4,
+  "probe_ep": 60,
+  "cells": [
+    "h_w1",
+    "h_w2",
+    "h_w3",
+    "h_w4",
+    "h_w6",
+    "h_w12",
+    "h_w2s1",
+    "h_w3s1",
+    "h_w4s2",
+    "h_w4s1",
+    "h_w2_t02",
+    "h_w2s1_t02",
+    "f_w1",
+    "f_w2",
+    "f_w4",
+    "f_w12",
+    "f_w2s1"
+  ],
+  "numpy": "2.3.5",
+  "wall_clock_s": 1922.6
+}

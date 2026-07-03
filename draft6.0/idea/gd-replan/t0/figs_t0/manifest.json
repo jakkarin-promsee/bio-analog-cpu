@@ -1,0 +1,33 @@
+{
+  "experiment": "t0_depthscale_locality",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "L": 12,
+  "W": 64,
+  "dim": 40,
+  "n_class": 4,
+  "probe_ep": 60,
+  "grid": [
+    "base_lr03_ep25",
+    "lr03_ep75",
+    "lr03_ep150",
+    "lr01_ep25",
+    "lr10_ep25",
+    "lr10_ep150",
+    "temp02_ep75",
+    "mask03_ep75"
+  ],
+  "loc": [
+    "w1_local",
+    "w2_adopted",
+    "w4",
+    "w12_e2e",
+    "w12_e2e_lr01"
+  ],
+  "numpy": "2.3.5",
+  "wall_clock_s": 1078.2
+}

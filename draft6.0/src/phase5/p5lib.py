@@ -19,7 +19,7 @@ Reused, NOT re-implemented:
 
 NEW here (P5.0):
   SCFFContrastOverlap : SCFFContrastOLU + a coordination STRIDE — the P5.1 (`temp`) / P5.2 (`window`) cell.
-                        Ported VERBATIM from temp/ref/t3/run_t3.py. The licence to port is the equivalence
+                        Ported VERBATIM from draft6.0/idea/gd-replan/t3/run_t3.py. The licence to port is the equivalence
                         guard: stride==window reproduces SCFFContrastOLU bit-for-bit (a subclass bug cannot
                         masquerade as a finding).
   make_mixed          : the iso-budget flat+headroom corruption detector, DISJOINT label space (design §6's
@@ -75,7 +75,7 @@ __all__ = [
 
 # ============================================================ the cell (P5.1 temp / P5.2 window)
 class SCFFContrastOverlap(SCFFContrastOLU):
-    """[VERBATIM from temp/ref/t3/run_t3.py] SCFFContrastOLU + an overlap STRIDE. Coordination groups start
+    """[VERBATIM from draft6.0/idea/gd-replan/t3/run_t3.py] SCFFContrastOLU + an overlap STRIDE. Coordination groups start
     every `stride` layers; each group is EXACTLY `window` layers deep (the last group is anchored at L-window
     so the top is always covered at full depth), so the backward DEPTH (gradient chain length — the substrate-
     expensive op) is always = window regardless of overlap. `stride == window` reproduces the original

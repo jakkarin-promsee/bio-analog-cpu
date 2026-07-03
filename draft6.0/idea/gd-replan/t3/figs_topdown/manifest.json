@@ -1,0 +1,28 @@
+{
+  "experiment": "t3_2_topdown_credit",
+  "git_commit": "d44ee697eedcb0e11f6b68be3d9f68174b740871",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "L": 12,
+  "W": 64,
+  "dim": 40,
+  "n_class": 4,
+  "probe_ep": 60,
+  "cells": [
+    "td_off",
+    "td_top_l05",
+    "td_top_l10",
+    "td_next_l05",
+    "td_next_l10",
+    "td_top_l10_warm",
+    "f_td_off",
+    "f_td_top_l10"
+  ],
+  "numpy": "2.3.5",
+  "wall_clock_s": 1088.1
+}
