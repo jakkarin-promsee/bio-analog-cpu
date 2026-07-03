@@ -1,6 +1,8 @@
 """
-P10.1 — the EXISTENTIAL FIGHT (design §3 P10.1). Swept variable = learner ∈ {OURS(grid-4), ER-strong, ER-budget,
-A-GEM, DER++, GDumb, naive-BP} (+ the joint-BP CEILING as a non-raced dashed reference — K1), continual home
+P10.1 — the EXISTENTIAL FIGHT (design §3 P10.1 + §10 E1). Swept variable = learner ∈ {OURS(grid-4), OURS(grid-5),
+ER-strong, ER-budget, A-GEM, DER++, GDumb, naive-BP} (+ the joint-BP CEILING as a non-raced dashed reference — K1;
+OURS grid-5 = the §10 declared cheaper Tier-1 point drawn beside the committed headline — the VERDICT is grid-4's,
+the no-swap clause stands), continual home
 (the lifelong synthetic stream = the class-IL leg, K13), 5 seeds. Score accuracy × same-substrate energy (the Pareto
 point) + BWT + AAA. The LOAD-BEARING rung: OURS's continual accuracy has only ever been raced against naive online-BP
 (a strawman); here it races a BUDGETED, TUNED experience replay (Prabhu CVPR'23 — ER is strong under a matched
@@ -34,7 +36,9 @@ import plot_p10                                                        # noqa: E
 QUICK = "--quick" in sys.argv
 OUT = os.path.join(_HERE, "figs_p10_1" + ("_quick" if QUICK else ""))
 SEEDS = CFG.SEEDS[:2] if QUICK else CFG.SEEDS
-ROSTER = ["ours_g4", "er_strong", "er_budget", "agem", "derpp", "gdumb", "naive"]
+ROSTER = ["ours_g4", "ours_g5", "er_strong", "er_budget", "agem", "derpp", "gdumb", "naive"]
+OURS_GRIDS = {"ours_g4": 4, "ours_g5": 5}                              # §10 E1 — grid-5 = the declared cheaper Tier-1
+BP_ROSTER = [k for k in ROSTER if k not in OURS_GRIDS]                 # point beside the committed grid-4 headline
 
 
 def load_er_cfg():
@@ -70,16 +74,18 @@ def main():
     for s in SEEDS:
         stream, cache = R.build_life_cache(s, quick=QUICK, store_reps=False, verbose=False)
         hf = R.committed_hf(s)
-        # OURS grid-4 (the frozen object)
-        ours = P.ours_bundle(cache, hf, CFG, 4)
-        e_an = P.ours_stream_energy(CFG, cache, ours, substrate="analog")
-        e_di = P.ours_stream_energy(CFG, cache, ours, substrate="digital")
-        acc["ours_g4"].append(ours["aa"]); en_an["ours_g4"].append(e_an["total"]); en_di["ours_g4"].append(e_di["total"])
-        bwt["ours_g4"].append(ours["worst_bwt"]); aaa["ours_g4"].append(ours["aaa"]); wbwt["ours_g4"].append(ours["worst_bwt"])
+        # OURS at grid-4 (the frozen object — the fight point) + grid-5 (§10 E1 — the declared cheaper Tier-1 point)
+        line = []
+        for k, gr in OURS_GRIDS.items():
+            ours = P.ours_bundle(cache, hf, CFG, gr)
+            e_an = P.ours_stream_energy(CFG, cache, ours, substrate="analog")
+            e_di = P.ours_stream_energy(CFG, cache, ours, substrate="digital")
+            acc[k].append(ours["aa"]); en_an[k].append(e_an["total"]); en_di[k].append(e_di["total"])
+            bwt[k].append(ours["worst_bwt"]); aaa[k].append(ours["aaa"]); wbwt[k].append(ours["worst_bwt"])
+            line.append(f"OURS g{gr} aa={ours['aa']:.3f}")
         n_steps = len(cache["steps"])
         # the BP+replay field
-        line = [f"OURS g4 aa={ours['aa']:.3f}"]
-        for k in ROSTER[1:]:
+        for k in BP_ROSTER:
             c = fcfg[k]
             m = P.run_bp_stream(stream, c["policy"], c["bp_dims"], CFG, s, lr=c["lr"], l2=c["l2"],
                                 replay=c["replay"], buffer_cap=c["cap"])

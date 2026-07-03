@@ -1,6 +1,6 @@
 {
   "rung": "P10.2",
-  "git": "e5215ea32abbe83c07564f1d0a8ad0effd926939",
+  "git": "c7ca4e8316d1346e47f1d24e38b029229866c9ba",
   "quick": false,
   "seeds": [
     42,
@@ -62,19 +62,22 @@
     "noise_holdout": true,
     "substrate_identity": true
   },
-  "wall_s": 602.5,
+  "wall_s": 557.5,
   "grids": [
     4,
     5,
     6,
     8,
+    12,
     16
   ],
   "tier1_rep": "grid-5",
   "grid4_headline_no_swap": true,
   "tier2_break": {
     "grid8_forgets": true,
-    "grid16_aa_drop": true
+    "grid16_aa_drop": true,
+    "grid12_veto_fail": false,
+    "grid12_aa_drop": false
   },
   "summary": {
     "grid-4": {
@@ -104,6 +107,13 @@
       "worst_bwt": "-0.317 [-0.439--0.267]",
       "gdshare": 0.13796551398870568,
       "nsleep": 12.0
+    },
+    "grid-12": {
+      "acc": "0.496 [0.473-0.508]",
+      "energy": 42749378.56,
+      "worst_bwt": "-0.339 [-0.367--0.333]",
+      "gdshare": 0.11852511195896083,
+      "nsleep": 8.0
     },
     "grid-16": {
       "acc": "0.458 [0.458-0.478]",

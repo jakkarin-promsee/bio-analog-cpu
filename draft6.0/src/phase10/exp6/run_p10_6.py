@@ -1,7 +1,10 @@
 """
-P10.6 — the PARETO VERDICT + the Stage-2 close-out (design §3 P10.6). NOT a scalar: assemble the (accuracy, energy)
-frontier across the OURS-family + the BP+replay field (from P10.1/P10.2/P10.3), state WHERE OURS wins / ties / loses
-(each with its number + mechanism), and bank the founding bet's ECONOMICS and ACCURACY halves SEPARATELY (§7 / R4).
+P10.6 — the PARETO VERDICT + the Stage-2 close-out (design §3 P10.6 + §10 E4). NOT a scalar: assemble the
+(accuracy, energy) frontier across the OURS-family + the BP+replay field (from P10.1/P10.2/P10.3), state WHERE OURS
+wins / ties / loses (each with its number + mechanism), and bank the founding bet's ECONOMICS and ACCURACY halves
+SEPARATELY (§7 / R4). §10 E4: the FULL OURS cadence family {4,5,6,8,12,16} is drawn on the verdict Pareto (the
+author's money line) beside the field — grid-4 stays the ringed committed headline; exp1's ours_g4 is asserted ==
+exp2's g4 bit-for-bit (same cache, same loop) before the merge.
 Emits the PARETO figure + the win/tie/loss map + the arrays the close-out doc and the professor brief cite.
 
 This rung READS the prior rungs' manifests/arrays (it runs nothing new) and integrates. Run AFTER P10.1–P10.4.
@@ -39,14 +42,26 @@ def main():
     t0 = time.time()
     print("P10.6 — the Pareto verdict + Stage-2 close-out (integration; runs nothing new)", flush=True)
     A1, m1 = _load("exp1/figs_p10_1")
+    A2, m2 = _load("exp2/figs_p10_2")
     roster = [x.decode() if isinstance(x, bytes) else str(x) for x in A1["learners"]]
 
     # the Pareto point per learner (OURS-analog vs field-analog — the total scatter; the hero ringed)
     def med(k):
         return float(np.median(A1[k]))
-    pts = [(lr, med(f"acc_{lr}"), med(f"energy_{lr}_analog")) for lr in roster]
+
+    # §10 E4 — the FULL OURS family joins the scatter. Guard: exp1's ours_g4 == exp2's g4 bit-for-bit (same cache,
+    # same frozen loop) — the merge is only legal because the two rungs measured the identical object.
+    if not (np.array_equal(A1["acc_ours_g4"], A2["acc_g4"]) and
+            np.array_equal(A1["energy_ours_g4_analog"], A2["energy_g4"])):
+        print("!! exp1 ours_g4 != exp2 g4 (acc/energy) — the family merge is NOT legal; STOP", flush=True)
+        sys.exit(1)
+    fam_grids = [g.decode() if isinstance(g, bytes) else str(g) for g in A2["grids"]]
+    fam = [(g, float(np.median(A2[f"acc_{g}"])), float(np.median(A2[f"energy_{g}"])))
+           for g in fam_grids if f"ours_{g}" not in roster]            # skip grids already on the roster (g4 ringed, g5)
+    pts = [(lr, med(f"acc_{lr}"), med(f"energy_{lr}_analog")) for lr in roster] + fam
+    names = [p[0] for p in pts]
     fr = P.pareto_frontier(pts)
-    pareto_pts = np.array([[fr[lr]["acc"], fr[lr]["energy"], 1.0 if fr[lr]["is_frontier"] else 0.0] for lr in roster])
+    pareto_pts = np.array([[fr[n]["acc"], fr[n]["energy"], 1.0 if fr[n]["is_frontier"] else 0.0] for n in names])
 
     # the same-substrate (digital) algorithm cut + the total headline
     accO = med("acc_ours_g4"); accE = med("acc_er_strong")
@@ -77,17 +92,21 @@ def main():
     print(f"\n  founding bet — ECONOMICS half: {econ_algo} (algorithm {algo_ratio:.2f}x same-substrate; "
           f"total {total_ratio:.1f}x analog-floor)", flush=True)
     print(f"  founding bet — ACCURACY half: {acc_half} (gap {acc_gap:+.3f} vs delta {CFG.DELTA_ACC})", flush=True)
-    print(f"  Pareto frontier members: {[lr for lr in roster if fr[lr]['is_frontier']]}", flush=True)
+    print(f"  Pareto frontier members: {[n for n in names if fr[n]['is_frontier']]}", flush=True)
+    ours_family = [n for n in names if n.startswith("ours_")] + [f[0] for f in fam]
+    print(f"  OURS family on the scatter (§10 E4): {ours_family} (grid-4 ringed, committed)", flush=True)
 
-    Aout = dict(pareto_pts=pareto_pts, pareto_labels=np.array(roster),
+    Aout = dict(pareto_pts=pareto_pts, pareto_labels=np.array(names),
                 acc_ours=np.array([accO]), acc_er=np.array([accE]),
                 algo_ratio=np.array([algo_ratio]), total_ratio=np.array([total_ratio]),
                 inv_pareto=np.array([1.0]))
     man = R.base_manifest("P10.6", CFG.SEEDS, False, wall_s=round(time.time() - t0, 1),
                           verdict_map=vmap, economics_half=econ_algo, accuracy_half=acc_half,
                           algorithm_ratio=algo_ratio, total_floor_ratio=total_ratio,
-                          pareto_frontier=[lr for lr in roster if fr[lr]["is_frontier"]],
-                          efficiency={lr: fr[lr]["efficiency"] for lr in roster},
+                          pareto_frontier=[n for n in names if fr[n]["is_frontier"]],
+                          efficiency={n: fr[n]["efficiency"] for n in names},
+                          ours_family_on_pareto=ours_family,
+                          family_merge_guard="exp1 ours_g4 == exp2 g4 bit-for-bit (acc + analog energy)",
                           p10_1=m1.get("verdict"))
     R.save_run(OUT, Aout, man)
     for p in plot_p10.regen(OUT):

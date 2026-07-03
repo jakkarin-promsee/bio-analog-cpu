@@ -6,6 +6,11 @@ shared 10-class head — K5/B2/R3), 5 seeds, + ONE reversed-order control (grid-
 new/1-back/all-prev accuracy + AAA + cumulative same-substrate energy + throughput/steps-behind + SCFF:Namer ratio
 vs difficulty; overlay sleep positions; re-meter the substrate 2x2.
 
+§10 E3 extension (post-close, pre-registered): the per-BATCH GAUNTLET-STREAM view — live-batch accuracy
+(prequential) + seen-so-far all-domain accuracy + EXACT prefix-priced cumulative energy for OURS(g4) vs ER-strong,
+via the triple-guarded lockstep replay (cell bit-exact vs the cache; head vs the committed err_trace; energy
+endpoint vs the committed meter total). Measurement-only — every committed key must reproduce bit-exactly.
+
 Read (pinned BLIND): showcase-win iff OURS worst-point all-prev retention within delta of ER-strong AND E(OURS-
 digital) strictly lower at every domain boundary; scaling-limit iff retention decays with #domains; ratio-not-scale-
 free iff GD-share grows with domain hardness. The retention read is worst-point all-prev AA (the P9 honest
@@ -77,14 +82,20 @@ def main():
     all_grid_allprev = {gr: [] for gr in GRIDS}                         # per-domain strip (all five grids)
     gdshare_dom = {gr: [] for gr in GRIDS}                              # SCFF:Namer ratio vs difficulty
     sleep_pos = []; order_delta = []; flops = {}
+    slive = {"g4": [], "er_strong": []}; sseen = {"g4": [], "er_strong": []}    # §10 E3 — the per-batch stream view
+    scume = {("g4", "analog"): [], ("g4", "digital"): [], ("er_strong", "analog"): [], ("er_strong", "digital"): []}
+    sfires = []; ssleeps = []; onsets = None
     for s in SEEDS:
         gstream = P.make_gauntlet_stream(CFG, s, domains=domains)
         cache = P.build_cache_p9(P.make_committed_cell, gstream, s, CFG, store_reps=False, quick=QUICK)
         hf = R.committed_hf(s)
         n_steps = len(cache["steps"]); spd = max(1, n_steps // D)
+        ra_g4 = None
         # OURS at all five grids
         for gr in GRIDS:
             ra = P.ours_bundle(cache, hf, CFG, gr)
+            if gr == 4:
+                ra_g4 = ra
             ap, pl, ob = domain_curves(ra, D)
             all_grid_allprev[gr].append(ap)
             fires = ra["fires"]
@@ -98,14 +109,26 @@ def main():
                 allprev[key].append(ap); plast[key].append(pl); oneb[key].append(ob)
                 aaa[key].append(ra["aaa"]); wbwt[key].append(ra["worst_bwt"])
                 en_an[key].append(met_a["total"]); en_di[key].append(met_d["total"])
-        # ER-strong on the gauntlet
+        # ER-strong on the gauntlet (curves=True is read-only — the learner trajectory is bit-identical; §10 E3)
         m = P.run_bp_stream(gstream, "er", er["bp_dims"], CFG, s, lr=er["lr"], l2=er["l2"],
-                            replay=er["replay"], buffer_cap=er["buffer_cap"])
+                            replay=er["replay"], buffer_cap=er["buffer_cap"], curves=True)
         ap, pl, ob = domain_curves(m, D)
         allprev["er_strong"].append(ap); plast["er_strong"].append(pl); oneb["er_strong"].append(ob)
         aaa["er_strong"].append(m["aaa"]); wbwt["er_strong"].append(m["worst_bwt"])
         en_an["er_strong"].append(P.bp_stream_energy(CFG, er["bp_dims"], "er", n_steps=n_steps, replay=er["replay"], substrate="analog")["total"])
         en_di["er_strong"].append(P.bp_stream_energy(CFG, er["bp_dims"], "er", n_steps=n_steps, replay=er["replay"], substrate="digital")["total"])
+        # §10 E3 — the per-batch stream view (triple-guarded lockstep replay; measurement-only)
+        curves_o = P.gauntlet_batch_curves(gstream, cache, ra_g4, hf, CFG, s)
+        slive["g4"].append(curves_o["live"]); sseen["g4"].append(curves_o["seen"])
+        slive["er_strong"].append(m["live_curve"]); sseen["er_strong"].append(m["seen_curve"])
+        scume[("g4", "analog")].append(P.ours_cum_energy(CFG, cache, ra_g4, substrate="analog"))
+        scume[("g4", "digital")].append(P.ours_cum_energy(CFG, cache, ra_g4, substrate="digital"))
+        scume[("er_strong", "analog")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps,
+                                                              replay=er["replay"], substrate="analog"))
+        scume[("er_strong", "digital")].append(P.bp_cum_energy(CFG, er["bp_dims"], "er", n_steps=n_steps,
+                                                               replay=er["replay"], substrate="digital"))
+        sfires.append(np.asarray(ra_g4["fires"], bool)); ssleeps.append(np.asarray(ra_g4["sleeps"], bool))
+        onsets = list(gstream["real_onsets"])                          # deterministic block layout (same every seed)
         # reversed-order control (grid-4 + ER-strong)
         grev = P.make_gauntlet_stream(CFG, s, domains=domains, order="reversed")
         crev = P.build_cache_p9(P.make_committed_cell, grev, s, CFG, store_reps=False, quick=QUICK)
@@ -153,6 +176,10 @@ def main():
     if thr:
         print(f"  throughput/steps-behind: ER-strong rel-complexity {thr['er_strong']['rel_complexity']:.2f}x, "
               f"steps-behind {thr['er_strong']['steps_behind_frac']:.2f} (OURS 0 by construction)", flush=True)
+    print(f"  §10 stream view (per-batch, replay-guarded): final seen-so-far OURS g4 "
+          f"{R.med(np.array(sseen['g4'])[:, -1]):.3f} vs ER {R.med(np.array(sseen['er_strong'])[:, -1]):.3f} | "
+          f"live-batch mean OURS {np.nanmean(np.array(slive['g4'])):.3f} vs ER "
+          f"{np.nanmean(np.array(slive['er_strong'])):.3f}", flush=True)
     print(f"  VERDICT: {verdict}", flush=True)
 
     # arrays
@@ -171,14 +198,25 @@ def main():
     for gr in GRIDS:
         A[f"gridstrip_g{gr}"] = np.array(all_grid_allprev[gr])
         A[f"gdshare_g{gr}"] = np.array(gdshare_dom[gr])
+    # §10 E3 — the per-batch stream view (GAUNTLET-STREAM)
+    for c in ("g4", "er_strong"):
+        A[f"streamlive_{c}"] = np.array(slive[c]); A[f"streamseen_{c}"] = np.array(sseen[c])
+        A[f"streamcume_{c}_analog"] = np.array(scume[(c, "analog")])
+        A[f"streamcume_{c}_digital"] = np.array(scume[(c, "digital")])
+    A["streamfires_g4"] = np.array(sfires); A["streamsleeps_g4"] = np.array(ssleeps)
+    A["stream_onsets"] = np.array(onsets, int)
     man = R.base_manifest("P10.3", SEEDS, QUICK, guards=g, wall_s=round(time.time() - t0, 1),
                           domains=domains, tier1_rep=f"grid-{rep}", cfgs=cfgs, verdict=verdict,
                           worst_allprev=dict(ours_g4=worst_o, er_strong=worst_e),
                           substrate_total_win=total_win, order_delta=R.fmt(order_delta),
                           throughput=thr,
                           notes="retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point "
-                                "is the P9 honest read. cumulative energy = proportional-to-steps shape (sleeps cluster; "
-                                "noted). GD-share per domain = fire-fraction within each domain block.",
+                                "is the P9 honest read. Per-DOMAIN cumulative energy = proportional-to-steps shape; the "
+                                "§10 GAUNTLET-STREAM arrays carry the EXACT per-batch prefix-priced cumulative energy "
+                                "(supersedes the shape note at batch resolution). GD-share per domain = fire-fraction "
+                                "within each domain block. §10 stream view = triple-guarded lockstep replay "
+                                "(cell bit-exact vs cache fingerprint+phi_b; head vs committed err_trace; energy "
+                                "endpoint vs committed meter total).",
                           summary={c: dict(allprev_last=R.fmt(np.array(allprev[c])[:, -1]),
                                            worst_allprev=R.med([min(a) for a in allprev[c]]),
                                            aaa=R.fmt(aaa[c]), e_digital=R.med(en_di[c])) for c in cfgs})

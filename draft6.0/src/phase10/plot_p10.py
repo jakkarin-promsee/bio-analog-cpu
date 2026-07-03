@@ -25,8 +25,10 @@ STYLE = {**plot_p9.STYLE, **P10_NEW}
 # entity -> (colour, linestyle, marker, ring?) — the P10-new encodings (result-format §A)
 ENC = {
     "ours_g4":  ("#0b8f6a", "-", "o", True),   "g4":  ("#0b8f6a", "-", "o", True),
+    "ours_g5":  ("#0b8f6a", "-", "^", False),
     "g5":       ("#0b8f6a", "-", "^", False),  "g6":  ("#0b8f6a", "--", "^", False),
-    "g8":       ("#d9690a", "-", "s", False),  "g16": ("#d9690a", ":", "x", False),
+    "g8":       ("#d9690a", "-", "s", False),  "g12": ("#d9690a", "-.", "v", False),
+    "g16":      ("#d9690a", ":", "x", False),
     "er_strong": ("#8a1b8a", "-", "o", False), "er_budget": ("#8a1b8a", "--", "o", False),
     "agem":     ("#c98ac9", "-", "s", False),  "derpp": ("#6a1b6a", "-", "^", False),
     "gdumb":    ("#7f7f7f", "-", "D", False),  "naive": ("#111111", ":", None, False),
@@ -35,7 +37,8 @@ ENC = {
     "directional": ("#d62728", "-", "^", False), "adc3b": ("#d9690a", "-", "x", False),
     "nuisance": ("#7f7f7f", "--", "D", False),
 }
-_LBL = {"ours_g4": "OURS grid-4", "g4": "OURS g4", "g5": "OURS g5", "g6": "OURS g6", "g8": "OURS g8 (Tier-2)",
+_LBL = {"ours_g4": "OURS grid-4", "ours_g5": "OURS grid-5", "g4": "OURS g4", "g5": "OURS g5", "g6": "OURS g6",
+        "g8": "OURS g8 (Tier-2)", "g12": "OURS g12 (Tier-2)",
         "g16": "OURS g16 (Tier-2)", "er_strong": "ER-strong", "er_budget": "ER-budget", "agem": "A-GEM",
         "derpp": "DER++", "gdumb": "GDumb", "naive": "naive-BP", "joint": "joint-BP ceiling"}
 plt.rcParams.update({"font.family": STYLE["font"], "font.size": STYLE["base"],
@@ -124,7 +127,7 @@ def fig_cadence_frontier(d, out):
                     edgecolors=("#000000" if ring else col), linewidths=1.5 if ring else 0.8, zorder=3,
                     label=_lbl(g))
     axL.set_xscale("log"); axL.set_xlabel("metered energy (pJ)"); axL.set_ylabel("final AA")
-    axL.set_title("the cadence cost-frontier (grid-4 ringed = committed)"); axL.legend(fontsize=6.5, loc="best")
+    axL.set_title("cost-frontier (g4 ringed = committed)", fontsize=9); axL.legend(fontsize=6.5, loc="best")
     xs = np.arange(len(grids))
     for xi, g in zip(xs, grids):
         col = _enc(g)[0]; bw = np.atleast_1d(np.asarray(d[f"bwtworst_{g}"], float))
@@ -133,8 +136,9 @@ def fig_cadence_frontier(d, out):
     axR.axhline(-float(d["delta_acc"]) if "delta_acc" in _keys(d) else -0.02, color="#d62728", ls=":", lw=1.0)
     axR.axhline(0.0, color="#111111", lw=0.8)
     axR.set_xticks(xs); axR.set_xticklabels([_lbl(g) for g in grids], rotation=30, fontsize=7)
-    axR.set_ylabel("worst-point BWT"); axR.set_title("Tier-1 sweet spot vs Tier-2 break"); axR.grid(axis="x", visible=False)
-    fig.suptitle("CADENCE-FRONTIER — the frozen object as a 5-point cost-frontier family", fontsize=10)
+    axR.set_ylabel("worst-point BWT"); axR.set_title("Tier-1 sweet spot vs Tier-2 break", fontsize=9)
+    axR.grid(axis="x", visible=False)
+    fig.suptitle(f"CADENCE-FRONTIER — the frozen object as a {len(grids)}-point cost-frontier family", fontsize=10)
     return [_save(fig, out, "CADENCE_FRONTIER.png")]
 
 
@@ -160,7 +164,8 @@ def fig_gauntlet(d, out):
     if "sleep_pos" in _keys(d):                                       # sleep-position overlay (fractional domain pos)
         for sp in np.atleast_1d(np.asarray(d["sleep_pos"], float)):
             axT.axvline(sp, color="#bdbdbd", ls="-", lw=0.7, alpha=0.5)
-    axT.set_ylabel("worst pre-sleep all-prev AA"); axT.set_title("retention across domains (sleep ticks light-grey)")
+    axT.set_ylabel("all-prev AA")                                      # short label (the title carries the convention)
+    axT.set_title("retention across domains — worst pre-sleep all-prev AA (sleep ticks light-grey)")
     axT.legend(fontsize=6.5, ncol=2, loc="best")
     for c in cfgs:
         k = f"cumenergy_{c}_analog"
@@ -170,10 +175,59 @@ def fig_gauntlet(d, out):
         M = np.atleast_2d(np.asarray(d[k], float)); axB.plot(x, np.median(M, 0), "-", color=col, lw=STYLE["lw"],
                                                              marker=_enc(c)[2], ms=3)
     axB.set_yscale("log"); axB.set_xticks(x); axB.set_xticklabels(domains, rotation=30, fontsize=7)
-    axB.set_xlabel("gauntlet domain (in order)"); axB.set_ylabel("cumulative energy (pJ)")
+    axB.set_xlabel("gauntlet domain (in order)"); axB.set_ylabel("cum. E (pJ)")   # short label — no y-label collision
     axB.set_title("cumulative metered energy (same-substrate)")
     fig.suptitle("GAUNTLET — 5 domains without forgetting, cheaper than BP (the money figure)", fontsize=10)
     return [_save(fig, out, "GAUNTLET.png")]
+
+
+# ============================================================ GAUNTLET-STREAM (§10 ext — the per-batch view, P10.3)
+def fig_gauntlet_stream(d, out):
+    """The training-curve read: per-BATCH live-batch acc (thin, prequential) + seen-so-far all-domain acc (thick)
+    for OURS(g4) vs ER-strong, sleep ticks + domain onsets; bottom = per-batch prefix-priced cumulative energy."""
+    if "streamseen_g4" not in _keys(d):
+        return []
+    import warnings
+    fig, (axT, axB) = plt.subplots(2, 1, figsize=(10, 5.6), sharex=True,
+                                   gridspec_kw={"height_ratios": [3, 2]})
+    N = np.atleast_2d(np.asarray(d["streamseen_g4"], float)).shape[1]
+    x = np.arange(N)
+    for c in ("g4", "er_strong"):
+        col = _enc("ours_g4" if c == "g4" else c)[0]
+        L = np.atleast_2d(np.asarray(d[f"streamlive_{c}"], float))
+        S = np.atleast_2d(np.asarray(d[f"streamseen_{c}"], float))
+        with warnings.catch_warnings():                                # step-0 live is NaN by construction (head unfit)
+            warnings.simplefilter("ignore", RuntimeWarning)
+            medL = np.nanmedian(L, 0); medS = np.nanmedian(S, 0)
+            q25 = np.nanpercentile(S, 25, 0); q75 = np.nanpercentile(S, 75, 0)
+        axT.plot(x, medL, "-", color=col, lw=0.8, alpha=0.4)           # thin = live batch (named in the title)
+        axT.plot(x, medS, "-", color=col, lw=2.0, label=_lbl("ours_g4" if c == "g4" else c))
+        if S.shape[0] > 1:
+            axT.fill_between(x, q25, q75, color=col, alpha=STYLE["band_alpha"])
+    if "streamsleeps_g4" in _keys(d):                                  # sleep ticks (grid cadence — seed-invariant)
+        sl = np.atleast_2d(np.asarray(d["streamsleeps_g4"], float))[0]
+        for sp in np.where(sl > 0.5)[0]:
+            axT.axvline(sp, color="#bdbdbd", ls="-", lw=0.7, alpha=0.5)
+    onsets = np.atleast_1d(np.asarray(d["stream_onsets"], int)) if "stream_onsets" in _keys(d) else []
+    doms = _names(d, "domains")
+    for i, sp in enumerate(onsets):
+        axT.axvline(sp, color="#7f7f7f", ls="--", lw=0.8); axB.axvline(sp, color="#7f7f7f", ls="--", lw=0.8)
+        if i < len(doms):
+            axT.text(sp + 0.8, 0.97, doms[i], fontsize=6.5, color="#555555",
+                     ha="left", va="top", transform=axT.get_xaxis_transform())
+    axT.set_ylabel("accuracy"); axT.legend(fontsize=7, loc="lower right")
+    axT.set_title("batch-by-batch — live-batch acc (thin) vs all-seen-domains acc (thick); sleep ticks light-grey")
+    for c in ("g4", "er_strong"):
+        col = _enc("ours_g4" if c == "g4" else c)[0]
+        k = f"streamcume_{c}_analog"
+        if k in _keys(d):
+            E = np.atleast_2d(np.asarray(d[k], float))
+            axB.plot(x, np.median(E, 0), "-", color=col, lw=STYLE["lw"], label=_lbl(c))
+    axB.set_yscale("log"); axB.set_xlabel("stream batch"); axB.set_ylabel("cum. E (pJ)")
+    axB.set_title("per-batch cumulative metered energy (exact prefix pricing; sleeps cluster where they fire)")
+    axB.legend(fontsize=6.5, loc="lower right")
+    fig.suptitle("GAUNTLET-STREAM — the in-domain vs domain-switch activity, batch by batch", fontsize=10)
+    return [_save(fig, out, "GAUNTLET_STREAM.png")]
 
 
 # ============================================================ SUBSTRATE (carried from plot_p8; re-metered)
@@ -262,7 +316,8 @@ def fig_inv(d, out):
     return [_save(fig, out, "INV.png")]
 
 
-_ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_substrate, fig_noise_showcase, fig_pareto, fig_inv]
+_ALL = [fig_fight, fig_cadence_frontier, fig_gauntlet, fig_gauntlet_stream, fig_substrate, fig_noise_showcase,
+        fig_pareto, fig_inv]
 
 
 def regen(run_dir):

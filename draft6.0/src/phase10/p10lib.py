@@ -3,7 +3,8 @@ p10lib — the Phase-10 apparatus: VALIDATION / SHOWCASE. Race the FROZEN two-br
 grid-4) against a FAIR, BUDGETED BP+replay baseline across the continual gauntlet. A CHIP NETLIST, not normal
 Python: every reuse is a *tested* primitive carried unchanged from p9lib (which re-exports p8/p7/p6/p5/p4…), and
 every genuinely-new organ ships with its own guard. Phase 10 MEASURES; it does not tune (the object is frozen; the
-only dial that moves is the declared cadence cost axis — grid ∈ {4,5,6,8,16}, grid-4 the committed headline).
+only dial that moves is the declared cadence cost axis — grid ∈ {4,5,6,8,12,16}, grid-4 the committed headline;
+grid-12 = the §10 post-close home-only gap-filler).
 
 The frozen object it races (design §2.1): NoiseAugContrast SCFF bulk (L12/w64, InfoNCE τ0.2/w2, per-sample L2,
 one iid-noise view σ1.0, no residual) · SLDA namer · DDM awake gate on the class-direction tap-drift (code
@@ -24,7 +25,12 @@ NEW here (Phase 10) — design §6, each names the deliverable it serves + the r
   bp_stream_energy / ours_stream_energy : per-substrate metered energy (bp_replay_energy / meter_from_trace).
   make_gauntlet_stream / load_gauntlet_data : ≈5 native domain-IL domains, all projected to the shared 40-D bulk
       input via ONE pinned seed-frozen mechanism, shared head; every learner consumes the bit-identical stream (K5).
-  cadence_family_runner : run {**COMMITTED_LOOP, cadence_every:g} for g ∈ {4,5,6,8,16} (the declared cost axis).
+  cadence_family_runner : run {**COMMITTED_LOOP, cadence_every:g} for g ∈ {4,5,6,8,12,16} (the declared cost axis;
+      grid-12 = the §10 post-close gap-filler, home stream only).
+  gauntlet_batch_curves / ours_cum_energy / bp_cum_energy : the §10-E3 per-BATCH stream view — a GUARDED lockstep
+      replay of the frozen loop (cell pass asserted bit-exact vs the committed cache's rng-fingerprint + phi_b; head
+      states asserted vs the committed err_trace every step) + EXACT prefix pricing of the fires/sleeps masks on the
+      same meter (endpoint asserted == the committed total). Measurement-only; any assert fails -> STOP.
   held_out_noise_battery : {clean,iid,directional,adc3b,nuisance} via p6 NoiseModel, MARGIN-DISJOINT from P9.4 (B4).
   throughput_meter : steps-behind from the metered FLOPs/sample (C_stream = OURS grid-4; wall-clock is NOT it; K3).
   pareto_frontier : the (accuracy, energy) non-dominated envelope + normalized efficiency.
@@ -51,7 +57,7 @@ from p9lib import (run_economy_p9, build_cache_p9, make_lifelong_stream, make_co
                    make_stream_head, SLDAHeadStream, acc_matrix_metrics, synth_stream, load_digits_split,
                    nuisance_transform, readout_feats, all_tap_feats, linear_probe,
                    race_bp, meter_from_trace, hardware_cost_meter, bp_replay_energy, proto_reanchor,
-                   NoiseModel, infer_noisy, jsonsafe, EPS, normalize)
+                   NoiseModel, infer_noisy, jsonsafe, EPS, normalize, class_balanced_reservoir)
 from p5lib import load_cifar_flat                                      # noqa: E402  (DATA-only; local arff.gz cache)
 from p6lib import class_axis                                           # noqa: E402
 from models_extra import MLP, match_width                             # noqa: E402
@@ -67,6 +73,7 @@ __all__ = [
     "fair_budget_meter", "bp_stream_energy", "ours_stream_energy",
     "make_gauntlet_stream", "load_gauntlet_data",
     "cadence_family_runner", "held_out_noise_battery", "throughput_meter", "pareto_frontier",
+    "gauntlet_batch_curves", "ours_cum_energy", "bp_cum_energy",
     "fair_budget_guard", "freeze_content_guard", "cadence_family_guard", "gauntlet_data_guard",
     "noise_holdout_guard", "substrate_identity_guard",
     # carried (re-export so run scripts import only p10lib)
@@ -284,11 +291,14 @@ def cl_metrics(matrix, first_acc, last_eval, worst_bwt):
 
 
 def run_bp_stream(stream, policy, bp_dims, cfg, seed, *, lr=3e-3, l2=0.0, replay=0, buffer_cap=0,
-                  alpha=0.5, beta=0.5):
+                  alpha=0.5, beta=0.5, curves=False):
     """Replay a ContinualBP learner on the RAW-input stream (the same stream OURS's SCFF cache was built from —
     input-identity, K5), evaluating at the FIXED learner-independent grid (checkpoints + monitor; K12). Returns the
     cl_metrics bundle + the learner (for energy). BP has no sleep, so every eval point IS a pre-sleep point ->
-    worst_bwt is the worst-mid-stream drop, the same read as OURS's worst-pre-sleep (R6)."""
+    worst_bwt is the worst-mid-stream drop, the same read as OURS's worst-pre-sleep (R6).
+    `curves=True` (§10 E3; non-gdumb only) additionally measures, per step, the READ-ONLY pair {live-batch accuracy
+    (prequential, pre-update) · seen-so-far all-domain accuracy (post-update)} — no rng is consumed and the learner's
+    trajectory is bit-identical to curves=False (eval never mutates)."""
     C = stream["C"]; T = len(stream["tasks"]); Xtr, Ytr = stream["Xtr"], stream["Ytr"]
     learner = ContinualBP(policy, bp_dims, C, seed, lr=lr, l2=l2, replay=replay, buffer_cap=buffer_cap,
                           alpha=alpha, beta=beta)
@@ -297,10 +307,15 @@ def run_bp_stream(stream, policy, bp_dims, cfg, seed, *, lr=3e-3, l2=0.0, replay
     monitor = set(stream.get("monitor_steps") or [])
     ebt = stream["eval_by_task"]
     amat = [[0.0] * T for _ in range(T)]; first_acc = {}; last_eval = {}; worst_bwt = 0.0; n_train = 0
+    N = len(stream["steps"])
+    live = np.full(N, np.nan) if curves else None
+    seen = np.full(N, np.nan) if curves else None
     for si, st in enumerate(stream["steps"]):
         xb = Xtr[st["idx"]].copy(); yb = Ytr[st["idx"]].copy()
         if st.get("nuis") is not None:
             g, a = st["nuis"]; xb = nuisance_transform(xb, g, a)
+        if curves and policy != "gdumb" and len(xb) >= 1:
+            live[si] = float((learner.net.predict(xb) == yb).mean())   # prequential (pre-update); read-only
         if len(xb) >= 2:
             learner.step(xb, yb, rng); n_train += 1
         if (si in ckpt) or (si in monitor):
@@ -313,8 +328,14 @@ def run_bp_stream(stream, policy, bp_dims, cfg, seed, *, lr=3e-3, l2=0.0, replay
                         first_acc[k] = acc
                     worst_bwt = min(worst_bwt, acc - first_acc[k])
                     amat[t_row][k] = acc; last_eval[k] = acc
+        if curves and policy != "gdumb":
+            d_now = int(st.get("seen", T - 1))
+            seen[si] = float(np.mean([float((learner.net.predict(ebt[k][0]) == ebt[k][1]).mean())
+                                      for k in range(min(d_now, T - 1) + 1)]))
     out = cl_metrics(amat, first_acc, last_eval, worst_bwt)
     out.update(matrix=amat, learner=learner, n_train=n_train, first_acc=first_acc)
+    if curves:
+        out.update(live_curve=live, seen_curve=seen)
     return out
 
 
@@ -419,6 +440,112 @@ def bp_stream_energy(cfg, bp_dims, policy, *, n_steps, batch=None, replay=0, sub
 
 def ours_stream_energy(cfg, cache, res, *, substrate="analog", e_mac_dig=None):
     return meter_from_trace(cfg, HEAD, cache, res, substrate=substrate, e_mac_dig=e_mac_dig)
+
+
+# ============================================================ the §10-E3 per-BATCH stream view (measurement-only)
+def ours_cum_energy(cfg, cache, res, *, substrate="analog"):
+    """Per-step CUMULATIVE metered energy for a frozen-loop result — EXACT prefix pricing of the fires/sleeps masks
+    on hardware_cost_meter (which is closed-form in the counts, so E_cum[t] = the meter at n_steps=t+1 with the
+    prefix fire/sleep counts). GUARD: the endpoint must equal the committed meter_from_trace total (same arithmetic
+    path) or raise — the stream view can never disagree with the committed number."""
+    fires = np.asarray(res["fires"], bool); sleeps = np.asarray(res["sleeps"], bool)
+    stream = cache["stream"]; C = stream["C"]
+    Fdim = cache["steps"][0]["phi_b"].shape[1]
+    scff_dims = [cfg.DIM] + [cfg.WIDTH] * cfg.DEPTH
+    probe_n = next((r["phi_probe"].shape[0] for r in cache["steps"] if "phi_probe" in r), cfg.PROBE_N)
+    cf = np.cumsum(fires); cs = np.cumsum(sleeps)
+    E = np.empty(len(fires), float)
+    for t in range(len(fires)):
+        E[t] = hardware_cost_meter(cfg, head_name=HEAD, Fdim=Fdim, C=C, n_fire=int(cf[t]), n_sleep=int(cs[t]),
+                                   n_steps=t + 1, batch=cfg.BATCH, probe_n=probe_n, scff_dims=scff_dims,
+                                   substrate=substrate)["total"]
+    ref = meter_from_trace(cfg, HEAD, cache, res, substrate=substrate)["total"]
+    if not abs(E[-1] - ref) <= 1e-9 * max(1.0, abs(ref)):
+        raise AssertionError(f"ours_cum_energy endpoint {E[-1]:.6e} != committed meter total {ref:.6e}")
+    return E
+
+
+def bp_cum_energy(cfg, bp_dims, policy, *, n_steps, replay, substrate="analog"):
+    """Per-step cumulative BP+replay energy on the SAME per-op table (bp_replay_energy is linear in n_steps — the
+    racer pays every step, so its cumulative curve is a ramp; stated, not hidden). Endpoint == bp_stream_energy."""
+    rb = {"naive": 0, "er": replay, "agem": replay, "derpp": 2 * replay, "gdumb": 0}.get(policy, replay)
+    E = np.array([bp_replay_energy(cfg, Fdim=bp_dims[0], C=bp_dims[-1], n_steps=t + 1, batch=cfg.BATCH,
+                                   replay_batch=rb, bp_dims=bp_dims, substrate=substrate)["total"]
+                  for t in range(n_steps)])
+    ref = bp_stream_energy(cfg, bp_dims, policy, n_steps=n_steps, replay=replay, substrate=substrate)["total"]
+    if not abs(E[-1] - ref) <= 1e-9 * max(1.0, abs(ref)):
+        raise AssertionError(f"bp_cum_energy endpoint {E[-1]:.6e} != bp_stream_energy total {ref:.6e}")
+    return E
+
+
+def gauntlet_batch_curves(gstream, cache, res, hf, cfg, seed):
+    """The §10-E3 per-BATCH view of the FROZEN OURS loop — a GUARDED lockstep replay (measurement-only; design §10).
+    Replays (a) the SCFF cell pass exactly as build_cache_p9 ran it (same rng seeding, same warmup, same train order)
+    with TWO bit-exact asserts per step (the cache's rng_fingerprint + phi_b array-equality), and (b) the namer's
+    committed update sequence (the fires/sleeps masks + the forced first-eval fit + the cbrs sleep set, seeds
+    identical), with the head state asserted against the committed err_trace at EVERY step. On top of the verified
+    state it measures what the committed run never stored:
+      live[t]  = prequential accuracy on the arriving batch (pre-update) == 1 - err_trace[t] (the assert)
+      seen[t]  = held-out accuracy averaged over the domains seen so far, through the CURRENT bulk (post-update)
+    Any assert fails -> raise (STOP). The frozen loop is never touched; this is a replay, not a re-run."""
+    C = gstream["C"]
+    Xtr, Ytr = gstream["Xtr"], gstream["Ytr"]
+    dims = [cfg.DIM] + [cfg.WIDTH] * cfg.DEPTH
+    rng = np.random.default_rng(seed)
+    cell = make_committed_cell(dims, seed)
+    wu = gstream["warmup_idx"]
+    for s0 in range(0, len(wu), cfg.BATCH):
+        xb = Xtr[wu[s0:s0 + cfg.BATCH]]
+        if len(xb) >= 4:
+            cell.train_step(xb, rng)
+    head = hf()
+    fires = np.asarray(res["fires"], bool); sleeps = np.asarray(res["sleeps"], bool)
+    err_ref = np.asarray(res["err_trace"], float)
+    ev_steps = set(cache["ckpt"]) | set(cache.get("monitor", []))
+    ebt = gstream["eval_by_task"]
+    lam = COMMITTED_LOOP["lam_ema"]
+    N = len(gstream["steps"])
+    live = np.full(N, np.nan); seen = np.full(N, np.nan)
+    fitted = False
+    for si, st in enumerate(gstream["steps"]):
+        xb = Xtr[st["idx"]].copy(); yb = Ytr[st["idx"]].copy()
+        if st.get("nuis") is not None:
+            g_, a_ = st["nuis"]; xb = nuisance_transform(xb, g_, a_)
+        rb = cell.infer(xb)
+        if len(xb) >= 4:
+            cell.train_step(xb, rng)
+        fp = float(rng.random())
+        if fp != cache["rng_fingerprint"][si]:
+            raise AssertionError(f"batch-curve replay: rng fingerprint diverged at step {si}")
+        rec = cache["steps"][si]
+        if not np.array_equal(readout_feats(rb, None), rec["phi_b"]):  # exactly build_cache_p9's alltap_from(rb)
+            raise AssertionError(f"batch-curve replay: phi_b not bit-exact at step {si}")
+        phi_b = rec["phi_b"]                                           # the head path uses the COMMITTED features
+        # (1) live-batch accuracy (prequential, pre-update) — asserted vs the committed err_trace
+        e_now = (1.0 - float((head.predict(phi_b) == yb).mean())) if head.W is not None else np.nan
+        both_nan = np.isnan(e_now) and np.isnan(err_ref[si])
+        if not both_nan and e_now != err_ref[si]:
+            raise AssertionError(f"batch-curve replay: err_trace diverged at step {si} ({e_now} vs {err_ref[si]})")
+        live[si] = 1.0 - e_now if not np.isnan(e_now) else np.nan
+        # (2) the committed update sequence (fires -> forced first-eval fit -> sleep; run_economy_p9's order)
+        if fires[si]:
+            head.partial_fit(phi_b, yb, lam_ema=lam); fitted = True
+        if (si in ev_steps) and not fitted:
+            head.partial_fit(phi_b, yb, lam_ema=lam); fitted = True
+        if sleeps[si]:
+            Fp, Yp = rec["phi_probe"], rec["y_probe"]
+            if COMMITTED_LOOP["cbrs"]:
+                Fp, Yp = class_balanced_reservoir(Fp, Yp, C, cfg.CBRS_CAP, np.random.default_rng(2000 + si))
+            head.sleep_fit(Fp, Yp); fitted = True
+        # (3) seen-so-far accuracy through the CURRENT bulk (the deployed head at the end of batch t)
+        d_now = int(st.get("seen", len(ebt) - 1))
+        accs = []
+        for k in range(d_now + 1):
+            Xk, Yk = ebt[k]
+            phik = readout_feats(cell.infer(Xk), None)                 # build_cache_p9's exact eval convention
+            accs.append(float((head.predict(phik) == Yk).mean()) if head.W is not None else 0.0)
+        seen[si] = float(np.mean(accs))
+    return dict(live=live, seen=seen)
 
 
 # ============================================================ the throughput / steps-behind read (K3; Ghunaim)
@@ -565,7 +692,7 @@ def make_gauntlet_stream(cfg, seed, *, domains=None, block=None, revisit=1, orde
 
 # ============================================================ the cadence family runner (the declared cost axis)
 def cadence_family_runner(cache, hf, cfg, grids=None):
-    """Run the frozen object at each grid ∈ {4,5,6,8,16} (only cadence_every changes). Returns per-grid bundles
+    """Run the frozen object at each grid ∈ {4,5,6,8,12,16} (only cadence_every changes). Returns per-grid bundles
     (accuracy × worst-BWT × AAA) + the oracle worst-BWT at the same cadence (the internal reference). grid-4 is the
     committed headline (never swapped)."""
     grids = grids or cfg.CAD_FAMILY

@@ -18,12 +18,14 @@ from p9cfg import *                                                    # noqa: F
 
 # ============================================================ the cadence cost-frontier family (the declared axis)
 # The frozen object is grid-4 (COMMITTED_LOOP + cadence_every=4); the family varies ONLY the sleep interval. Tier-1
-# {4,5,6} = the sweet spot; Tier-2 {8,16} = the degradation arms (grid-8 fails the P9 veto, grid-16 fails AA-held).
+# {4,5,6} = the sweet spot; Tier-2 {8,12,16} = the degradation arms (grid-8 fails the P9 veto, grid-16 fails AA-held;
+# grid-12 = the §10 post-close gap-filler between them — home stream only, its read pinned in design §10).
 # grid-2 is omitted as the dense end past the knee (design §0.1) — addable if the frontier wants extending.
-CAD_FAMILY = [4, 5, 6, 8, 16]
+CAD_FAMILY = [4, 5, 6, 8, 12, 16]
 CAD_TIER1 = [4, 5, 6]
-CAD_TIER2 = [8, 16]
+CAD_TIER2 = [8, 12, 16]
 CAD_HEADLINE = 4                                                       # the committed frozen headline — NEVER swapped
+GAUNTLET_GRIDS = [4, 5, 6, 8, 16]                                      # the gauntlet keeps its committed five (E2 scope)
 
 # ============================================================ the fair BP+replay racer (P10.0/P10.1 — the anti-strawman)
 # The load-bearing opponent is a BUDGETED, TUNED experience-replay (Prabhu CVPR'23: ER is strong under a matched

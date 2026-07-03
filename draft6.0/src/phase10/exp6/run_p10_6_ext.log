@@ -1,0 +1,18 @@
+P10.6 — the Pareto verdict + Stage-2 close-out (integration; runs nothing new)
+
+  == PARETO VERDICT MAP ==
+  axis                                                  OURS   best-field  w/t/l             number
+  accuracy (vs ER-strong)                              0.494        0.498    tie         gap +0.004
+  energy — algorithm (same digital substrate)      3.461e+08    2.247e+08   loss              1.54x
+  energy — total (OURS-analog vs ER-strong-digital)    6.702e+07    2.247e+08    win 3.4x (substrate-realized floor)
+
+  founding bet — ECONOMICS half: substrate-only (algorithm 1.54x same-substrate; total 3.4x analog-floor)
+  founding bet — ACCURACY half: validated (gap +0.004 vs delta 0.02)
+  Pareto frontier members: ['er_strong', 'gdumb']
+  OURS family on the scatter (§10 E4): ['ours_g4', 'g5', 'g6', 'g8', 'g12', 'g16'] (grid-4 ringed, committed)
+C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase10\exp6\..\plot_p10.py:286: UserWarning: You passed a edgecolor/edgecolors ('#d9690a') for an unfilled marker ('x').  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  ax.scatter(pts[i, 1], pts[i, 0], c=col, marker=mk or "o", s=110 if ring else 60,
+  fig PARETO.png
+  fig INV.png
+
+== P10.6 verdict assembled (wall 0.0s) ==

@@ -55,7 +55,8 @@ the **external** BP baseline for the scaling story. The two tiers, straight from
 
 *(The committed frontier P9.5 ran was `{2,4,5,6,8,16}`; grid-2 is the even-denser veto-passer at the dense end. The author's
 chosen family is `{4,5,6,8,16}` — grid-2 is **omitted as the dense end past the committed knee** (grid-4); it can be added as
-the densest Tier-1 point if the frontier wants extending. State the omission, don't hide it.)*
+the densest Tier-1 point if the frontier wants extending. State the omission, don't hide it. **Post-close extension (§10):
+grid-12 added to the home-stream family — {4,5,6,8,12,16} — to make the Tier-2 break's shape legible.**)*
 
 **Freeze reconciliation (load-bearing honesty — hardened after the red-team review).** The frozen object *is* **grid-4, full
 stop.** It is the existential-fight point (§2.2-A), it appears in **every** figure (including the money figure), and the
@@ -497,6 +498,47 @@ pinned verdict shapes; δ_acc = 0.02; the A-GEM/DER++ descope path (now time-box
 home's ~0.49 AA means the accuracy-loss branch is **live** — the showcase does not depend on winning it; the honest-Pareto
 branch is a presentable story (flat retention + the energy ratio), and a dominated result is reported as the founding bet
 failing, per §0.3.
+
+---
+
+## 10 · The post-close extension (2026-07-03 evening — author-directed; pre-registered BEFORE the runs)
+
+Phase 10 closed at P10.6 the morning of 2026-07-03. The author's same-day read of the report asked for four enrichments.
+**All four live on the declared cadence cost axis or are measurement-only — no learned knob moves, the frozen object is
+untouched, and the banked P10.1/P10.3/P10.6 verdicts are not re-opened** (determinism means every carried number must
+reproduce bit-exactly; the extension adds points and views, never re-judges). Reads pinned here before any run:
+
+- **E1 — grid-5 joins the P10.1 fight roster.** The author's ask: show the cheaper Tier-1 option beside the committed
+  headline ("grid-4 still our best model — just add more cheap option to compare"). grid-5 is *already* the P10.2 showcase
+  rep (worst-BWT −0.039 within δ of grid-4, cheaper); drawing it in the FIGHT/PARETO is a presentation enrichment of the
+  declared cost axis, **never a re-designation** — the P10.1 verdict remains grid-4's, and the §0.1 no-swap clause stands.
+  **Read:** where grid-5 sits on (accuracy × energy) between grid-4 and the field — no verdict change possible.
+- **E2 — grid-12 fills the Tier-2 gap.** The family {4,5,6,8,16} → **{4,5,6,8,12,16}**; the author read the final-AA-vs-
+  energy trend as super-linear and asked for the missing point between grid-8 and grid-16. grid-12 has never run (not even
+  in P9.5) — it is a **new Tier-2 measurement on the home stream only** (the gauntlet keeps its committed five grids).
+  **Read (expectation-free, both Tier-2 axes):** does grid-12 fail the oracle-veto (grid-8's failure axis: sparse-sleep
+  troughs), fail AA-held (grid-16's axis: under-consolidation), both, or hold? Each outcome refines the break's shape;
+  whichever the numbers say is banked. Tier-2 becomes {8,12,16}.
+- **E3 — the GAUNTLET-STREAM view (the training-curve read) + the GAUNTLET label fix.** A new per-batch figure on the
+  P10.3 gauntlet: **live-batch accuracy** (the prequential read — the head's accuracy on each arriving batch, before it
+  updates) and **seen-so-far accuracy** (mean held-out accuracy over the domains passed so far — "how much it remembers of
+  what it passed") for OURS(grid-4) vs ER-strong, plus a **per-batch prefix-priced cumulative energy** track (the meter is
+  closed-form in counts, so the cumulative curve is exact, sleeps clustering where they fire — this *supersedes* the
+  per-domain proportional-shape note in the P10.3 manifest). **Measurement-only, triple-guarded:** the OURS curve comes
+  from a lockstep replay of the frozen loop whose cell pass is asserted bit-exact against the committed cache
+  (rng-fingerprint + per-step `phi_b`), whose head states are asserted against the committed `err_trace` at every step,
+  and whose cumulative-energy final point must equal the committed `meter_from_trace` total. Any assert fails → STOP.
+  **Read:** the in-domain vs domain-switch mechanism made visible — onset dips, gate fires, sleep recoveries — a
+  visualization of the committed result, not a new verdict. (+ the GAUNTLET twin-panel y-labels shortened so they no
+  longer collide.)
+- **E4 — the full OURS family on the verdict Pareto.** P10.6's Pareto gains the model's own cost-frontier line — **all six
+  grids {4,5,6,8,12,16}** beside the field (the author's "money line"), grid-4 ringed, frontier recomputed over
+  family + field; asserted: exp1's `ours_g4` == exp2's `g4` bit-for-bit (same cache, same loop). **Read:** the family's
+  sweep across the (accuracy × energy) plane vs the field — the P10.6 verdict sentence gains the family, loses nothing.
+
+**Discipline carried:** snapshot-then-diff on every re-run rung (all carried arrays bit-exact or STOP); guards first; the
+verdict shapes above pinned blind; failures are data. *(This section is the extension's pre-run record, in the P8.7
+extension pattern.)*
 
 ---
 

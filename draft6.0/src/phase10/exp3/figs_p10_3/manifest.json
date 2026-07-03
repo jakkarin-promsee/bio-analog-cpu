@@ -1,6 +1,6 @@
 {
   "rung": "P10.3",
-  "git": "0e0763e76cc2fbc3656572b5641dd059b4a122cb",
+  "git": "c7ca4e8316d1346e47f1d24e38b029229866c9ba",
   "quick": false,
   "seeds": [
     42,
@@ -62,7 +62,7 @@
     "noise_holdout": true,
     "substrate_identity": true
   },
-  "wall_s": 183.8,
+  "wall_s": 217.0,
   "domains": [
     "identity",
     "permuted",
@@ -97,7 +97,7 @@
       "steps_behind_frac": 0.0
     }
   },
-  "notes": "retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point is the P9 honest read. cumulative energy = proportional-to-steps shape (sleeps cluster; noted). GD-share per domain = fire-fraction within each domain block.",
+  "notes": "retention curve = post-checkpoint AA(d) per domain (learner-independent); worst-point is the P9 honest read. Per-DOMAIN cumulative energy = proportional-to-steps shape; the \u00a710 GAUNTLET-STREAM arrays carry the EXACT per-batch prefix-priced cumulative energy (supersedes the shape note at batch resolution). GD-share per domain = fire-fraction within each domain block. \u00a710 stream view = triple-guarded lockstep replay (cell bit-exact vs cache fingerprint+phi_b; head vs committed err_trace; energy endpoint vs committed meter total).",
   "summary": {
     "g4": {
       "allprev_last": "0.490 [0.480-0.499]",
