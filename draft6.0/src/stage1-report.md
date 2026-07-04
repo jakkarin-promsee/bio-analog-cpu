@@ -270,43 +270,35 @@ measured what it is, Phase 5 closed its one open *learning* wound, and Phase 6 h
 - **Open follow-ups, not blockers** — natural-data / larger-scale validation, train-with-noise (hardware-aware),
   direct-feedback coordination, and anything needing architecture (convolution, time-series) — the north-star track.
 
-## 7 · What's next — Stage 2 (the GD namer, Phases 7–10)
+## 7 · What came next — Stage 2 (the GD namer, Phases 7–10) — now DONE
 
 The cheap brain is finished, characterized, and noise-hardened — its *design* complete (ideal-float behavioral sim
-plus a behavioral analog-noise model; not silicon- or benchmark-validated). Every remaining knob is on the precise
-~20% GD **back**, not the SCFF front, so Stage 1 hands **Stage 2** a settled, noise-characterized cell and a precise
-brief. **Stage 2 is now underway — P7 (the readout) is done (2026-07-02); P8–P9 follow:**
+plus a behavioral analog-noise model; not silicon- or benchmark-validated). Every remaining knob was on the precise
+~20% **namer** back, not the SCFF front, so Stage 1 handed **Stage 2** a settled, noise-characterized cell and a
+precise brief. **Stage 2 has since run in full (P7–P10, 2026-07-02 → 07-03), and — in the Stage-1 tradition — the
+sims overturned the plan again:**
 
-- **P7 — the readout. ✓ DONE (2026-07-02) — and, in the Stage-1 tradition, the prediction above was _overturned_.** The
-  plan expected a **direction-pure** readout (cosine / RanPAC), reading NCM/SLDA out as forbidden *magnitudes*. The sims
-  disagreed: on the frozen bulk the direction-pure **cosine is sub-competitive**, and the committed namer is **RanPAC** —
-  a **no-gradient, closed-form analytic head** (random projection → running-Gram ridge prototype) that *reads a
-  magnitude* yet ties the gradient MLP on accuracy×forgetting (a 3-way tie with SLDA), leads on natural digits (#1,
-  0.949), and **passes the A6 continual gate** (the trained cosine-softmax and the max-magnitude FeCAM are struck). So
-  **the spine bends** — _magnitude-wins-spine-bends_, Δ = 0.128 synthetic → −0.036 digits → ≈ 0 CIFAR — because the
-  winner is recency-robust not by reading direction but by having *no trained weights to inflate*: density ≠ class, a
-  seventh time. The headline: **the "20% GD" is a role, not a method — the precise brain names the world with no backward
-  pass at all.** Boosting is dropped (single frozen bulk + read-only heads; N3 superseded), and two more guesses fell to
-  the sims — the imbalance guard is **cbrs, not AIR**, and the "multimodality cliff" is **anisotropy (a tied covariance),
-  not multimodality**. Cost → P8 (**SLDA** is the ~200× cheaper no-gradient fallback). → [Phase 7 report](phase7/phase7-report.md).
-- **P8 — the economy gate + the cost meter.** The **Ch7 learning-gate** (cheap SCFF most steps, expensive GD only
-  when the cheap path stalls — a drift-detection trigger) and a **depth-aware, temporal** cost meter, because the
-  80/20 lives in the gate + sleep cadence, not a per-pass number. **P7 hands it a concrete first job:** price RanPAC's
-  random projection against SLDA's tied-covariance solve — is "no-gradient" actually cheaper on our substrate, and if
-  the projection is prohibitive, is SLDA the committed fallback?
-- **P9 — the maintenance loop + the owed baselines.** Tune the sleep cadence + gate, now **readout-aware**
-  (consolidate the *extractor-depth* features the fixed reader actually reads; shallow on the flat home, deep on
-  compositional tasks) against *this* cell's measured drift; and settle the owed old-world baselines — the fairer
-  same-budget **BP+replay** continual baseline Phase 4 flagged, plus the buffer-purity knob and the bulk-drift rate
-  Phase 6 deferred here.
+- **P7 — the readout is NOT gradient descent.** The plan expected a **direction-pure** readout (cosine); the sims
+  disagreed — cosine is sub-competitive on the frozen bulk, and the committed namer is a **no-gradient, closed-form
+  analytic head** (**RanPAC** / **SLDA**) that reads a *magnitude* yet ties a genuinely-tuned gradient MLP and passes
+  the A6 gate. **The "20% GD" is a role, not a method — the precise brain names the world with no backward pass at
+  all** (boosting dropped for a single frozen bulk + read-only heads, N3 superseded; the spine bends,
+  _magnitude-wins_). **(S11.)**
+- **P8 — the economy, run LIVE.** Both brains on together; a **DDM** drift-gate meters the 80/20 for real (GD-share
+  0.121), OURS ≈ ½ BP+replay energy, and the twist — **firing more forgets more**, so the gate is a *safety*
+  mechanism, not just thrift. Why-analog: 15.4× = 5.4× substrate × 2.9× algorithm. **(S12.)**
+- **P9 — freeze.** The founding assumption finally measured (the bulk **rotates but does not forget**); the lifelong
+  maintenance loop (all-tap · CBRS · proto-reanchor · grid-4 cadence) tuned on internal signals only and **locked at
+  commit `59d2720`**. **(S13.)**
+- **P10 — the honest race.** The frozen object raced a fair, budgeted, tuned BP+replay baseline, verdicts pinned
+  **blind**. **S14:** a substrate-native continual learner — ties the continual home (0.494 vs 0.498), trails natural
+  digits (continual, not static), and **wins** continual safety (worst-BWT −0.028 vs −0.272, ≈10× safer) + noise; the
+  energy edge is substrate-realized.
 
-Stage 2 also inherits Phase 6's **named residual** — the input-transducer directional channel + ADC < ~3-bit — as a
-**read-side** defence (calibration under shift), a complement to the now-hardened base (LP-FT: the readout can't
-manufacture base robustness, but it can defend a channel the base can't reach forward-only). And Phase 5's
-parked-with-evidence threads wait here too: the **oracle-exit headroom** (a better per-sample depth-selector than
-max-softmax could unlock large gains on the continual home — but it is a selector / north-star problem), and a
-*compositional* continual stream to test whether an adaptive exit ever earns its keep off the flat home. Full map:
-[`stage2-design.md`](stage2-design.md); the Stage-2 arc as it unfolds: [`stage2-report.md`](stage2-report.md).
+The full Stage-2 arc — including Phase 6's named read-side residual (discharged by P9's proto-reanchor) and Phase 5's
+parked oracle-exit / better-than-confidence-selector threads (held for the north star) — is
+[`stage2-report.md`](stage2-report.md); the whole two-brain model in one self-contained file is
+[`phase9-final-architecture.md`](phase9-final-architecture.md).
 
 After Stage 2, the analog-realism layer (SPICE / PVT) opens. The **recurrent lifelong brain** — a time-series
 prefrontal↔hippocampus loop where "correctness is a self-generated feeling" — remains the north star, beyond the
@@ -316,11 +308,12 @@ numbered phases, deliberately not specced yet. *Simple intelligence first.*
 
 ## Reading guide
 
-**If you read only one file:** [`phase6-final-architecture.md`](phase6-final-architecture.md) — the **v1.1.0**
-self-contained, **noise-hardened** account of the whole model (what it is, the math, how it extends each paper, the
-six-phase arc), written for an outside researcher to understand the architecture without opening any phase report.
-*(The v1.0.0 ideal-data snapshot — the model before it met noise — is kept at
-[`phase5-final-architecture.md`](phase5-final-architecture.md).)*
+**If you read only one file:** for the **whole two-brain model**,
+[`phase9-final-architecture.md`](phase9-final-architecture.md) (v2.0.0, self-contained — both brains, the maintenance
+loop, the full ten-phase arc). For **just the cheap brain this report covers** (Stage 1, noise-hardened), its frozen
+snapshot is [`phase6-final-architecture.md`](phase6-final-architecture.md) (v1.1.0); the pre-noise v1.0.0 base is
+[`phase5-final-architecture.md`](phase5-final-architecture.md). Each is self-contained, written for an outside
+researcher to understand the architecture without opening a phase report.
 
 Otherwise, enter the set here, then descend by need: **stage1-report** (this file — the arc) → each phase's
 **[`README.md`](phase1/README.md)** front door (the navigable synthesis + key figure) → the six
