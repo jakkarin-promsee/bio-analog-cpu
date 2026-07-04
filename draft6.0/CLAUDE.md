@@ -29,8 +29,9 @@ not the Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md); the **soul*
 showcase — the frozen object raced against a fair BP+replay baseline) are all complete. Stage 2 = Phases 7–10; "freeze in
 P9, judge in P10." The verdict (S14): a substrate-native continual learner — competitive on the continual home, decisively
 safer, far more noise-robust, its energy edge over conventional GD substrate-realized; the founding bet refined, not
-inflated. The neocortex brain is done. Next: the analog-realism (SPICE/PVT) layer; beyond the numbered phases, the
-recurrent lifelong brain (the north star).** One-glance ladder — the depth lives in each `src/phaseN/README.md`, not here:
+inflated. The neocortex brain is done. Next: **Phase 11 — the limit map** (real data + scale + the decomposition; spec
+finalized & review-folded 2026-07-05, ready to run — [`src/phase11/design.md`](src/phase11/design.md)); then the
+analog-realism (SPICE/PVT) layer; beyond the numbered phases, the recurrent lifelong brain (the north star).** One-glance ladder — the depth lives in each `src/phaseN/README.md`, not here:
 
 - **P1 ✓ structure** — the cell works; its home is the **continual** regime (a periodic sleep recovers what online backprop catastrophically forgets). Generalizes better than backprop at ~10% backward cost; *not* a deep static-accuracy competitor.
 - **P2 ✓ depth round 1** — a deep SCFF stack can't earn depth (transmission *and* a perfect-oracle objective both fail). Depth comes from **boosted ensembles of shallow blocks with tiny GD readouts**, not deep SCFF.
