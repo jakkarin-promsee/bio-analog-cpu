@@ -1,7 +1,8 @@
 # Experiment 0 — the sanity probe (full SCFF + full GD, alone)
 
-> **Status: config LOCKED, not run yet.** This is the first thing to run and the gate to everything
-> (ladder 1.0 + 1.1). Follow the convention: question → setup → run → result → read → decision. The spec is
+> **Status: RAN — the gate PASSED** (with three evidence-backed config changes, locked in *Decision*: sum-goodness,
+> the 2-D checkerboard task, layer-1 input-norm). This was the first thing run and the gate to everything
+> (ladder 1.0 + 1.1). Convention: question → setup → run → result → read → decision. The spec is
 > [`../design.md`](../design.md); the *why* is [`../../../idea/ideas1.md`](../../../idea/ideas1.md).
 
 ## Question
