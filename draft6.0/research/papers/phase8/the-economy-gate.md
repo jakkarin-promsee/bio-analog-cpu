@@ -60,7 +60,7 @@ into the stream.
   drift is unsupervised and *leads* the readout's error, the best trigger may be a **label-free drift detector on the
   SCFF taps** ([2406.17813]); for that, the **unsupervised ADWIN variant (ADWIN-U)** is the right tool — vanilla
   DDM/ADWIN watch an *error rate* (needs labels). The gate sees the base move and schedules a refit *before* accuracy
-  drops. This makes the gate and the sleep-cadence ([`maintenance-and-replay.md`](maintenance-and-replay.md)) **the same
+  drops. This makes the gate and the sleep-cadence ([`maintenance-and-replay.md`](../phase9/maintenance-and-replay.md)) **the same
   detector at two timescales** (per-step gate vs periodic sleep).
 - **The ε-floor is the *why*, drift-detection is the *how*.** Our justification for gating (the SGR gradient-mismatch
   ε-floor: local learning converges while block-disagreement is small, stalls when it dominates) says *a stall is real

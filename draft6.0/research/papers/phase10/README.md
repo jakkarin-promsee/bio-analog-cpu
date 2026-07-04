@@ -128,7 +128,7 @@ PRIMARY protocol** (MNIST-family a legibility bonus, not the runnable path).
 | D4 | "5-domain 28×28 sequence" | name it **domain-IL** (van de Ven); shared-head + shared **40-D** constraint; **native domain-IL is the PRIMARY protocol** (MNIST-family a legibility bonus — data risk) |
 | D5 | "cumulative cost curve" | frame as an **accuracy-vs-energy Pareto** (normalized-distance efficiency); the real-time-eval (Ghunaim) motivation for why a cheap learner wins the stream |
 
-> **Post-research refinement (the 3-agent lab-manager review, folded 2026-07-03 — full ledger in [`../../src/phase10/design.md`](../../src/phase10/design.md) §8).**
+> **Post-research refinement (the 3-agent lab-manager review, folded 2026-07-03 — full ledger in [`../../../src/phase10/design.md`](../../../src/phase10/design.md) §8).**
 > The review stress-tested this delta from three cold-start lenses (repo-fit · red-team · literature) and sharpened five
 > things it touches: (R1) the load-bearing energy cut is **same-substrate** (analog is a meter-structural floor); (A1) AAA
 > **origin = OSAKA** (§2, fixed above); (B2) **native domain-IL is the PRIMARY protocol**, all domains projected to the shared

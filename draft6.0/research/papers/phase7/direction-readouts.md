@@ -72,16 +72,16 @@ the thing that makes it exciting is *cheapness and continual-safety*, stated hon
   us exactly what to watch — recency bias from growing norms on a trained softmax — and a cosine head tells us it won't
   appear if we classify by angle. A drift-*gated* stream presents classes in **bursts**, so class-imbalance in the head
   is *guaranteed* — pull in the imbalanced-stream toolkit (logit adjustment, balanced softmax, class-balancing reservoir
-  sampling) under [`maintenance-and-replay.md`](maintenance-and-replay.md).
+  sampling) under [`maintenance-and-replay.md`](../phase9/maintenance-and-replay.md).
 - **The substrate is *not* free here — don't oversell "no optimizer."** A running mean is a cap EMA, yes; but a cosine
   head needs an L2-normalizer, a ridge prototype needs a Gram matrix + a solve, and SLDA needs `Σ⁻¹` — all **non-free
   digital blocks** (the architecture file §2.4 is careful that the contrastive normalizer is "real area + ADC traffic").
-  "No gradient" ≠ "no readout cost"; the cost meter ([`the-economy-gate.md`](the-economy-gate.md), Phase 7) is what
+  "No gradient" ≠ "no readout cost"; the cost meter ([`the-economy-gate.md`](../phase8/the-economy-gate.md), Phase 8) is what
   decides which prototype variant is actually cheap on-chip.
 - **It re-reads the struck adaptive exit (Phase 5) — carefully.** P5 struck the confidence-gated exit because confidence
   is a magnitude. A **cosine margin** (angle to the nearest vs runner-up class) is a *direction* signal and a spine-clean
   candidate for "where/whether to read." A Mahalanobis/NCM **distance is not** — so the north-star "feeling" signal
-  ([`north-star-bridges.md`](north-star-bridges.md)) should be the **cosine margin**, not the SLDA distance the first
+  ([`north-star-bridges.md`](../phase9/north-star-bridges.md)) should be the **cosine margin**, not the SLDA distance the first
   draft proposed. (Corrected there too.)
 - **Honest caveat — the Gaussian/unimodal assumption, and where convexity ends.** NCM/SLDA assume per-class features are
   ~unimodal in the frozen space; if SCFF makes a class multi-modal, one mean underfits → fall back to a *few prototypes

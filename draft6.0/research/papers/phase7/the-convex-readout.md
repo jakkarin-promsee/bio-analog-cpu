@@ -46,7 +46,7 @@ first draft blurred:
 - **The comparator *moves*.** Across the stream SCFF drifts, so the readout chases a **drifting** optimum — this is OCO
   with a *non-stationary comparator*, whose regret scales with the **path length / drift rate**, not $\sqrt{T}$. The
   "easy" framing holds only if the drift is small — which is exactly what the sleep loop and the late-layer slowdown
-  ([`slow-coordination.md`](slow-coordination.md)) exist to keep small. **Tracking the drift, not solving the
+  ([`slow-coordination.md`](../phase9/slow-coordination.md)) exist to keep small. **Tracking the drift, not solving the
   regression, is the real cost.**
 
 The mechanics that matter for hardware:
@@ -75,7 +75,7 @@ sense — a frozen bulk + a trained head — **but not a reservoir proper:** a t
 core, and ours is **unsupervised-trained then frozen.** That difference cuts two ways. It is *better* (the bulk composes
 class-relevant depth instead of a random projection), but it **does not inherit the reservoir's free
 device-mismatch-tolerance** (file 8's "tolerates mismatch by design" assumes the random core) — which is *exactly why A7
-is an open risk and not auto-solved* ([`noise-and-flatness.md`](noise-and-flatness.md)). Keep the reservoir framing for
+is an open risk and not auto-solved* ([`noise-and-flatness.md`](../phase6/noise-and-flatness.md)). Keep the reservoir framing for
 the *readout-convexity* intuition only; don't let it wave away the noise problem. With that boundary drawn:
 
 - **The 20% is the tractable half, not the scary half — *in the learning*, with the cost caveat held.** Frozen-to-GD

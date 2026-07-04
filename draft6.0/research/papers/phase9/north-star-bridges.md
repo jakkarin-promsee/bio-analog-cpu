@@ -39,8 +39,8 @@ overconfident, and early layers are confident-when-wrong). So the naive north-st
   collapses to *"everything is correct"* (the BYOL-collapse / winner-take-all failure), which is why the north-star
   notes insist the feeling must be **grounded** by prediction-error and occasional real labels.
 - **Promotes:** a halt / "where-to-read" signal built on a genuinely **direction** quantity — the **cosine margin**
-  (angle to the nearest vs runner-up class) of the direction-readouts ([`direction-readouts.md`](direction-readouts.md)),
-  or the **drift detector's** "has the base settled" signal ([`the-economy-gate.md`](the-economy-gate.md)). *(Be careful:
+  (angle to the nearest vs runner-up class) of the direction-readouts ([`direction-readouts.md`](../phase7/direction-readouts.md)),
+  or the **drift detector's** "has the base settled" signal ([`the-economy-gate.md`](../phase8/the-economy-gate.md)). *(Be careful:
   a Mahalanobis/NCM **distance** is a magnitude, not a direction — the very slip the direction-readouts file corrected;
   so the spine-clean "feeling" candidate is the **cosine margin**, not the prototype distance the first draft named.)*
   These are the *right* seed to plant in Phase 6.
@@ -64,7 +64,7 @@ overconfident, and early layers are confident-when-wrong). So the naive north-st
   mis-calibrated under distribution shift** (the calibration-under-shift / TENT line). So even a direction-grounded
   "feeling" needs a calibration check before it's trusted as a gate — a temperature-scaling-style calibration of the
   margin, re-estimated at sleep. This is the literature leg the first draft missed, and it sits between the gate
-  ([`the-economy-gate.md`](the-economy-gate.md)) and this file.
+  ([`the-economy-gate.md`](../phase8/the-economy-gate.md)) and this file.
 - **Caveat — don't over-fit Stage 2 to a north star that isn't specced.** The author chose to hold the thinking brain
   as direction only. So this is a *bias in tie-breaks* (prefer direction-grounded, calibrated gate signals), **not** a
   reason to add scope. If a confidence-based gate decisively wins the Phase-6 economy on its own merits, that's data — we

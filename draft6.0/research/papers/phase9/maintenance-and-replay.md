@@ -46,7 +46,7 @@ Four findings sharpen this for us:
   **`race_bp` + a replay buffer at matched budget** (`race_bp` = the Bartunov/Spyra tuned-BP apparatus carried from
   Phases 4–5; don't invent a weaker comparator).
 - **MGSER-SAM** combines replay with **sharpness-aware** updates (flat minima) — a *hypothesised* seam to the noise
-  question ([`noise-and-flatness.md`](noise-and-flatness.md)): consolidating into a *flat* readout *might* also be
+  question ([`noise-and-flatness.md`](../phase6/noise-and-flatness.md)): consolidating into a *flat* readout *might* also be
   consolidating into a *noise-robust* one. Two open problems that *may* share one lever — to test, not assume (MGSER-SAM
   was validated for forgetting, not analog-noise tolerance).
 
@@ -60,7 +60,7 @@ Four findings sharpen this for us:
   net; we replay one forward pass into a small head).
 - **The cadence question = the drift detector at a slow timescale.** "When to sleep" is "when has enough SCFF drift
   accumulated that the readout's coverage has decayed" — the *same* signal as the per-step gate
-  ([`the-economy-gate.md`](the-economy-gate.md)), integrated. So sleep-cadence is not a separate magic number; it's the
+  ([`the-economy-gate.md`](../phase8/the-economy-gate.md)), integrated. So sleep-cadence is not a separate magic number; it's the
   drift detector with a longer window. And it should be **readout-aware**: consolidate the **extractor depth the fixed
   reader actually reads** (shallow on the flat home, deep on compositional tasks), not the whole stack.
 - **The fair baseline is A-GEM-style BP+replay, and we should run it.** Phase 4's continual WIN was vs naive online-BP;
