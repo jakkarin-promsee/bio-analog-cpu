@@ -32,7 +32,7 @@
 >
 > ## ✅ T3 RAN (2026-06-29) — the cheap-credit lever is OBJECTIVE SHARPNESS, not credit machinery
 > The cheap-credit ladder + a deep-lit pass ran (results: **[`t3-results.md`](t3-results.md)**, figure
-> `t3/figs_t3/T3_RESULTS.png`; survey: **[`lit-cheap-credit.md`](lit-cheap-credit.md)**; scripts `t3/run_t3.py`,
+> `t3/figs_t3/T3_RESULTS.png`; survey: **[`lit-cheap-credit.md`](../../research/papers/phase5/lit-cheap-credit.md)**; scripts `t3/run_t3.py`,
 > `t3/run_topdown.py`). **Surprise verdict: sharpening the InfoNCE objective (`temp 0.5→0.2`) at the cheap depth-2
 > window nearly matches full-backprop composition (tail 0.539 ≈ 0.549) at ~1/6 the cost — a FREE fix.** Two candidate
 > "cheap global credit" mechanisms were guard-checked and **failed**: overlapping windows *hurt* (credit-chain length
@@ -137,25 +137,29 @@ re-derive that** — the track files point back to it. The session's *new* contr
 
 - **The Tunnel Effect** as the unifying diagnosis (the readout-placement problem has a name and a theory) — §1.
 - **The preservation-via-near-identity-init family** (ReZero / Fixup / LayerScale / Hyper-Connections) as the
-  named, proven, substrate-cheap version of the author's residual idea — [Track A](track-a-preservation.md).
+  named, proven, substrate-cheap version of the author's residual idea — [Track A](../../research/papers/phase5/track-a-preservation.md).
 - **The adaptive-readout / early-exit / learned-halting family** (deep supervision, BranchyNet/MSDNet/SDN/CALM,
   ACT/PonderNet, MoE/SSM) as the engineering answer to "where to read" and the author's decider-GD —
-  [Track B](track-b-adaptive-readout.md).
+  [Track B](../../research/papers/phase5/track-b-adaptive-readout.md).
 - **The cheap-global-direction family** (DFA, top-down broadcast, Forward Target Propagation) as the
-  constraint-respecting "eventually backward" — [Track C](track-c-cheap-direction.md).
+  constraint-respecting "eventually backward" — [Track C](../../research/papers/phase5/track-c-cheap-direction.md).
 
 ## 5 · The files
+
+> The four **literature** files (`lit-cheap-credit` + the three `track-*`) live canonically in
+> [`../../research/papers/phase5/`](../../research/papers/phase5/README.md) — the papers layer. This folder keeps
+> what is *ours*: the decision record, the reviews, and the T0/T3 results.
 
 | File | What's in it |
 | --- | --- |
 | **[`t3-results.md`](t3-results.md)** ★ NEWEST | **The T3 cheap-credit ladder results (2026-06-29) — the latest empirical word.** Objective sharpness (temp) is the decisive free lever ≈ e2e ceiling; overlap + naive top-down STRUCK (guard-checked negatives); the reordered ladder. Scripts in `t3/`. |
-| **[`lit-cheap-credit.md`](lit-cheap-credit.md)** ★ | **The deep literature survey (2026-06-29):** the 3 flow-safe global-credit shapes, ranked candidates, FTP/PEPITA ruled out, all arXiv IDs verified. Supersedes track-c's survey-level treatment. |
+| **[`lit-cheap-credit.md`](../../research/papers/phase5/lit-cheap-credit.md)** ★ | **The deep literature survey (2026-06-29):** the 3 flow-safe global-credit shapes, ranked candidates, FTP/PEPITA ruled out, all arXiv IDs verified. Supersedes track-c's survey-level treatment. |
 | **[`t0-results.md`](t0-results.md)** | **The T0 experiment results (2026-06-28).** Both controls ran: decay is locality-bound (not under-training), temperature is a free lever, native depth is curable via global credit. |
 | **[`review-and-revisions.md`](review-and-revisions.md)** ★ | **The post-review decision record (authoritative for the plan logic).** The 4-agent recheck, the meta-insight (direction not magnitude), the KEEP/CHANGE/CUT ledger, and where the leader overrules a reviewer. |
 | [`replan.md`](replan.md) **(v2.2)** | The re-planned ladder, **post-review + post-T0 + post-T3**: T0/T3 ✅done → T1 (MVP, cost) → T2 (frozen residual) → T3 (the cheap-credit ladder — **temperature is the primary free lever**; overlap + naive top-down struck; global-credit deferred) → T4 continual → T5 north star. The actionable plan. |
-| [`track-a-preservation.md`](track-a-preservation.md) | Preservation literature — near-identity residual (ReZero/Fixup), dense reuse, the residual caveat. *(Post-review: α defaults to **frozen**; preserve **class direction**; whitening rejected-as-lever — see review-and-revisions.md.)* |
-| [`track-b-adaptive-readout.md`](track-b-adaptive-readout.md) | Adaptive-readout literature — deep supervision (multi-head), early-exit + confidence, halting, MoE/SSM. *(Post-review: learned halting **CUT** → calibrated threshold; placement = head-confidence not goodness.)* |
-| [`track-c-cheap-direction.md`](track-c-cheap-direction.md) | Global-coordination literature — DFA, top-down broadcast, Forward Target Propagation, three-factor/dopamine. *(Post-review: promoted to **conditional T3**, mandatory iff the locality control says so.)* |
+| [`track-a-preservation.md`](../../research/papers/phase5/track-a-preservation.md) | Preservation literature — near-identity residual (ReZero/Fixup), dense reuse, the residual caveat. *(Post-review: α defaults to **frozen**; preserve **class direction**; whitening rejected-as-lever — see review-and-revisions.md.)* |
+| [`track-b-adaptive-readout.md`](../../research/papers/phase5/track-b-adaptive-readout.md) | Adaptive-readout literature — deep supervision (multi-head), early-exit + confidence, halting, MoE/SSM. *(Post-review: learned halting **CUT** → calibrated threshold; placement = head-confidence not goodness.)* |
+| [`track-c-cheap-direction.md`](../../research/papers/phase5/track-c-cheap-direction.md) | Global-coordination literature — DFA, top-down broadcast, Forward Target Propagation, three-factor/dopamine. *(Post-review: promoted to **conditional T3**, mandatory iff the locality control says so.)* |
 
 ## 6 · The one-paragraph verdict (for future-me, cold)
 

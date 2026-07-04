@@ -1,7 +1,7 @@
 # The re-plan v2.2 — the depth-readout ladder (post 4-agent review + T0 + T3 cheap-credit ladder)
 
 > **v2.2, 2026-06-29 — T3 RAN (the cheap-credit ladder + a deep-lit pass).** Results:
-> [`t3-results.md`](t3-results.md); literature: [`lit-cheap-credit.md`](lit-cheap-credit.md). Two pre-registered,
+> [`t3-results.md`](t3-results.md); literature: [`lit-cheap-credit.md`](../../research/papers/phase5/lit-cheap-credit.md). Two pre-registered,
 > guard-checked experiments + a literature survey **reshaped T3 decisively:**
 > - **🔥 The decisive cheap lever is OBJECTIVE SHARPNESS, not credit reach.** `temp 0.5→0.2` at the adopted depth-2
 >   window reaches tail-L12 **0.539 / acc 0.550 ≈ the full-backprop ceiling (0.549 / 0.569)** at **1.9× cost vs 11×**.
@@ -159,7 +159,7 @@ Lives on the licensed GD side. **Split into two one-variable rungs** (methodolog
 - **Preserve the class DIRECTION:** if a learned preservation term is wanted, prefer a **per-sample class-subspace
   preservation** (hold the class-discriminative directions fixed) over VICReg/Barlow variance-covariance (which
   restore *rank* — a symptom — use batch stats, and rot under continual shift). *(Whitening appendix:
-  [`track-a-preservation.md`](track-a-preservation.md), post-review note.)*
+  [`track-a-preservation.md`](../../research/papers/phase5/track-a-preservation.md), post-review note.)*
 - **Decision / STOPPING MARK ②:** preservation makes depth **safe to read**, not **unbounded to use** (the extractor
   stays task-bounded). If T0.1 confirmed the ceiling is task-set, T2 buys "read-top convenience," not capability —
   a cheap test, not a tier of commitment.
@@ -197,7 +197,7 @@ Full results + figure: [`t3-results.md`](t3-results.md).)*
   open research question. DFA/EBD ([2504.11558]) is the global *wire* (needs a defined contrastive error; degrades
   with depth). **Re-open only if temperature + w4 leave a gap that matters on the continual workload.** **FTP
   ([2506.11030]) and PEPITA are OUT — verified to rewrite the forward stream** (not flow-safe; see
-  [`lit-cheap-credit.md`](lit-cheap-credit.md) §C/§E).
+  [`lit-cheap-credit.md`](../../research/papers/phase5/lit-cheap-credit.md) §C/§E).
 - **The reference ceiling:** `window=12` (full e2e backprop) composes to L12 — the **diagnostic upper bound** every
   cheap rung is measured against (5-seed median tail 0.549). **Never deployed** (it's the forbidden full backward).
 - **The one-scalar hypothesis** (S6 gate = plasticity gate = broadcast = the same neuromodulator) is parked with the

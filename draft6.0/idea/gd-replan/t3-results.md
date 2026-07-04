@@ -3,7 +3,7 @@
 > **What this is.** The autonomous research session you asked for ("find the way to solving this decay problem with
 > our architecture"). It ran two pre-registered experiments on the P4.3 apparatus (L=12, W=64, per-layer linear probe
 > to L12, **5 seeds** `[42,137,271,314,1729]`, headroom + flat), each guarded against this project's recurring
-> sign-bug curse, plus a deep literature pass ([`lit-cheap-credit.md`](lit-cheap-credit.md)). Figure:
+> sign-bug curse, plus a deep literature pass ([`lit-cheap-credit.md`](../../research/papers/phase5/lit-cheap-credit.md)). Figure:
 > `t3/figs_t3/T3_RESULTS.png`. Scripts: `t3/run_t3.py` (overlap + locality), `t3/run_topdown.py` (objective-side
 > credit), `t3/plot_t3.py`.
 >
@@ -92,7 +92,7 @@ update more class-selective, so the representation stops drifting off the class 
 
 ## Result 4 — naive top-down objective credit is DEAD (the cheapest objective-side fix does NOT work)
 
-The literature's #1-ranked lever ([`lit-cheap-credit.md`](lit-cheap-credit.md) §D/§F): add a **detached top-down
+The literature's #1-ranked lever ([`lit-cheap-credit.md`](../../research/papers/phase5/lit-cheap-credit.md) §D/§F): add a **detached top-down
 consistency term** to each layer's local InfoNCE (CLAPP/InfoPro principle, preserve class direction). Tested at the
 window=1 base (most-local, most-decayed → any lift is pure top-down credit at backward-depth 1), 5 seeds:
 
