@@ -321,7 +321,9 @@ trailing on raw static accuracy, with one honest negative it owns rather than hi
    chip contains no gradient descent at all.**
 8. **The economy, run live.** Both brains ran together for the first time; a drift **gate** meters the 80/20 for
    real (the namer is ~12 % of substrate energy) and — the surprise — the gate is a **safety** mechanism: _firing
-   more forgets more._ OURS costs ≈ **half** the energy of backprop-with-replay at matched retention.
+   more forgets more._ Against the like-for-like BP+replay it was metered on, OURS cost ≈ **half** the energy —
+   _(Phase 10's smaller, harder-tuned ER later flips that same-substrate cut to the 1.5× loss in the scorecard,
+   which is exactly why the energy claim is banked as substrate-realized, not algorithmic.)_
 9. **Freeze.** The founding assumption, finally _measured_: the cheap brain **rotates but does not forget**, so
    sleep stays cheap. The lifelong maintenance loop was tuned on internal signals only, then **locked at a commit
    hash** for the final race.

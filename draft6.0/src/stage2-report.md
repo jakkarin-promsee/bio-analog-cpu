@@ -340,7 +340,8 @@ collapse to ~0.3 and the cheaper SLDA edges it). What Phase 8/9 inherit:
 - **The maintenance loop is built, frozen, and validated.** What is committed is the *readout family* (P7) + the *economy*
   (P8: gate, trigger, cadence, deployed head, meter) + the *frozen neocortex maintenance loop* (P9) + its *honest Pareto
   verdict* (P10). The named residual (directional/ADC noise) hands to the analog-realism layer; the static-accuracy gap on
-  natural data is flagged to a future draft (a convolutional / larger bulk), never a Stage-2 re-run.
+  natural data is flagged to a future draft (a convolutional / larger bulk); the noise-first thin-margin limit hands to
+  the next capability (recover clean structure from an all-noisy stream) — never a Stage-2 re-run.
 
 ---
 
@@ -368,9 +369,12 @@ namer (SLDA) + a metered economy (the DDM gate) + a frozen lifelong maintenance 
 **validated honestly** against the strongest fair opponent. Phase 10 discharged the existential debt Phases 4/8/9 carried:
 raced against a tuned, budget-matched BP+replay learner, the object is a **substrate-native continual learner** — it ties
 on the continual home, trails on easy static data, and wins decisively on continual safety, noise robustness, and the
-substrate energy floor. The founding bet survives, refined into exactly what the project always said it was, with two
-remainders **named, not hidden**: a small directional/ADC noise residual → the analog-realism layer, and a static-accuracy
-gap on easy natural data → a future draft (a convolutional / larger bulk). Both drafts, never a Stage-2 re-run.
+substrate energy floor. The founding bet survives, refined into exactly what the project always said it was, with three
+remainders **named, not hidden**: a small directional/ADC noise residual → the analog-realism layer; a static-accuracy
+gap on easy natural data → a future draft (a convolutional / larger bulk); and the **noise-first representation limit**
+(the §10 reversed runs: order-invariant at the endpoint, but a representation whose first structure forms inside noise
+runs thin-margined between sleeps) → the named capability target, a bulk that recovers the clean structure *itself*
+from an all-noisy stream. All future work, never a Stage-2 re-run.
 
 **What's next, beyond Stage 2:** the **analog-realism layer** (SPICE / PVT — the absolute-Joule and device-physics the
 behavioral meter cannot give, and the read-side noise residual it must reach); and, beyond the numbered phases, the

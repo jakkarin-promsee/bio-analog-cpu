@@ -48,7 +48,7 @@ backprop learner (the strong fair baseline).
 ## The four figures
 - **GAUNTLET** (`exp3/figs_p10_3/GAUNTLET.png`) — 5 domains learned with steady retention (worst-point 0.490 vs 0.350)
   at substrate-realized lower energy; sleep-position + domain markers overlaid.
-- **GAUNTLET-STREAM** (`exp3/figs_p10_3/GAUNTLET_STREAM.png` + `_REV.png` + `_LONG.png`) — the same race at **batch
+- **GAUNTLET-STREAM** (`exp3/figs_p10_3/GAUNTLET_STREAM.png` + `_REV.png` + `_LONG.png` + `_REVLONG.png`) — the same race at **batch
   resolution**: the replay learner crashes to ~0.1 accuracy at every domain switch and re-climbs (a saw-tooth), while
   OURS holds ~0.5 flat (live-batch mean 0.469 vs 0.273); the energy panel shows OURS's sleep staircase vs the replay
   learner's every-step ramp. **The reversed-order twin is the sharpest single comparison:** put the hard noisy world
@@ -61,6 +61,12 @@ backprop learner (the strong fair baseline).
   visible on the line).
 - **SUBSTRATE** (`exp3/figs_p10_3/SUBSTRATE.png`) — the 2×2 {OURS,GD}×{analog,digital}: the chip 3.5× under
   conventional GD-on-digital, decomposed into substrate × algorithm.
+
+## What's next (the one-line roadmap)
+The **analog-realism layer** (SPICE / PVT — the absolute-Joule and device-physics pass the behavioral meter cannot
+give; first work item = the named directional/ADC residual), and the **noise-first capability** the reversed runs
+named (a bulk that recovers clean structure *itself* from an all-noisy stream — arrival-order-stable accuracy in
+deployment). Beyond those: the recurrent lifelong loop, deliberately not specced yet.
 
 *Full verdict: [`README.md`](README.md); numbers: [`RESULTS.md`](RESULTS.md); the why-analog decomposition:
 [`../phase8/README.md`](../phase8/README.md) §P8.7.*

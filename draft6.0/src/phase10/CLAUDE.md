@@ -85,7 +85,8 @@ then withdrawn — within noise.)
   `p10run.py`, `plot_p10.py`); the frozen object it races: [`../phase9/README.md`](../phase9/README.md).
 - **Owed deltas (flagged, banked to [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) as S14):** the founding
   bet's economics & accuracy halves banked separately; the cadence cost-frontier `{4,5,6,8,16}` (grid-4 headline, no swap);
-  the characterized SCFF:Namer ratio; the Phase-6 noise arc cashed + the residual named → the analog layer; the **Stage-2
+  the characterized SCFF:Namer ratio; the Phase-6 noise arc cashed + the residual named → the analog layer; the **noise-first
+  thin-margin limit** named → the next capability (recover clean structure from an all-noisy stream); the **Stage-2
   close-out** (the neocortex brain is done). The Stage-2 report is rewritten from "living" → closed: [`../stage2-report.md`](../stage2-report.md).
 - **Read-budget:** for the verdict read `README.md`; for numbers `RESULTS.md`. Open cards/code only to modify.
 - **Up:** draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · prev → [Phase 9 — freeze](../phase9/README.md) · next →
