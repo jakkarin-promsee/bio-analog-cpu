@@ -13,6 +13,40 @@ The guiding method is one line: **copy the brain's _function_, cheat the _implem
 real neuron one-to-one — so don't. Reproduce _what it does_, and pay for each principle with whatever is cheap on
 this substrate: analog physics where physics is cheaper, modern ML math where math is cheaper.
 
+---
+
+## It works — five shifting worlds, no catastrophic forgetting
+
+Before the *how*, the *what*. Here is the finished chip — **draft 6.0, frozen** — put through its hardest honest
+test: a **multi-domain gauntlet.** Five digit-recognition worlds arrive in sequence (identity → permuted → rotated →
+covariate-shifted → noised), each overwriting the last, and the learner has to keep *all five* — **without** re-storing
+the old worlds as training data. This is the continual-learning regime, the one that makes ordinary backprop
+**catastrophically forget**, and it is where this architecture lives.
+
+![The multi-domain gauntlet — OURS holds retention nearly flat across five shifting worlds while a fair, tuned replay-backprop baseline sags mid-stream](draft6.0/src/phase10/exp3/figs_p10_3/GAUNTLET.png)
+
+The opponent is **not a straw man**: a *fair, budget-matched, genuinely-tuned* experience-replay backprop learner
+(**ER-strong**) — the standard strong answer to forgetting — with the verdict shapes pinned **blind**, before any
+baseline number was seen.
+
+- **Steadier retention.** OURS holds worst-point all-previous accuracy at **0.490** across the whole stream; the tuned
+  backprop baseline sags to **0.350** mid-gauntlet as it chases the newest world. Anytime accuracy **0.519 vs 0.433** —
+  and the final scores still *tie* (0.490 vs 0.504).
+- **Order-robust.** Reverse the order of the worlds and the backprop learner **collapses** (final accuracy 0.343, down
+  from 0.504) — it was quietly leaning on the easy ordering. OURS is **order-invariant** (0.494 either way). A lifelong
+  learner does not get to choose the order the world arrives in; this one does not have to.
+- **≈10× safer (on the core continual benchmark).** Worst-case forgetting **−0.028 vs −0.272** for tuned backprop — an
+  order of magnitude less destructive.
+
+**And the honest scope — this *is* the point, not a footnote.** The retention win is **switch-frequency-scoped**: it
+holds where the world switches *faster than a plastic learner can re-converge.* Give backprop long stationary stretches
+and it re-climbs. On a same-substrate energy-vs-accuracy Pareto a small tuned baseline actually **dominates** this chip
+— the energy edge is **substrate-realized** (the analog crossbar), not algorithmic. Every one of those caveats is
+stated plainly below, beside the axes the chip *does* win.
+
+*That's the result. Below is what the chip is, how it gets there, and where to read deeper — stop here and you have the
+shape of it, or descend.*
+
 > **What this is, honestly.** A solo research project (evenings and weekends) that rebuilt a small piece of a field
 > from the substrate up. The current architecture — **draft 6.0** — is validated across **ten phases of behavioral
 > simulation** (numpy, ideal floats; an honest analog-noise and analog-energy model, but **no SPICE and no silicon
@@ -97,6 +131,9 @@ raw static accuracy, with one honest negative it owns rather than hides.*
     verdicts pinned **blind**. It **ties** on the hard continual home, **trails** on natural digits, and **wins**
     continual safety (≈10× less forgetting) and noise (every held-out channel).
 
+*The whole model — both brains, the substrate, the maintenance loop — in one self-contained file:*
+[`draft6.0/src/phase9-final-architecture.md`](draft6.0/src/phase9-final-architecture.md).
+
 ## The verdict, honestly
 
 A **substrate-native continual learner** — competitive on its home, decisively **safer**, far more **noise-robust**,
@@ -131,6 +168,33 @@ learning all arrived from physical intuition first. The project is large because
   converged (it now has).
 - **The north star, beyond the numbered phases:** a recurrent, lifelong-learning "thinking" loop where *correctness
   is a self-generated feeling.* Deliberately not specced yet — **simple intelligence first.**
+
+---
+
+## The project in one look
+
+```
+Bio-AnalogCPU/
+├── README.md              ← you are here — the front page
+├── CLAUDE.md · AGENTS.md  the agent operating context (how to work in this repo)
+├── docs/
+│   ├── essence/           the soul — the-essence2.md (the grown spine) + the-essence.md (the seed)
+│   └── draft/             the project history, drafts 1 → 6
+├── draft6.0/              ★ the live line — the validated architecture
+│   ├── README.md          the draft's whole story (why 5 died, what 6.0 is)
+│   ├── context.md         the cold-start dump for an agent
+│   ├── idea/              the design + the N1–S14 decision record
+│   ├── research/          the papers behind it (+ the north-star dossier)
+│   └── src/               ★ the results: stage{1,2} reports · phase1..10/ · phase9-final-architecture.md
+├── draft5.0/              the superseded attribution era (pre-pivot history)
+├── draft-journey/         every earlier draft (1.0 → 5.1) in full
+└── post/                  build-in-public writeups
+```
+
+**The ten-phase arc, one line:** P1 structure · P2 the depth-wall · P3 the objective-reframe (contrast supersedes
+energy) · P4 the capability map · P5 depth cured · P6 noise-hardened — *the cheap brain, Stage 1* — then P7 the
+readout (it is **not** gradient descent) · P8 the economy (the gate is *safety*) · P9 freeze · P10 the honest race —
+*the namer, Stage 2* — → **the verdict, S14.** Discipline throughout: *freeze in P9, judge in P10.*
 
 ---
 
