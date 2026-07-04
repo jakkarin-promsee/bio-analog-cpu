@@ -16,7 +16,8 @@
 > the chip and the loop that keeps it alive: the **precise "namer"** that puts our labels on the cheap brain's features
 > (Phase 7), the **drift-gated economy** that decides when the namer pays (Phase 8), and the **lifelong maintenance
 > loop** that survives forever and has now been **tuned against internal signals and locked** (Phase 9). The cheap brain
-> (§2) is frozen and only summarized here; its full derivation is in [`phase6-final-architecture.md`](phase6-final-architecture.md).
+> (§2) is folded in **in full** below, so this file stands alone; the frozen v1.1.0 snapshot it was lifted from —
+> [`phase6-final-architecture.md`](phase6-final-architecture.md) — is kept, period-correct, as the pre-namer milestone.
 >
 > **What "v2.0.0 / frozen" means — read this before any claim.** This freezes the **ideal-math *design*** of the whole
 > two-brain neocortex — not its silicon, not its scale, not a benchmark win. Almost every number here is from a
@@ -58,6 +59,10 @@
 | **sleep / the LUT** | periodic **consolidation**: re-forward a raw-prototype store (the **Hippocampus LUT**) through the *current* SCFF map, rebuild the running Gram, re-solve the namer. The LUT is a bounded, evicting store (§5.4). |
 | **the frozen / oracle reference** | an *internal* reference that **cheats with hidden task boundaries** (sleeps/fires exactly at onsets). Matching it is the *win*; it is never a deployable path. Every Phase-9 verdict is measured against it, **never** against the Phase-10 backprop baseline. |
 | **rotation vs forgetting** | the SCFF map **rotates** (a fixed head goes stale) but does not **forget** (an optimal probe *re-fit* on the current bulk still decodes the old classes). Phase 9 measured this; it is why cheap sleep suffices (§5.1). |
+| **A7** | the eval-time **noise sensitivity** the Phase-4 capability map flagged as the cell's one honest NEGATIVE — the wound Phase 6 hardened (§2.5). |
+| **directional retention** | the Phase-6 **noise metric** (the spine's form here): `acc(σ)/acc(0)` measured along the frozen class axis. Robustness = "the class *direction* survived," never Δaccuracy, never per-sample cosine. |
+| **the two doors / the directional residual** | Door A = analog-substrate noise (tap / input / ADC / weight); Door B = the all-noisy data stream. Shared enemy: a **directional, non-zero-mean** perturbation aligned with the class axis — the residual that survives common-mode auto-zeroing. |
+| **`NoiseModel` / projected-RMS / linear-readout control** | the behavioral analog-noise model (AIHWKit-structured); noise measured as **RMS projected onto the class axis** (matching iid and directional on the axis that matters); the **linear readout on raw input** carried as the relative-fragility yardstick (the decisive read is **OURS-vs-linear**). |
 | **the freeze (P9.5)** | the whole tuned loop, **committed at a git hash**, so Phase 10 races a locked object. `59d2720`. |
 
 ---
@@ -86,7 +91,7 @@ brain's *function*, cheat the *implementation*.**
 
 ---
 
-## 1 · The substrate, in one breath (enough to ground the rest — full detail in the v1.1.0 file)
+## 1 · The substrate, in one breath (enough to ground the rest)
 
 Three primitives, because they explain *why* the learning rules are shaped the way they are.
 
@@ -108,40 +113,144 @@ energy, not just in op-count. Device physics (SPICE, PVT, finite write precision
 
 ---
 
-## 2 · The cheap brain: SCFF (the 80%), frozen — the committed essence
+## 2 · The cheap brain: SCFF (the 80%), frozen — the full derivation
 
-*The full derivation (the six-phase arc, the depth cure, the noise fix, the paper-by-paper ledger) is in
-[`phase6-final-architecture.md`](phase6-final-architecture.md). Here is the committed cell and the two ideas an outsider
-must carry into the GD half.*
+*Everything in §2 was frozen across Phases 1–6 and is reproduced here in full so this file stands alone. The committed
+cell's code name is **`NoiseAugContrast`** — an `L = 12`, width-64 SCFF bulk; final config `τ=0.2`, window `w=2`/stride 2
+(`w=4` a bounded depth-closer), mask `r=0.5`, `σ_aug=1.0`, `B=32`, lr `0.03`, **no residual**, mandatory per-sample L2
+norm. The five subsections derive each of those choices.*
 
-**The committed cell — `NoiseAugContrast`.** An **L = 12, width-64** SCFF bulk. Each layer is `h = ReLU(W a + b)`
-followed by a **mandatory per-sample L2 normalization** (`a ← h/‖h‖`; no batch/running statistics — this is what makes it
-continual-friendly and nuisance-robust). The objective is **not** SCFF's energy-goodness `‖h‖²` (Phase 2 proved energy
-measures *density*, and density does not compose with depth) but a **windowed two-view InfoNCE** contrastive loss
-(GIM/CLAPP family, adapted to flat vectors): make two masked views of a sample, run both through the shared weights for a
-**coordination window of `w = 2` adjacent layers**, pull the two views of the same sample together and push other
-samples apart, with **temperature `τ = 0.2`**. Credit flows through only the `w` layers of the window — never the whole
-stack — which is why **backward compute stays flat in depth** (the 80/20's depth-gating). Phase 5 found the sharper
-temperature (τ 0.5→0.2) is a *direction* lever (~82% survives an lr-matched control) that carries the representation to
-its own full-credit ceiling; Phase 6 added **one noise-augmented view** (`σ_aug = 1.0`, broad iid) so the composed class
-direction is **noise-invariant** — a forward-only Jacobian/Tikhonov smoothing. Full config: `τ=0.2`, `w=2`/stride 2
-(`w=4` a bounded depth-closer), mask `r=0.5`, `σ_aug=1.0`, `B=32`, lr `0.03`, no residual, per-sample norm.
+### 2.1 The lineage, and the one wrong turn we corrected
 
-**Idea one the GD half inherits — the bulk composes depth but *trails on raw static accuracy, by design*.** On a
-synthetic headroom microscope the deployed readout (0.550) beats a genuinely-tuned backprop MLP (0.531) at matched
-budget, and it wins the **continual** regime decisively — but it is a **structure learner with a cheap namer, not a
-global error-minimizer**, so it trails on raw single-task accuracy and many-class problems. The GD namer's job is to
-extract the class names from that structure as cheaply and as spine-cleanly as possible — not to fix the bulk's static
-accuracy (it cannot; the bulk is frozen).
+**Forward-Forward** (Hinton 2022) replaces the backward pass with *two forward passes* — one on real ("positive") data,
+one on fake ("negative") — training every layer locally to be **loud on the real, quiet on the fake**, no gradient
+crossing a layer. Hardware-friendly (no transpose, no stored activations), but it needed *labels* to build the fakes.
+**SCFF** (Self-Contrastive Forward-Forward, Nature Comms 2025) made the contrast from the data itself — a positive is a
+sample paired with itself, a negative a sample paired with a *different* one, label-free — with an **energy** goodness
+`G = ‖h‖²`. We adopt SCFF's **frame** (the only rule that is local *and* derivative-free *and* forward-only *and*
+unsupervised at once — the only one that can live on the substrate), but **not its objective.**
 
-**Idea two — the bulk drifts, and the spine is directional.** As SCFF learns forward-only on a stream, its feature map
-**rotates**. A fixed head goes stale; a re-fit head does not (§5.1). And the noise that threatens the design is
-*directional* — a coherent shift along the class axis, invisible to a per-sample cosine, caught only by *retention of the
-class direction*. Phase 6 hardened the dominant **tap** channel (directional retention 0.817→0.865, 5/5) forward-only,
-improved clean accuracy, and kept the continual win (BWT −0.022→−0.017), but named one residual it cannot reach
-forward-only — the **input-transducer directional channel** — and handed it to the GD read side. **Phase 9 closed that
-residual** (§5.5). These two facts — a rotating bulk and a directional read-side residual — are exactly what the whole
-Stage-2 loop is built to survive.
+Because energy-goodness has a fatal property *for us*, and finding it was the spine of Phases 1–3: **energy measures
+density, and density is not class.** `‖h‖²` is loud where the *data* is dense, which recovers classes only when they
+happen to *be* density clusters (a checkerboard or an equal-density spiral defeats it), and — worse — **density does not
+compose with depth** (Phase 2's "depth wall"). The failure is in the **goodness functional itself**, not the choice of
+negative: Phase 2 showed *even a perfect class-oracle negative* does not make energy compose, because no scalar that
+measures a **magnitude** (`‖h‖²`) can encode a **direction** (the class axis). That is the spine, stated as an empirical
+result about the objective.
+
+### 2.2 The committed objective: windowed two-view InfoNCE
+
+The fix changes *what "good" means* at each layer from **energy** to **information preserved about the class direction.**
+The existence proof is **Greedy InfoMax** and **CLAPP**: forward-only, gradient-isolated, unsupervised modules trained
+with a local **InfoNCE** loss whose representations *improve* layer over layer — the rising curve energy-goodness never
+produced. We adopt that objective in the flat-vector form the substrate needs.
+
+**Forward path (one layer).** Input-normalize, then each layer is a ReLU map followed by a **mandatory L2 normalization:**
+
+$$a_0 = \frac{x}{\lVert x\rVert},\qquad h_l = \mathrm{ReLU}(W_l\,a_l + b_l),\qquad a_{l+1} = \frac{h_l}{\lVert h_l\rVert}.$$
+
+**The local objective.** Credit spans a small **coordination window** of `w` adjacent layers. For a window at depth `s`,
+take its input `a_s` and make **two randomly masked views** (each coordinate kept with prob `1 − r`, `r = 0.5`):
+
+$$a^{(1)} = a_s \odot m_1,\qquad a^{(2)} = a_s \odot m_2,\qquad m_v \sim \mathrm{Bernoulli}(1-r).$$
+
+Run **both views through the same shared weights** (the two rails of §1) for the `w`-layer window, giving L2-normalized
+tops `u^{(1)}, u^{(2)} \in \mathbb{R}^{B\times d}`. Apply **InfoNCE** with the two views of the same sample as the
+positive pair and the other samples as negatives:
+
+$$S_{ij} = \frac{\langle u^{(1)}_i,\; u^{(2)}_j\rangle}{\tau},\qquad
+\mathcal{L} = -\frac{1}{B}\sum_{i=1}^{B} \log \frac{\exp(S_{ii})}{\sum_{j=1}^{B}\exp(S_{ij})}.$$
+
+The gradient flows through **only the `w` layers of the window** — never the whole stack — which is why **backward cost
+stays flat in depth** (§4's 80/20). **Why two masked views:** they share a sample's **class direction** but differ in
+accidental detail, so pulling them together while pushing other samples apart forces each layer to **keep the class axis
+and discard the rest** — provided the class signal is *distributed* across coordinates (why a 50% mask retains it in
+expectation). We did not prove this; we **tested it** — masked-view *contrast* composed with depth, while the
+pre-registered favorite, masked-feature **reconstruction**, *failed* (it preserved density, below random). **What is ours
+vs GIM's:** GIM/CLAPP already showed local InfoNCE composes *on data with spatial/temporal structure*; ours is making it
+work on **structureless flat vectors** via the two-masked-view target, plus the Phase-5 depth-decay cure (§2.3) and the
+Phase-6 noise-hardening (§2.5).
+
+### 2.3 The two knobs that close the depth problem (Phase 5)
+
+Even with contrast, the representation composed for only ~5 layers, then **decayed** — it drifted *off the class
+manifold* once a layer's abstraction saturated (alive, full-rank, but mis-aimed — a *direction* failure, density ≠ class
+a fifth time). Two **free, forward-only** knobs cure it:
+
+- **Temperature `τ` (the free lever).** A *sharper* InfoNCE temperature (`τ = 0.2`, from `0.5`) concentrates each update
+  on the hardest negatives, making it more **class-selective**. Sharpening also raises the gradient scale (`∝ 1/τ`), so
+  part of the gain could be a disguised larger step — a **learning-rate-matched control** isolates it: **~82% of the lift
+  survives the lr-match**, so it is mostly *direction* (class-selectivity), not step size. (Too sharp, `τ ≤ 0.05`,
+  collapses — there is a floor.)
+- **Coordination window `w` (the bounded reach).** `w` is mechanically the **truncation length of blocked
+  backpropagation** — within `w` adjacent layers gradients flow, across windows they are cut (the LoCo /
+  Distance-Forward-O family, supplied forward-only). Committed **stride = w = 2**; `w = 4` a bounded depth-closer; the
+  diagnostic **`w = 12` (one window over the whole stack) is a full backward pass** — *forbidden*, used only as a ceiling.
+
+**What actually earns the depth (the flagship claim, with its uncertainty).** At `τ = 0.2`, `w = 2` — the committed,
+substrate-legal cell — the **deployed readout reaches `0.550 [0.545–0.553]`, above a genuinely-tuned BP MLP at matched
+budget (`0.531 [0.531–0.533]`)** — IQR-disjoint, 5/5 by seed. The linear-probe tail rises `0.435 → 0.530` (`w = 2`),
+closing to **`0.562` at `w = 4` ≈ the `0.556` `w = 12` ceiling.** **Read the `w12` comparison correctly:** `w = 12` is
+one credit window over the whole stack — effectively *ordinary backprop on this 12-layer cell* — so "reaching the `w12`
+ceiling" means a **bounded forward-only window recovers almost all of what unconstrained credit would give on this
+objective**, *not* "matches an external backprop." So "depth solved" = the cheap levers carry the representation to *its
+own full-credit ceiling*, on a **synthetic headroom microscope** built to have depth headroom (a representation/readout
+result, not a benchmark). The forbidden `w = 12` only proves the decay was **objective-locality (curable), not an
+intrinsic wall.** **The mandatory L2 norm is load-bearing twice:** it forbids a layer cheating by inflating `‖h‖`, *and*
+being **per-sample** (no batch/running statistics) it is what makes the cell continual-friendly and nuisance-robust —
+and, honestly, is *also* the source of the eval-time noise sensitivity (A7, §2.5).
+
+### 2.4 How the contrastive objective runs on the substrate (the honest bridge)
+
+The simulation and the intended chip use the objective differently, and we are explicit about which is which. **In
+simulation (every number here):** standard **mini-batch InfoNCE** — `B` samples, two masked views, the full `B×B`
+similarity, `B−1` in-batch negatives. **On the chip (designed, not built):** the two rails carry the **positive pair**
+through the shared crossbar (the "one charge cycle, not two" win), and the **negatives are supplied by the Hippocampus
+LUT** — stored prototype activations drawn a few at a time, a contrast against a rolling set accumulated over time. This
+is the **CLAPP route** (InfoNCE made single-sample and Hebbian-plausible for online hardware) — which is *why CLAPP is in
+the reference list.* **Resolving "no batch statistics":** mini-batch InfoNCE *does* couple samples (the denominator is
+the batch), so the precise claim is **not** "no batch coupling" but "**no running / normalization statistics**" (the L2
+norm is per-sample; nothing carries one task's distribution into the next) — which is *why* the continual safety holds
+(§4). Three honest Stage-2 gates remain: the LUT-streamed-negative estimator differs from in-batch (the `τ` lever works
+*by* concentrating on the hardest negatives, which a deduplicated pool may lack); the softmax/normalizer is a **real
+digital block**, not a free crossbar op; and a **bounded**, task-spanning LUT under a lifelong stream must evict (the
+continual-safety mechanism's tension — Phase 9 addresses it, §5.4).
+
+### 2.5 The noise-hardened objective (Phase 6)
+
+The cell will run on an **analog substrate** (drifting charge, offset op-amps, quantizing ADCs) and a **never-clean data
+stream**, and Phase 4 returned one honest NEGATIVE: eval-time noise (**A7**). Phase 6 is its SCFF-side close-out. **Why
+the fix must live here, not in the readout:** by **LP-FT**, a trained head *preserves* but cannot *manufacture* backbone
+robustness, and A7 is born in SCFF's own **per-sample L2 norm** — so no downstream namer can rescue it; the fix is
+upstream, which is why noise got its own phase *before* the namer. **Naming the enemy (P6.0):** against a behavioral
+`NoiseModel` (AIHWKit-structured) at matched **projected-RMS on the class axis**, A7 reproduces and is **OURS-specific** —
+a directional perturbation degrades OURS's readout **~2× more than a linear-readout control** (retention ~0.60 vs ~0.96,
+5/5), while the **common-mode** channel is auto-rejected by the same per-sample norm. **Why "retention," not cosine
+(density ≠ class, a sixth time):** iid noise **rotates** each representation (per-sample cosine catches it), but the
+dangerous **directional** enemy is a **coherent translation** along the class axis — it barely rotates any single vector
+(`cos ≈ 0.97`) yet slides the whole cloud off a fixed readout, so cosine is nearly blind to it; the true read is
+**retention of the class direction.** **The fix: one noise-augmented view.** `NoiseAugContrast` corrupts **one** of the
+two InfoNCE views at train time, teaching the composed class direction to be **noise-invariant**, forward-only — the
+surrogate for a Jacobian/Tikhonov penalty (Bishop: input-noise ≈ a first-order Tikhonov regularizer). **A guess the sims
+overturned — generic, not directional:** a random-axis control refuted the directional-specific augmentation (`iid ≥
+randax > dir`) — broad smoothing wins, because the enemy's axis is unknown and label-free at train time. **What it buys
+(σ_aug = 1.0, n = 5):** the dominant tap-directional retention lifts **0.817 → 0.865** (5/5), clean accuracy *improves*
+(0.526 → 0.555), the **A6 continual win is kept and slightly improved** (BWT −0.022 → −0.017 — a noise-robust
+representation is also drift-robust), and it holds on real data (digits 0.763 → 0.888). **Door B** (can a direction form
+when *every* sample is corrupted?): yes — the direction still forms from a fully-noisy stream (ratio-to-clean 0.93
+zero-mean, 1.00 directional). **The honest scope — a *partial* crossing:** the tap lift is near, not decisively above,
+the pre-registered 0.90 band, and the **input-transducer directional channel is not reached forward-only** (0.733 →
+0.696) — a generic augmentation cannot harden a channel it never corrupts. That residual is handed to **Stage-2
+read-side** as a named brief — and **Phase 9 discharges it** (§5.5).
+
+**The two ideas the GD half inherits.** *One — the bulk composes depth but trails on raw static accuracy, by design.* The
+deployed readout beats a tuned BP MLP on the synthetic microscope (0.550 vs 0.531) and wins the continual regime
+decisively, but it is a **structure learner with a cheap namer, not a global error-minimizer** — so it trails on raw
+single-task accuracy and many-class problems, and the namer's job is to *extract* the class names, not fix the frozen
+bulk's static accuracy (it cannot). *Two — the bulk drifts, and the read is directional.* As SCFF learns forward-only its
+map **rotates** (a fixed head goes stale; a re-fit head does not, §5.1), and the noise that threatens it is *directional*
+(caught only by retention of the class direction). A rotating bulk and a directional read-side residual are exactly what
+the whole Stage-2 loop is built to survive.
 
 ---
 
@@ -342,7 +451,15 @@ backprop fight is Phase 10:
 
 ---
 
-## 7 · What we extended, paper by paper — the GD half (the cheap-brain ledger is in the v1.1.0 file)
+## 7 · What we extended, paper by paper (both halves)
+
+**The cheap brain (Stage 1) — the frame, the objective, the noise fix.**
+- **SCFF (Nature Comms 2025)** *(the frame and the name)* — kept the **label-free, forward-only, local self-contrastive frame**; **replaced its loss** — energy-goodness `‖h‖²` measures density, and density ≠ class (Phase 2), so out it went. *SCFF the frame, GIM/CLAPP's objective.*
+- **Greedy InfoMax / CLAPP (NeurIPS 2019 / 2021)** *(the objective we actually run)* — a **local InfoNCE that composes with depth**, forward-only and unsupervised (the existence proof that Phase 2's wall was the *objective*, not locality). CLAPP is also the **single-sample / online** form that streams the negatives on-chip (§2.4). Ours: the **two-masked-view** target for structureless flat vectors + the Phase-5 depth-decay cure.
+- **SimCLR (2020)** *(the positive pair)* — the **augmentation-based two-view** positive under InfoNCE; ours is **coordinate-masking** on flat vectors, and **Phase 6 adds a second, noise-corrupted view** (§2.5).
+- **The noise quartet — AIHWKit/Rasch (2023) · Bishop (1995) · Noise2Noise (2018) · LP-FT (Kumar 2022)** — set the Phase-6 threat model (directional, tap ≫ weight), the reason the noise-augmented view works (input-noise ≈ Jacobian/Tikhonov), the **Door-B** theory (a class direction forms from an all-noisy stream), and the **ordering** (fix noise in SCFF, before the namer). *(Also from v1.1.0: Distance-Forward = the window `w`; DeeperForward = "squared goodness kills depth, not the norm"; BYOL = read a stop-gradient encoder; Mono-Forward = per-depth heads; BoostResNet = the boosting theory, since **dropped** for a single bulk, S11.)*
+
+**The namer + maintenance half (Stage 2).**
 
 **RanPAC (Random Projections + Accumulated class prototypes, NeurIPS 2023)** *(the committed namer's form)*
 - *Kept:* a **frozen random ReLU projection + a running-Gram ridge prototype** — a gradient-free, closed-form, streaming
@@ -393,6 +510,17 @@ backprop fight is Phase 10:
 
 | paper | what we took | our extension / change |
 | --- | --- | --- |
+| **SCFF** | label-free forward-only self-contrastive frame + the name | **energy → InfoNCE** objective; summation reformulation (FF-pairing case only) |
+| **GIM / CLAPP** | local InfoNCE composes depth; CLAPP = single-sample/online | two-masked-view target for flat vectors; LUT-streamed negatives; the flat-vector decay-cure |
+| **SimCLR** | augmentation two-view positive pair under InfoNCE | coordinate-masking + a **noise** view, flat vectors, inside a local window |
+| **Distance-Forward** | overlapping-block coordination (DF-O) | parameterized **window `w`** = blocked-backprop truncation length; dose-response |
+| **DeeperForward** | "squared goodness kills depth, not the norm" | keep the L2 norm; drop `‖h‖²`; harden *around* the norm (P6) |
+| **BoostResNet** | residual *follows* boosting, `e^{-½Tγ²}` | applied to labeled GD checkpoints; read-not-write; **then dropped for a single bulk (S11)** |
+| **BYOL** | read a stop-gradient encoder safely | GD-reads-SCFF-never-writes (stability, not anti-collapse) |
+| **DSN / Mono-Forward** | per-layer / per-depth heads | placement **Pareto-dominates** all-tap on composite tasks |
+| **AIHWKit / Rasch 2023** | honest analog-noise model; tap ≫ weight; directional residual | set the Phase-6 **threat model** (the class-axis enemy) |
+| **Bishop 1995** | input-noise ≈ Jacobian/Tikhonov penalty | why the noise-augmented view works; **generic > directional** smoothing |
+| **Noise2Noise · LP-FT** | clean-from-only-noisy (zero-mean) · a head can't manufacture backbone robustness | **Door B** (direction from an all-noisy stream) · the **ordering** (noise fixed in SCFF first) |
 | **RanPAC** | random-projection + running-Gram ridge, gradient-free | on SCFF features; spine rubric; cbrs guard; SLDA deployed as the cheaper twin |
 | **Deep SLDA** | streaming means + tied covariance, closed-form | the **deployed namer** (69× cheaper, ties live); streaming `partial_fit`; the anisotropy fix |
 | **DDM / ADWIN** | error-drift detector as a gate | reads a **class-direction** trigger; the gate is **safety**, not just cost |
@@ -490,7 +618,7 @@ brain will read. After Phase 10, the analog-realism layer (SPICE / PVT) opens. *
 
 ---
 
-## References (the papers this half stands on — the cheap-brain references are in the v1.1.0 file)
+## References (the papers the whole model stands on)
 
 RanPAC ([2307.02251](https://arxiv.org/abs/2307.02251)) · Deep SLDA ([1909.01520](https://arxiv.org/abs/1909.01520)) ·
 DDM (Gama et al., 2004) / ADWIN (Bifet & Gavaldà, 2007) · CBRS (Chrysakis & Moens, ICML 2020) · iCaRL / herding
@@ -501,9 +629,11 @@ Layerwise Proximal Replay ([2402.09542](https://arxiv.org/abs/2402.09542)) · Pr
 ([1812.00420](https://arxiv.org/abs/1812.00420)) · REMIND ([1910.02509](https://arxiv.org/abs/1910.02509)) · does
 continuous SSL forget ([2311.13321](https://arxiv.org/abs/2311.13321)) / CaSSLe
 ([2112.04215](https://arxiv.org/abs/2112.04215)). **Energy model:** Horowitz (ISSCC 2014) · DNN+NeuroSim · ISAAC (ISCA'16)
-· PUMA (ASPLOS'19) · AIHWKit — behavioral, not SPICE. The **cheap-brain** lineage (SCFF, GIM/CLAPP, SimCLR,
-Distance-Forward, DeeperForward, BoostResNet, BYOL, Mono-Forward, AIHWKit/Rasch, Bishop, Noise2Noise, LP-FT):
-[`phase6-final-architecture.md`](phase6-final-architecture.md) §5. The arc behind every claim:
+· PUMA (ASPLOS'19) · AIHWKit — behavioral, not SPICE. **The cheap brain (Stage 1):** Forward-Forward (Hinton 2022) ·
+SCFF (Nature Comms 2025) · Greedy InfoMax (NeurIPS 2019) / CLAPP (NeurIPS 2021) · SimCLR (2020) · Distance-Forward
+(2024) · DeeperForward (ICLR 2025) · BoostResNet (ICML 2018) · BYOL (2020) · Mono-Forward (2025) · AIHWKit / Rasch
+(2023) · Bishop (1995) · Noise2Noise (2018) · LP-FT (Kumar 2022) — the full per-paper ledger is §7. The arc behind every
+claim:
 [`stage1-report.md`](stage1-report.md) · [`stage2-report.md`](stage2-report.md) and each `phaseN/README.md`. The decision
 record: [`idea/main.ideas.v1.md`](../idea/main.ideas.v1.md) (N1–N3 + S1–S13). The cheap-brain snapshot this builds on:
 [`phase6-final-architecture.md`](phase6-final-architecture.md) (v1.1.0). The frozen loop: commit `59d2720`.
