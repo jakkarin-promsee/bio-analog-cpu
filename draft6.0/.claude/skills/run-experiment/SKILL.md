@@ -1,11 +1,11 @@
 ---
 name: run-experiment
-description: Plan, write, or run a draft-6 phase experiment — the sim ladder, the methodology, the exp-card structure. Use for "run a phase", "write an experiment", "set up a test", "plan an exp card", "the next rung", "run phase 5".
+description: Plan, write, or run a draft-6 phase experiment — the sim ladder, the methodology, the exp-card structure. Use for "run a phase", "write an experiment", "set up a test", "plan an exp card", "the next rung", "add a phase".
 ---
 
 # Running a draft-6 experiment
 
-**Where the work is:** `draft6.0/src/phaseN/` (one folder per phase; the active phase is **Phase 5**).
+**Where the work is:** `draft6.0/src/phaseN/` (one folder per phase, P1–P10 — all complete; the next work is the analog-realism / SPICE-PVT layer, not yet a numbered phase).
 **Read first:** the target `phaseN/design.md` (the codeable spec + build plan) + `draft6.0/src/result-format.md` (house style). Prior-phase context = read that phase's `phaseN/README.md` **only** (the front-door synthesis), never its code.
 
 **Methodology (non-negotiable):**

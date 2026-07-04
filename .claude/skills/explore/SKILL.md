@@ -20,7 +20,7 @@ description: Navigate this repository — where things live, how it's organized,
 `phaseN/README.md` (the front-door synthesis) — not its code. For "what IS this project" load the **`project-frame`** skill; for "where
 are we / current status" load draft 6's **`status`** skill.
 
-**Routing:** working on Phase 5 → start in `draft6.0/`; why an old decision was made → `docs/draft/project-history.md`;
+**Routing:** working on a draft-6 phase → start in `draft6.0/` (it loads that chain); why an old decision was made → `docs/draft/project-history.md`;
 the idea journey → `draft-journey/`.
 
 **Budget:** this skill + one target `CLAUDE.md`. For a full repo sweep, dispatch the `Explore` subagent.

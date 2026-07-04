@@ -1,22 +1,29 @@
 ---
 name: status
-description: The live state of draft 6.0 — the phase ladder, what is done vs open, what Phase 5/6 are. Use for "where are we", "current status", "what is the live plan", "what did phase N find", "what is next", "what is phase 5", "what is phase 6".
+description: The live state of draft 6.0 — the phase ladder (P1–P10, both stages DONE), the verdict S14, what is next. Use for "where are we", "current status", "what is the live plan", "what did phase N find", "what is next", "is it done", "what is phase N".
 ---
 
 # draft 6.0 — current status
 
-**The SCFF cheap brain is finished (Phases 1–5); Phase 6 = GD-side optimization is the live line.** The ladder — verdict + where the detail lives:
+**Both stages are DONE and the neocortex is validated (Phases 1–10). Verdict S14: a substrate-native continual learner. The live line is now the analog-realism (SPICE/PVT) layer.** The ladder — verdict + where the detail lives:
 
-- **P1 ✓ structure** — the continual win: one SCFF+GD block generalizes better than backprop at ~10% backward cost, and sleep recovers what online-BP catastrophically forgets; *not* a deep static-accuracy competitor. → `src/phase1/README.md`
-- **P2 ✓ depth round 1** — a deep SCFF stack can't earn depth (transmission *and* a perfect-oracle objective both fail); depth = boosted shallow blocks + tiny GD readouts. → `src/phase2/README.md`
-- **P3 ✓ depth round 2 — ADOPTED** — the wall was the **energy objective `Σh²`**, not locality; **contrast (InfoNCE) + a cross-layer coordination window** compose depth, superseding energy-goodness. → `src/phase3/README.md`
-- **P4 ✓ characterization** — capability map vs *tuned* backprop: a substrate-native **continual** learner. WINS continual / nuisance-dim / depth-composition / depth-cheap; TRAILS static difficulty / class-count; honest NEGATIVE on eval-time noise. → `src/phase4/README.md`
-- **P5 ✓ SCFF close-out — depth SOLVED (scoped)** — the decay was **objective-locality, not an intrinsic Tunnel** (full-credit w12 composes the whole stack). Two *free* levers fix it: sharper InfoNCE **temp 0.2** earns the depth (direction not lr; readout beats tuned-BP) + **per-depth heads / a short fixed reader** read the continual home **8× cheaper** than all-tap. Continual-safe (A6 intact, BWT −0.026), real-data-confirmed. Adaptive early-exit + frozen residual struck. Committed cell: `SCFFContrastOverlap` temp0.2 / w2, L12 bulk, NO residual, fixed-reader deploy. → `src/phase5/README.md`
-- **P6 → GD-side optimization (live — was "P5 = optimization")** — sleep-cadence + Ch7 learning-gate tuned to *this* cell's measured drift, now readout-aware; + train-with-noise (hardware-aware) and natural-data follow-ups.
+**Stage 1 — the cheap brain (P1–6):**
+- **P1 ✓ structure** — the continual win: one SCFF+GD block generalizes better than backprop at ~10% backward cost, and sleep recovers what online-BP catastrophically forgets; *not* a static-accuracy competitor. → `src/phase1/README.md`
+- **P2 ✓ depth round 1** — a deep SCFF stack can't earn depth (transmission *and* a perfect-oracle objective both fail); depth = boosted shallow blocks (later dropped for a single bulk, S11). → `src/phase2/README.md`
+- **P3 ✓ depth round 2 — ADOPTED** — the wall was the **energy objective `Σh²`**, not locality; **contrast (InfoNCE) + a coordination window** compose depth, superseding energy-goodness. → `src/phase3/README.md`
+- **P4 ✓ characterization** — capability map vs *tuned* backprop: a substrate-native **continual** learner. WINS continual / nuisance-dim / depth-composition / depth-cheap; TRAILS static difficulty / class-count; one honest NEGATIVE on eval-time noise. → `src/phase4/README.md`
+- **P5 ✓ SCFF close-out — depth SOLVED (scoped)** — the decay was **objective-locality, not an intrinsic Tunnel**; sharper InfoNCE **temp 0.2** earns the depth back (direction, not lr) + a short fixed reader reads the home ~8× cheaper. Committed cell: `SCFFContrastOverlap` temp0.2 / w2, L12, NO residual. → `src/phase5/README.md`
+- **P6 ✓ noise-hardening — Scoped-YES** — A7 (eval-time noise) is real, OURS-specific, directional; a **noise-augmented view** (`NoiseAugContrast`, σ_aug=1.0) hardens the tap channel forward-only, *improves* clean acc, keeps the continual win; the input-transducer residual → Stage-2 read-side. → `src/phase6/README.md`
 
-**Solid vs open:** the SCFF cheap brain is closed (depth earned, read cheaply, continual-safe, real-data-confirmed). Open = Phase-6 GD-side tuning, noise-*during*-learning (the A7 follow-up), natural-data scale, and all analog/PVT realism (everything so far is ideal floats).
+**Stage 2 — the namer (P7–10):**
+- **P7 ✓ the namer is NOT gradient descent** — a closed-form streaming head (**RanPAC** / **SLDA** committed, cbrs guard) ties a tuned MLP and passes the A6 gate; the spine bends (magnitude-wins). *The 20% is a role, not a method.* **(S11.)** → `src/phase7/README.md`
+- **P8 ✓ the economy, run LIVE** — both brains live; a **DDM** gate on a **class-direction** trigger meters the 80/20 real (GD-share 0.121), OURS ≈ ½ BP+replay, and **firing more forgets more** (the gate is safety). Why-analog: 15.4× = 5.4× substrate × 2.9× algorithm. **(S12.)** → `src/phase8/README.md`
+- **P9 ✓ freeze the maintenance loop** — the bulk **rotates but does not forget** (measured); N2 struck, all-tap kept, **CBRS** committed, the read-side residual defended by **proto-reanchor**; the freeze caught the drift-conditional cadence (grid-8→**grid-4**), **locked at `59d2720`**. **(S13.)** → `src/phase9/README.md`
+- **P10 ✓ the honest race** — the frozen object raced a fair, budgeted, tuned BP+replay baseline (verdicts pinned blind). **S14:** ties the continual home (0.494 vs 0.498), trails natural digits (continual, not static), **wins** continual safety (worst-BWT −0.028 vs −0.272, ≈10× safer) + noise (every held-out channel); the energy edge is substrate-realized. → `src/phase10/README.md`
 
-**The live decision record:** `draft6.0/idea/main.ideas.v1.md` (committed N1–N3 + the open knobs). The full Stage-1 arc: `draft6.0/src/stage1-report.md`.
+**Solid vs open:** the neocortex is closed (both brains built, characterized, frozen, and raced against a fair opponent). Open = the analog-realism layer (SPICE / PVT / device noise — everything so far is ideal floats + behavioral noise/energy models), and beyond the numbered phases the recurrent lifelong brain (the north star).
+
+**The whole model in one self-contained file:** `draft6.0/src/phase9-final-architecture.md`. **The live decision record:** `draft6.0/idea/main.ideas.v1.md` (committed N1–N3 + S1–S14). **The executive arcs:** `src/stage1-report.md` (P1–6) · `src/stage2-report.md` (P7–10).
 
 **Off-limits:** the recurrent lifelong "thinking" brain is the north star, *beyond* the numbered phases — deliberately not specced. Hold as direction (`research/north-star/`, `docs/essence/`), not a task.
 

@@ -12,9 +12,10 @@ continuous, resident-weight** — are substrate facts, not training tricks. Meth
 cheat the *implementation*** (analog physics where physics is cheaper, modern DL math where math is cheaper).
 
 **The two-brain hybrid in one breath:** a cheap unsupervised **SCFF** front (~80%, label-free, forward-only)
-organizes the world for free; a small precise **gradient-descent** back (~20%) maps features to real labels —
-*direction is the one expensive thing in learning, so pay for it once.* The two chain as **residual boosting
-blocks**, threshold-gated, sleep-consolidated over a hippocampus LUT.
+organizes the world for free as a single frozen bulk; a small precise **namer** back (~20%) maps features to real
+labels — *direction is the one expensive thing in learning, so pay for it once.* The namer **reads, never writes**
+the bulk, and the sims found it needs **no gradient descent** — it is closed-form (SLDA/RanPAC), drift-gated (the
+gate is a *safety* mechanism), sleep-consolidated over a hippocampus LUT.
 
 **Reflexes that are WRONG here — learn the reason, not the rule:**
 - *"It's just Forward-Forward / just SCFF."* SCFF is only the cheap 80%; the whole is a hybrid, and our SCFF is reformulated (summation not concat, mono-forward dual-rail) for the substrate.
@@ -24,4 +25,4 @@ blocks**, threshold-gated, sleep-consolidated over a hippocampus LUT.
 - *"Tune it until it converges."* A failed run is **data** — characterize and report it.
 - *"Rename the bio-names to be rigorous."* They're a structural semantic system; considered and rejected.
 
-**Budget:** read this skill. Architecture detail → load `draft6.0/CLAUDE.md`; the full story → `draft6.0/context.md`; the why and the person → `docs/essence/the-essence.md`.
+**Budget:** read this skill. Architecture detail → load `draft6.0/CLAUDE.md`; the full story → `draft6.0/context.md`; the why and the person → `docs/essence/the-essence2.md`.

@@ -5,8 +5,8 @@ description: Work on the draft-6 numpy simulation code — the per-phase pNlib /
 
 # The draft-6 simulator
 
-**Where it lives:** `draft6.0/src/phase{1..5}/` — one folder per phase, each with its own apparatus.
-- Shared libraries: **`p2lib.py`, `p3lib.py`, `p4lib.py`, `p5lib.py`** (`p4lib`/`p5lib` are the most feature-complete; `p5lib` adds per-depth heads, the calibrated-exit gate, a forward-MACs meter, and the A6 continual harness). **Phase 1 has no `p1lib`** — its code lives in `phase1/exp0/models_extra.py` plus the per-experiment scripts.
+**Where it lives:** `draft6.0/src/phase{1..10}/` — one folder per phase, each with its own apparatus.
+- Shared libraries: **`p2lib.py` … `p10lib.py`** (one per phase, Phases 2–10). `p5lib`/`p6lib` carry the frozen cheap brain — per-depth heads, the calibrated-exit gate, a forward-MACs meter, the A6 continual harness, and the `NoiseAugContrast` noise model; `p7lib` … `p10lib` carry the Stage-2 namer — the streaming `partial_fit`, the DDM gate, the CBRS bounded LUT, and the ADC-centred cost meter. **Phase 1 has no `p1lib`** — its code lives in `phase1/exp0/models_extra.py` plus the per-experiment scripts.
 - Per phase: `pNlib.py` (apparatus, Phases 2–4) · `run_*.py` (one run script per experiment) · `plot_*.py` (figure script) · `figs_*/` (outputs: `.png` + `arrays.npz` + `manifest.json`).
 
 **It is a behavioral numpy sim (ideal floats, ideal operators) — a *netlist of a chip*, not a model.**
@@ -15,4 +15,4 @@ Run **single-threaded** (`OMP_NUM_THREADS=1 python -u …`) — there is a known
 
 **"Done" for a code change:** it runs; the result is loggable (one variable changed, multi-seed); the exp card is writable from the output.
 
-**Budget:** this skill + the active `phaseN/README.md`. Open `pNlib.py` only when modifying it, not for orientation.
+**Budget:** this skill + the relevant `phaseN/README.md`. Open `pNlib.py` only when modifying it, not for orientation.

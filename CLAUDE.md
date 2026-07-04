@@ -14,7 +14,7 @@ hardwired op-amps do add / multiply / ReLU directly on charge; the chip **learns
 backward pass that leaves the chip.** Committed properties: **online, sparse, continuous, resident-weight**
 (compute-in-memory). Method: **copy the brain's *function*, cheat the *implementation*** — pay for each principle
 with whatever is cheap here (analog physics where physics is cheaper, modern DL math where math is cheaper). Full
-overview: [`AGENTS.md`](AGENTS.md) / [`README.md`](README.md); the *why* and the person: [`docs/essence/the-essence.md`](docs/essence/the-essence.md).
+overview: [`AGENTS.md`](AGENTS.md) / [`README.md`](README.md); the *why* and the person: [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md).
 
 ---
 
@@ -44,14 +44,14 @@ that hasn't loaded — run `/memory` to see what's in scope.)*
 | The whole picture, cold | [`draft6.0/context.md`](draft6.0/context.md) |
 | Superseded history (draft 5 — attribution era) | [`draft5.0/CLAUDE.md`](draft5.0/CLAUDE.md) |
 | The idea journey (drafts 1.0 → 5.1) | [`draft-journey/`](draft-journey/README.md) |
-| Why the project exists / the person | [`docs/essence/the-essence.md`](docs/essence/the-essence.md) · [`docs/draft/project-personal.md`](docs/draft/project-personal.md) |
+| Why the project exists / the person | [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md) · [`docs/draft/project-personal.md`](docs/draft/project-personal.md) |
 | Why an old (5.1-era) decision was made | [`docs/draft/project-history.md`](docs/draft/project-history.md) |
 
 ---
 
 ## Read these once before non-trivial work
 
-- [`docs/essence/the-essence.md`](docs/essence/the-essence.md) — the project's soul: origin, the draft-5 collapse, the return. Short; read it.
+- [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md) — the project's **soul** (the grown spine after ten phases: origin, the draft-5 collapse, the return, the neocortex built). The shorter original seed: [`the-essence.md`](docs/essence/the-essence.md). Read one before non-trivial work.
 - [`docs/draft/project-personal.md`](docs/draft/project-personal.md) — who the author is and how they work (the gut, the incubation, the 10-minute window). Its rules on hedging, scope-creep, and length-matching are load-bearing.
 
 ---

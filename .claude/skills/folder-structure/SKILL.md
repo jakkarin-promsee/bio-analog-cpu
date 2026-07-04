@@ -14,7 +14,7 @@ description: Decide where a file goes or how to add a phase or draft — the can
 - `CLAUDE.md` — the draft's mental model + current status ladder (the file that changes when a phase advances)
 - `README.md` (overview) · `context.md` (full cold-start) · `idea/` (decision record `main.ideas.vN.md` + derivation `ideasN.md`)
 - `research/` — `survey/` (learning-rule zoo) · `papers/` (per-decision stories, split `phase1-2/` + `phase3/`) · `north-star/` (beyond-the-phases compass)
-- `src/` — one `phaseN/` per phase + `stage1-report.md` + `ref-report/` (glossary) · `.claude/skills/` (draft-specific skills)
+- `src/` — one `phaseN/` per phase + `stage1-report.md` + `stage2-report.md` + the `*-final-architecture.md` snapshots + `ref-report/` (glossary) · `.claude/skills/` (draft-specific skills)
 
 **A `phaseN/` (under `src/`) contains:**
 - `README.md` (**front-door synthesis — the one file to read from outside**) · `design.md` (the pre-run experiment design / codeable spec — a record, not an open to-do) · `CLAUDE.md` (thin signpost) · `RESULTS.md` (scalar ledger) · `phaseN-report.md` (reader-facing narrative + figures) · `result-format.md` (thin per-phase delta) · `expK/experiment-K.md` (run-cards) · `pNlib.py` (apparatus, where one exists) · figures in `figs_*/`

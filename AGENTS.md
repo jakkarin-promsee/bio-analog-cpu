@@ -13,16 +13,21 @@ live as analog charge on capacitors; the multiply-accumulate happens in a crossb
 **online, sparse, continuous, resident-weight** — what the field calls **compute-in-memory**. Guiding method:
 **copy the brain's *function*, cheat the *implementation*.**
 
+**Status:** both brains are built, characterized, and validated across ten phases (Stage 1 = P1–6, Stage 2 =
+P7–10; verdict **S14** — a substrate-native continual learner). The live line is now the analog-realism (SPICE/PVT)
+layer. Per-phase status lives in [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md).
+
 ## Where things are (the map)
 
 | You want | Go to |
 | --- | --- |
 | The human overview | [`README.md`](README.md) |
 | The **live** work (draft 6.0 — SCFF + GD) | [`draft6.0/`](draft6.0/README.md) → its `CLAUDE.md` (operating) + `context.md` (cold-start) |
-| The Stage-1 results | [`draft6.0/src/stage1-report.md`](draft6.0/src/stage1-report.md) |
+| The **results** — the ten-phase arc | [`draft6.0/src/README.md`](draft6.0/src/README.md) → [`stage1-report.md`](draft6.0/src/stage1-report.md) (P1–6) · [`stage2-report.md`](draft6.0/src/stage2-report.md) (P7–10, verdict S14) |
+| The whole model in one self-contained file | [`draft6.0/src/phase9-final-architecture.md`](draft6.0/src/phase9-final-architecture.md) |
 | Superseded history (draft 5 — attribution era) | [`draft5.0/`](draft5.0/README.md) |
 | The idea journey (drafts 1.0 → 5.1) | [`draft-journey/`](draft-journey/README.md) |
-| Why the project exists (the soul) | [`docs/essence/the-essence.md`](docs/essence/the-essence.md) |
+| Why the project exists (the soul) | [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md) (the grown spine; seed: [`the-essence.md`](docs/essence/the-essence.md)) |
 
 ## For AI agents — how context is organized (read this)
 
