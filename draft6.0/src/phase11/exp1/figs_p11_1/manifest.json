@@ -1,0 +1,63 @@
+{
+  "rung": "P11.1",
+  "git": "ed23d70a4fe68b081553a9c843d9034f1d19ec2d",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "cfg": "armA committed D40/W64/L12/C10",
+  "arenas_home": [
+    "synth",
+    "mnist",
+    "digits"
+  ],
+  "arenas_gauntlet": [
+    "digits",
+    "mnist"
+  ],
+  "noise_rms": {
+    "iid": 1.0,
+    "directional": 1.0
+  },
+  "verdict": "NARROWED-WITH-MECHANISM \u2014 the architecture is MORE than its closed-form namer where the data is NONLINEAR (synth home \u0394bulk +0.417; iid-noise \u0394bulk>0), and correctly NULL where a linear namer already saturates (digits \u0394bulk -0.014). 'Is it just SLDA?' -> No on the data that needs a bulk; effectively yes where a linear head suffices. The bulk's value is arena-nonlinearity, mapped.",
+  "arena_dbulk": {
+    "synth": {
+      "homeAA_bulk": 0.5893333333333334,
+      "homeAA_proj": 0.172,
+      "dbulk_homeAA": 0.4173333333333334,
+      "dbulk_iid": -0.2573207203520621,
+      "dbulk_dir": -0.5360499698229679
+    },
+    "mnist": {
+      "homeAA_bulk": 0.778,
+      "homeAA_proj": 0.77,
+      "dbulk_homeAA": 0.008000000000000007,
+      "dbulk_iid": -0.004462099283153553,
+      "dbulk_dir": -0.01448398903643161,
+      "gauntletAA_b": 0.26039999999999996,
+      "gauntletAA_p": 0.44560000000000005,
+      "worstbwt_b": -0.09600000000000003,
+      "worstbwt_p": 0.0,
+      "energy_b": 14336360.447999999,
+      "energy_p": 103353.6
+    },
+    "digits": {
+      "homeAA_bulk": 0.936,
+      "homeAA_proj": 0.95,
+      "dbulk_homeAA": -0.013999999999999901,
+      "dbulk_iid": 0.09477124076278465,
+      "dbulk_dir": -0.03585423159704296,
+      "gauntletAA_b": 0.49119999999999997,
+      "gauntletAA_p": 0.6212,
+      "worstbwt_b": -0.016000000000000014,
+      "worstbwt_p": 0.0,
+      "energy_b": 14336360.447999999,
+      "energy_p": 103353.6
+    }
+  },
+  "note": "proj=identity cell (no SCFF, namer reads raw ->D input); reservoir=random-frozen bulk; DESIGN DEVIATION: swept arena nonlinearity because digits alone (near-linear) understate \u0394bulk.",
+  "wall_s": 289.3
+}
