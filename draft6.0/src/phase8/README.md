@@ -7,7 +7,9 @@
 > *what* the namer is (RanPAC + cbrs); **Phase 8 turns both brains on together for the first time**, decides *when* the
 > namer fires, and puts the **first honest hardware cost number** on the founding 80/20. Ran 2026-07-02, P8.0→P8.6,
 > single-thread CPU/float64, seeds `[42,137,271,314,1729]`, all seven guards bit-exact. **P8.7 (the "why analog" substrate
-ablation) added 2026-07-02** — the full 2×2 {OURS, GD+replay} × {analog, digital} for the professor brief.
+> ablation) added 2026-07-02** — the full 2×2 {OURS, GD+replay} × {analog, digital} for the professor brief.
+>
+> *↑ In the arc:* **Phase 8** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
@@ -171,5 +173,4 @@ meter, Horowitz + NeuroSim/ISAAC anchors in the manifest.)*
   characterization* — and the gate is a **safety** mechanism (always-pay forgets more).
 - **N2** (EMA-view / drift-slowdown) → stays **Phase 9's**; the committed cadence is conditional on it.
 
-*Up:* [draft context](../../CLAUDE.md) · *prev:* [Phase 7 — the readout](../phase7/README.md) · *next:* Phase 9 —
-maintenance + the owed BP+replay accuracy baseline.
+*Up:* [draft context](../../CLAUDE.md) · *prev:* [Phase 7 — the readout](../phase7/README.md) · *next:* [Phase 9 — freeze the maintenance loop](../phase9/README.md).

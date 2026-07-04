@@ -23,6 +23,8 @@
 > added then withdrawn — within noise.)
 > Read this for the verdict; numbers in [`RESULTS.md`](RESULTS.md); per-rung stories in [`expK/experiment-K.md`](exp0/experiment-0.md); the
 > spec in [`design.md`](design.md) (§10 = the extension's pre-run record); the contract in [`result-format.md`](result-format.md).
+>
+> *↑ In the arc:* **Phase 10** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

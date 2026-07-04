@@ -7,6 +7,8 @@
 > turned both brains on and metered the economy; **Phase 9 tunes the five still-open knobs of the lifelong maintenance loop
 > against *internal* signals, then LOCKS the object** for Phase 10 to race. Ran 2026-07-02, P9.0→P9.5, single-thread
 > CPU/float64, seeds `[42,137,271,314,1729]`, all nine guards bit-exact. Discipline: **freeze in P9, judge in P10.**
+>
+> *↑ In the arc:* **Phase 9** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
@@ -106,4 +108,4 @@ N2 **resolved** (struck) · S7 **extended** (all-tap depth + grid-4 lifelong cad
 Stage-2 maintenance close-out.
 
 *Up:* draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · *prev:* [Phase 8 — the economy](../phase8/README.md) · *next:*
-[Phase 10 — the validation / the showcase](../phase10/design.md) (races this frozen object).
+[Phase 10 — the validation / the showcase](../phase10/README.md) (races this frozen object).

@@ -6,6 +6,8 @@
 > into "kinds of things"; **P7 puts *our* names on the kinds** — read-only on the frozen `NoiseAugContrast` bulk (GD
 > reads taps, never writes; the P2.5 envelope held). Ran 2026-07-02, P7.0→P7.6, single-thread, seeds
 > `[42,137,271,314,1729]`, all guards pass.
+>
+> *↑ In the arc:* **Phase 7** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
@@ -119,4 +121,4 @@ class structure (synthetic tie, digits #1) and is idle where SCFF has no depth (
 | The literature behind every mechanism | [`../../research/papers/phase7/`](../../research/papers/phase7/README.md) |
 | The Stage-2 map | [`../stage2-design.md`](../stage2-design.md) |
 
-*Prev:* [Phase 6](../phase6/README.md) · *Next:* Phase 8 — the economy gate + the cost meter (RanPAC vs SLDA).
+*Prev:* [Phase 6](../phase6/README.md) · *Next:* [Phase 8 — the economy gate + the cost meter](../phase8/README.md).

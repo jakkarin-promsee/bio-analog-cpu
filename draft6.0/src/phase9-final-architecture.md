@@ -1,5 +1,13 @@
 # The neocortex — final architecture (v2.0.0, the complete two-brain loop, frozen)
 
+> **✅ Validated by Phase 10 (2026-07-03).** This snapshot is the object *as frozen at Phase 9* — written
+> **pre-verdict, by design** (freeze in P9, judge in P10). Phase 10 has since raced it, untouched, against a fair,
+> budgeted, tuned BP+replay baseline: the verdict (**S14**) is a **substrate-native continual learner** — it ties the
+> fair baseline on the continual home, trails on natural digits (continual, not static), and **wins** continual
+> safety (≈10× less forgetting) + noise (every held-out channel); the energy edge over conventional GD is
+> substrate-realized. The verdict lives in [`stage2-report.md`](stage2-report.md) + [`phase10/README.md`](phase10/README.md);
+> this file is left **period-correct** — the "still owed → Phase 10" notes below reflect its freeze state.
+>
 > **What this is.** The single, self-contained account of the model we built across **nine** phases of draft 6.0 — the
 > whole chip, both brains, the lifelong maintenance loop, now **frozen**. It is written so an **outside researcher can
 > understand the entire model from this one file**, without opening a single `phaseN/` report. It is the current head of
