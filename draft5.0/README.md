@@ -9,7 +9,7 @@
 > A continuous-time analog substrate with on-chip, online learning.
 > Architecture spec + behavioral-simulation plan.
 
-**Status:** Rebuilt at **draft 6.0** (June 2026) after the previous learning rule collapsed. The substrate vision is intact; the learning rule was rebuilt from zero as a **SCFF + gradient-descent hybrid.** The design spine is committed; **Phase 1** (the behavioral-simulation ladder) is specified but has **not run yet** — numbers pending.
+**Status:** Rebuilt at **draft 6.0** (June 2026) after the previous learning rule collapsed. The substrate vision is intact; the learning rule was rebuilt from zero as the **two-brain SCFF + namer** design. Draft 6.0 has since run all **ten phases** (Stage 1 = P1–6, Stage 2 = P7–10) — verdict **S14**, a substrate-native continual learner; this draft-5 folder stays historical.
 
 > [!NOTE]
 > Solo independent research project, evenings/weekends. The live plan lives in [`draft6.0/`](../draft6.0/). Drafts 1 → 5.1 (the *attribution era*) are kept as reference for how the project worked before the pivot — see [Project history](#project-history--the-attribution-era-draft-1--51) below.
@@ -102,7 +102,7 @@ The distinguishing claim is the *combination*: continuous analog compute + on-ch
 │   ├── research/papers/       #   paper stories behind 6.0 (Phase 1-3)
 │   └── research/north-star/   #   north-star research dossier (21 files, beyond the numbered phases) — compass, not the live line
 ├── docs/
-│   ├── essence/the-essence.md # the project's soul (origin → collapse → return)
+│   ├── essence/               # the soul — the-essence2.md (grown spine) + the-essence.md (seed)
 │   └── draft/                 # collaboration handoff + the draft 1→5.1 history
 ├── .claude/skills/            # auto-load skills (+ commands) for AI collaboration
 ├── tools/                    # spec → A4 Word toolchain
@@ -113,7 +113,7 @@ The distinguishing claim is the *combination*: continuous analog compute + on-ch
 └── src/                       # the old behavioral simulator (built for attribution)
 ```
 
-**Reading order if you've just arrived:** this README → [`draft6.0/README.md`](../draft6.0/README.md) (the pivot) → [`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md) (the decisions) → [`docs/essence/the-essence.md`](../docs/essence/the-essence.md) (the why). For the whole picture in one file: [`draft6.0/context.md`](../draft6.0/context.md).
+**Reading order if you've just arrived:** this README → [`draft6.0/README.md`](../draft6.0/README.md) (the pivot) → [`draft6.0/idea/main.ideas.v1.md`](../draft6.0/idea/main.ideas.v1.md) (the decisions) → [`docs/essence/the-essence2.md`](../docs/essence/the-essence2.md) (the why — the grown spine). For the whole picture in one file: [`draft6.0/context.md`](../draft6.0/context.md).
 
 ## Project history — the attribution era (draft 1 → 5.1)
 

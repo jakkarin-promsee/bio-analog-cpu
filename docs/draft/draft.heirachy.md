@@ -4,7 +4,12 @@ A map of how each draft evolved — what changed, why, and what role each file p
 
 For the narrative version of the same arc (mind stones, breakthroughs, why each pivot happened), see `project-history.md`. This file is the file-by-file index.
 
-> **Draft-6.0 note (June 2026).** This map covers the **historical** drafts (1.0 → 5.1) — the *attribution era*, now superseded. The project pivoted: the live plan is **`draft6.0/`** (a SCFF + gradient-descent hybrid — start at `draft6.0/context.md`). Read this file to understand the *old* drafts and why each pivot happened; it is **not** the current structure.
+> **Draft-6.0 note.** This map now covers **drafts 1.0 → 6.0.** Versions 1–5 (below) are the *attribution era* —
+> historical, superseded. **[Version 6](#version-6--the-scff--gradient-descent-rebuild-draft-60)** (near the end) is
+> the **current** structure — the SCFF + gradient-descent rebuild, which is a *whole project tree*, not a single
+> document. Start at [`draft6.0/context.md`](../../draft6.0/context.md) or
+> [`draft6.0/README.md`](../../draft6.0/README.md). The narrative version of the same arc is
+> [`project-history.md`](project-history.md).
 
 ---
 
@@ -263,15 +268,53 @@ Split only because the markdown-to-PDF tool fails on the unsplit length. Section
 
 ---
 
-## What Has Never Changed (v1 → v5.1)
+## Version 6 — the SCFF + gradient-descent rebuild (draft 6.0)
 
-- **2-3-3-2 Ganglion topology, 29 scaps** — hardwired, not learnable
-- **scap** as the atom of storage (SRAM + Capacitor)
+Draft 6.0 is **not** a single document like the earlier drafts — it is a **whole project tree** (`draft6.0/`),
+because the rebuild is as large as the entire attribution era. After the draft-5 collapse (a missing sign — see
+`project-history.md` Part II) it **replaced the attribution learning rule and kept the substrate.** The file-by-file
+map:
+
+| Path (`draft6.0/…`) | Type | One-line |
+| --- | --- | --- |
+| `README.md` | Story | the pivot — why 5.x died, what 6.0 is, the ten-phase arc |
+| `context.md` | Context dump | the whole picture for a cold agent (what / why / how / the person) |
+| `CLAUDE.md` | Agent | the draft's operating context + the live status ladder (P1–P10) |
+| `idea/README.md` | Index | the idea folder's front door + the decision timeline |
+| `idea/ideas1.md` | Design | the origin blueprint — the nine-chapter plan, committed *before* a sim ran |
+| `idea/main.ideas.v1.md` | Decision record | **N1–N3 + S1–S14**, one line per committed call (the draft-6 equivalent of the old §22 protected list) |
+| `idea/phase4-opinion.md` · `phase4-problem.md` | Development | the prescient GD-era reflection + the depth-decay problem statement |
+| `idea/gd-replan/` | Development | the depth-readout research hinge that opened Stage 2 |
+| `research/` | Reading | `survey/` (learning-rule options) · `papers/` (paper stories, per phase) · `north-star/` (beyond-the-phases dossier) |
+| `src/README.md` | Index | the results front door — the arc map + the document-system key |
+| `src/stage1-report.md` · `stage2-report.md` | Report | the two executive arcs (Stage 1 = P1–6 · Stage 2 = P7–10) |
+| `src/phase{1..10}/` | Phase | per phase: `README.md` (front door) · `phaseN-report.md` (deep) · `RESULTS.md` · `design.md` · `expK/` cards · `pNlib.py` + figures |
+| `src/phase9-final-architecture.md` | Snapshot | the whole **frozen** two-brain model in one self-contained file (v2.0.0) |
+| `src/ref-report/` | Glossary | methods · metrics · papers the reports cite (one pinned definition each) |
+
+**The ten-phase arc** is draft 6's version-history (the old drafts iterated `.md` files; draft 6 iterates *phases*):
+**Stage 1** — P1 structure → P2 depth-round-1 → P3 the objective reframe (contrast supersedes energy-goodness) →
+P4 characterization → P5 the SCFF close-out (depth solved) → P6 noise-hardening — built the cheap brain; **Stage 2**
+— P7 the readout (*not* gradient descent) → P8 the economy → P9 the freeze → P10 the honest race — built the namer
+and validated the whole object (verdict **S14**: a substrate-native continual learner, refined not inflated). The
+narrative is [`project-history.md`](project-history.md) (Part II); the front-door synthesis is
+[`../../draft6.0/src/README.md`](../../draft6.0/src/README.md).
+
+**Naming note:** draft 6 dropped the `draftX.Y.md` single-file convention. Its "versions" are the numbered **phases**
+(P1–P10) and the **decision-record deltas** (N1–S14), not new filenames — because the rebuild is a project, not a
+document.
+
+---
+
+## What Has Never Changed (v1 → v6)
+
+- ~~**2-3-3-2 Ganglion topology, 29 scaps**~~ — hardwired v1 → v5, but the **draft-6 rebuild dropped the Ganglion hierarchy** (it belonged to the attribution rule that broke); only the *path-diversity intuition* carried over
+- **scap** as the atom of storage (SRAM + Capacitor) — *the one architectural primitive that survived the draft-6 pivot intact*
 - **Resident-weight goal** — weights never leave the substrate during operation
 - **Sign as digital, magnitude as analog** in the scap
 - **Intuition-first design** — literature comparison deferred to post-baseline (§1.8 methodological note)
 - **Scope: Python simulation only** — no SPICE, no hardware, no external benchmarks yet
-- **Semi-anatomical naming** — Ganglion / Column / Limbic Loop survived from v2 onward; Cortex / Hippocampus / Commissure / Brainstem / Lobe joined later
+- **Semi-anatomical naming** as a *practice* — survived from v2 onward, though the specific names churned: Ganglion / Column / Limbic Loop were **dropped** at the draft-6 pivot (the dead attribution hierarchy), while Cortex / Hippocampus survive as the sleep / LUT-memory ideas
 
 ---
 

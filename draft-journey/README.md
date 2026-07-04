@@ -12,4 +12,4 @@ them — read it as narrative, not as the current plan.
 
 - **File-by-file map** of everything here → [`../docs/draft/draft.heirachy.md`](../docs/draft/draft.heirachy.md)
 - **Why** each pivot happened (the narrative arc 1 → 5.1) → [`../docs/draft/project-history.md`](../docs/draft/project-history.md)
-- **The soul** of the whole journey → [`../docs/essence/the-essence.md`](../docs/essence/the-essence.md)
+- **The soul** of the whole journey → [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md) (the grown spine; its seed: [`the-essence.md`](../docs/essence/the-essence.md))

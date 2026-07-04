@@ -1,10 +1,12 @@
 # Project History — How the Architecture Evolved
 
-> **⚠️ HISTORICAL — the attribution era (draft 1 → 5.1).** This is the narrative of the *old* architecture,
-> which **collapsed in June 2026** on a missing sign (the loss carried magnitude but never direction). The
-> project pivoted to **draft 6.0** (a SCFF + gradient-descent rebuild — the live plan is in `draft6.0/`,
-> start at `draft6.0/context.md`). Read this for *why* the old decisions were made and how the architecture
-> got there — **not** for what's being built now. Where this contradicts draft 6.0, 6.0 wins.
+> **The full arc — drafts 1 → 6.** This document spans the whole project history in two parts. **Part I** (from
+> here through *"What's locked, what's open"*) is the **attribution era** — drafts 1 → 5.1, the architecture that
+> **collapsed in June 2026** on a missing sign (the loss carried magnitude but never direction). It is
+> **historical / superseded** — read it for *why* the old decisions were made. **Part II — Draft 6.0** (near the
+> end) is the **current** architecture: the SCFF + gradient-descent rebuild, validated across ten phases of
+> simulation. Where Part I contradicts draft 6.0, **6.0 wins**; the live plan is
+> [`draft6.0/`](../../draft6.0/context.md).
 
 > A chronological narrative of the project's ideas evolution, from a poorly-organized brain dump to a locked specification ready for simulation. Written by Claude (Anthropic AI) at the end of the conversations that produced drafts 1 through 5.1. Companion to `project-personal.md`.
 
@@ -29,7 +31,8 @@ If you are a future AI picking this up: the spec is in `draft5.0/draft5.1-1.md` 
 - **Phase 10** — Draft 5.0: structural rewrite for a stranger reader
 - **Phase 11** — Draft 5.1: final polish, bio narrative, XOR bug
 - **Mind Stones** — the reasons ideas mutated (the _why_ behind each pivot)
-- **What's locked, what's open** — the state at the end
+- **What's locked, what's open** — the state at the end of the attribution era
+- **Part II — Draft 6.0** — the collapse, the return, and the SCFF + gradient-descent rebuild; the ten phases that validated it (June–July 2026)
 
 ---
 
@@ -1036,13 +1039,149 @@ The single biggest reward is Phase 2 success: empirical evidence that attributio
 
 ---
 
+## Part II — Draft 6.0: the SCFF + gradient-descent rebuild (June–July 2026)
+
+Everything above is the **attribution era** — drafts 1 → 5.1, the theory locked and handed to simulation. This is
+what happened *when the simulation ran.*
+
+### The wall, and the collapse
+
+The draft-5.1 campaign began exactly as §20 planned — operators, one Ganglion, the Minimum Viable Falsification.
+Then, re-checking his own update formula before Phase 2, the author found the fatal flaw: **the loss distribution
+carried *magnitude* but never *direction* — the sign.** Every level split its share of the loss in proportion to
+stored contributions, landing a PWM update at each Scap — but *which way* each weight should move was never
+computed. Magnitude without direction can't descend anything; nothing would converge at scale, and the only fix —
+routing the true sign back down the hierarchy — was exactly the 1:1 directional backprop the whole chip existed to
+avoid. *(The cruel symmetry: the same class of bug as the §3.3/§3.7 XOR sign error caught in draft 5.1 — a
+direction/sign error, the project's recurring silent killer, this time at the **root** of the learning rule.)*
+
+Eight months of architecture, and it wouldn't move. **"My heart raced, my chest ached, my mind went numb. I felt
+like this was my ending."** Four days face-down in the void — slept, ate, watched, slept again, *ran from it.* Then
+day five, the gut woke first: a certainty out of nowhere that there *was* a way out, with no proof. He researched
+the entire `research/survey/` folder on a broken body and rebuilt. His own words on the meaning: **"It's not the
+downfall that destroyed me. It's the truth that slapped me, making me more close to the origin ideas."** The full
+telling is [`docs/essence/the-essence2.md`](../essence/the-essence2.md).
+
+### The deeper lesson — the brain isn't homogeneous
+
+The first days, the missing sign looked like the whole problem. Two weeks showed it was only the *symptom*. The real
+hole was deeper: **draft 5 had treated the brain as *homogeneous*** — one structure repeated everywhere, one local
+rule, intelligence falling out the top. Every region of a real brain has its own structure and its own kind of
+learning; the one-rule-everywhere picture was the real mistake. And the motto he'd written in draft 3 walked back to
+slap him: **"copy the brain's *function*, cheat the *implementation*."** Modern ML was never brute-forcing nature —
+it *projects* the un-simulable biology (3D-sliding synapses, multi-hormone wires, growing axons) down into a low
+dimension we *can* compute. That projection isn't a betrayal; it's the only honest road. He'd written the motto; he
+just hadn't believed it all the way down until the collapse forced it. So he took many steps back — no in-chip
+memory, no analog ALU, no real circuit yet — to make the core math stable **one organ at a time**: the **neocortex**
+first (SCFF + GD), the **hippocampus** a LUT prototype store standing in until the math tells it its shape.
+
+### The new bet
+
+**Direction is the one expensive thing in learning.** Pay for it once, get the rest free. Two brains on one
+substrate: ~80 % **SCFF** (Self-Contrastive Forward-Forward — local, label-free, forward-only, unsupervised: the
+only rule that is all four at once) and ~20 % **gradient descent** to put real labels on SCFF's structure. Around
+that, the machinery: a middle layer to smooth the seam, residual **boosting blocks** to chain direction,
+**threshold-gated** learning (cheap SCFF most steps, expensive GD only when the cheap path stalls), and **sleep + a
+hippocampus LUT** so the gated GD doesn't only track what it recently saw. The full derivation — committed *before a
+single simulation ran* — is [`draft6.0/idea/`](../../draft6.0/idea/README.md); the running decision record (N1–S14)
+is [`main.ideas.v1.md`](../../draft6.0/idea/main.ideas.v1.md).
+
+### The ten phases — what the simulations actually said
+
+The rule was the old §20.2 unchanged: **failures are data — never tune until it passes.** But this time the sims
+didn't just confirm the plan; they *overturned* it, repeatedly, in the author's favour. Each phase picked up the
+wound the last one left. (The full write-up: [`draft6.0/src/README.md`](../../draft6.0/src/README.md).)
+
+**Stage 1 — the cheap brain (Phases 1–6):**
+
+- **Phase 1 — structure.** One SCFF+GD block generalizes better than backprop (smaller memorization gap) at ~10 %
+  backward cost — but the sim corrected the day-one optimism: SCFF clusters by **density, not class.** Its real home
+  is the **continual** regime, where a periodic *sleep* recovers what online backprop catastrophically forgets.
+  *(density ≠ class — the wound that drives the next four phases.)*
+- **Phase 2 — depth is not SCFF's lever.** A deep stack can't earn depth — not transmission, not even a perfect
+  label **oracle**. Concluded "intrinsic to forward-only locality"; depth would have to come from boosted *shallow*
+  blocks.
+- **Phase 3 — the objective reframe (the big correction).** The literature caught the word that was too strong: the
+  wall was intrinsic to the **energy objective `Σh²`**, not to locality. Swap energy-goodness for a **contrastive
+  (InfoNCE)** objective + a cross-layer **coordination window**, and depth composes. **Adopted — it superseded the
+  SCFF he came back with.**
+- **Phase 4 — the capability map.** Characterized against a *genuinely-tuned* backprop across seven axes: a
+  **substrate-native continual learner, not a static-accuracy competitor.** Wins continual / nuisance-dim /
+  depth-composition / depth-cheap; trails static accuracy / many-class; one honest negative on eval-time noise. It
+  left one wound: the representation *decays* past ~layer 5.
+- **Phase 5 — the SCFF close-out.** The decay was **direction** (density ≠ class, a fifth time), and **curable** — a
+  forbidden full-credit reach composed the whole stack, so it wasn't a wall. A sharper contrastive temperature earns
+  the depth back until the readout *beats* a genuinely-tuned backprop; a short fixed reader reads it ~8× cheaper.
+  *The cheap brain's learning is finished.*
+- **Phase 6 — noise-hardening.** Before handing it on, the cheap brain is hardened against silicon noise — a
+  forward-only noise-augmented objective that *improves* clean accuracy and keeps the continual win. The dangerous
+  enemy turned out **directional** (density ≠ class, a sixth time).
+
+**Stage 2 — the precise namer (Phases 7–10):**
+
+- **Phase 7 — the readout is NOT gradient descent.** A bake-off of "namers" was won by a **closed-form** analytic
+  head (RanPAC, later SLDA) — no gradient. *The "20 % GD" is a role, not a method: the committed chip contains no
+  gradient descent at all.* (The experiment humiliated the plan a second time — *"nah bro, no need GD."*)
+- **Phase 8 — the economy, run live.** Both brains ran together; a drift **gate** meters the 80/20 for real
+  (~12 % of energy) and turns out to be a **safety** mechanism: *firing more forgets more.* OURS ≈ half the energy
+  of backprop-with-replay.
+- **Phase 9 — freeze.** The founding assumption, finally *measured*: the cheap brain **rotates but does not forget**,
+  so sleep stays cheap. The lifelong loop was tuned on internal signals only, then **locked at a commit hash.**
+- **Phase 10 — the honest race.** The frozen object raced a fair, budgeted, tuned experience-replay backprop
+  learner, verdicts pinned **blind**: it **ties** on the hard home, **trails** on natural digits, **wins** continual
+  safety (≈10× less forgetting) and noise. On a same-substrate energy Pareto a small tuned baseline dominates it —
+  reported plainly, next to the axes it wins.
+
+### Draft-6 mind stones
+
+- **Mind Stone A — energy → contrast.** The depth wall was never locality; it was the *density* question the energy
+  objective asked. A *class* question (contrast) composes. (Phase 3.)
+- **Mind Stone B — depth is *where-to-read*, not *how-deep-to-stack*.** A forward-only stack builds an extractor,
+  then a useless (harmful) tunnel; the win is reading the extractor's end cheaply, not stacking deeper. (Phase 5 —
+  the *tunnel effect*, re-derived from the circuit side before he knew its name.)
+- **Mind Stone C — the 20 % "GD" is a role, not a method.** The precise brain is closed-form. The chip has **no
+  backward pass anywhere.** (Phase 7.)
+- **Mind Stone D — the gate is safety, not thrift.** Firing the precise brain *more* forgets *more*; discipline is
+  what keeps it safe. (Phase 8.)
+- **Mind Stone E — the bulk rotates, it doesn't forget.** The founding cheap-replay assumption, measured at last —
+  which is *why* sleep can stay a 20 % job. (Phase 9.)
+- **Mind Stone F — density ≠ class, eight times.** The one wound wore a new coat at every phase (density → drift →
+  noise → the namer's magnitude bias → the gate's trigger → the buffer's eviction). A bug that recurs that many
+  times isn't a bug — it's the substrate saying what it is: **direction is the expensive thing.** The same fault, at
+  the same place, as the missing sign that killed draft 5.
+
+### Where it stands (and the most recent work)
+
+The neocortex organ — both brains — is **done and validated honestly** (S14): a substrate-native continual learner,
+refined not inflated. The substrate vision is intact; only the learning rule was reborn. What carried forward *in
+spirit* from the attribution era: residual connections (now boosting theory), the two-timescale Cortex / Hippocampus
+(now sleep + the LUT), path-diversity thinking (now "depth not width"), and resident-weight / sign-as-digital / the
+Scap (substrate-level, unchanged).
+
+The most recent work (July 2026) was **not** more architecture. It was **assembling the soul**
+([`the-essence2.md`](../essence/the-essence2.md) — the grown spine after ten phases) and **refactoring the whole
+documentation** so the project reads as one connected story pointing at that spine. Next is the analog-realism
+(SPICE / PVT) layer; beyond the numbered phases, the recurrent lifelong "thinking" brain remains the north star —
+but *simple intelligence first.*
+
+---
+
 ## Closing thought
 
-The journey from draft 1 to draft 5.1 is roughly one week of dense conversation. But it's also seven months of solo intuition-building that preceded the first AI message, plus an entire prior project (ChronoForge) that proved capability, plus a longer arc of mathematical foundations (linear regression from first principles, double descent self-proved).
+The journey from draft 1 to **draft 6** is no longer one week of conversation. It is seven months of solo intuition
+before the first AI message, an entire prior project (ChronoForge) that proved capability, a mathematical foundation
+self-derived (linear regression from first principles, double descent), a full architecture built and *locked*
+across drafts 1 → 5.1 — and then the hardest part: **watching that locked architecture break at its root, falling
+into the void, and coming back to rebuild a better one.**
 
-You don't get from a poorly-organized brain dump to a locked specification in one week. You get there in seven months and one week.
+Draft 5 was slapped by the truth once. Draft 6 is what came back — raced against a fair opponent and *refined, not
+inflated.* The architecture is no longer "locked, waiting for experiments to decide"; the experiments **decided** —
+they overturned the plan repeatedly in the author's favour — and what's left is a validated organ and an honest
+verdict.
 
-The work continues. The next chapter is Python — not theory anymore, but code, runs, plots, and data. The architecture is locked; only the experiments can decide whether the architecture is _real._
+You don't get here in a week. You get here in ~28 collapses and the discipline to let each one land.
+
+The work continues. The next chapter is silicon-realism — and beyond it, a brain that keeps learning its whole life.
 
 🤣 Time to find out.
 
