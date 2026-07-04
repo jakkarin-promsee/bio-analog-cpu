@@ -36,6 +36,9 @@
 | **proj→namer** (the strike cell) | `#4d7ea8` (steel blue) | solid, square | the no-bulk decomposition arm (P11.1; carried into real streams) |
 | **random-frozen-bulk→namer** | `#4d7ea8` (steel blue) | dotted, square | the reservoir control (dim-matched) |
 | **no-change / persistence** | `#555555` (dark grey) | dash-dot, no marker | the streaming community's trap-check — mandatory line on every real-world stream |
+| **sgd-linear** (native features) | `#2f6f2f` (dark green) | solid, thin, x marker | the streaming community's default opponent (online logistic SGD, native features — §8 R11) |
+| **first-block-frozen** | `#555555` (dark grey) | dotted, no marker | the stability-end anchor — perfect retention by construction; branch (ii)'s learning floor (§8 R5) |
+| **ER-strong-bigbuf** | `#8a1b8a` (magenta) | solid, thin, open circle | ER with the buffer a tuned axis (cap min(10% stream, 5000)) — the field-strength complement to byte-matched (§8 R3) |
 | **published anchor** (Vergara / van-de-Ven band) | `#b8860b` (dark goldenrod) | horizontal band / dashed line | transcribed-at-bench literature numbers — an overlay, never a racer |
 | ER-strong / ER-budget / A-GEM / DER++ / GDumb / naive-BP / chance / ceiling / sleep ticks / domain-boundary | — | **inherited from P10 §A verbatim** | the opponent field + references |
 
@@ -71,14 +74,14 @@ regen(run_dir)             # redraws every figure whose arrays are present — t
 | `ceiling_<arena>` | `[S]` | the per-arena joint-BP ceiling (accuracy-axis reference) |
 | `nochange_<arena>` | `[S]` | the persistence baseline (real streams) |
 | `anchor_<name>` | scalar/band | transcribed published numbers (bench manifest sourced) |
-| `stream{live,seen,cume,sleeps,fires}_<cfg>_<arena>` · `stream_onsets_<arena>` | `[S,N]` / `[D]` | the per-batch STREAM view keys, generalized from P10's gauntlet-stream set |
+| `stream{live,seen,sleeps,fires}_<cfg>_<arena>` · `streamcume_<cfg>_<arena>_<substrate>` · `stream_onsets_<arena>` | `[S,N]` / `[D]` | the per-batch STREAM view keys, generalized from P10's gauntlet-stream set (the cume key keeps P10's substrate suffix — §8 F6) |
 | `orderdelta_<cfg>_<arena>` | `[S]` | |AA(fwd) − AA(rev)| where a reversed run exists |
 | `retention_<cfg>_<arena>_<regime>` | `[S,D,D]` | acc-matrix per switch regime (rapid-24 / long-randomized) |
 | `composition_<arena>` | `[D,C]` | the per-block class-composition table (bench artifact, drawn as the strip) |
 | `condnum_<cfg>_<arena>` | `[S,nsleep]` | namer covariance condition number at each sleep (volume / cross-dataset watch) |
 | `scale_axis` · `acc_vs_scale` · `gdshare_vs_scale` · `gdshare_pinned_shape` · `substrate_vs_scale` | `[K]` / `[S,K]` | the SCALING panels + the bench-pinned meter-derived GD-share shape |
 | `crossover_analytic` · `crossover_measured` | `[·,2]` | bytes-vs-C curves + measured points |
-| `inv_<panel>` | `[S,…]` | INV: all carried guards + arena-data ✓ anchor ✓ floor-criterion ✓ recipe ✓ porthole ✓ no-change ✓ budget-report ✓ + fire/sleep counts + condition trace |
+| `inv_<panel>` | `[S,…]` | INV: all carried guards + arena-data ✓ anchor ✓ dominance ✓ floor-criterion ✓ recipe ✓ porthole ✓ stream-controls ✓ budget-report ✓ + fire/sleep counts + condition trace |
 
 ---
 
@@ -91,7 +94,9 @@ regen(run_dir)             # redraws every figure whose arrays are present — t
 | **no-change baseline** | predict-previous-label; mandatory on every real-world stream | acc |
 | **fraction-of-ceiling** | AA / joint-ceiling-AA per arena; annotated in every non-FLOOR accuracy cell | fraction |
 | **order-invariance Δ** | \|AA(fwd) − AA(rev)\| per learner per arena | acc-delta |
-| **cell state** | **FLOOR** iff (a) ceiling < chance + 5·δ_acc, or (b) all raced learners < chance + 2·δ_acc, or (c) real stream: none beat no-change + δ_acc — else win/tie/loss by the P10 real-difference rule | categorical |
+| **cell state** | **FLOOR** iff (a) ceiling < chance + 5·δ_acc, or (b) all raced learners < chance + 2·δ_acc, or (c) real stream: none beat no-change + δ_acc — else win/tie/loss by the P10 real-difference rule. **Two-sided (§8 R6):** every FLOOR cell annotates the paired OURS-vs-field delta ("FLOOR (field leads +X)" when real); chance = 1/C under balanced accuracy, majority-rate otherwise | categorical |
+| **accuracy channel (real streams)** | = prequential (balanced) accuracy, pre-update, every learner incl. no-change (§8 R2); eval splits feed retention/BWT only; blocks with eval-n < 100 excluded from worst-point/BWT (listed — §8 R8) | acc |
+| **paired stream test** | McNemar on paired prequential predictions (natural-order streams; §8 R9) — reported beside the seed IQR; n=3 rule: 3/3 sign + disjoint ranges, no decisive verdict at n=3 | p-value |
 | **length invariants** | LUT churn · gate fire-rate · GD-share drift · namer condition number per sleep | traces |
 
 **The verdict cuts are design §2.4, restated as binding** (δ_acc = 0.02; paired seeds; balanced accuracy where
@@ -117,7 +122,9 @@ streams vary init/projection seeds only; NTE asymmetry stated per arena) — des
 
 **Caption rules (P10 carried + P11-new):** every real-stream caption names the **no-change baseline** and (where
 transcribed) the **published anchor**; every accuracy caption names the **per-arena ceiling**; a FLOOR cell's caption
-says *"uninformative at this arena (floor criterion …)"* — never "tie"; an Arm-B caption names the recipe instance
+says *"uninformative at this arena (floor criterion …)"* — never "tie" — **and carries the paired field delta when
+the field leads (§8 R6)**; a real-stream retention caption states which ER point (matched / bigbuf) it is judged
+against, always the stronger (§8 R3); an Arm-B caption names the recipe instance
 (D/W) and that it is **not** the frozen committed object; a cross-dataset caption states class-IL 30-way (harder than
 the field's task-IL convention). Every caption ends with the takeaway + `(n=…, arena, …)`.
 
@@ -187,7 +194,12 @@ same-substrate. STREAM-gas: <the batch-10 story — sag/recovery/gate pattern>.
 - [ ] The real-difference rule applied; **balanced accuracy used where the composition table pins it**.
 - [ ] **The FLOOR criterion applied before any win/tie/loss is captioned**; FLOOR never narrated as parity.
 - [ ] Every accuracy figure names ER-strong + the per-arena ceiling; real streams also draw **no-change** + anchors.
-- [ ] **The anchor guard is green** (our ER inside the transcribed published band) before any r1+ verdict banks.
+- [ ] **The anchor guard is green** (our ER inside the transcribed published band, at the PUBLISHED configuration)
+      before any r1+ verdict banks; **the dominance guard is green per arena** (ER-strong ≥ naive-BP, ≥ ER-budget on
+      the tuning stream — §8 R4).
+- [ ] **Real-stream rosters complete:** both ER points (matched + bigbuf), sgd-linear, first-block-frozen, no-change
+      present (the stream-controls guard); the accuracy channel is prequential; branch (ii) checked against the
+      frozen baseline's learning floor (§8 R2/R3/R5/R11).
 - [ ] **Arm discipline:** Arm A bit-equal committed config (guard diff empty); Arm B recipe-guard whitelist =
       {D, W, LUT-cap} only; NOTHING tuned per arena; ER-strong's per-arena tuning grid pinned in the manifest.
 - [ ] **STREAM-<arena> emitted for every arena run** (A1 — the author's ask); sleep ticks + onsets + no-change +
@@ -198,7 +210,8 @@ same-substrate. STREAM-gas: <the batch-10 story — sag/recovery/gate pattern>.
       interpreted; a broken prediction is a banked finding, not a re-derivation after the fact.
 - [ ] Every figure via `plot_p11.fig_*`; caption ends with the takeaway; 8 slots filled; `manifest.json`
       (+ anchors + composition tables + order assertions + pre-estimates) + `arrays.npz` written; `regen` redraws.
-- [ ] Guards logged (all carried + the 7 P11 guards); **any guard fails → STOP**. Single-thread discipline
+- [ ] Guards logged (all carried + the 8 P11 guards: arena-data · anchor · dominance · floor-criterion · recipe ·
+      porthole · stream-controls · budget-report); **any guard fails → STOP**. Single-thread discipline
       (`OMP_NUM_THREADS=1`, `python -u`, PID verified on heavy cells); no sklearn/River for compute (bench-only
       `fetch_openml`); commit per rung.
 - [ ] `RESULTS.md` row in the §D schema; broken/FLOOR rows carry their mechanism.

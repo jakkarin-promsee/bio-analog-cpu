@@ -50,12 +50,14 @@
   + the official reference implementation (`GMvandeVen/continual-learning`) publish Split-MNIST ER numbers per
   scenario. Adopted: an **E-anchor cell** — our ER-strong runs Split-MNIST (class-IL + domain-IL) at a published
   buffer size; the published band is transcribed into the manifest **before** our run; our ER must land in it or
-  the instrument is flagged. This retires "your baseline is a strawman" at every rung above digits.
+  the instrument is flagged. Scope (per the lab-manager review, design §8 R4): this retires *implementation-bug*
+  strawman claims; per-arena strength is enforced separately (the pinned tuning grid + the dominance guard).
 - **D6 — openml IDs pinned (and one wrong-variant trap).** Fashion-MNIST = **40996** (70k × 784, ARFF); Electricity
   = **151** (v1 — the canonical **45,312-row chronological** ELEC2; the "balanced" v2 (43945) re-samples and
-  **destroys time order — wrong for a drift stream**, named so nobody grabs it); Covertype = **150** (v3) / **1596**
-  (v4), 581,012 rows, stream convention = **file order** (the MOA/Gama convention — Covertype has no timestamp; the
-  convention is stated, not invented); CIFAR-100 = 41983 (stretch-only; verify at bench). MNIST-784 (554) and
+  **destroys time order — wrong for a drift stream**, named so nobody grabs it); Covertype = **1596** (v4 — 581,012×54×7
+  confirmed; id 150's full-data equivalence is unconfirmed, use 1596 — design §8 L2), stream convention = **file
+  order** (the MOA/Gama convention — Covertype has no timestamp; the convention is stated, not invented);
+  CIFAR-100 = 41983 (stretch-only; verify at bench). MNIST-784 (554) and
   CIFAR-10 (40927) verified **already cached on this box**.
 - **D7 — a citation fix.** CLEAR is **Lin, Shi, Pathak & Ramanan, NeurIPS 2021 D&B
   ([2201.06289](https://arxiv.org/abs/2201.06289))** — the temp2 concept's CLEAR link pointed at CALM
@@ -75,9 +77,9 @@
 | **Gas Sensor Drift** | UCI | 128 (native) | 6 | 13,910 / 10 batches / 36 months | **physical sensor aging** | **E2 headline** | Vergara 2012 · Dennler 2022 |
 | HAR (smartphones) | UCI | 561 (native) | 6 | 10,299 / 30 subjects | person-to-person shift | E2 secondary | UCI HAR canon |
 | Electricity (ELEC2) | openml 151 | 8 (native) | 2 | 45,312 chronological | market/price regime | E2 streaming canon | Gama canon + Souza 2020 no-change |
-| Covertype | openml 150/1596 | 54 (native) | 7 | 581k (slice, file order) | cartographic order | E2 streaming canon | MOA/Gama canon |
+| Covertype | openml 1596 | 54 (native) | 7 | 581k (slice, file order) | cartographic order | E2 streaming canon | MOA/Gama canon |
 | Wild-Time Yearbook | Wild-Time repo | 1024 (32×32×1) | 2 | 33,431 / 1930–2013 | **real vision drift, 8 decades** | E2 vision leg (bonus) | Yao 2022 |
-| BloodMNIST | MedMNIST npz | 784 (28×28) | 8 | ~17k | (static; famous-data rung) | E1 bonus | Yang 2023 |
+| BloodMNIST | MedMNIST npz | 2352 (28×28×3 RGB — design §8 L1) | 8 | ~17k | (static; famous-data rung) | E1 bonus | Yang 2023 |
 | CIFAR-100 | openml 41983 | 1024 → 160 | 100 | 60k | class breadth | E3 stretch | — |
 | 5-Datasets (ours: 3-block) | the three above | shared porthole | 30 | 3×NTR | **dataset identity itself** | E7 | Ebrahimi 2020 |
 
