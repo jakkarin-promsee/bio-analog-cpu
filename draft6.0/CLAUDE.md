@@ -10,13 +10,15 @@
 ## Architecture in one breath
 
 Two brains on one analog substrate. A cheap, unsupervised **SCFF** front (~80% — Self-Contrastive Forward-Forward:
-local, label-free, forward-only) organizes the world for free, and a small precise **gradient-descent** back (~20%)
-maps features to real labels — because **direction is the one expensive thing in learning, so we pay for it once,
-where it counts.** The two chain as **residual boosting blocks**; learning is **threshold-gated** (cheap local
-SCFF most steps, expensive GD only when the cheap path stalls) and **sleep-consolidated** (periodic full-batch GD
-over a **hippocampus LUT** prototype memory). It runs via **mono-forward** — one forward sweep carrying a positive
-+ negative world side by side through a shared weight crossbar (only the cheap activation buffers double, not the
-Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md); the **soul** (the *why* under the why): [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md).
+local, label-free, forward-only) organizes the world for free as a **single frozen bulk**, and a small precise
+**namer** back (~20%) puts our labels on that structure — because **direction is the one expensive thing in
+learning, so we pay for it once, where it counts.** The namer **reads, never writes** the bulk (per-depth read-only
+heads) and — the twist the experiments delivered — needs **no gradient descent at all**: it is **closed-form**
+(SLDA / RanPAC). Naming is **drift-gated** (SCFF runs every step; the namer fires only when a drift gate trips, and
+that gate is a *safety* mechanism — firing more forgets more) and **sleep-consolidated** (a periodic closed-form
+re-fit over a **hippocampus LUT** prototype memory). It runs via **mono-forward** — one forward sweep carrying a
+positive + negative world side by side through a shared weight crossbar (only the cheap activation buffers double,
+not the Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md); the **soul** (the *why* under the why): [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md).
 
 ---
 
@@ -58,9 +60,10 @@ recurrent lifelong brain (the north star).** One-glance ladder — the depth liv
 The live record is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (N1–N3 approved + S1–S14 supporting); the full
 derivation (story form) is [`idea/ideas1.md`](idea/ideas1.md); the folder index + decision timeline is [`idea/README.md`](idea/README.md). **6.0 is young** — the spine is committed but treat
 decisions as *settling*, not frozen the way draft-5.1's "14 locked decisions" were presented; the open knobs are
-listed there and the sims set them. What carried forward from the old world *in spirit*: residual connections (now
-boosting theory), the two-timescale Cortex/Hippocampus (now sleep + the LUT), resident-weight / sign-as-digital /
-the Scap (substrate-level, unchanged).
+listed there and the sims set them. What carried forward from the old world *in spirit*: the two-timescale
+Cortex/Hippocampus (now sleep + the LUT), and resident-weight / sign-as-digital / the Scap (substrate-level,
+unchanged). *(Residual/boosting was explored early — P2 — but the committed cell dropped it: single bulk, a
+reading namer, S11.)*
 
 ---
 
