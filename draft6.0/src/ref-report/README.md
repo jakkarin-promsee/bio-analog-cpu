@@ -1,4 +1,4 @@
-# `ref-report/` — the glossary the Stage-1 reports link to
+# `ref-report/` — the glossary the phase reports link to
 
 > **What this is.** A thin, report-altitude reference so the phase reports stay lean: every method,
 > metric, and paper the reports cite gets a short entry here, and the reports link to it
@@ -15,8 +15,8 @@
 
 | File | Holds | Reports lean on it for |
 | --- | --- | --- |
-| [`methods.md`](methods.md) | the mechanisms — SCFF, mono-forward, boosting chain, sleep, contrast, coordination, … (grouped in **4 bands**: cheap brain / objective family / chain+maintenance / racers) | "what *is* this part" without re-explaining it each phase |
-| [`metrics.md`](metrics.md) | the measurement dictionary — AAA, gap, selectivity, BWT, capture, cost, … | one **pinned** definition per metric (consolidated here from the `result-format.md` files) |
+| [`methods.md`](methods.md) | the mechanisms — SCFF, mono-forward, contrast, sleep, the namer (RanPAC / SLDA), the gate, … (grouped in **5 bands**: cheap brain / objective family / chain+maintenance / racers / **the closed object** = the Stage-1 close-out + Stage 2) | "what *is* this part" without re-explaining it each phase |
+| [`metrics.md`](metrics.md) | the measurement dictionary — AAA, gap, selectivity, BWT, worst-pre-sleep BWT, GD-share, argmax-flip, … | one **pinned** definition per metric (consolidated here from the `result-format.md` files) |
 | [`papers.md`](papers.md) | the citation table — paper, people, arXiv, one-line why, link to the `research/papers/` story | naming the source without a paragraph |
 
 ## Convention for every entry
@@ -30,7 +30,8 @@
 
 ## Growth note
 
-This scaffold covers Stage 1 Phases 1–4. The **Phase-5** terms (composing-depth, forward-MACs expected-compute, the
-truncation floor, the w12 objective ceiling) are defined inline in the Phase-5 reports and are the **owed glossary
-addition**. When `stage1-report.md` or a later phase introduces a term not listed here, **add the entry, don't
-inline the definition** — that's the whole point of this folder.
+This scaffold now covers **Phases 1–10** — the Stage-1 cheap-brain vocabulary (methods Bands 1–4; the metrics
+through Phase 4) **plus** the depth close-out and Stage-2 terms (methods **Band 5 — the closed object**; metrics
+**Depth close-out & Stage 2**: composing-depth, the w12 ceiling, the truncation floor, forward-MACs, argmax-flip,
+worst-pre-sleep BWT, GD-share, MTD/FAR, destruction). When a later write introduces a term not listed here, **add the
+entry, don't inline the definition** — that's the whole point of this folder.

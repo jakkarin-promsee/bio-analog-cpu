@@ -135,3 +135,91 @@ collapses in high-D (A2) and only catches up at high class count (A5).
 - **Note:** not "mono-forward" (Band 1, the dual-rail scheme).
 - **Onward:** [`../../research/papers/phase3/direction-3-forward-only-alternatives.md`](../../research/papers/phase3/direction-3-forward-only-alternatives.md) · [`papers.md#mono-forward`](papers.md#mono-forward)
 - **Used in:** Phase 4 (the third racer)
+
+## Band 5 — the closed object (the Stage-1 close-out + Stage 2)
+
+### Sharper InfoNCE temperature (the depth lever)
+The Phase-5 *free* fix for the depth decay: lower the InfoNCE temperature (0.5 → 0.2), so each layer's update is more
+class-selective and the representation stops drifting off the class direction with depth. An lr-matched control shows
+~82% of the lift is **direction**, not a disguised step-size — the readout then beats a genuinely-tuned BP and the
+probe tail reaches the [w12 ceiling](metrics.md#w12-ceiling-the-objective-capability-upper-bound).
+- **Onward:** [`../phase5/README.md`](../phase5/README.md)
+- **Used in:** Phase 5 (earn-depth)
+
+### Fixed short reader (truncation deploy)
+The Phase-5 *read-cheaply* answer: read the useful depth with a short **fixed** truncation stack (~L2–3 on the flat
+continual home; all-tap for peak accuracy; w4 the bounded depth-closer for compositional tasks), not an adaptive
+per-sample early-exit (struck — the flat home rewards pooling over placement). Reads ~8× cheaper than all-tap.
+- **Onward:** [`../phase5/README.md`](../phase5/README.md) · [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S9)
+- **Used in:** Phase 5 (the deploy)
+
+### NoiseAugContrast — the committed cheap cell
+The Stage-1 close-out cell handed to Stage 2: the frozen Phase-5 `SCFFContrastOverlap` (temp 0.2 / w2, L12, no
+residual) **+ one iid-noise-augmented InfoNCE view** (σ_aug 1.0). The augmentation is **generic** (broad iid), not
+directional-specific — you cannot bet on one axis for a coherent shift unknown at train time. Forward-only; it
+*improves* clean accuracy and keeps the continual win.
+- **Onward:** [`../phase6/README.md`](../phase6/README.md) · [`../phase6-final-architecture.md`](../phase6-final-architecture.md)
+- **Used in:** Phase 6 (committed), 7–10 (the frozen bulk)
+
+### RanPAC — the namer (P7 winner)
+The Phase-7 bake-off winner: a **no-gradient, closed-form** analytic head — a frozen random ReLU projection
+`φ = relu(Wr·f)` → running-Gram ridge prototype `W = (G+λI)⁻¹M`. It ties the gradient MLP on accuracy×BWT and is #1
+on natural digits, proving *the "20% GD" is a role, not a method* (the precise brain names the world with no backward
+pass). Kept as the P8 accuracy/spine reference; SLDA is deployed for cost.
+- **Onward:** [`../phase7/README.md`](../phase7/README.md)
+- **Used in:** Phase 7 (winner), 8 (the reference)
+
+### SLDA — the deployed namer
+Streaming Linear Discriminant Analysis — a tied-covariance analytic head, no gradient. The **committed** deployed
+namer from Phase 8: metered **69× cheaper** than RanPAC (no large random projection) while tying/beating its accuracy
+live. Streamed via a `partial_fit` primitive (running Gram, guarded ≡ a batch fit to 4e-15).
+- **Onward:** [`../phase8/README.md`](../phase8/README.md)
+- **Used in:** Phase 8 (committed), 9, 10
+
+### cbrs — class-balanced reservoir sampling
+The committed imbalance guard: re-balance the *input* buffer (keep class balance) rather than re-weight the *output*
+— buffer-side, family-agnostic (it overturned the plan's AIR, which over-corrects). It is why "firing more forgets
+more" is a *design choice*, not fate: a balanced buffer + rare gated fires holds worst-BWT at 0.000. In Phase 9 it is
+also the bounded-LUT **eviction** policy (best-bounded; the cap grows with #classes).
+- **Onward:** [`../phase7/README.md`](../phase7/README.md) · [`../phase9/README.md`](../phase9/README.md)
+- **Used in:** Phase 7 (chosen), 8 (the safety mechanism), 9 (eviction)
+
+### DDM awake gate + class-direction tap-drift trigger
+The Phase-8 economy: a **DDM** (two-threshold error) awake gate decides *when* the namer fires; it fires on a
+**class-direction tap-drift** trigger — the direction the SCFF taps move — which is invariant to a nuisance covariate
+(spine-clean) while the magnitude-of-shift null false-fires. The gate turns out to be a **safety** mechanism
+(always-pay forgets more), not just a cost-saver.
+- **Onward:** [`../phase8/README.md`](../phase8/README.md) · [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S6 / S12)
+- **Used in:** Phase 8 (committed), 9, 10
+
+### Grid cadence (sleep timing)
+A **regular** sleep grid (fire every k inputs) rather than boundary-aligned sleep — because the worst mid-stream
+point falls *inside* a segment, not at a task boundary the model can't see. Phase 8 shipped grid-8; the Phase-9
+freeze, on a true lifelong revisit stream, re-confirmed the knee at **grid-4** (worst-BWT −0.028 vs grid-8's −0.317).
+Drift-rate-conditional.
+- **Onward:** [`../phase9/README.md`](../phase9/README.md) · [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S7 / S13)
+- **Used in:** Phase 8 (grid-8), 9 (grid-4 freeze), 10 (the cadence frontier)
+
+### proto-reanchor (read-side calibration)
+The Phase-9 read-side defense for the Phase-6 input-transducer directional residual: **re-forward the raw LUT
+prototypes through the current bulk** under the shift (the plan's own sleep mechanism, direction-grounded, no
+covariance estimate) and re-anchor the head. Recovers retention 0.787 → 0.986 — overturning the planned SLDA
+covariance re-estimate.
+- **Onward:** [`../phase9/README.md`](../phase9/README.md)
+- **Used in:** Phase 9 (P9.4)
+
+### The cost meter (ADC-centred, behavioral)
+The Phase-8 energy model: a relative-pJ, ADC-centred macro-model (NeuroSim / ISAAC / PUMA level, Horowitz-anchored),
+**not SPICE**. It prices the analog crossbar (MACs near-free, only the ADC taxed) against a digital von-Neumann
+baseline (every MAC pays the memory wall). It gives *relative* energy (the metered 80/20, bp_ratio, the 2×2 substrate
+ablation), never an absolute Joule.
+- **Onward:** [`../phase8/README.md`](../phase8/README.md)
+- **Used in:** Phase 8 (the meter), 10 (the Pareto energy)
+
+### ER-strong / BP+replay (the P10 racer)
+The fair opponent Phase 10 races: a **tuned, budget-matched experience-replay** backprop learner (Prabhu CVPR'23 —
+under a matched FLOPs+bytes budget, ER is *strong*, not a strawman), byte-matched to OURS's LUT and tuned on a
+disjoint seed. The honest verdict: OURS ties it on the continual home, trails on natural digits, wins safety + noise;
+a small tuned ER *dominates* OURS on a same-substrate (accuracy × energy) Pareto (OURS's wins live off that axis).
+- **Onward:** [`../phase10/README.md`](../phase10/README.md)
+- **Used in:** Phase 10 (the existential race)
