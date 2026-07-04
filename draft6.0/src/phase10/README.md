@@ -107,6 +107,10 @@ lifelong stability + noise-survival + the analog energy floor, not a static-accu
 
 - **→ the analog-realism layer (SPICE/PVT):** the small directional/ADC residual P10.4 shows the read-side defense
   cannot fully reach; the absolute-Joule / PVT layer the behavioral meter cannot give.
+- **→ the noise-first representation limit (the §10 reversed runs):** order-invariant at the endpoint, but a
+  representation whose first structure forms *inside* noise runs thin-margined (deeper between-sleep sags, rescued
+  only by the sleeps). Named capability target: a bulk that recovers the clean structure *itself* from an all-noisy
+  stream — arrival-order-stable accuracy in deployment.
 - **→ a future draft (flagged, not executed):** the static-accuracy gap on natural data (P10.5) — a *convolutional* or
   larger bulk would lift it, but that is a Stage-1 re-open, not a P10 re-run; a pretrained-backbone comparison (out of
   scope — OURS *replaces* the pretrained backbone).

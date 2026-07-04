@@ -162,6 +162,23 @@ construction note worth stating: the frozen loop's replay probe had to be made *
 cross-domain reservoir) for a *fair* domain-IL test — the domain-0-only probe was an artifact that starved the namer of
 the shifted domains. With both learners' replay spanning domains, the fight is honest.
 
+**The five worlds, concretely — the reading key every stream figure below needs.** All five domains are the same
+ten 8×8 digits (pixels ∈ [0, 1]); only the input lens changes, per image `x` (`p10lib._domain_transform`, constants
+pinned in `p10cfg`):
+
+| # | domain | transform | what it does to the learner |
+| --- | --- | --- | --- |
+| 1 | identity | `x′ = x` | the clean world — undistorted digit shapes |
+| 2 | permuted | `x′[i] = x[π(i)]` — one seed-frozen shuffle of the 64 pixels | spatial neighborhoods destroyed, information intact |
+| 3 | rotated | `x′ = rot90(x)` | the same shapes, turned 90° |
+| 4 | covariate | `x′ = 3·x + 4` | a layernorm-invariant gain + offset — the per-sample norm removes it by construction, BP sees it |
+| 5 | noised | `x′ = x + 0.6·ε`, `ε ~ N(0, 1)` iid | RMS-0.6 Gaussian against a [0, 1] signal — the digit drowned in noise its own size |
+
+**Forward** is the merciful curriculum: the clean `x′ = x` world first, every later domain a distortion of shapes
+already known. **Reversed** (E6/E10 below) is the cruel one: the first representation must form _inside_ the noise,
+and no later domain ever shows the clean shapes. The two orders together separate curriculum-memorization from
+structure-extraction — keep this table in mind when reading every stream view in this section.
+
 ![P10.3 — the gauntlet money figure](exp3/figs_p10_3/GAUNTLET.png)
 *The money figure (twin panel). **Top** — worst-pre-sleep all-prev retention across the 5-domain stream: OURS(grid-4)
 holds **0.490** at its worst point while ER-strong dips to **0.350** mid-stream (then recovers by the end); sleep-position
@@ -294,6 +311,15 @@ that read is post-hoc and labeled as such). So the staircase mechanism stands as
 sleeps demonstrably rescue the sag, order-invariance extends to the long scale, and the possibility of a small
 bulk-level decay component stays formally open — flagged, the way this project flags things it cannot yet exclude.
 
+Read plainly, the reversed runs also name the object's **own honest limit**, and it is banked as a hand-off (§6).
+When the model never sees the pure world first it does not collapse the way ER does — the endpoint is
+order-invariant — but it runs **thin**: noisy world to noisy world offers far less pattern to anchor on, so the
+noise-grown representation holds its classes on thin margins (the D1 probe's read), the between-sleep sags run
+deeper, and the whole curve climbs from lower ground until accumulated structure finally widens the margins. The
+capability that names for the phases after this one: **a bulk that can recover the clean structure _by itself_ from
+an all-noisy stream** — the pure data it was never given — so the read stays stable regardless of arrival order. A
+deployed chip does not get a merciful curriculum.
+
 ### P10.4 — the noise showcase → *OURS ≫ BP+replay on every held-out channel; a small residual named*
 
 The Phase-6 noise arc, cashed on the assembled object under a **margin-disjoint held-out battery** (directional RMS 2.5
@@ -404,6 +430,11 @@ not inflated** — the honest-science outcome the project's whole method is buil
 
 - **→ the analog-realism layer (SPICE / PVT), named:** the small directional/ADC residual P10.4 shows the read-side
   defense cannot fully reach; the absolute-Joule and PVT layer the behavioral meter cannot give.
+- **→ the noise-first representation limit (named by the §10 reversed runs, E6/E10 + the D1 probe):** the object is
+  order-invariant at the endpoint but **thin-margined** when its first structure forms inside noise — deeper
+  between-sleep sags, rescued only by the sleeps. The named capability target: a bulk that recovers the clean
+  structure _itself_ from an all-noisy stream (the Phase-6 Door-B thread, carried to its real-world form), for
+  arrival-order-stable accuracy in deployment.
 - **→ a future draft (flagged, not executed):** the static-accuracy gap on natural data (P10.5) — a *convolutional* or
   larger bulk would lift it, but that is a Stage-1 re-open, not a P10 re-run; a pretrained-backbone comparison is out of
   scope (OURS *replaces* the off-chip pretrained backbone — the fair comparator is BP-from-scratch + replay, which is
