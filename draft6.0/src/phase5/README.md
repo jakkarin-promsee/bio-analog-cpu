@@ -6,7 +6,8 @@
 > and **[`result-format.md`](result-format.md)**.
 >
 > **Verdict in one line:** the depth decay is **solved, scoped** — the cheap brain is finished. Depth is **EARNED**
-> (a sharper objective makes the readout **beat** a genuinely-tuned backprop, and the probe tail reaches the objective
+> (a sharper objective makes the readout **beat** a genuinely-tuned backprop *on a per-layer read of a built headroom
+> task* — a representation claim, not a static-accuracy benchmark-beat — and the probe tail reaches the objective
 > ceiling), **read CHEAPLY** (a fixed short reader, ~8× under the all-tap readout), **continual-SAFE** (the A6
 > sleep-recovery continual win is intact), and **natural-CONFIRMED on composable data** (the fix is real on digits;
 > null-but-safe on the no-depth CIFAR-flat wall). Next: **Phase 6** hardens this finished cell against noise (the last

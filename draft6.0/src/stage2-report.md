@@ -288,7 +288,10 @@ frozen architecture snapshots.
 
 ---
 
-## 5 · The namer as it stands (end of Phase 7)
+## 5 · The namer as it stands (as of Phase 7 — SLDA deployed at P8, see §3)
+
+> *Period snapshot at P7's close: RanPAC is the P7 bake-off winner. **Phase 8 then committed SLDA** as the deployed
+> head (69× cheaper, ties live); RanPAC is kept as the accuracy / spine reference. See §3.*
 
 The committed namer is **RanPAC + a class-balanced-reservoir guard** — a frozen random ReLU projection φ = relu(Wr·f) → a
 running-Gram ridge prototype, no gradient, streaming, A6-safe. Its value **tracks the bulk's**: it wins where SCFF

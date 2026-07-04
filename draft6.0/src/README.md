@@ -57,10 +57,12 @@ need, and every doc links up (to its front door + the soul) and down (to the nex
 
 ## Where to start
 
-- **Outsider / researcher / professor** → [`../../docs/essence/the-essence2.md`](../../docs/essence/the-essence2.md)
-  (the soul) → [`../README.md`](../README.md) (the pivot story) → [`stage1-report.md`](stage1-report.md) +
-  [`stage2-report.md`](stage2-report.md) (the results) → any `phaseN/phaseN-report.md` to validate a claim. **You
-  never need to open a `.py` or a raw figure.**
+- **Outsider / researcher / professor** → [`../README.md`](../README.md) (the pivot story — what the chip is, in one
+  page) → [`stage1-report.md`](stage1-report.md) + [`stage2-report.md`](stage2-report.md) (the results) → any
+  `phaseN/phaseN-report.md` to validate a claim. For the fastest professor-facing read, the one-pager
+  [`phase10/professor-brief.md`](phase10/professor-brief.md); for the person and the *why*,
+  [`../../docs/essence/the-essence2.md`](../../docs/essence/the-essence2.md) (the soul — a personal milestone, not a
+  pitch; read it when you want the human story). **You never need to open a `.py` or a raw figure.**
 - **Cold agent (Claude)** → [`../CLAUDE.md`](../CLAUDE.md) (operating context + live status) →
   [`../context.md`](../context.md) (the full dump) → `phaseN/CLAUDE.md` (the signpost) → the phase README / code only
   to modify.

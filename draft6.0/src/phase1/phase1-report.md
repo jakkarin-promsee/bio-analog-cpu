@@ -240,8 +240,8 @@ read-layers** ρ≈0.3 (N2 — a drift fix, not a depth fix) · default **H=64**
 - **Small tasks** (2-D checkerboard / digits / MNIST), chosen as probes, not benchmarks.
 - **SCFF is a weak low-D learner** — its win over random is a *high-D* property; don't judge it on 2-D alone.
 - **"Rises with depth" is untestable** on a task one layer captures (it needs a high-D hierarchy — Phase 2/3).
-- **The sleep cadence and the Ch7 gate are not built** — the gate is named and deferred to Phase 6 (the GD-side
-  optimization phase); exp4 used a fixed sleep schedule, not a tuned one.
+- **The sleep cadence and the Ch7 gate are not built** — the gate is named and deferred to Stage 2 (the GD-side
+  optimization era, built at Phase 8); exp4 used a fixed sleep schedule, not a tuned one.
 
 ## 7 · The bridge to Phase 2
 

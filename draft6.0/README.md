@@ -4,7 +4,8 @@
 > turned out to be, and what ten phases of simulation actually said (some of it overruling the plan, in my favour).
 > The **soul** under all of it — the origin, the collapse, the return, the person — is
 > [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md); this page is the **technical** companion. The
-> results in full are in [`src/`](src/README.md); the committed design is [`idea/`](idea/README.md). Read the day-one
+> results in full are in [`src/`](src/README.md); the committed design is [`idea/`](idea/README.md); the acronym
+> glossary (SCFF · InfoNCE · RanPAC · BWT · …) is [`src/ref-report/`](src/ref-report/README.md). Read the day-one
 > plan below as the hypothesis I came back with — then read what the sims did to it._
 
 ## How did we get here?

@@ -38,7 +38,7 @@ The deliverable is the map, not a verdict:
 ![capability map](figs_summary/CAPABILITY_MAP.png)
 *WIN where the substrate lives (continual, nuisance-dim, depth-cheap, depth-composition); TRAIL on static accuracy
 (the cost of the gap); one honest NEGATIVE on eval-time noise. (OURS vs a genuinely-tuned BP ceiling, 7 axes; the continual WIN is vs **naive
-online-BP without replay** — the fairer same-budget BP+replay baseline is Phase-6 work.)*
+online-BP without replay** — the fairer same-budget BP+replay baseline is Stage-2 work, run at P10.)*
 
 | axis | dial | verdict | the number |
 | --- | --- | --- | --- |

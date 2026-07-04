@@ -1,6 +1,6 @@
 # Methods — the mechanisms the reports name
 
-> Report-altitude definitions, grouped into four bands. Full stories: [`../../research/papers/`](../../research/papers/README.md) ·
+> Report-altitude definitions, grouped into five bands. Full stories: [`../../research/papers/`](../../research/papers/README.md) ·
 > detail: [`../../research/survey/`](../../research/survey/README.md).
 > Decision record: [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md).
 
@@ -112,10 +112,12 @@ nearly as well as full history at a third of the store.
 
 ### Threshold gate (Ch7)
 The planned mechanism that pays for expensive GD only when the cheap local path stalls: below a loss (or loss-slope)
-threshold, update SCFF only; above it, also fire the chained GD delta. **Status: still unbuilt** — named as an open
-knob in every phase, deferred to Phase 5, to be tuned against this cell's measured drift.
-- **Onward:** [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S6)
-- **Used in:** named as an open knob in every phase; built in none
+threshold, update SCFF only; above it, spend the expensive update. **Status: resolved at Phase 8 (S6 → S12)** — the
+committed awake gate is **DDM** on a class-direction tap-drift trigger (see
+[DDM awake gate](#ddm-awake-gate--class-direction-tap-drift-trigger)), and Phase 8 found the gate is a *safety*
+mechanism, not just a cost saver.
+- **Onward:** [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S6 → S12) · [DDM awake gate](#ddm-awake-gate--class-direction-tap-drift-trigger)
+- **Used in:** named as an open knob in Phases 1–7; committed in Phase 8
 
 ## Band 4 — racers / baselines
 

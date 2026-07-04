@@ -16,20 +16,20 @@ were **struck**.
   read/gate/add-to-objective OK; **rewriting the SCFF stream forbidden** (P2.5) — held. **The gate:** no fix may dent
   the A6 continual win (P5.7) — passed.
 - **The front door (read this first):** [`README.md`](README.md) — the navigable synthesis (problem → ladder →
-  scorecard → committed cell → Phase-6 brief). The deep story with every figure: [`phase5-report.md`](phase5-report.md).
+  scorecard → committed cell → the hand-off brief). The deep story with every figure: [`phase5-report.md`](phase5-report.md).
 - **The numbers:** [`RESULTS.md`](RESULTS.md) — the scalar ledger, one section per rung (P5.0–P5.9) + the P5.9
   capstone scorecard. The story per rung: [`expK/experiment-K.md`](exp9/experiment-9.md).
 - **The spec it was run against:** [`design.md`](design.md) — the ladder, the build plan (`p5lib.py`), the decision
   record. Reporting contract: [`result-format.md`](result-format.md).
 - **Phase renumber (now in effect):** Phase 5 = the depth-readout fix (done); the old "P5 = continual optimization"
-  → **Phase 6** (GD-side, live). The draft-6 orientation docs are **synced** (`../../CLAUDE.md`, `../../context.md`,
+  became the maintenance loop, now **Stage 2** (Phases 7–10); the **noise-hardening** is **Phase 6** (closing Stage 1). The draft-6 orientation docs are **synced** (`../../CLAUDE.md`, `../../context.md`,
   `../../idea/main.ideas.v1.md` + the **S9** delta, `../stage1-report.md`, the status skill). *(The repo-root
   CLAUDE.md is phase-agnostic — not edited.)*
 - **The literature behind it:** [`../../research/papers/phase5/`](../../research/papers/phase5/README.md) — the
   cheap-credit survey + the three tracks (preservation / adaptive-readout / cheap-direction).
-- **Still owed (low-priority, with the author):** the `ref-report/` glossary additions (composing-depth,
-  expected-compute / forward-MACs, truncation floor, the w12 ceiling) — the new Phase-5 terms the reports define
-  inline for now.
+- **Glossary (done):** the Phase-5 terms (composing-depth, expected-compute / forward-MACs, truncation floor, the
+  w12 ceiling) are now defined in [`../ref-report/metrics.md`](../ref-report/metrics.md) — the "Depth close-out &
+  Stage 2" section (added in the 2026-07-04 doc refactor).
 - **Read-budget:** for the verdict read **`README.md`**; for the numbers `RESULTS.md`; for the why `design.md`. Open
   cards/code only to modify.
 - **Up:** draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · prev phase → [Phase 4](../phase4/README.md).

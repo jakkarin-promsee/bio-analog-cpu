@@ -49,7 +49,7 @@ whole reason this phase runs before the namer:
 
 This is why the plan was renumbered mid-project: the undifferentiated "Phase 6 = GD optimization" split in two — noise
 was pulled out into *its own* Phase 6 (a Stage-1 *extension*, this report), and the GD namer moved to Stage 2 /
-Phases 7–9. Every rung here is measured against one question — **"is the cheap brain robust enough to *trust*
+Phases 7–10. Every rung here is measured against one question — **"is the cheap brain robust enough to *trust*
 downstream?"** — not "does it beat backprop."
 
 **Two doors, one crux.** "Noise" hides two distinct enemies, and the cell must survive both:
@@ -367,4 +367,4 @@ The pre-run design and the binding reporting contract are [`design.md`](design.m
 ---
 
 *Prev:* [Phase 5 — the SCFF close-out](../phase5/phase5-report.md) · *Up:* [the Stage-1 arc](../stage1-report.md) ·
-*Next:* [Stage 2 / Phases 7–9 — the GD namer](../stage2-design.md).
+*Next:* [Stage 2 / Phases 7–10 — the GD namer](../stage2-design.md).

@@ -165,7 +165,7 @@ to trust downstream?** The ordering is not optional — **LP-FT** settles it: a 
 *manufacture* the robustness a backbone lacks, and A7's sensitivity is born in SCFF's own per-sample layernorm, so
 **no 20% GD readout can rescue it.** The fix must live upstream, in SCFF — a Stage-1 problem. (This is why the old
 undifferentiated "Phase 6 = GD optimization" split: noise became its own Stage-1 extension; the GD namer moved to
-Stage 2 / Phases 7–9.)
+Stage 2 / Phases 7–10.)
 
 First the phase **named the enemy honestly.** On the frozen cell, A7 reproduces and is **OURS-specific and
 directional**: at matched projected-RMS a directional perturbation degrades OURS's class readout **~2× more than a
@@ -215,7 +215,7 @@ table is the audit trail: which committed decision was set, corrected, or merely
 | GD reads via taps | **S3** | Phase 1 exp1 | _corrected: tap **ALL** layers (not "last n")_ |
 | Two GD organs (interface / output) | **S4** | — | _carried, **not separately characterized** (wasn't isolated behaviorally)_ |
 | Mandatory inter-layer normalization | **S5** | Phase 1 + Phase 2.1 | _input-norm ratified (P1); length-norm survives but **mean-zero kills** → must pair with linear goodness (P2.1)_ |
-| Threshold-gated learning (Ch7 gate) | **S6** | _unbuilt_ | _open → Stage 2 (GD-side, Phases 7–9)_ |
+| Threshold-gated learning (Ch7 gate) | **S6** | _unbuilt_ | _open → Stage 2 (GD-side, Phases 7–10)_ |
 | Sleep consolidation | **S7** | Phase 1 exp4 | _confirmed; the continual recovery mechanism_ |
 | LUT prototype memory | **S8** | Phase 1 exp4 | _confirmed; replays at ⅓ store (0.898 vs 0.935)_ |
 | Readout = fixed short-stack placement | **S9** (Phase-5; revises S3) | Phase 5 P5.3–P5.5 | _set: read the sharp extractor depth, not literally every layer; adaptive exit struck; no residual_ |
@@ -266,11 +266,11 @@ measured what it is, Phase 5 closed its one open *learning* wound, and Phase 6 h
   convolution, which is out of scope). The synthetic headroom result is a representation claim, not a benchmark-beat.
 - **Not a static-accuracy claim** — and we don't make one; the architecture trails there on purpose.
 - **Key machinery is unbuilt** — the Ch7 threshold gate and a tuned sleep cadence are named and deferred to **Stage 2**
-  (the GD-side optimization era, Phases 7–9).
+  (the GD-side optimization era, Phases 7–10).
 - **Open follow-ups, not blockers** — natural-data / larger-scale validation, train-with-noise (hardware-aware),
   direct-feedback coordination, and anything needing architecture (convolution, time-series) — the north-star track.
 
-## 7 · What's next — Stage 2 (the GD namer, Phases 7–9)
+## 7 · What's next — Stage 2 (the GD namer, Phases 7–10)
 
 The cheap brain is finished, characterized, and noise-hardened — its *design* complete (ideal-float behavioral sim
 plus a behavioral analog-noise model; not silicon- or benchmark-validated). Every remaining knob is on the precise
