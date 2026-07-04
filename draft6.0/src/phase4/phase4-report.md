@@ -12,7 +12,7 @@
 ## 1 · Why characterize before optimize
 
 By the end of Phase 3 we had a cell we trusted on *two* axes — continual (Phase 1) and depth-composition (Phase 3).
-But two axes is not a map. Before Phase 6 optimizes the maintenance loop on top of this cell, we wanted the whole
+But two axes is not a map. Before Stage 2 optimizes the maintenance loop on top of this cell, we wanted the whole
 orthogonal scorecard — run for **coverage, not triage** (the opposite of Phase 2, where we trimmed moot rungs). The
 discipline is "characterize before optimize": a breadth sweep is the cheapest place to catch a latent algorithm
 bug, before any optimization is built on a flaw.
@@ -40,7 +40,7 @@ intended. *The cell is sound; no algorithm bug hid in the breadth.*
 *The Stage-1 result in one glance: WIN = where the substrate lives (continual, nuisance-dim, depth-cheap,
 depth-composition); TRAIL = static accuracy (the cost of the gap); NEGATIVE = a caught over-optimistic assumption.
 (OURS vs a genuinely-tuned BP ceiling, 7 axes; the continual WIN is vs **naive online-BP without replay** — the fairer
-same-budget BP+replay baseline is Phase-6 work.)*
+same-budget BP+replay baseline is Stage-2 work.)*
 
 | axis | dial | verdict | the number |
 | --- | --- | --- | --- |
@@ -205,7 +205,7 @@ difficulty, plus the digits anchor.
 forgets (−0.83 to −0.99); the no-sleep control rots (sleep is the recovery mechanism — SCFF itself doesn't forget).
 The largest, cleanest margin in the phase — though note the baseline is **naive online-BP, no replay**; OURS uses a
 replay LUT + sleep, so the fair *mechanistic* control is its own no-sleep arm (which also rots), and a same-budget
-BP+replay comparison is Phase-6 work. (n=3, class-incremental.)*
+BP+replay comparison is Stage-2 work. (n=3, class-incremental.)*
 
 **Result.**
 
@@ -256,11 +256,11 @@ so it doesn't read as a discrepancy.)*
 
 Picked from data, not guesses. In the final phase numbering these split across two successors: the one open wound
 this map flagged — the **depth decay** past ~layer 5 (the P4.3 follow-up) — became **Phase 5** (the SCFF close-out:
-earn the depth back, read it cheaply); the **maintenance-loop optimizations** below became **Phase 6** (the GD-side
-era). The brief:
+earn the depth back, read it cheaply); the **noise-hardening** became **Phase 6** (closing Stage 1); and the
+**maintenance-loop optimizations** below became **Stage 2** (the GD-side era, Phases 7–10). The brief:
 
 1. **Optimize the continual mechanism** (sleep cadence + the Ch7 gate) — A6 is the validated win; tune it against
-   *this* cell's measured drift. **This is Phase 6's core.**
+   *this* cell's measured drift. **This is Stage 2's core (the P8 economy + the P9 frozen loop).**
 2. **Build deep, but gate depth on headroom.** Depth is cheap (A4) and composes (A3) — invest in it — but it only
    *pays* where there's headroom, and the deep representation *decays* past ~layer 5. Scale the coordination window
    with headroom (w=2 cheap in the hard regime; grow to w=4 for easy+deep monotone composition). **(→ Phase 5 closed
@@ -293,7 +293,7 @@ one thing standing between a *characterized* cell and a *finished* cheap brain: 
 spend, and it makes the deployed all-tap readout drag in drifted layers. Phase 5 is the close-out — it names the decay
 precisely (a **direction** failure), earns the depth back with a sharper objective, reads it cheaply with a fixed
 short stack, and confirms the fix is continual-safe and real on natural data. The maintenance-loop optimization (the
-sleep cadence + the Ch7 gate) then becomes the GD-side era, Phase 6.
+sleep cadence + the Ch7 gate) then becomes the GD-side era, Stage 2 (Phases 7–10).
 
 ## Reproducibility
 

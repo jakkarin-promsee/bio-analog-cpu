@@ -291,7 +291,7 @@ all-tap via a short fixed stack (read-cheaply, fixed branch), is continual-safe,
 one honest narrowing vs the original hope: depth is read by a **fixed** short stack, not an **adaptive** per-sample
 exit. The cheap brain is **finished and trusted**.
 
-## 5 · The Phase-6 hand-off (the GD-optimization era)
+## 5 · The hand-off forward (Phase 6 hardens the cell; Stage 2 names it)
 
 - **The deployed recipe to optimize:** temp0.2/w2 SCFF bulk + a sleep-consolidated **fixed** reader (truncation /
   all-tap) + the Ch7 learning-gate + sleep cadence — now **readout-aware** (consolidate the *extractor-depth* features
@@ -315,7 +315,7 @@ exit. The cheap brain is **finished and trusted**.
 - **The temp-fix is null on flat data with no composable depth** (CIFAR-flat) — it needs convolution, out of scope. We
   report this as a scoped, null-but-safe result, not a failure.
 - **The adaptive early-exit is struck on the *flat* home only** — on a compositional continual stream it might earn its
-  keep (a parked Phase-6 test); the verdict is "struck where we deploy," not "struck everywhere."
+  keep (a parked test for a later phase); the verdict is "struck where we deploy," not "struck everywhere."
 - **w12 is a diagnostic, never a deployment** — it is a forbidden full-credit reach used only as the objective ceiling;
   do not read its numbers as an achievable target.
 - **Continual numbers are n=3** (the heaviest cells) — read with the wider-IQR caution that implies; the static rungs

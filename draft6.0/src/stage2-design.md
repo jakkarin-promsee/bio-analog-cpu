@@ -4,9 +4,9 @@
 > spec yet — it is the *first map* of Stage 2, written right after the cold-start research pass, while the picture is
 > wide. The job of this file is to answer three questions the author posed at kickoff — **what is the whole GD era,
 > what scope do we actually live in now, and which pieces fit our arc** — and to propose a phase structure to chase it.
-> The literature behind every claim here lives in the GD paper folders — [`phase7/`](../../research/papers/phase7/README.md)
-> (readout), [`phase8/`](../../research/papers/phase8/README.md) (economy), [`phase9/`](../../research/papers/phase9/README.md)
-> (maintenance). The frozen Stage-1 model it builds on: [`../phase5-final-architecture.md`](../phase5-final-architecture.md).
+> The literature behind every claim here lives in the GD paper folders — [`phase7/`](../research/papers/phase7/README.md)
+> (readout), [`phase8/`](../research/papers/phase8/README.md) (economy), [`phase9/`](../research/papers/phase9/README.md)
+> (maintenance). The frozen Stage-1 model it builds on: [`phase5-final-architecture.md`](phase5-final-architecture.md).
 > When rungs firm up, this rough plan hardens into per-phase `design.md` + ladders the normal way.
 >
 > **⚠ Renumber (2026-07-01).** Train-with-noise was pulled *out* of Stage 2 and promoted to **Phase 6 — a Stage-1
@@ -70,8 +70,8 @@ fast/slow split that survives lives *inside* the readout (a fast online tracker 
 ### 1.2 The scope rules (breadth-first; numpy; noise primary; hardware secondary)
 
 - **Breadth-first.** Map the whole GD landscape, find all the papers, *then* prioritize. The "economy loop" is the
-  organizing lens, not yet a filter. (Done — GD papers in [`phase7/`](../../research/papers/phase7/README.md) ·
-  [`phase8/`](../../research/papers/phase8/README.md) · [`phase9/`](../../research/papers/phase9/README.md).)
+  organizing lens, not yet a filter. (Done — GD papers in [`phase7/`](../research/papers/phase7/README.md) ·
+  [`phase8/`](../research/papers/phase8/README.md) · [`phase9/`](../research/papers/phase9/README.md).)
 - **We live in the numpy ideal-math world.** Analog / hardware-aware training is **secondary / deferred** — build the
   full math model first; pruning for hardware later is easier than pruning now and breaking it.
 - **Train-with-noise is the one PRIMARY exception** — because A7 (the cell's eval-time weight-noise sensitivity) must be
@@ -184,7 +184,7 @@ cannot *create* the robustness the backbone lacks; **Rasch 2023** — input/tap/
 readout *reads* exactly that channel. So the fix **cannot** be a 20% readout knob; it is an **SCFF-objective question** —
 promoted to its own **Phase 6**, run *before* the GD namer is built. The full noise plan (the two noise channels, the
 structured/directional attack, the *all-data-is-noisy continual* framing, the YES/NO arc fork) now lives in
-[`phase6/design.md`](phase6/design.md) + [`../../research/papers/phase6/`](../../research/papers/phase6/README.md).
+[`phase6/design.md`](phase6/design.md) + [`../../research/papers/phase6/`](../research/papers/phase6/README.md).
 
 ### 3.6 North-star seed — a direction-grounded halt
 Build the gate as **PonderNet's ancestor** (the static "compute cheaply until θ" is the recurrent "think until the
@@ -284,7 +284,7 @@ cell — and the **P9→P10 boundary is a hard freeze**: P10 races the object P9
 - **Which gate trigger fires earliest without false-firing?** A label-free tap-drift detector is appealing but might
   fire on *nuisance* drift that doesn't hurt the readout — burning the 80/20. The error-based DDM is safer but lags.
 - **The decision-record delta (owed — and bigger than first written).** To record in
-  [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (the way S9 was added at P5) — **flagged here, not
+  [`../../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md) (the way S9 was added at P5) — **flagged here, not
   silently applied, not retro-editing the frozen `phase5-final-architecture.md`:**
   - **N3** ("GD = residual boosting blocks") → **superseded** by "single bulk + per-depth read-only heads";
   - **S4** ("two GD organs") → **collapses to one** (the readout; Interface-GD retired with the blocks);
