@@ -1,8 +1,8 @@
 # Bio-Analog CPU
 
-_Working title, deliberately unsettled — a placeholder I'll rename once the architecture is final (and not a claim about instruction-set CPUs). It's the least-decided thing in the repo, and out of scope until the work is done._
-
 The math model for a bio-inspired analog chip that learns on-chip — online, local, forward-only, with no backward pass that ever leaves it.
+
+(_Working title, deliberately unsettled — a placeholder I'll rename once the architecture is final (and not a claim about instruction-set CPUs). It's the least-decided thing in the repo, and out of scope until the work is done._)
 
 ## The frame, up front
 
@@ -710,17 +710,9 @@ And the side doors, for readers with a specific question:
 
 ## How this is built — human + AI
 
-I build this in the open, and with a lot of help. The repo has a `.claude/` folder and a dozen-plus `CLAUDE.md`
-files sitting in plain sight — nothing hidden — so let me just say it: **this project is built in close
-collaboration with AI agents (Claude and others).** They help me **write the code, run down the research, and draft
-most of the reports.** I'm a solo undergraduate and I don't yet have deep expertise in half the fields this touches;
-the AI is how I cover that gap and move at the pace a solo evening allows.
+We build this in the open, and with a lot of help. The repo has a `.claude/` folder and a dozen-plus `CLAUDE.md` files sitting in plain sight — nothing hidden — so let us just say it: **this project is built in close collaboration with AI agents (Claude and others).** They help us **write the code, run down the research, and draft most of the reports.** We're a undergraduate and we don't yet have deep expertise in half the fields this touches; the AI is how we cover that gap and move at the pace.
 
-What the AI does **not** do is decide what is true. Every result, every number, every claim on this page I
-**re-derive, re-run, and re-read myself** before it stays — and I have thrown out plenty that did not survive that.
-The architecture decisions, the experiment designs, and the "does this actually hold up?" judgments are mine. So:
-**AI-assisted and human-verified — not vibe-coded.** I would rather state that plainly here than have anyone feel
-they have "caught" it.
+What the AI does **not** do is decide what is true. Every result, every number, every claim on this page we **re-derive, re-run, and re-read myself** before it stays — and we have thrown out plenty that did not survive that. The architecture decisions, the experiment designs, and the "does this actually hold up?" judgments are mine. So: **AI-assisted and human-verified — not vibe-coded.** I would rather state that plainly here than have anyone feel they have "caught" it.
 
 ---
 
