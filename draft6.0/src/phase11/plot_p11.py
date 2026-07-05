@@ -62,34 +62,67 @@ def fig_decomp(run_dir, out=None):
     return out
 
 
-def fig_stream(run_dir, arena, out=None):
+def _rolling(y, w):
+    """nan-aware centered rolling mean & std over an odd window w (same length; NaN where the window is all-NaN)."""
+    y = np.asarray(y, float); n = len(y); h = w // 2
+    m = np.full(n, np.nan); s = np.full(n, np.nan)
+    for i in range(n):
+        seg = y[max(0, i - h): min(n, i + h + 1)]; seg = seg[np.isfinite(seg)]
+        if seg.size:
+            m[i] = seg.mean(); s[i] = seg.std()
+    return m, s
+
+
+# The real-world streams swing batch-to-batch because of the DATA (a hard chunk, sensors aged) — ER swings the same
+# way, so it is not a model artifact. There we show a rolling-mean TREND + a ±1σ error band (the swing summarized,
+# not hidden). The block-structured gauntlets (xdata class-IL, mnist domain-IL) stay RAW — there each batch is
+# meaningful (ER's catastrophic collapse at a type switch IS the story).
+_BAND_ARENAS = {"gas", "har", "electric", "covtype"}
+
+
+def fig_stream(run_dir, arena, out=None, *, band=None):
     """STREAM-<arena> (every arena) — per-batch prequential: OURS vs the STRONGER ER (the best BP baseline on the SAME
-    data), with the no-change persistence floor as a horizontal reference + sleep ticks + block onsets. The two lines
-    let an outsider read, batch-by-batch, where OURS is strong and where the tuned replay learner leads."""
+    data), with the no-change persistence floor as a horizontal reference. On the swingy real-world streams
+    (`band=True`) the lines are a rolling mean with a ±1σ error band (the batch swings are the data's, not the
+    model's); on the block-structured gauntlets the raw per-batch lines are kept."""
     A = _load(run_dir)
-    live = A.get(f"streamlive_ours_{arena}"); seen = A.get(f"streamseen_ours_{arena}")
+    live = A.get(f"streamlive_ours_{arena}")
     if live is None:
         return None
+    if band is None:
+        band = arena in _BAND_ARENAS
     er_live = A.get(f"streamlive_er_{arena}")
     sleeps = A.get(f"streamsleeps_ours_{arena}"); onsets = A.get(f"stream_onsets_{arena}")
     nochange = A.get(f"nochange_{arena}")
-    fig, ax = plt.subplots(figsize=(11, 4.2)); x = np.arange(len(live))
+    n = len(live); w = int(round(n / 40)); w = max(7, min(35, w)); w += (w % 2 == 0)
+    fig, ax = plt.subplots(figsize=(11, 4.2))
+
+    def _draw(y, color, base_label):
+        xx = np.arange(len(y))
+        if band:
+            m, sd = _rolling(y, w)
+            ax.fill_between(xx, np.clip(m - sd, 0, 1), np.clip(m + sd, 0, 1), color=color, alpha=0.16, lw=0)
+            ax.plot(xx, m, color=color, lw=2.0, label=f"{base_label} (rolling μ ±1σ)")
+        else:
+            ax.plot(xx, y, color=color, lw=1.2, alpha=0.85, label=f"{base_label} live-batch")
+
     if er_live is not None:                                        # ER first, so OURS draws on top
-        ax.plot(np.arange(len(er_live)), er_live, color=STYLE["er"], lw=1.1, alpha=0.6,
-                label="ER-strong live-batch (best BP)")
-    ax.plot(x, live, color=STYLE["ours_a"], lw=1.3, alpha=0.9, label="OURS live-batch (prequential)")
-    if seen is not None:
-        ax.plot(x, seen, color=STYLE["ours_a"], lw=2.2, label="OURS seen-so-far")
+        _draw(er_live, STYLE["er"], "ER-strong (best BP)")
+    _draw(live, STYLE["ours_a"], "OURS (prequential)")
     if nochange is not None:
         ax.axhline(float(np.median(nochange)), ls="-.", c=STYLE["nochange"], lw=1.3, label="no-change (persistence)")
-    if sleeps is not None:
-        for s in np.where(np.asarray(sleeps) > 0)[0]:
-            ax.axvline(s, color="#b8b8b8", lw=0.5, alpha=0.5)
-    if onsets is not None:
+    if onsets is not None:                                         # data-block boundaries (kept — they are the DATA)
         for o in np.asarray(onsets):
-            ax.axvline(int(o), color="#d0a0a0", ls="--", lw=0.8, alpha=0.6)
+            ax.axvline(int(o), color="#d0a0a0", ls="--", lw=0.9, alpha=0.55)
+    if sleeps is not None and not band:                           # sleep ticks only on the raw plots (avoid implying
+        for s in np.where(np.asarray(sleeps) > 0)[0]:             # the smoothed swings come from sleep — they do not)
+            ax.axvline(s, color="#b8b8b8", lw=0.5, alpha=0.4)
     ax.set_xlabel("stream step (batch)"); ax.set_ylabel("accuracy"); ax.set_ylim(0, 1.02)
-    ax.set_title(f"STREAM-{arena} — OURS vs ER-strong, batch-by-batch (grey=sleep, dashed=block onset)")
+    if band:
+        ax.set_title(f"STREAM-{arena} — OURS vs ER-strong · rolling mean ±1σ "
+                     f"(the batch swings are the DATA's, not the model's; window {w})")
+    else:
+        ax.set_title(f"STREAM-{arena} — OURS vs ER-strong, batch-by-batch (grey=sleep, dashed=block onset)")
     ax.legend(fontsize=8, loc="lower right", ncol=2)
     fig.tight_layout(); out = out or os.path.join(run_dir, f"STREAM_{arena}.png")
     fig.savefig(out, dpi=110, bbox_inches="tight"); plt.close(fig)

@@ -173,25 +173,26 @@ them.
 
 ![P11.3 gas — the real-world headline win](exp3/figs_p11_3/STREAM_gas.png)
 
-*The headline, now with the best BP baseline overlaid. On the gas-sensor-drift stream (Vergara 2012), OURS (teal) and
-the per-arena-tuned **ER-strong** (orange) both ride high (~0.8–1.0), **far above** the no-change persistence baseline
-(dash-dot, 0.605) — this is real, information-bearing drift, and any learner that reads the features beats
-persistence. The two trade the lead batch-by-batch, but two things favor OURS: it takes the **aggregate** (prequential
-0.789 ≥ ER 0.756, +0.184 over persistence), and it is visibly **steadier at the drift boundaries** — where ER spikes
-down toward 0 (catastrophic forgetting on a fresh, aged sensor batch), OURS holds and recovers after sleep (grey).
-Untouched, the frozen recipe is the strongest online learner in the room; Arm B (native 128-D) lifts it to 0.856.
-Sensor aging is a **coherent covariate shift** — exactly the drift the SCFF bulk + sleep re-anchoring was built to
-ride while the closed-form namer never catastrophically forgets.*
+*The headline, with the best BP baseline overlaid — and because the real-world stream swings violently batch-to-batch
+(a hard chunk here, freshly-aged sensors there), drawn as a **rolling mean with a ±1σ band** rather than a jagged raw
+line. OURS (teal) and the per-arena-tuned **ER-strong** (orange) both ride **far above** the no-change persistence
+baseline (dash-dot, 0.605) — this is real, information-bearing drift, and any learner that reads the features beats
+persistence. The two trends trade the lead early, but **OURS pulls clearly ahead in the late stream** — where the
+sensors have aged most — and takes the **aggregate** (prequential 0.789 ≥ ER 0.756, +0.184 over persistence).
+Crucially, **ER's band swings just as wide as OURS's**, so the volatility is the *data's* difficulty, not our sleep
+loop. Untouched, the frozen recipe is the strongest online learner in the room; Arm B (native 128-D) lifts it to
+0.856. Sensor aging is a **coherent covariate shift** — exactly the drift the SCFF bulk + sleep re-anchoring was built
+to ride while the closed-form namer never catastrophically forgets.*
 
 ![P11.3 HAR — an honest FLOOR](exp3/figs_p11_3/STREAM_har.png)
 
-*The counter-case, shown just as plainly — and now you can see the field lead. On HAR both OURS (teal) and the tuned
-**ER-strong** (orange) learn well, but the no-change baseline (dash-dot, **0.95**) sits *above almost every point of
-both*: this is the ELEC2 label-autocorrelation trap, where "predict the previous label" is near-unbeatable by any
-model that actually reads the features. Inside that floor, **ER rides consistently above OURS** (0.754 vs 0.686 — the
-~0.07 field lead the map records); the cell is grey and **two-sided**, and the overlay makes both sides visible —
-nobody beats persistence, and the field is ahead of us here. HAR, electricity, and covertype all live in this
-regime.*
+*The counter-case, shown just as plainly — the same rolling mean ±1σ read, and now you can see the field lead. On HAR
+both OURS (teal) and the tuned **ER-strong** (orange) learn well, but the no-change baseline (dash-dot, **0.95**) sits
+*above both trends*: this is the ELEC2 label-autocorrelation trap, where "predict the previous label" is
+near-unbeatable by any model that actually reads the features. Inside that floor, **ER's trend rides consistently
+above OURS** (0.754 vs 0.686 — the ~0.07 field lead the map records); the cell is grey and **two-sided**, and the
+overlay makes both sides visible — nobody beats persistence, and the field is ahead of us here. HAR, electricity, and
+covertype all live in this regime.*
 
 **What the result means.** The measurement cleanly separates two kinds of hard:
 

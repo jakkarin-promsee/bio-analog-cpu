@@ -58,8 +58,9 @@ CIFAR-gray floors, the streaming canon floors under label-persistence — ship i
   **har / electricity / covertype FLOOR** — the ELEC2 label-autocorrelation trap (D2) fires as pre-registered: *no*
   learner beats the no-change baseline (0.950/0.836/0.646), and inside the floor the field leads OURS by ~0.07 (grey
   cells, two-sided). Honest split of drift-difficulty vs data-difficulty. → [`exp3/experiment-3.md`](exp3/experiment-3.md)
-  · `STREAM_{gas,har,electric,covtype}.png` (now **OURS vs ER-strong** + the no-change floor — on gas OURS is steadier
-  at the drift boundaries where ER spikes down; on the floor arenas ER rides just above OURS, both under persistence).
+  · `STREAM_{gas,har,electric,covtype}.png` (**OURS vs ER-strong**, rolling mean ±1σ + the no-change floor — on gas
+  OURS's trend pulls ahead in the late stream and takes the aggregate; on the floor arenas ER's trend rides just above
+  OURS, both under persistence; the batch swings are the data's, ER swings the same).
 - **P11.4 — the cross-dataset gauntlet (the author's ask).** MNIST→Fashion→CIFAR-gray as one class-IL 30-way stream
   (harder than the field's task-IL), shared source-1 porthole. **All three data types stay alive** (weakest,
   CIFAR-gray, ~4× chance, never collapses); **order-invariant across data types** (|fwd−rev| 0.007/0.004); retention

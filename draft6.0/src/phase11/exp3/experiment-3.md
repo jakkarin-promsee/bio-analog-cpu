@@ -47,9 +47,10 @@ heavy: native-54, 40k slice). STREAM-{gas,har,electric,covtype} + the fight tabl
    ships both.
 2. *Headline* — gas OURS-A **0.789** ≥ stronger-ER **0.756**, no-change 0.605 (WIN, +0.184 over persistence);
    OURS-B **0.856**. Three streams FLOOR under no-change {0.950, 0.836, 0.646}, field ahead by ~0.07.
-3. *Figures* — `STREAM_gas.png` (the headline — OURS vs ER-strong riding above persistence, OURS steadier where ER
-   spikes down at drift boundaries), `STREAM_har.png`, `STREAM_electric.png`, `STREAM_covtype.png` (OURS vs ER-strong,
-   both under the persistence wall, ER just ahead — the two-sided floor visible batch-by-batch).
+3. *Figures* — `STREAM_gas.png` (the headline — OURS vs ER-strong as rolling mean ±1σ, OURS's trend ahead in the late
+   stream, above persistence), `STREAM_har.png`, `STREAM_electric.png`, `STREAM_covtype.png` (OURS vs ER-strong ±1σ,
+   both under the persistence wall, ER just ahead — the two-sided floor; the batch swings are the data's, ER swings
+   the same).
 4. *Mechanism* — gas drift is a **coherent covariate shift** (sensors age): the SCFF bulk + sleep re-anchoring
    tracks the manifold while the closed-form namer never catastrophically forgets → OURS rides the drift. On HAR/
    ELEC2/covtype the *label* is autocorrelated (long runs of one class), so persistence — which the streaming field
