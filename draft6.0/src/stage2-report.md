@@ -440,7 +440,10 @@ the surviving object credible.
   sensor-drift (gas), and the substrate energy floor — *refined, not inflated.*
 - **Every number here is pre-trial.** P8's bp_ratio (0.501) is vs BP+replay at matched *retention* on the energy
   axis — the *accuracy* fight was deliberately deferred to the frozen-object trial. P9's cuts are against internal
-  oracles only.
+  oracles only. **And the headline energy numbers in §4 (15.4× vs GD-on-digital, ≈half the energy vs the BP+replay it
+  was metered on) are re-measured in Phase 10 against a *smaller, harder-tuned* ER — which turns the *same-substrate*
+  comparison into a 1.5× *loss*, so the energy edge is banked as *substrate-realized*, not algorithmic.** Don't leave
+  this stage with "15.4× / ≈half" as the last word; the honest close-out is in [`validation-report.md`](validation-report.md).
 - **The meter is behavioral** — relative-pJ, ADC-centred, Horowitz-anchored; **not SPICE.** The analog factor is a
   meter-structural floor; the load-bearing energy cut is same-substrate.
 - **Small, partly synthetic tasks** — the continual home, digits, CIFAR-flat. The trial (P10–11) is where natural

@@ -249,7 +249,10 @@ width the object was frozen at. Arm A answers: *does the thing we actually commi
 data?* **Arm B — the scaling rule:** the same architecture rebuilt to a **pre-registered** size law (D = min(native,
 160), W = ⌈1.6·D⌉, depth 12) — declared before any run, tuned to nothing. Arm B answers: *how much of the porthole
 loss comes back at native scale?* The opponent (ER-strong) is re-tuned **per arena** on the disjoint seed-7 stream;
-OURS is never touched. Five channels score every arena: **AA / prequential accuracy** (balanced, test-then-train),
+OURS is never touched. **Both learners consume the bit-identical projected stream** — ER eats the *same* porthole as
+OURS at each arm's width, so the comparison is apples-to-apples on input; and where ER still wins static accuracy
+through the *same* 40-D porthole, that gap is a real (by-design) capability difference — OURS is a continual, not a
+static, learner — **not** an input handicap the porthole imposed on OURS alone. Five channels score every arena: **AA / prequential accuracy** (balanced, test-then-train),
 **worst-BWT** (safety — the object's signature channel), **worst-point retention**, **order-invariance**
 (|AA(fwd) − AA(rev)|), and **beats-persistence** (the no-change baseline — brutal on autocorrelated streams). Every
 cell is **win / tie / loss / FLOOR**; a FLOOR is *uninformative* — the ceiling sits at the data's resolution or

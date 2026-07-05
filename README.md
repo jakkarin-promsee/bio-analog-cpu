@@ -1,6 +1,6 @@
 # Bio-Analog CPU
 
-The math model for a bio-inspired analog chip that learns on-chip — online, local, forward-only, with no backward pass that ever leaves it.
+The math model for a bio-inspired analog chip that learns on-chip — online, local, forward-only, with no backward pass that ever leaves it. **Behavioral simulation only — numpy, no silicon, no circuits;** every number on this page is measured in code, not on hardware.
 
 **And it is a beginning, not a finished result.** What exists today — **draft 6.0**, the version this page validates — is the _first organ_: a **baby neocortex**, one cheap unsupervised brain plus one precise namer, built and stress-tested across eleven phases. It is the stable anchor five earlier drafts were spent learning how to build — the ground the real hypothesis stands on, not the hypothesis itself. The destination is a whole recurrent mind that thinks to itself; this organ is step one of a long program. [Where the road goes →](#the-north-star--what-this-is-building-toward)
 
@@ -9,6 +9,8 @@ The math model for a bio-inspired analog chip that learns on-chip — online, lo
 ## The frame, up front
 
 We are **not building a real analog chip** — no silicon, no circuits, no fabrication. The analog substrate is the **constraint that shapes all the math**: weights that never leave their cells, learning that runs forward-only, noise and energy priced by physics. The whole architecture is designed to survive that substrate, and is proven in **behavioral simulation first** — eleven phases, ~70 controlled experiments. The idea it chases: build the chip so that brain-like computation is the _cheap_ path. _(The full frame — what the constraint buys and what it deliberately leaves out — is [below the results](#the-analog-frame).)_
+
+**And it loses in the open.** On plain static accuracy a tuned backprop wins; on a same-substrate accuracy-vs-energy Pareto a small tuned baseline _dominates_ this model; on three of four real drift streams the data is so autocorrelated that nothing beats "predict yesterday." Those losses are in the scorecard and the limit map below, at the same volume as the wins — the deliverable is the **map**, not a highlight reel.
 
 ## The bet
 
@@ -24,7 +26,7 @@ You pay for direction **once**, where it counts, and get everything else cheaply
 Four parts on one substrate — enough to read every result below; the full part-by-part is [The machine that ran the race](#the-machine-that-ran-the-race).
 
 - **The bulk** — 12 forward-only SCFF layers that learn structure from _every_ input, unsupervised. The cheap brain.
-- **The namer** — a small closed-form head (SLDA) that puts _our_ labels on that structure. No gradient descent.
+- **The namer** — a small closed-form head (SLDA — _streaming linear discriminant analysis:_ a running per-class mean plus one shared covariance, classify by nearest Gaussian) that puts _our_ labels on that structure. No gradient descent.
 - **The gate** — a drift detector that fires the namer only when the world shifts; firing more forgets more, so it doubles as a safety brake.
 - **The sleep** — a periodic closed-form re-fit of the namer over a small prototype memory ("grid-N" = every N stream segments), re-anchoring labels to wherever the bulk has drifted.
 
@@ -57,13 +59,15 @@ _And the whole model in one self-contained file:_ [**Phase9 final architecture (
 
 The proving ground is **continual learning**: data arrives as a stream, the world keeps shifting, and nothing is ever revisited as a training set. This is the regime that makes ordinary backprop **catastrophically forget** — and it is the regime this architecture was built for.
 
+_A note on scale, up front:_ every task here is a small **probe** — 8×8 digits, MNIST seen through a 40-D projection, synthetic streams — chosen to stress continual _behavior_ under the chip's constraints, not to chase a benchmark number. The claims are about behavior, safety, and scope; they are deliberately **not** leaderboard-accuracy claims.
+
 The comparison is set up to be demanding on both sides:
 
 - **The model under test — grid-4.** The committed two-brain object: a 12-layer **forward-only, unsupervised bulk** that learns from every input, plus a tiny **closed-form namer** that fires only when a drift gate trips and is consolidated by a periodic _sleep_ (every 4 stream segments — hence "grid-4"). It contains **no gradient descent**. It was **frozen at a commit hash before any baseline number existed**, and it runs untouched throughout.
 - **The baseline — ER-strong.** Experience-replay backprop is the baseline recent continual-learning benchmarks (Prabhu et al. 2023; Ghunaim et al. 2023) find outperforms the more elaborate methods under a matched budget. It is given the same memory (byte-matched to the model's store, 196,800 B), tuned on a held-out seed with its own validation split, and allowed its own best architecture. It is a tuned baseline, not a default one.
 - **The protocol.** Verdict shapes were fixed **before** the run (recorded blind in each phase's `design.md`); 5 seeds; a tie band δ = 0.02 declared in advance; 14 bit-exact reproducibility guards checked on every rung. The model is frozen first and judged second, so no comparison can feed back into its design.
 
-### The money figure — five shifting worlds, no catastrophic forgetting
+### The retention figure — five shifting worlds, no catastrophic forgetting
 
 Five digit-recognition worlds arrive in sequence — identity → permuted → rotated → covariate-shifted → noised — each overwriting the last. The learner has to keep _all five_, without re-storing the old worlds as training data.
 
@@ -85,8 +89,10 @@ This table is the key to reading the forward and reversed graphs below. **Forwar
 
 _The checkpoint read: worst-moment accuracy over all worlds seen so far (top) and cumulative metered energy (bottom), the model's cadence family ("grid-N" = sleep every N stream segments) vs ER-strong. (n = 5 seeds, median + IQR.)_ _Anchors for every accuracy here: 10-way chance = 0.1; the offline joint-training ceiling on this stream family = 0.870._
 
-- **Steadier retention.** The model holds worst-point all-previous accuracy at **0.490** across the whole stream; the tuned backprop baseline sags to **0.350** mid-gauntlet as it chases the newest world. Anytime accuracy is **0.519 vs 0.433**, and the final scores _tie_ (0.490 vs 0.504, inside δ).
+- **Steadier retention.** The model holds worst-point all-previous accuracy at **0.490** across the whole stream; the tuned backprop baseline sags to **0.350** mid-gauntlet as it chases the newest world. Anytime accuracy is **0.519 vs 0.433**, and the final scores _tie_ (0.490 vs 0.504, inside δ — both around 56% of the 0.870 offline joint-training ceiling; this is a deliberately hard, fast-shifting stream, not a saturated one).
 - **Under an asymmetry that favors the baseline.** The model runs one frozen configuration across all five worlds; ER is given its own best tuned config. The frozen substrate is the steadier of the two.
+
+_Precise reading:_ the gauntlet win is **retention** — worst-moment accuracy — not the forgetting metric. On this stream ER actually recovers to ~0 forgetting by each checkpoint (worst-BWT **0.000** vs OURS's **−0.012**); the ≈10× **forgetting** gap is the separate _lifelong_ stream in the scorecard below, not this figure. Two different streams, two different reads — held apart on purpose.
 
 A single checkpoint curve can mislead, so the same result is examined from four more angles.
 
@@ -174,6 +180,8 @@ On a plain (accuracy × energy) frontier, a small tuned ER **dominates** this mo
 | Energy — same digital substrate           | 3.46e8 pJ                | ER-strong 2.25e8 pJ            | **loss** (1.5×, the deep bulk)          |
 | Energy — chip vs conventional GD          | **6.70e7 pJ (analog)**   | ER-on-digital 2.25e8 pJ        | **win** (3.4×, substrate-realized)      |
 
+_Two reading notes on this table._ **Energy** is a literature-calibrated _behavioral_ estimate — an ADC-centred macro-model, not SPICE and not silicon; the load-bearing cut is the same-substrate one (where the algorithm _loses_ 1.5×), and the analog "win" row is a meter-structural projection, not a measured device number. **The worst-case-forgetting read** (−0.028 vs −0.272) is applied _identically_ to both learners; by the ordinary end-of-stream BWT the gap narrows as ER's replay recovers — the worst-case read is the operative one for a system that must stay reliable _while_ it keeps learning.
+
 **What the model does _not_ claim** — the scope is part of the characterization:
 
 - **Not a static-accuracy competitor.** On short, easy, stationary data a tuned backprop wins (0.950 vs 0.879 on natural digits — scikit-learn's 8×8 set — and it forgets slightly less there, −0.019 vs −0.051): there is nothing there for the sleep loop to protect. The model's accuracy value is _lifelong stability on hard, long, shifting streams_.
@@ -214,6 +222,8 @@ The four real streams are worlds where the drift is not injected by anyone — s
 
 On gas-sensor drift — a benchmark where sensors chemically age over months — the frozen recipe, untouched and through the porthole, is the strongest online learner in the comparison: **0.789 vs the per-arena-tuned ER's 0.756**, both far above persistence (0.605). It pulls ahead in the late stream, where the sensors have aged most. Sensor aging is a coherent covariate shift, which is the drift the unsupervised bulk + sleep re-anchoring was built to track while the closed-form namer does not catastrophically forget. The scaled Arm B reaches **0.856**. The volatility bands overlap — ER's line swings as wide as the model's — so the swings reflect the _data's_ difficulty rather than the sleep loop.
 
+_Honest counterweight, at the point of the win:_ this is an **accuracy** win, and on this same continuous-drift stream the model's signature _safety_ metric does not hold — worst-point forgetting is **−0.333**, because nature drifts between every sleep rather than in discrete blocks, so the namer's frame goes stale mid-stream (which is exactly why prequential accuracy, not worst-BWT, is the reported read here). The margin (+0.033) sits inside overlapping bands against an opponent tuned on a modest grid — a genuine but **single-stream** win, not a decisive one.
+
 ### Where no learner wins — the persistence floor
 
 ![The HAR stream — a FLOOR: the no-change baseline sits above every learner, and inside the floor the field leads](draft6.0/src/phase11/exp3/figs_p11_3/STREAM_har.png)
@@ -232,7 +242,7 @@ The showcase gauntlet, rebuilt on real MNIST: same shape, real pixels. **ER ride
 
 ![The cross-dataset stream — ER collapses to ≈0 at each data-type switch; the model degrades gracefully and keeps all three types alive](draft6.0/src/phase11/exp4/figs_p11_4/STREAM_xdata.png)
 
-The most demanding test in the phase: **MNIST → Fashion → CIFAR-gray as one 30-class stream**, through a front end fitted only on the first source, so the object never re-fits when the _kind_ of data changes. ER learns the first block to a higher accuracy than the model, then **collapses to ≈0 at each data-type switch** — its trained head has never seen the new classes and its replay buffer is shaped by the old world. The model **degrades gracefully**, rides _above_ ER through the entire second block, and keeps **all three data types alive** to the end — even the weakest (CIFAR-gray) holds ~4× chance while the label space grows to 30-way. Order-invariance holds even across data _types_ (|Δ| ≤ 0.007), a direct consequence of the closed-form namer: there is no gradient path an ordering can bias. One cell is a loss with a known cure: at the frozen porthole width, worst-point retention trails ER (0.415 vs 0.534); the pre-registered scaled instance reverses it (**0.581 ≥ 0.551**).
+The most demanding test in the phase: **MNIST → Fashion → CIFAR-gray as one 30-class stream**, through a front end fitted only on the first source, so the object never re-fits when the _kind_ of data changes. ER learns the first block to a higher accuracy than the model, then **collapses to ≈0 at each data-type switch** — its trained head has never seen the new classes and its replay buffer is shaped by the old world. The model **degrades gracefully**, rides _above_ ER through the entire second block, and keeps **all three data types alive** to the end — even the weakest (CIFAR-gray) holds ~4× chance while the label space grows to 30-way. Order-invariance holds even across data _types_ (|Δ| ≤ 0.007), a direct consequence of the closed-form namer: there is no gradient path an ordering can bias. One cell is a loss with a known cure: at the frozen porthole width, worst-point retention trails ER (0.415 vs 0.534); the pre-registered scaled instance reverses it (**0.581 ≥ 0.551** — though this leg ran at D=80, _half_ the pre-registered D=160; the full-D run is still owed).
 
 ### Scaling — three reads, one of them against a prior guess
 
@@ -321,7 +331,7 @@ Draft 6.0 was walked down a simulation ladder one rung at a time, under one rule
 
 ## The verdict
 
-A **substrate-native continual learner** — competitive on its home, decisively **safer**, far more **noise-robust**, and with an energy edge over conventional GD that is **substrate-realized** (the analog crossbar), not algorithmic. It is _not_ a static-accuracy competitor, and it was never optimized to be one, which is what makes the _tie_ on the home a genuine result rather than a target. And it carries its own punchline: a project set out to be "brain-function, cheap-implementation" **ended with no gradient descent anywhere.**
+A **substrate-native continual learner** — competitive on its home, decisively **safer**, far more **noise-robust**, and with an energy edge over conventional GD that is **substrate-realized** (the analog crossbar), not algorithmic. It is _not_ a static-accuracy competitor, and it was never optimized to be one, which is what makes the _tie_ on the home a genuine result rather than a target. And it carries its own punchline: a project that budgeted an honest 20% for a "gradient-descent" brain **ended with no _global_ backward pass at all — the cheap brain learns forward-only in bounded local windows (no cross-layer credit chain), and the precise namer turned out closed-form.**
 
 On a same-substrate energy-vs-accuracy Pareto a small tuned baseline _dominates_ this model — plotted above, next to the axes it _does_ win. Every result is reported with its scope, its confounds, and what it does _not_ show, because that is how the project reaches conclusions it can trust.
 
