@@ -1,6 +1,6 @@
 {
   "rung": "P11.2",
-  "git": "bb5a8bbea40f552129ac7606b9d38250c089a7b6",
+  "git": "be3073fac95dbdea78daf3e3da2483198a65d668",
   "seeds": [
     42,
     137,
@@ -63,5 +63,5 @@
     "rapid-24",
     "long-randomized[50,70] (E8 primary)"
   ],
-  "wall_s": 1238.2
+  "wall_s": 1290.7
 }

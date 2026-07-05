@@ -133,10 +133,14 @@ does Arm B's larger input dimension recover any of the porthole's projection los
 
 ![P11.2 MNIST rung — the sleep loop batch-by-batch](exp2/figs_p11_2/STREAM_mnist.png)
 
-*The mandated STREAM view — the object's prequential accuracy on the native-MNIST gauntlet, batch by batch, sleeps in
-grey and domain switches in dashed pink. This is the author's ask made literal: watch the loop live, good moments and
-bad. The line rides the low-0.4s through the hard noised/transformed domains and lifts into the clean domain
-(batches ~190–240) — never collapsing at a switch. It is a **continual-stability** trace, not a static-accuracy one.*
+*The mandated STREAM view — now with the best BP baseline overlaid (the Arm-B D80 stream, ER-strong tuned for this
+arm), and it draws the continual-stability tradeoff in one picture. **ER (orange) rides higher within each stationary
+domain** — climbing to 0.8–1.0 — but **crashes at every domain switch** (the dashed onsets: down toward ~0.1 as the
+appearance shifts under its fixed head), a sawtooth of forget-and-relearn. **OURS (teal) rides lower but far flatter**
+(~0.3–0.5, lifting into the easy domain around batch 190), and it never collapses at a switch. That is the whole rung:
+ER wins raw accuracy *inside* a domain, OURS wins **stability across the switches** (long-regime worst-BWT −0.046 vs
+ER −0.162, ~3.5× safer at its worst point). Both clear the persistence floor (0.097). A **continual-stability** trace,
+not a static-accuracy one.*
 
 **What the result means.** The bet **holds on real data.** OURS wins continual safety in every cell — decisively on
 the long regime (the E8 primary read), forgetting **~4–16× less** than a per-arena-tuned ER — wins retention on long

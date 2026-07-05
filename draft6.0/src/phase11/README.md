@@ -51,7 +51,8 @@ CIFAR-gray floors, the streaming canon floors under label-persistence — ship i
 - **P11.2 — the MNIST rung (bet HOLDS).** Native-784 gauntlet, both switch regimes, both arms, vs per-arm-tuned ER.
   Safety WINS every cell (long-regime worst-BWT −0.012/−0.046 vs ER −0.196/−0.162); retention WINS on long blocks;
   order-invariance holds (|fwd−rev| 0.003/0.011); static AA trails; **Arm B (D80) scales** (AA 0.284→0.421,
-  retention 0.223→0.314). → [`exp2/experiment-2.md`](exp2/experiment-2.md) · `STREAM_mnist.png`.
+  retention 0.223→0.314). → [`exp2/experiment-2.md`](exp2/experiment-2.md) · `STREAM_mnist.png` (**OURS vs ER-strong**
+  — ER rides higher within a domain but crashes at each switch; OURS flatter, the safety story visible).
 - **P11.3 — the real-world streams (the headline).** Prequential balanced accuracy vs the stronger ER + no-change +
   sgd-linear + first-block-frozen. **gas WINS** — OURS-A 0.789 ≥ stronger-ER 0.756, beats persistence 0.605 by
   +0.184 (Arm B 0.856); the frozen recipe is the best online learner on a famous real sensor-drift benchmark.

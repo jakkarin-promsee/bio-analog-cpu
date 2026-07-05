@@ -34,8 +34,9 @@ the fight tables + order-invariance.
 
 **Read (8 slots).** 1 *Claim* — the frozen recipe survives real MNIST: it wins continual safety, retention (long),
 and order-invariance vs a per-arm-tuned ER, and Arm B scales. 2 *Headline* — long-regime worst-BWT −0.012/−0.046
-(OURS) vs −0.196/−0.162 (ER); Arm B AA 0.421 vs Arm A 0.284. 3 *Figures* — `STREAM_mnist.png` (the sleep staircase,
-long regime). 4 *Mechanism* — the closed-form namer never catastrophically forgets; the gate + sleep hold it; ER's
+(OURS) vs −0.196/−0.162 (ER); Arm B AA 0.421 vs Arm A 0.284. 3 *Figures* — `STREAM_mnist.png` (OURS vs ER-strong,
+Arm-B long regime — ER rides higher within a domain but crashes at each switch, OURS flatter; the safety story
+visible; + persistence floor). 4 *Mechanism* — the closed-form namer never catastrophically forgets; the gate + sleep hold it; ER's
 gradient head re-converges per long block and forgets at the switch (the P10.3 length-effect, on MNIST). 5 *Threats*
 — **projection loss** dominates absolute AA (40-D porthole on 784-D MNIST; Arm B bounds it, D=160 would bound more);
 the anchor is un-validated at raw-784 (owed); retention is a harsh worst-point min. 6 *Verdict* — **bet holds**

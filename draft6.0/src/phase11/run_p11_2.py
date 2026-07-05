@@ -30,7 +30,10 @@ def gauntlet_fight(arm, cfg, regime, seeds, er_cfg):
         out["ours"]["aa"].append(res["aa"]); out["ours"]["worst_bwt"].append(res["worst_bwt"]); out["ours"]["ret"].append(r["worst"])
         if seed == seeds[0]:
             pq = P.ours_prequential(cache, res, cfg, seed)
-            curves = dict(live=pq["live"], sleeps=res["sleeps"].astype(float), onsets=np.array(stream["real_onsets"]))
+            er_pq = P.bp_prequential(stream, "er", er_cfg["bp_dims"], cfg, seed,     # ER overlay for the STREAM view
+                                     lr=er_cfg["lr"], replay=er_cfg["replay"], buffer_cap=er_cfg["buffer_cap"])
+            curves = dict(live=pq["live"], er_live=er_pq["live"], nochange=P.nochange_baseline(stream),
+                          sleeps=res["sleeps"].astype(float), onsets=np.array(stream["real_onsets"]))
         for pol in ["er", "naive"]:
             m = P.run_bp_stream(stream, pol, er_cfg["bp_dims"], cfg, seed, lr=er_cfg["lr"],
                                 replay=(er_cfg["replay"] if pol == "er" else 0),
@@ -79,6 +82,8 @@ for arm, cfg in [("A", P.arm_a_cfg(10)), ("B", P.recipe_instance(80, 10))]:
                                         er_aa=med(ea), er_bwt=med(eb), er_ret=med(err_))
         if regime == "long" and curves is not None:
             arrays[f"streamlive_ours_mnist"] = curves["live"]
+            arrays[f"streamlive_er_mnist"] = curves["er_live"]
+            arrays[f"nochange_mnist"] = np.array([curves["nochange"]])
             arrays[f"streamsleeps_ours_mnist"] = curves["sleeps"]
             arrays[f"stream_onsets_mnist"] = curves["onsets"]
     oi = order_inv(arm, cfg, er)
