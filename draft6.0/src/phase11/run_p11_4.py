@@ -32,11 +32,15 @@ def run_xdata(arm, cfg, seed, order):
     Fpr = P.all_tap_feats(P.make_committed_cell([cfg.DIM] + [cfg.WIDTH] * cfg.DEPTH, seed), stream["Xpr"])
     G = Fpr.T @ Fpr
     cond = float(np.linalg.cond(G + 1e-3 * np.eye(G.shape[0])))
-    return res, per_block_final, ret, cond, stream
+    return res, per_block_final, ret, cond, stream, cache
 
 
-arrays = {}; table = {}
-for arm, mkcfg in [("A", lambda: P.arm_a_cfg(C)), ("B", lambda: P.recipe_instance(160, C))]:
+arrays = {}; table = {}; xdata_curves = None      # STREAM-xdata (A1): Arm-A first-seed prequential curve
+# Arm B DESCOPE (commented): the recipe rule is D=min(native,160)=160 -> W=256 -> Fdim=L*W=3072; SLDA's _solve
+# builds a C*F*F temp = 30*3072*3072*8 ~ 2.3 GB per solve (the design's F5: needs the pinned einsum->GEMM apparatus
+# fix, deferred for the overnight budget). D=80 (Fdim=1536) is a valid scaled instance (>= Arm A's 40) that shows
+# the scaling read within budget; the D=160 xdata Arm B is OWED once the GEMM fix lands.
+for arm, mkcfg in [("A", lambda: P.arm_a_cfg(C)), ("B", lambda: P.recipe_instance(80, C))]:
     cfg = mkcfg()
     print(f"\n--- Arm {arm}: D={cfg.DIM} W={cfg.WIDTH} C={C} ---", flush=True)
     fwd_aa, rev_aa, worst_ret, conds = [], [], [], []
@@ -44,10 +48,14 @@ for arm, mkcfg in [("A", lambda: P.arm_a_cfg(C)), ("B", lambda: P.recipe_instanc
     er_final, er_ret = [], []
     er = None
     for seed in SEEDS:
-        res, pbf, ret, cond, stream = run_xdata(arm, cfg, seed, None)
+        res, pbf, ret, cond, stream, cache = run_xdata(arm, cfg, seed, None)
         fwd_aa.append(res["aa"]); worst_ret.append(ret["worst"]); conds.append(cond)
         for k in range(3):
             per_block[k].append(pbf[k])
+        if arm == "A" and seed == SEEDS[0]:                       # the STREAM-xdata curve (author's A1 ask)
+            pq = P.ours_prequential(cache, res, cfg, seed)
+            xdata_curves = dict(live=pq["live"], sleeps=res["sleeps"].astype(float),
+                                onsets=np.array(stream["real_onsets"]))
         resr, *_ = run_xdata(arm, cfg, seed, "reversed")
         rev_aa.append(resr["aa"])
         # ER class-IL 30-way (fixed head convention, uniform)
@@ -79,9 +87,19 @@ for arm, mkcfg in [("A", lambda: P.arm_a_cfg(C)), ("B", lambda: P.recipe_instanc
     for k in range(3):
         arrays[f"xdata_{arm}_block{k}"] = np.array(per_block[k], float)
 
+if xdata_curves is not None:                                      # emit the STREAM-xdata keys (regenerable figure)
+    arrays["streamlive_ours_xdata"] = xdata_curves["live"]
+    arrays["streamsleeps_ours_xdata"] = xdata_curves["sleeps"]
+    arrays["stream_onsets_xdata"] = xdata_curves["onsets"]
+
 manifest = dict(rung="P11.4", git=P.git_hash(), seeds=SEEDS, C=C, chance=CHANCE, sources=[s[0] for s in SOURCES],
                 table=table, note="class-IL 30-way (harder than the field's task-IL); shared source-1 porthole+scaler "
                 "(primary, R7); single pass, one block/source, iid within block (R1). ER = fixed 30-way head.",
                 wall_s=round(time.time() - t0, 1))
 P.save_run(OUT, arrays, P.jsonsafe(manifest))
+import plot_p11
+try:
+    plot_p11.fig_stream(OUT, "xdata")
+except Exception as e:
+    print("  (stream xdata fig skipped:", e, ")")
 print(f"\n  saved -> {OUT}  ({time.time()-t0:.1f}s)", flush=True)

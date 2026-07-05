@@ -1,0 +1,15 @@
+============================================================================== 
+P11.4 CROSS-DATASET GAUNTLET — MNIST->Fashion->CIFAR-gray, class-IL 30-way
+ ==============================================================================
+
+--- Arm A: D=40 W=64 C=30 ---
+    OURS final30 0.338 (rev 0.332, |Δ| 0.007) | worst-ret 0.415 vs ER 0.534
+    per-block final [mnist 0.421 | fashion 0.461 | cifar 0.125] (chance 0.033) | cond(G) 1.0e+08
+    verdict: TYPE-SCOPED — all types alive but retention trails ER
+
+--- Arm B: D=80 W=128 C=30 ---
+    OURS final30 0.440 (rev 0.444, |Δ| 0.004) | worst-ret 0.581 vs ER 0.551
+    per-block final [mnist 0.588 | fashion 0.581 | cifar 0.143] (chance 0.033) | cond(G) 1.9e+08
+    verdict: TYPE-ROBUST — worst-point retention >= ER and all 3 data types stay alive
+
+  saved -> C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase11\exp4\figs_p11_4  (581.6s)

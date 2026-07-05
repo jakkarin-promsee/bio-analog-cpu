@@ -1,0 +1,23 @@
+============================================================================== 
+P11.3 REAL-WORLD STREAMS — prequential balanced accuracy (the headline)
+ ==============================================================================
+
+--- gas (C=6, native=128, 5 seeds) ---
+    OURS-A 0.789 | OURS-B 0.856 | ER-matched 0.747 | ER-bigbuf 0.756 | sgd-lin 0.518 | frozen 0.213 | no-change 0.605
+    worst-BWT(OURS-A) -0.333 | verdict: WIN (OURS >= stronger-ER at prequential accuracy)
+    order-invariance |fwd-rev| = 0.043
+
+--- har (C=6, native=561, 5 seeds) ---
+    OURS-A 0.686 | OURS-B 0.820 | ER-matched 0.749 | ER-bigbuf 0.754 | sgd-lin 0.429 | frozen 0.707 | no-change 0.950
+    worst-BWT(OURS-A) -0.233 | verdict: FLOOR (no-change 0.950 not beaten)
+
+--- electric (C=2, native=8, 5 seeds) ---
+    OURS-A 0.606 | OURS-B 0.596 | ER-matched 0.674 | ER-bigbuf 0.687 | sgd-lin 0.594 | frozen 0.544 | no-change 0.836
+    worst-BWT(OURS-A) -0.149 | verdict: FLOOR (no-change 0.836 not beaten)
+
+--- covtype (C=7, native=54, 3 seeds) ---
+    OURS-A 0.471 | OURS-B 0.472 | ER-matched 0.542 | ER-bigbuf 0.542 | sgd-lin 0.504 | frozen 0.591 | no-change 0.646
+    worst-BWT(OURS-A) -0.097 | verdict: FLOOR (no-change 0.646 not beaten)
+
+  saved -> C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase11\exp3\figs_p11_3  (1669.0s)
+exit=0

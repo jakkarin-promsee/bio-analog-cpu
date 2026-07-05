@@ -1,0 +1,85 @@
+{
+  "rung": "P11.3",
+  "git": "690ed4cd0add69fa3b069cc287687ef3f18f8b6c",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "covtype_seeds": [
+    42,
+    137,
+    271
+  ],
+  "table": {
+    "gas": {
+      "ours_A": 0.7889514421341044,
+      "ours_B": 0.8555929961312024,
+      "er_matched": 0.7470448802755766,
+      "er_bigbuf": 0.755702743713905,
+      "sgd": 0.5183962600313482,
+      "frozen": 0.21256946354995218,
+      "nochange": 0.6054711640160201,
+      "ours_A_bwt": -0.33333333333333337,
+      "verdict": "WIN (OURS >= stronger-ER at prequential accuracy)",
+      "floor": false,
+      "imbalance": 1.83,
+      "C": 6
+    },
+    "har": {
+      "ours_A": 0.6863061094244841,
+      "ours_B": 0.8195443949288039,
+      "er_matched": 0.7486019994098653,
+      "er_bigbuf": 0.7542167791280331,
+      "sgd": 0.42912841345507413,
+      "frozen": 0.7070770004399748,
+      "nochange": 0.950305798790566,
+      "ours_A_bwt": -0.23333333333333328,
+      "verdict": "FLOOR (no-change 0.950 not beaten)",
+      "floor": true,
+      "imbalance": 1.38,
+      "C": 6
+    },
+    "electric": {
+      "ours_A": 0.606010376493396,
+      "ours_B": 0.5960008112516921,
+      "er_matched": 0.6744059883028626,
+      "er_bigbuf": 0.6865255951783893,
+      "sgd": 0.5938301818305483,
+      "frozen": 0.5443621728179614,
+      "nochange": 0.83613226501643,
+      "ours_A_bwt": -0.14900662251655628,
+      "verdict": "FLOOR (no-change 0.836 not beaten)",
+      "floor": true,
+      "imbalance": 1.36,
+      "C": 2
+    },
+    "covtype": {
+      "ours_A": 0.4713444905067542,
+      "ours_B": 0.47241210219673413,
+      "er_matched": 0.5423064421336187,
+      "er_bigbuf": 0.5423064421336187,
+      "sgd": 0.50417957995301,
+      "frozen": 0.5906719162331706,
+      "nochange": 0.6461689202628706,
+      "ours_A_bwt": -0.09749999999999998,
+      "verdict": "FLOOR (no-change 0.646 not beaten)",
+      "floor": true,
+      "imbalance": 10.02,
+      "C": 7
+    }
+  },
+  "roster": [
+    "ours_A(porthole40)",
+    "ours_B(recipe)",
+    "er_matched(byte)",
+    "er_bigbuf",
+    "sgd_linear",
+    "first_block_frozen",
+    "no_change"
+  ],
+  "note": "accuracy channel = prequential balanced acc (R2); verdicts vs the STRONGER ER (R3); FLOOR where no-change wins (D2). covtype 3 seeds/40k (heavy, declared).",
+  "wall_s": 1668.3
+}

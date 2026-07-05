@@ -1,0 +1,52 @@
+{
+  "rung": "P11.4",
+  "git": "690ed4cd0add69fa3b069cc287687ef3f18f8b6c",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "C": 30,
+  "chance": 0.03333333333333333,
+  "sources": [
+    "mnist",
+    "fashion",
+    "cifar10gray"
+  ],
+  "table": {
+    "A": {
+      "final30": 0.3384444444444445,
+      "rev": 0.33155555555555555,
+      "orderdelta": 0.006888888888888944,
+      "worst_ret": 0.41533333333333333,
+      "er_worst_ret": 0.534,
+      "per_block": [
+        0.4206666666666667,
+        0.4613333333333333,
+        0.12533333333333332
+      ],
+      "cond": 104048492.1591737,
+      "collapse": false,
+      "verdict": "TYPE-SCOPED \u2014 all types alive but retention trails ER"
+    },
+    "B": {
+      "final30": 0.44,
+      "rev": 0.444,
+      "orderdelta": 0.0040000000000000036,
+      "worst_ret": 0.5806666666666667,
+      "er_worst_ret": 0.5506666666666666,
+      "per_block": [
+        0.588,
+        0.5806666666666667,
+        0.14333333333333334
+      ],
+      "cond": 187516304.96905375,
+      "collapse": false,
+      "verdict": "TYPE-ROBUST \u2014 worst-point retention >= ER and all 3 data types stay alive"
+    }
+  },
+  "note": "class-IL 30-way (harder than the field's task-IL); shared source-1 porthole+scaler (primary, R7); single pass, one block/source, iid within block (R1). ER = fixed 30-way head.",
+  "wall_s": 581.4
+}
