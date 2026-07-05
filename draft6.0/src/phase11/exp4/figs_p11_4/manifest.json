@@ -1,6 +1,6 @@
 {
   "rung": "P11.4",
-  "git": "690ed4cd0add69fa3b069cc287687ef3f18f8b6c",
+  "git": "5d1be5930da694797ab4a3ec8ee3ad7755f39d98",
   "seeds": [
     42,
     137,
@@ -48,5 +48,5 @@
     }
   },
   "note": "class-IL 30-way (harder than the field's task-IL); shared source-1 porthole+scaler (primary, R7); single pass, one block/source, iid within block (R1). ER = fixed 30-way head.",
-  "wall_s": 581.4
+  "wall_s": 525.9
 }

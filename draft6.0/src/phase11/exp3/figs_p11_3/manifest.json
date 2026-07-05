@@ -1,6 +1,6 @@
 {
   "rung": "P11.3",
-  "git": "690ed4cd0add69fa3b069cc287687ef3f18f8b6c",
+  "git": "5d1be5930da694797ab4a3ec8ee3ad7755f39d98",
   "seeds": [
     42,
     137,
@@ -81,5 +81,5 @@
     "no_change"
   ],
   "note": "accuracy channel = prequential balanced acc (R2); verdicts vs the STRONGER ER (R3); FLOOR where no-change wins (D2). covtype 3 seeds/40k (heavy, declared).",
-  "wall_s": 1668.3
+  "wall_s": 1919.4
 }

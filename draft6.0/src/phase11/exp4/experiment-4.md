@@ -64,7 +64,8 @@ scaled instance (> Arm A's 40) that shows the scaling read within the overnight 
    of data, and the scaling recipe carries it past the field's retention.*
 
 **Design deviations (commented):** Arm B D=160→D=80 descope (F5 GEMM fix owed); modest ER grid for the overnight
-budget (full grid pinned in bench). STREAM-xdata figure added this pass (the Arm-A first-seed prequential curve).
+budget (full grid pinned in bench). STREAM-xdata figure (the Arm-A first-seed prequential curve) now overlays
+**ER-strong** + the no-change floor — ER collapses to ≈0 at each data-type switch, OURS degrades gracefully.
 
 *Guards: arena-data ✓ · recipe A/B ✓ · porthole ✓ (one shared source-1 projection) · condition-trace ✓ (bounded).
 n=5.*

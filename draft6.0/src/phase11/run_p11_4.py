@@ -64,6 +64,11 @@ for arm, mkcfg in [("A", lambda: P.arm_a_cfg(C)), ("B", lambda: P.recipe_instanc
                                  cfg, cfg.DIM, C, tune_seed=7, lrs=(0.1, 0.03), replays=(2, 4), hidden_mults=(1, 2))
         m = P.run_bp_stream(stream, "er", er["bp_dims"], cfg, seed, lr=er["lr"], replay=er["replay"], buffer_cap=er["buffer_cap"])
         er_final.append(m["aa"]); er_ret.append(P.allprev_retention(m["matrix"])["worst"])
+        if arm == "A" and seed == SEEDS[0] and xdata_curves is not None:   # ER per-batch overlay + persistence floor
+            er_pq = P.bp_prequential(stream, "er", er["bp_dims"], cfg, seed,
+                                     lr=er["lr"], replay=er["replay"], buffer_cap=er["buffer_cap"])
+            xdata_curves["er_live"] = er_pq["live"]
+            xdata_curves["nochange"] = P.nochange_baseline(stream)
     oa, ra = med(fwd_aa), med(rev_aa)
     wr, erwr = med(worst_ret), med(er_ret)
     pbf_med = [med(per_block[k]) for k in range(3)]
@@ -91,6 +96,10 @@ if xdata_curves is not None:                                      # emit the STR
     arrays["streamlive_ours_xdata"] = xdata_curves["live"]
     arrays["streamsleeps_ours_xdata"] = xdata_curves["sleeps"]
     arrays["stream_onsets_xdata"] = xdata_curves["onsets"]
+    if "er_live" in xdata_curves:
+        arrays["streamlive_er_xdata"] = xdata_curves["er_live"]
+    if "nochange" in xdata_curves:
+        arrays["nochange_xdata"] = np.array([xdata_curves["nochange"]])
 
 manifest = dict(rung="P11.4", git=P.git_hash(), seeds=SEEDS, C=C, chance=CHANCE, sources=[s[0] for s in SOURCES],
                 table=table, note="class-IL 30-way (harder than the field's task-IL); shared source-1 porthole+scaler "

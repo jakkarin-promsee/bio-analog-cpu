@@ -63,15 +63,21 @@ def fig_decomp(run_dir, out=None):
 
 
 def fig_stream(run_dir, arena, out=None):
-    """STREAM-<arena> (every arena) — per-batch: live prequential + seen-so-far + sleep ticks + no-change + cumE."""
+    """STREAM-<arena> (every arena) — per-batch prequential: OURS vs the STRONGER ER (the best BP baseline on the SAME
+    data), with the no-change persistence floor as a horizontal reference + sleep ticks + block onsets. The two lines
+    let an outsider read, batch-by-batch, where OURS is strong and where the tuned replay learner leads."""
     A = _load(run_dir)
     live = A.get(f"streamlive_ours_{arena}"); seen = A.get(f"streamseen_ours_{arena}")
     if live is None:
         return None
+    er_live = A.get(f"streamlive_er_{arena}")
     sleeps = A.get(f"streamsleeps_ours_{arena}"); onsets = A.get(f"stream_onsets_{arena}")
-    nochange = A.get(f"nochange_{arena}"); cume = A.get(f"streamcume_ours_{arena}_analog")
+    nochange = A.get(f"nochange_{arena}")
     fig, ax = plt.subplots(figsize=(11, 4.2)); x = np.arange(len(live))
-    ax.plot(x, live, color=STYLE["ours_a"], lw=1.2, alpha=0.85, label="OURS live-batch (prequential)")
+    if er_live is not None:                                        # ER first, so OURS draws on top
+        ax.plot(np.arange(len(er_live)), er_live, color=STYLE["er"], lw=1.1, alpha=0.6,
+                label="ER-strong live-batch (best BP)")
+    ax.plot(x, live, color=STYLE["ours_a"], lw=1.3, alpha=0.9, label="OURS live-batch (prequential)")
     if seen is not None:
         ax.plot(x, seen, color=STYLE["ours_a"], lw=2.2, label="OURS seen-so-far")
     if nochange is not None:
@@ -83,8 +89,8 @@ def fig_stream(run_dir, arena, out=None):
         for o in np.asarray(onsets):
             ax.axvline(int(o), color="#d0a0a0", ls="--", lw=0.8, alpha=0.6)
     ax.set_xlabel("stream step (batch)"); ax.set_ylabel("accuracy"); ax.set_ylim(0, 1.02)
-    ax.set_title(f"STREAM-{arena} — the sleep mechanism batch-by-batch (grey=sleep, dashed=block onset)")
-    ax.legend(fontsize=8, loc="lower right")
+    ax.set_title(f"STREAM-{arena} — OURS vs ER-strong, batch-by-batch (grey=sleep, dashed=block onset)")
+    ax.legend(fontsize=8, loc="lower right", ncol=2)
     fig.tight_layout(); out = out or os.path.join(run_dir, f"STREAM_{arena}.png")
     fig.savefig(out, dpi=110, bbox_inches="tight"); plt.close(fig)
     return out

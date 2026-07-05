@@ -173,20 +173,25 @@ them.
 
 ![P11.3 gas — the real-world headline win](exp3/figs_p11_3/STREAM_gas.png)
 
-*The headline. On the gas-sensor-drift stream (Vergara 2012), the frozen recipe's prequential accuracy (teal) rides
-mostly at **0.8–1.0**, well above the no-change persistence baseline (dash-dot, 0.605), dipping only where the
-sensors have aged into a hard batch and recovering after sleep (grey). Untouched, it is the **strongest online
-learner in the room** — 0.789 ≥ the per-arena-tuned ER's 0.756, +0.184 over persistence. Arm B (native 128-D) lifts
-it to 0.856. Sensor aging is a **coherent covariate shift** — exactly the drift the SCFF bulk + sleep re-anchoring
-was built to ride while the closed-form namer never catastrophically forgets.*
+*The headline, now with the best BP baseline overlaid. On the gas-sensor-drift stream (Vergara 2012), OURS (teal) and
+the per-arena-tuned **ER-strong** (orange) both ride high (~0.8–1.0), **far above** the no-change persistence baseline
+(dash-dot, 0.605) — this is real, information-bearing drift, and any learner that reads the features beats
+persistence. The two trade the lead batch-by-batch, but two things favor OURS: it takes the **aggregate** (prequential
+0.789 ≥ ER 0.756, +0.184 over persistence), and it is visibly **steadier at the drift boundaries** — where ER spikes
+down toward 0 (catastrophic forgetting on a fresh, aged sensor batch), OURS holds and recovers after sleep (grey).
+Untouched, the frozen recipe is the strongest online learner in the room; Arm B (native 128-D) lifts it to 0.856.
+Sensor aging is a **coherent covariate shift** — exactly the drift the SCFF bulk + sleep re-anchoring was built to
+ride while the closed-form namer never catastrophically forgets.*
 
 ![P11.3 HAR — an honest FLOOR](exp3/figs_p11_3/STREAM_har.png)
 
-*The counter-case, shown just as plainly. On HAR the object learns well (rides 0.6–0.9) — but the no-change baseline
-(dash-dot, **0.95**) sits *above almost every point*. This is the ELEC2 label-autocorrelation trap: the labels are
-so persistent that "predict the previous label" is near-unbeatable by any model that actually looks at the features.
-The cell is grey (a FLOOR) and **two-sided** — inside the floor the tuned ER leads OURS by ~0.07, and the map says
-so. HAR, electricity, and covertype all live here.*
+*The counter-case, shown just as plainly — and now you can see the field lead. On HAR both OURS (teal) and the tuned
+**ER-strong** (orange) learn well, but the no-change baseline (dash-dot, **0.95**) sits *above almost every point of
+both*: this is the ELEC2 label-autocorrelation trap, where "predict the previous label" is near-unbeatable by any
+model that actually reads the features. Inside that floor, **ER rides consistently above OURS** (0.754 vs 0.686 — the
+~0.07 field lead the map records); the cell is grey and **two-sided**, and the overlay makes both sides visible —
+nobody beats persistence, and the field is ahead of us here. HAR, electricity, and covertype all live in this
+regime.*
 
 **What the result means.** The measurement cleanly separates two kinds of hard:
 
@@ -224,10 +229,14 @@ brittle to data type, this is where it shatters.
 
 ![P11.4 cross-dataset — 30-way across three data types](exp4/figs_p11_4/STREAM_xdata.png)
 
-*The 30-way stream, batch by batch, across three data *types* (MNIST → Fashion → CIFAR-gray, sleeps grey). The line
-declines as the label space grows from 10 to 30 — expected — but **no block collapses to the 0.033 chance floor**;
-even the weakest type (CIFAR-gray) holds ~4× chance and never dies. The CBRS prototype LUT keeps every type
-represented through the growth.*
+*The 30-way stream batch by batch across three data *types* (MNIST → Fashion → CIFAR-gray, sleeps grey), with the
+tuned **ER-strong** overlaid (orange) and the persistence floor (dash-dot, 0.097). The overlay is the phase in
+miniature: ER learns block 1 (MNIST, alone) to a *higher* accuracy than OURS (teal) — then **catastrophically
+collapses to ≈0 at each data-type switch** (batch 24 → Fashion, batch 48 → CIFAR), because its fixed 30-way replay
+head has never seen the new classes; OURS instead **degrades gracefully** and rides *above* ER through the entire
+Fashion block. No block collapses to the 0.033 chance floor — even the weakest type (CIFAR-gray) holds ~4× chance and
+never dies; the CBRS prototype LUT keeps every type represented through the growth. You can read our strength
+(stability across type switches) and our cost (ER's higher first-block accuracy) directly off the two lines.*
 
 **What the result means.** Three findings:
 

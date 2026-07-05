@@ -690,17 +690,22 @@ def bp_prequential(stream, policy, bp_dims, cfg, seed, *, lr=3e-3, replay=0, buf
     C = stream["C"]
     learner = ContinualBP(policy, bp_dims, C, seed, lr=lr, replay=replay, buffer_cap=buffer_cap)
     rng = np.random.default_rng(seed + 4242)
-    ys, preds = [], []
+    ys, preds, live = [], [], []                                   # live = per-batch plain acc (NaN before first fit)
     for st in stream["steps"]:
         xb = stream["Xtr"][st["idx"]]; yb = stream["Ytr"][st["idx"]]
         if policy != "gdumb" and learner.net.W is not None:
-            ys.append(yb); preds.append(learner.net.predict(xb))
+            pred_b = learner.net.predict(xb)
+            ys.append(yb); preds.append(pred_b)
+            live.append(float((pred_b == yb).mean()))
+        else:
+            live.append(np.nan)
         if len(xb) >= 2:
             learner.step(xb, yb, rng)
+    live = np.array(live, float)
     if not ys:
-        return dict(bal=0.0, plain=0.0)
+        return dict(bal=0.0, plain=0.0, live=live)
     y = np.concatenate(ys); p = np.concatenate(preds)
-    return dict(bal=balanced_acc(y, p), plain=float((p == y).mean()), learner=learner)
+    return dict(bal=balanced_acc(y, p), plain=float((p == y).mean()), live=live, learner=learner)
 
 
 # ============================================================ uniform noise-retention (fair Δbulk noise channel)

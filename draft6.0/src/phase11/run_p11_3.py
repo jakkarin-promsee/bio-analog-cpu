@@ -52,11 +52,17 @@ def race_arena(arena, seeds, *, reversed_order=False, arms=("A", "B"), full_rost
             er = P.tune_er_arena(lambda s: P.make_real_stream(arena, P.arm_a_cfg(C), s, max_n=max_n)[0],
                                  cfgA, cfgA.DIM, C, tune_seed=7, lrs=(0.1, 0.03), replays=(2, 4), hidden_mults=(1, 2))
         big_cap = int(min(0.1 * streamA["n_steps"] * cfgA.BATCH, 5000))
-        add("er_matched", P.bp_prequential(streamA, "er", er["bp_dims"], cfgA, seed, lr=er["lr"],
-                                           replay=er["replay"], buffer_cap=CFG0.PROBE_N)["bal"])
+        em_res = P.bp_prequential(streamA, "er", er["bp_dims"], cfgA, seed, lr=er["lr"],
+                                  replay=er["replay"], buffer_cap=CFG0.PROBE_N)
+        add("er_matched", em_res["bal"])
+        if seed == seeds[0] and curves is not None:               # ER per-batch curve for the STREAM overlay (seed 0)
+            curves["er_matched_live"] = em_res["live"]
         if full_roster:
-            add("er_bigbuf", P.bp_prequential(streamA, "er", er["bp_dims"], cfgA, seed, lr=er["lr"],
-                                              replay=er["replay"], buffer_cap=big_cap)["bal"])
+            eb_res = P.bp_prequential(streamA, "er", er["bp_dims"], cfgA, seed, lr=er["lr"],
+                                      replay=er["replay"], buffer_cap=big_cap)
+            add("er_bigbuf", eb_res["bal"])
+            if seed == seeds[0] and curves is not None:
+                curves["er_bigbuf_live"] = eb_res["live"]
         if reversed_order:
             sr, mr = P.make_real_stream(arena, cfgA, seed, arm="A", order="reversed", max_n=max_n)
             _, pqr, _ = ours_on(sr, mr, cfgA, seed)
@@ -104,6 +110,10 @@ for arena, seeds, rev, arms, full, max_n in plans:
         arrays[f"streamsleeps_ours_{arena}"] = curves["sleeps"]
         arrays[f"stream_onsets_{arena}"] = curves["onsets"]
         arrays[f"nochange_{arena}"] = np.array([curves["nochange"]])
+        use_big = ("er_bigbuf_live" in curves) and (eb >= em)     # overlay the STRONGER ER (the best BP on this data)
+        er_live = curves.get("er_bigbuf_live") if use_big else curves.get("er_matched_live")
+        if er_live is not None:
+            arrays[f"streamlive_er_{arena}"] = er_live
 
 manifest = dict(rung="P11.3", git=P.git_hash(), seeds=P.SEEDS, covtype_seeds=P.SEEDS[:3], table=table,
                 roster=["ours_A(porthole40)", "ours_B(recipe)", "er_matched(byte)", "er_bigbuf", "sgd_linear",

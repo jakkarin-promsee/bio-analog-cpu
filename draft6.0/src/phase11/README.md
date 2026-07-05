@@ -58,13 +58,15 @@ CIFAR-gray floors, the streaming canon floors under label-persistence — ship i
   **har / electricity / covertype FLOOR** — the ELEC2 label-autocorrelation trap (D2) fires as pre-registered: *no*
   learner beats the no-change baseline (0.950/0.836/0.646), and inside the floor the field leads OURS by ~0.07 (grey
   cells, two-sided). Honest split of drift-difficulty vs data-difficulty. → [`exp3/experiment-3.md`](exp3/experiment-3.md)
-  · `STREAM_{gas,har,electric,covtype}.png`.
+  · `STREAM_{gas,har,electric,covtype}.png` (now **OURS vs ER-strong** + the no-change floor — on gas OURS is steadier
+  at the drift boundaries where ER spikes down; on the floor arenas ER rides just above OURS, both under persistence).
 - **P11.4 — the cross-dataset gauntlet (the author's ask).** MNIST→Fashion→CIFAR-gray as one class-IL 30-way stream
   (harder than the field's task-IL), shared source-1 porthole. **All three data types stay alive** (weakest,
   CIFAR-gray, ~4× chance, never collapses); **order-invariant across data types** (|fwd−rev| 0.007/0.004); retention
   **TYPE-SCOPED at the porthole** (Arm A worst-ret 0.415 < ER 0.534) → **TYPE-ROBUST when scaled** (Arm B 0.581 ≥ ER
   0.551). Gram conditioning bounded (~1–2e8, no blow-up). → [`exp4/experiment-4.md`](exp4/experiment-4.md) ·
-  `STREAM_xdata.png`.
+  `STREAM_xdata.png` (now **OURS vs ER-strong** — ER learns block 1 higher but **catastrophically collapses to ≈0 at
+  each data-type switch**, while OURS degrades gracefully and rides above it through the Fashion block).
 - **P11.5 — Fashion/CIFAR rungs + the class-count crossover.** Fashion (r2) **BET HOLDS** (safety win, worst-BWT
   −0.021/−0.057 vs ER −0.146/−0.141; static AA trails, Arm B recovers retention); CIFAR-gray (r3) = **FLOOR** (joint
   ceiling 0.199, the honest resolution floor). **The retention crossover is real by C=20** — OURS 0.354/ER 0.423 at

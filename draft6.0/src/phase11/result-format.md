@@ -56,7 +56,7 @@ applies) · energy same-substrate · substrate total · throughput). Un-run cell
 STYLE                      # {**plot_p10.STYLE, **P11_NEW}; the ONLY place P11 styling lives
 fig_limit_map(run)         # F: LIMIT-MAP   (P11.9 — THE phase money figure: arenas × channels, 4-state cells + numbers + ceiling-fractions + Δbulk overlays)
 fig_decomp(run)            # F: DECOMP      (P11.1 — Δbulk bars per channel; proj→namer vs bulk→namer vs reservoir vs no-sleep; budgets annotated per cell)
-fig_stream(run, arena)     # F: STREAM-<arena> (EVERY arena — the per-batch view: live-batch prequential + seen-so-far + sleep ticks + onsets + cumulative energy; + no-change line & anchor band & composition strip where the arena has natural blocks; the GAUNTLET_STREAM_LONG treatment, generalized)
+fig_stream(run, arena)     # F: STREAM-<arena> (EVERY arena — the per-batch view: OURS live-batch prequential + the stronger-ER overlay (best BP on the same data, where captured) + sleep ticks + onsets; + no-change persistence line & anchor band where the arena has natural blocks; the GAUNTLET_STREAM_LONG treatment, generalized)
 fig_scaling(run)           # F: SCALING     (P11.6/P11.5 — 4 panels vs scale (W · D · C · stream length): accuracy · GD-share (with the bench-pinned meter-derived shape overlaid) · substrate factor · Δbulk-where-measured)
 fig_crossover(run)         # F: CROSSOVER   (P11.5 — analytic bytes-vs-C curves (replay dilution vs prototype+Gram growth) + measured points C=10/20[/100])
 fig_fight(run) · fig_pareto(run) · fig_gauntlet(run) · fig_inv(run)   # carried from plot_p10 per arena (FIGHT/PARETO/GAUNTLET/INV)
@@ -115,12 +115,13 @@ streams vary init/projection seeds only; NTE asymmetry stated per arena) — des
 | --- | --- | --- |
 | **LIMIT-MAP** *(P11.9 headline)* | `fig_limit_map` | where does the object hold, where does it break, where is the data floor — every "but does it…" at once |
 | **DECOMP** *(P11.1 headline)* | `fig_decomp` | is the architecture more than its closed-form namer (the strike-1 answer) |
-| **STREAM-<arena>** *(EVERY arena)* | `fig_stream` | the sleep mechanism batch-by-batch, good and bad — sags, recoveries, gate fires, energy staircase; prequential accuracy in the streaming field's own read |
+| **STREAM-<arena>** *(EVERY arena)* | `fig_stream` | **OURS vs the stronger-ER** (best BP on the same data) batch-by-batch, no-change floor — sags, recoveries, gate fires; the two lines let an outsider read where OURS is strong and where the tuned replay learner leads (prequential accuracy, the streaming field's own read) |
 | **SCALING** *(P11.5/P11.6)* | `fig_scaling` | do the economy/substrate/safety curves survive scale while accuracy does whatever it does — vs the bench-pinned predicted shape |
 | **CROSSOVER** *(P11.5)* | `fig_crossover` | at what class count does prototype+Gram memory beat a byte-matched replay buffer (either direction) |
 | **FIGHT / PARETO / GAUNTLET / INV** | carried P10 functions | per-arena fight, frontier, retention money figure, guards |
 
-**Caption rules (P10 carried + P11-new):** every real-stream caption names the **no-change baseline** and (where
+**Caption rules (P10 carried + P11-new):** every real-stream caption names the **no-change baseline**, the
+**stronger-ER overlay** (best BP on the same data, where the STREAM view carries it), and (where
 transcribed) the **published anchor**; every accuracy caption names the **per-arena ceiling**; a FLOOR cell's caption
 says *"uninformative at this arena (floor criterion …)"* — never "tie" — **and carries the paired field delta when
 the field leads (§8 R6)**; a real-stream retention caption states which ER point (matched / bigbuf) it is judged

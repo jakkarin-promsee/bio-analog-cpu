@@ -292,7 +292,10 @@ closed-form namer + gate + sleep** (a bulk-free projection forgets no more) — 
 **(2) "Toy data?"** → the identity **holds on real data**: MNIST safety/order-invariance survive (P11.2), **gas is a
 genuine win** (P11.3), the object generalizes across data *type* in a 30-way cross-dataset stream (P11.4, TYPE-ROBUST
 when scaled) — while the streaming canon (HAR/electricity/covertype) floors honestly under label-autocorrelation, a
-property of *those streams*, not our object. **(3) "Does it scale?"** → three reads (P11.5–7): the pinned GD-share
+property of *those streams*, not our object. *(The per-arena STREAM views in the report now plot OURS head-to-head
+with the best tuned BP, batch-by-batch: on gas OURS is steadier where ER spikes down at the drift boundaries; on the
+cross-dataset stream ER **catastrophically collapses to ≈0 at each data-type switch** while OURS degrades gracefully —
+the safety story made visible against the strongest baseline.)* **(3) "Does it scale?"** → three reads (P11.5–7): the pinned GD-share
 economy shape is **confirmed** (the economy does not improve with width — the namer solve scales worst), the **analog
 substrate advantage *grows* with width** (5.4→7.4×, the chip's best sentence), the prototype+Gram namer
 **out-retains a byte-matched replay buffer by C=20** (replay dilutes to ≈0, the namer holds), and on gas the frozen
