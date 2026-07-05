@@ -26,6 +26,15 @@ by cost — **two brains on one substrate:**
 You pay for direction **once**, where it counts, and get everything else cheaply. _(The twist the experiments delivered: the committed chip's namer turned out to need **no gradient descent at all** — it is closed-form. More
 below.)_
 
+## The object in one breath
+
+Four parts on one substrate — enough to read every result below; the full part-by-part is [The machine that ran the race](#the-machine-that-ran-the-race).
+
+- **The bulk** — 12 forward-only SCFF layers that learn structure from _every_ input, unsupervised. The cheap brain.
+- **The namer** — a small closed-form head (SLDA) that puts _our_ labels on that structure. No gradient descent.
+- **The gate** — a drift detector that fires the namer only when the world shifts; firing more forgets more, so it doubles as a safety brake.
+- **The sleep** — a periodic closed-form re-fit of the namer over a small prototype memory ("grid-N" = every N stream segments), re-anchoring labels to wherever the bulk has drifted.
+
 ## How to read this
 
 The tour below runs in order — each part stands on its own and links deeper if you want it:
@@ -452,8 +461,8 @@ and you have the shape of it, or descend._
 Everything above is behavioral simulation — numpy, ideal floats, an ADC-centred noise-and-energy model, no SPICE and
 no silicon. This is the frame it all sits in, stated in full.
 
-We are not taping out silicon or drawing op-amp schematics; solo evenings don't buy a cleanroom, and the project
-doesn't need one. The analog chip is the **constraint-giver and the destination, not the deliverable.** What we build
+The analog chip is the **constraint-giver and the destination, not the deliverable** — no cleanroom, no op-amp
+schematics; solo evenings don't buy one, and the project never needed one. What we build
 is the learning architecture that _would survive that substrate_: weights that never leave their cells, no global
 backward pass, noise treated as a fact of life, energy priced by physics. Every analog reference in this repo exists
 to import a **constraint** into the math — the question is "if we wanted this on a chip, what should the model be?",
@@ -623,8 +632,7 @@ constraints, its measured identity, and this organ's place in the loop.
   accuracy holds regardless of arrival order.
 - **The analog-constraint sharpening pass (SPICE-grade, in simulation):** the PVT / device-noise realism the
   ladder deferred until the ideal converged (it now has); the named directional/ADC residual from the noise
-  showcase is its first work item. _A simulation-realism layer — there is no fabrication step, and none is
-  claimed._
+  showcase is its first work item. _A simulation-realism layer, not a fabrication step._
 
 ---
 
