@@ -36,6 +36,14 @@ losses, stated just as plainly: first **the showcase** (the frozen chip vs tuned
 **the limit** (the same frozen chip on real data and scale). **Stop at the end of the limit map and you have the
 shape of the project; or descend the reading ladder at the bottom, layer by layer, as deep as you want.**
 
+**For the serious reader — the final work first.** Everything below is the tour. The complete record is **three
+self-sufficient volumes** — every phase's full story, figures, numbers, and overturned guesses, written to be read
+without opening anything deeper:
+
+1. [**Stage 1 — the cheap brain, built and hardened** (Phases 1–6)](draft6.0/src/stage1-report.md)
+2. [**Stage 2 — the namer, the economy, the freeze** (Phases 7–9)](draft6.0/src/stage2-report.md)
+3. [**The validation — the frozen object on trial: the honest race + the limit map** (Phases 10–11)](draft6.0/src/validation-report.md)
+
 ---
 
 ## The showcase — one frozen chip vs tuned backprop, from every angle
@@ -455,11 +463,6 @@ until it passes.** Every phase picks up the wound the last one left, so the elev
 built and hardened the cheap brain; **Stage 2** built the precise namer and froze the whole object; **the
 validation** raced the frozen object against a fair opponent, then took it to the real world.
 
-![The capability map — the cheap brain vs a genuinely-tuned backprop across seven controlled axes](draft6.0/src/phase4/figs_summary/CAPABILITY_MAP.png)
-
-_What it is, measured (Phase 4): a substrate-native **continual** learner — winning where the substrate lives,
-trailing on raw static accuracy, with one honest negative it owns rather than hides._
-
 **Stage 1 — the cheap brain (Phases 1–6):**
 
 1. **Structure.** One block generalizes better than backprop (smaller memorization gap) at ~10 % of the backward
@@ -469,9 +472,10 @@ trailing on raw static accuracy, with one honest negative it owns rather than hi
    the curve. (Depth, it turns out, comes from boosted _shallow_ blocks.)
 3. **Depth, round 2 — the big correction.** The wall wasn't locality; it was the _objective_. Swap energy-goodness
    for a **contrastive** objective + a cross-layer **coordination window**, and depth composes. _This is adopted._
-4. **Characterization.** A capability map against a _genuinely-tuned_ backprop across seven axes (the figure above):
-   **wins** continual, nuisance-dimensional input, depth-composition, and depth-is-cheap; **trails** static accuracy
-   and many-class; one honest **negative** on eval-time weight noise. No flattering surprises, no hidden bug.
+4. **Characterization.** A capability map against a _genuinely-tuned_ backprop across seven axes
+   ([the map](draft6.0/src/phase4/figs_summary/CAPABILITY_MAP.png)): **wins** continual, nuisance-dimensional input,
+   depth-composition, and depth-is-cheap; **trails** static accuracy and many-class; one honest **negative** on
+   eval-time weight noise. No flattering surprises, no hidden bug.
 5. **SCFF close-out.** The map's one open wound — the representation _decays_ past ~layer 5 — was **direction**
    (density ≠ class, a fifth time), and it was **curable**: a sharper objective earns the depth back until the
    readout _beats_ a genuinely-tuned backprop, and a short fixed reader reads it ~8× cheaper. _The cheap brain's
