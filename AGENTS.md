@@ -7,17 +7,21 @@
 
 ## What this project is
 
-A bio-inspired **analog compute substrate** with on-chip learning — a *chip design*, **not** an ML model. Weights
-live as analog charge on capacitors; the multiply-accumulate happens in a crossbar of them; the chip learns
-**online, locally, forward-only** (no backward pass ever leaves the chip). The four committed properties:
+A bio-inspired **analog compute substrate** with on-chip learning — the **math model for a chip** (analog is the
+constraint-giver, simulation the medium; no circuit drafting or fabrication planned), **not** an ML benchmark
+model. In the design picture, weights live as analog charge on capacitors; the multiply-accumulate happens in a
+crossbar of them; the chip learns **online, locally, forward-only** (no backward pass ever leaves the chip). The
+four committed properties:
 **online, sparse, continuous, resident-weight** — what the field calls **compute-in-memory**. Guiding method:
 **copy the brain's *function*, cheat the *implementation*.**
 
-**Status:** both brains are built, characterized, and validated across ten phases (Stage 1 = P1–6, Stage 2 =
-P7–10; verdict **S14** — a substrate-native continual learner), then taken to **real data + scale** in **Phase 11**
-(the limit map, **S15** — 8 real arenas × 5 capability channels, every cell win / tie / loss / FLOOR: gas a genuine
-real-drift win, the identity holding and flooring honestly). The live line is now the analog-realism (SPICE/PVT)
-layer. Per-phase status lives in [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md).
+**Status:** both brains are built, characterized, and validated (Stage 1 build = P1–6, Stage 2 build = P7–9,
+the validation = P10–11; verdict **S14** — a substrate-native continual learner), then taken to **real data +
+scale** in **Phase 11** (the limit map, **S15** — 8 real arenas × 5 capability channels, every cell win / tie /
+loss / FLOOR: gas a genuine real-drift win, the identity holding and flooring honestly). **Next build: the
+hippocampus organ** (grow the LUT stand-in into a learning brain part — the first north-star step); the
+analog-constraint (SPICE-grade, simulation-only) realism pass stays queued for when a result needs it. Per-phase
+status lives in [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md).
 
 ## Where things are (the map)
 

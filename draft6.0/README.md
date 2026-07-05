@@ -124,7 +124,7 @@ continual learner, not a classifier racing backprop on accuracy). The cheap 80% 
 labels — it sorts the world into "kinds of things"; it doesn't know which kind is a *3* and which is a *7*. That's
 Stage 2.
 
-## What the simulations said — Stage 2: the namer (Phases 7–10)
+## What the simulations said — Stage 2: the namer (Phases 7–9, then the trial)
 
 Stage 2 builds the precise ~20% that puts our names on the frozen cheap brain — read-only, never re-writing SCFF.
 The build arc (P7–9) is [`src/stage2-report.md`](src/stage2-report.md); the trial of the frozen object (P10–11) is

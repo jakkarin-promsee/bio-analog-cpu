@@ -8,10 +8,11 @@
 
 ## What this project is
 
-A bio-inspired **analog compute substrate** with on-chip learning — a **chip design**, not an ML model and not a
-digital ML accelerator. Capacitors hold weights as continuous analog charge; SRAM holds wiring and sign bits;
-hardwired op-amps do add / multiply / ReLU directly on charge; the chip **learns on-chip, online, without a
-backward pass that leaves the chip.** Committed properties: **online, sparse, continuous, resident-weight**
+A bio-inspired **analog compute substrate** with on-chip learning — the **math model for a chip design** (analog
+is the constraint-giver, simulation the medium; no circuit drafting or fabrication is planned), not an ML model
+and not a digital ML accelerator. In the design picture: capacitors hold weights as continuous analog charge; SRAM
+holds wiring and sign bits; hardwired op-amps do add / multiply / ReLU directly on charge; the chip **learns
+on-chip, online, without a backward pass that leaves the chip.** Committed properties: **online, sparse, continuous, resident-weight**
 (compute-in-memory). Method: **copy the brain's *function*, cheat the *implementation*** — pay for each principle
 with whatever is cheap here (analog physics where physics is cheaper, modern DL math where math is cheaper). Full
 overview: [`AGENTS.md`](AGENTS.md) / [`README.md`](README.md); the *why* and the person: [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md).

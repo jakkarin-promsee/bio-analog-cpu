@@ -26,13 +26,16 @@ not the Scaps). *Why 6.0 exists, in full:* [`README.md`](README.md); the **soul*
 
 **Stage 1 is done and frozen (Phases 1–6): the SCFF cheap brain composes depth and survives noise. Stage 2 (the GD
 *namer*) is DONE — Phases 7 (readout), 8 (economy + cost), 9 (maintenance — the loop FROZEN), and 10 (validation /
-showcase — the frozen object raced against a fair BP+replay baseline) are all complete. Stage 2 = Phases 7–10; "freeze in
+showcase — the frozen object raced against a fair BP+replay baseline) are all complete. Stage 2 build = Phases 7–9, the validation tier = P10–11; "freeze in
 P9, judge in P10." The verdict (S14): a substrate-native continual learner — competitive on the continual home, decisively
 safer, far more noise-robust, its energy edge over conventional GD substrate-realized; the founding bet refined, not
 inflated. The neocortex brain is done. **Phase 11 — the limit map (real data + scale, the red-team answer) is also DONE
 (ran 2026-07-05, P11.0→P11.9, S15): the validated object across 8 real arenas × 5 capability channels, wins/losses/
-floors all shipped — [`src/phase11/README.md`](src/phase11/README.md).** Next: the analog-realism (SPICE/PVT) layer;
-beyond the numbered phases, the recurrent lifelong brain (the north star).** One-glance ladder — the depth lives in each `src/phaseN/README.md`, not here:
+floors all shipped — [`src/phase11/README.md`](src/phase11/README.md).** Next build: the **hippocampus organ** — grow
+the LUT stand-in into a learning brain part, the first north-star step (author's direction 2026-07-05; the north star
+is now stated publicly in the root README). The analog-constraint (SPICE-grade, **simulation-only**) realism pass stays
+queued for when a result needs it — the project identity is the *math model under analog constraints*, not circuit
+drafting; no fabrication is planned. Beyond: the recurrent lifelong brain (the north star).** One-glance ladder — the depth lives in each `src/phaseN/README.md`, not here:
 
 - **P1 ✓ structure** — the cell works; its home is the **continual** regime (a periodic sleep recovers what online backprop catastrophically forgets). Generalizes better than backprop at ~10% backward cost; *not* a deep static-accuracy competitor.
 - **P2 ✓ depth round 1** — a deep SCFF stack can't earn depth (transmission *and* a perfect-oracle objective both fail). Depth comes from **boosted ensembles of shallow blocks with tiny GD readouts**, not deep SCFF.
@@ -74,7 +77,7 @@ reading namer, S11.)*
 
 - **In:** numpy behavioral simulation of the draft-6.0 hybrid on simple classification / statistics tasks; ideal model first, analog/PVT realism only after the ideal converges.
 - **Out (near term):** SPICE, fabrication, external-benchmark-chasing *as the claim* (small tasks are fine as probes).
-- **Beyond the numbered phases — the north star (deliberately not specced):** a recurrent, lifelong-learning prefrontal↔hippocampus "thinking" loop where *correctness is a self-generated feeling*. The real long-term target — but **simple intelligence first.** Don't pull it into the live plan or project docs without the author's direction.
+- **Beyond the numbered phases — the north star (deliberately not specced):** a recurrent, lifelong-learning prefrontal↔hippocampus "thinking" loop where *correctness is a self-generated feeling*. The real long-term target — but **simple intelligence first.** ⚠ Updated 2026-07-05: the author put the north star **into the root README** as the stated destination (and the hippocampus organ as the next build) — it is public context now. Still don't pull it into the live *experiment* plan beyond that without the author's direction.
 - **Triage new ideas:** does it test in the current sim ladder, or is it a later-phase / future track? Catch scope-creep early — but 6.0's spine is still settling, so "promotion" is lighter-weight than 5.1's frozen process.
 
 ---
