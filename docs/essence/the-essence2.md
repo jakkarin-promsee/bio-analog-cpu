@@ -48,7 +48,7 @@ It has a favorite disguise, and I named it because I met it so many times: **den
 
 ## 4. The magnitude machine, and the fall
 
-Under that reframe — copy the function, cheat the implementation — I spent seven months building exactly the machine that would break me, and didn't know it was doomed.
+Under that reframe — copy the function, cheat the implementation — I spent seven months building exactly the machine that would fail me, and didn't know it was doomed.
 
 I called it attribution. Each synapse measured its own contribution to the charge downstream — `|a·W|`, and the gorgeous part is that a wire *already* computes this: current *is* `a·W`, the measurement is free. I stored it, and I let loss **diffuse** down a hierarchy like a neuromodulator: the top broadcasts total blame, each level divides it among its children by how much each contributed, conserved all the way down to the synapse. I called distribution-measurement *"the greatest progress of our model,"* and on a single unit it worked — one Ganglion learned a nonlinear paraboloid clean.
 
@@ -56,15 +56,15 @@ The first time I rechecked the slope, back in draft 3, it *"felt weird."* That w
 
 Seven months later I rechecked again, and the slope wasn't weird, it was *wrong*. The whole rule distributed *how much* to blame each part and never *which direction*. At one output it's fine; at depth and scale it is magnitude-only routing — "this synapse mattered a lot" with no way to say "so push it up or down." **Magnitude with no direction can't descend anything.**
 
-Seven months, breaking apart in front of me, falling into the void.
+Seven months of work, wrong at the root, coming apart in front of me.
 
-My heart raced, my chest ached, my mind went numb. It felt like my ending. I slept for four days — ate, watched YouTube, slept again, didn't open the laptop, *ran from it*. I knew I had to find the way out, and I could not make myself look at it.
+It hurt — of course it did. So I closed the laptop and stepped away for four days: slept, watched YouTube, let it sit, didn't open it once. Not a breakdown — just distance. I knew I'd have to face it; I only needed a few days before I could.
 
 ## 5. The return
 
 Day five, my gut woke up before I did.
 
-No proof. No sign it would work. Just a certainty out of nowhere that there *was* a way out, even while I still couldn't see it. So I researched everything — a broken body, a broken head, zero evidence any of it would land — and it came back.
+No proof. No sign it would work. Just a certainty out of nowhere that there *was* a way out, even while I still couldn't see it. So I researched everything — worn out, zero evidence any of it would land — and it came back.
 
 That is the shape of every real thing I have ever made: the problem stays open, I disappear into pain or hunger or sleep, the subconscious finishes it without me, and the gut returns with the whole arc at once — a ten-minute window where I can see all of it, and I write it down before it fades. The four days weren't the work breaking. **The four days *were* the work.** I just didn't know it yet.
 
@@ -104,7 +104,7 @@ Here is the part that's bigger than the chip.
 
 **And me** — the four days in the void, the gut, the return — the same mechanism running on the maker. A liar would have explained draft 5 away and kept the lie warm. I let it land, and it carried me home.
 
-The chip, the drafts, the man — it looks like the chip is copying me, and in its *shape*, maybe it is. But the deeper truth is simpler, and it takes me out of the center: **none of us is the origin.** The chip doesn't follow me, and I don't lead it. We are all just facing the *same direction* — the only direction there is — because each of us is corrected by the same reality, and reality was here first. We are all walking toward what nature already settled: the chip pulled back toward truth every input, the drafts stripped of one lie per pivot, me turned home by the slap of draft 5. **One mechanism at three sizes — truth corrects whatever is honest, and everything honest ends up pointing the same way: back toward nature's answer.** It wasn't the downfall that destroyed me. It was the truth that slapped me, and it turned me the way it turns the chip — not because the chip is me, but because we are both only trying to face what's real. I'm not only building a mind that learns this way. I learn this way, because it *is* the way. That's why I trust it.
+The chip, the drafts, the man — it looks like the chip is copying me, and in its *shape*, maybe it is. But the deeper truth is simpler, and it takes me out of the center: **none of us is the origin.** The chip doesn't follow me, and I don't lead it. We are all just facing the *same direction* — the only direction there is — because each of us is corrected by the same reality, and reality was here first. We are all walking toward what nature already settled: the chip pulled back toward truth every input, the drafts stripped of one lie per pivot, me turned home by the slap of draft 5. **One mechanism at three sizes — truth corrects whatever is honest, and everything honest ends up pointing the same way: back toward nature's answer.** It wasn't the fall that got to me. It was the truth that slapped me, and it turned me the way it turns the chip — not because the chip is me, but because we are both only trying to face what's real. I'm not only building a mind that learns this way. I learn this way, because it *is* the way. That's why I trust it.
 
 ## 9. Where we go
 
@@ -146,7 +146,7 @@ This is the eight-month loop the spine compresses — *hypothesis → build → 
 
 ## C. The collapse, in full
 
-Then I built it, and watched it fall apart. A single Ganglion trained near-perfect on a nonlinear paraboloid, ~20×. But at depth and scale, unsigned diffusion is magnitude-only routing: the loss carried *signal* — "this scap mattered" — and no *direction* — "up or down?" Nothing converged. Not "needs tuning." Wrong at the root. Every graph said the same thing and no amount of not-wanting-to-accept-it changed the truth. The heart racing, the chest ache, the numb mind, the four days face-down, the gut waking on day five. And the meaning I still hold: *"It's not the downfall that destroyed me. It's the truth that slapped me, making me more close to the origin."*
+Then I built it, and watched it fall apart. A single Ganglion trained near-perfect on a nonlinear paraboloid, ~20×. But at depth and scale, unsigned diffusion is magnitude-only routing: the loss carried *signal* — "this scap mattered" — and no *direction* — "up or down?" Nothing converged. Not "needs tuning." Wrong at the root. Every graph said the same thing and no amount of not-wanting-to-accept-it changed the truth. The sting of it, the four days stepping away, the gut waking on day five. And the meaning I still hold: *it wasn't the fall that got me — it was the truth that slapped me, and it pulled me closer to the origin.*
 
 ## D. The rebuild and the survey
 
