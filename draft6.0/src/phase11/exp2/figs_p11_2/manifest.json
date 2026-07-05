@@ -1,0 +1,67 @@
+{
+  "rung": "P11.2",
+  "git": "bb5a8bbea40f552129ac7606b9d38250c089a7b6",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "table": {
+    "A_rapid": {
+      "ours_aa": 0.2581,
+      "ours_bwt": -0.07999999999999996,
+      "ours_ret": 0.216,
+      "er_aa": 0.44750000000000006,
+      "er_bwt": -0.14250000000000002,
+      "er_ret": 0.221
+    },
+    "A_long": {
+      "ours_aa": 0.28359999999999996,
+      "ours_bwt": -0.01200000000000001,
+      "ours_ret": 0.2225,
+      "er_aa": 0.4271999999999999,
+      "er_bwt": -0.1955,
+      "er_ret": 0.1015
+    },
+    "A_orderinv": 0.0030000000000000027,
+    "B_rapid": {
+      "ours_aa": 0.38980000000000004,
+      "ours_bwt": -0.01050000000000001,
+      "ours_ret": 0.298,
+      "er_aa": 0.5406000000000001,
+      "er_bwt": -0.11299999999999999,
+      "er_ret": 0.2105
+    },
+    "B_long": {
+      "ours_aa": 0.4213,
+      "ours_bwt": -0.04550000000000004,
+      "ours_ret": 0.314,
+      "er_aa": 0.5138999999999999,
+      "er_bwt": -0.16249999999999998,
+      "er_ret": 0.105
+    },
+    "B_orderinv": 0.01100000000000001
+  },
+  "split": {
+    "ours": 0.4962909435825583,
+    "er": 0.6488678033191342,
+    "anchor_region": [
+      0.8,
+      0.98
+    ],
+    "in_band": false,
+    "note": "anchor run at porthole-40 (not published raw-784); exact band transcription OWED (bench)"
+  },
+  "verdict": "BET HOLDS on MNIST \u2014 safety(worst-BWT)/order-invariance stay green (both arms) while static AA does what it does",
+  "arms": {
+    "A": "D40/W64 frozen",
+    "B": "D80/W128 recipe"
+  },
+  "regimes": [
+    "rapid-24",
+    "long-randomized[50,70] (E8 primary)"
+  ],
+  "wall_s": 1238.2
+}

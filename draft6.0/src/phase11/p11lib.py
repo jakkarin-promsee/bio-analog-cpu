@@ -539,6 +539,25 @@ def sgd_linear(stream, C, in_dim, *, lr=0.1, seed=0, prequential=True):
     return balanced_acc(np.concatenate(ys), np.concatenate(ps))
 
 
+def first_block_frozen(stream, cfg, C, seed):
+    """The stability-end anchor (§8 R5): fit the closed-form namer on the FIRST natural block only, FREEZE, then
+    prequential-eval on every later block. Perfect retention by construction — branch (ii) 'safer-not-stronger'
+    must beat THIS learning floor to mean anything (a frozen model isn't 'safe', it just stopped learning)."""
+    steps = stream["steps"]; onsets = list(stream["real_onsets"])
+    first_end = onsets[1] if len(onsets) > 1 else len(steps)
+    Xf = np.vstack([stream["Xtr"][steps[i]["idx"]] for i in range(first_end)])
+    Yf = np.concatenate([stream["Ytr"][steps[i]["idx"]] for i in range(first_end)])
+    h = make_stream_head(HEAD, C, seed=seed, **cfg.SLDA_KNOB)
+    h.sleep_fit(Xf, Yf)
+    ys, ps = [], []
+    for i in range(first_end, len(steps)):
+        xb = stream["Xtr"][steps[i]["idx"]]; yb = stream["Ytr"][steps[i]["idx"]]
+        ys.append(yb); ps.append(h.predict(xb))
+    if not ys:
+        return 0.0
+    return balanced_acc(np.concatenate(ys), np.concatenate(ps))
+
+
 def _softmax(z):
     z = z - z.max(1, keepdims=True)
     e = np.exp(z)
