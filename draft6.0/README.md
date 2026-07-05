@@ -160,8 +160,12 @@ refined it, and refused to inflate it. The whole self-contained account of the f
 
 ## Where it's going
 
-The neocortex organ is done and validated. Next is the **analog-realism layer** — the SPICE / PVT / device-noise
-pass that the whole ladder deferred until the ideal converged (it now has). And beyond the numbered phases is the
+The neocortex organ is done and validated. **Phase 11 (the limit map) then proved it on real data + scale** — eight
+real arenas (real drift streams, a cross-dataset 30-way stream, capacity sweeps), drawn as an honest
+win/tie/loss/**FLOOR** map (S15): gas a genuine real-drift win over a per-arena-tuned baseline, the identity holding
+where it should and flooring honestly where the data hits its resolution/persistence limit — the red-team "toy data"
+strike answered ([`src/phase11/README.md`](src/phase11/README.md)). Next is the **analog-realism layer** — the SPICE
+/ PVT / device-noise pass that the whole ladder deferred until the ideal converged (it now has). And beyond the numbered phases is the
 target the original 1 a.m. question was always about: a **recurrent, lifelong "thinking" brain** where *correctness
 is a self-generated feeling* — the prefrontal↔hippocampus loop that keeps learning its whole life. But simple
 intelligence first. That horizon is [`docs/essence/the-essence2.md` §J](../docs/essence/the-essence2.md) and the
@@ -174,7 +178,7 @@ intelligence first. That horizon is [`docs/essence/the-essence2.md` §J](../docs
 | [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md) | **the soul** — origin, collapse, return, the spine, the person (the *why*). Start here if you want the human story. |
 | [`context.md`](context.md) | the full **cold-start context dump** (what / why / how / the person) — for an agent picking this up cold. |
 | [`idea/`](idea/README.md) | **the design** — [`ideas1.md`](idea/ideas1.md) (the origin blueprint) · [`main.ideas.v1.md`](idea/main.ideas.v1.md) (the N1–S14 decision record) · [`gd-replan/`](idea/gd-replan/README.md) (the depth-readout hinge into Stage 2). |
-| [`src/`](src/README.md) | **the results.** [`README.md`](src/README.md) (the src front door) · `stage1-report.md` + `stage2-report.md` (the two arcs) · `phase{1..10}/` (per phase: `README` front door · `phaseN-report` story · `RESULTS` ledger · cards + figures) · `phase9-final-architecture.md` (the whole model in one file) · `ref-report/` (the glossary). |
+| [`src/`](src/README.md) | **the results.** [`README.md`](src/README.md) (the src front door) · `stage1-report.md` + `stage2-report.md` (the two arcs; the Stage-2 arc carries the Phase 11 real-data validation) · `phase{1..11}/` (per phase: `README` front door · `phaseN-report` story · `RESULTS` ledger · cards + figures; `phase11/` = the real-data + scale limit map) · `phase9-final-architecture.md` (the whole model in one file) · `ref-report/` (the glossary). |
 | [`research/survey/`](research/survey/README.md) | the learning-rule survey — the *options* considered (attribution here is draft-5.1 history). |
 | [`research/papers/`](research/papers/README.md) | paper stories behind the adopted design — Phase 1–2, Phase 3, Phase 5. |
 | [`research/north-star/`](research/north-star/README.md) | the **north-star** dossier (beyond the numbered phases) — free-time reading, *not* the line to walk now. |

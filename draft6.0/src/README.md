@@ -1,8 +1,8 @@
 # Draft 6.0 — `src/` (the results)
 
-> **What this is.** The behavioral-simulation record of draft 6.0 — the ten-phase arc that built the two-brain
-> neocortex, characterized it, and validated it honestly. This page is the **map**: the arc in order, what every
-> document type is for, and where to start. The **story** is told in [`stage1-report.md`](stage1-report.md) +
+> **What this is.** The behavioral-simulation record of draft 6.0 — the eleven-phase arc that built the two-brain
+> neocortex, characterized it, validated it honestly, and mapped its limits on real data + scale. This page is the
+> **map**: the arc in order, what every document type is for, and where to start. The **story** is told in [`stage1-report.md`](stage1-report.md) +
 > [`stage2-report.md`](stage2-report.md); the **soul** (why any of this exists) is
 > [`../../docs/essence/the-essence2.md`](../../docs/essence/the-essence2.md); the **design** (what we committed and
 > why) is [`../idea/`](../idea/README.md); the **pivot story** (why 5.x died, what 6.0 is) is
@@ -10,11 +10,12 @@
 
 ---
 
-## The arc, in order (the ten phases as one chain)
+## The arc, in order (the eleven phases as one chain)
 
 Every phase picks up the wound the last one left. Read them in order and it's one story — a cheap brain built, made
-deep, characterized, closed out, hardened, then named. **Stage 1** = the ~80% cheap SCFF brain (Phases 1–6);
-**Stage 2** = the ~20% precise namer (Phases 7–10).
+deep, characterized, closed out, hardened, then named — and finally **taken to real data + scale** to have its limits
+mapped. **Stage 1** = the ~80% cheap SCFF brain (Phases 1–6); **Stage 2** = the ~20% precise namer (Phases 7–10);
+**Phase 11** = the real-data validation of the whole frozen object (the limit map).
 
 | Phase | The one-line verdict | Front door |
 | --- | --- | --- |
@@ -28,10 +29,13 @@ deep, characterized, closed out, hardened, then named. **Stage 1** = the ~80% ch
 | **8 · the economy** | Both brains **live**; the gate meters the 80/20 real (GD 12%) — and the gate is a **safety** mechanism. | [phase8/](phase8/README.md) |
 | **9 · freeze** | The bulk **rotates, doesn't forget**; the lifelong loop tuned on internal signals and **locked** at a hash. | [phase9/](phase9/README.md) |
 | **10 · validation** | Raced a fair backprop baseline: **ties** home, **trails** natural digits, **wins** safety + noise. Refined. | [phase10/](phase10/README.md) |
+| **11 · the limit map** | Real data + scale: **gas wins**, MNIST/Fashion safety + order-invariance hold, autocorrelated streams **floor** honestly. The red-team answer. | [phase11/](phase11/README.md) |
 
 **The two arcs, deep:** [`stage1-report.md`](stage1-report.md) (Phases 1–6) · [`stage2-report.md`](stage2-report.md)
-(Phases 7–10). **The whole frozen model in one file:** [`phase9-final-architecture.md`](phase9-final-architecture.md)
-(v2.0.0 — an outside researcher can understand the entire chip from that one file).
+(Phases 7–10; the Stage-2 arc also folds in the **Phase 11** real-data validation —
+[`phase11/phase11-report.md`](phase11/phase11-report.md), the figure-rich limit-map story). **The whole frozen model
+in one file:** [`phase9-final-architecture.md`](phase9-final-architecture.md) (v2.0.0 — an outside researcher can
+understand the entire chip from that one file).
 
 ---
 

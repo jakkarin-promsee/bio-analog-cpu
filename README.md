@@ -386,16 +386,18 @@ Bio-AnalogCPU/
 │   ├── context.md         the cold-start dump for an agent
 │   ├── idea/              the design + the N1–S14 decision record
 │   ├── research/          the papers behind it (+ the north-star dossier)
-│   └── src/               ★ the results: stage{1,2} reports · phase1..10/ · phase9-final-architecture.md
+│   └── src/               ★ the results: stage{1,2} reports · phase1..11/ · phase9-final-architecture.md
 ├── draft5.0/              the superseded attribution era (pre-pivot history)
 ├── draft-journey/         every earlier draft (1.0 → 5.1) in full
 └── post/                  build-in-public writeups
 ```
 
-**The ten-phase arc, one line:** P1 structure · P2 the depth-wall · P3 the objective-reframe (contrast supersedes
+**The eleven-phase arc, one line:** P1 structure · P2 the depth-wall · P3 the objective-reframe (contrast supersedes
 energy) · P4 the capability map · P5 depth cured · P6 noise-hardened — _the cheap brain, Stage 1_ — then P7 the
 readout (it is **not** gradient descent) · P8 the economy (the gate is _safety_) · P9 freeze · P10 the honest race —
-_the namer, Stage 2_ — → **the verdict, S14.** Discipline throughout: _freeze in P9, judge in P10._
+_the namer, Stage 2_ — → **the verdict, S14** — then P11 **the limit map** takes the frozen object to real data +
+scale (the red-team answer: real streams, gas a genuine win, honest floors) → **S15.** Discipline throughout:
+_freeze in P9, judge in P10._
 
 ---
 
@@ -407,7 +409,7 @@ each one links down to the next. Descend only as far as you care to.
 | Depth | Read                                                                                                      | What you get                                                                   |
 | ----- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | **0** | this README                                                                                               | the result + the shape of the whole project                                    |
-| **1** | [`draft6.0/README.md`](draft6.0/README.md)                                                                | the draft's whole story — why draft 5 died, what 6.0 is, what ten phases found |
+| **1** | [`draft6.0/README.md`](draft6.0/README.md)                                                                | the draft's whole story — why draft 5 died, what 6.0 is, what eleven phases found |
 | **2** | [`stage1-report.md`](draft6.0/src/stage1-report.md) · [`stage2-report.md`](draft6.0/src/stage2-report.md) | the executive arc of each stage — every phase transition and why               |
 | **3** | [`phaseN/README.md`](draft6.0/src/README.md) → `phaseN/phaseN-report.md`                                  | one phase's verdict at a glance → the deep narrative with every figure         |
 | **4** | `phaseN/expK/experiment-K.md` · `RESULTS.md`                                                              | the raw per-experiment record — every number, no narrative                     |
@@ -417,9 +419,10 @@ And the side doors, for readers with a specific question:
 | If you want…                                                                           | Go to                                                                                    |
 | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | **The whole model in one self-contained file**                                         | [`draft6.0/src/phase9-final-architecture.md`](draft6.0/src/phase9-final-architecture.md) |
+| **The real-data limit map (the red-team answer)**                                      | [`draft6.0/src/phase11/phase11-report.md`](draft6.0/src/phase11/phase11-report.md)       |
 | **The soul — why this exists (the human story)**                                       | [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md)                           |
-| The committed design decisions (N1–S14)                                                | [`draft6.0/idea/`](draft6.0/idea/README.md)                                              |
-| The simulation code (per phase, regenerable)                                           | [`draft6.0/src/`](draft6.0/src/) (`phase1..10/`)                                         |
+| The committed design decisions (N1–S15)                                                | [`draft6.0/idea/`](draft6.0/idea/README.md)                                              |
+| The simulation code (per phase, regenerable)                                           | [`draft6.0/src/`](draft6.0/src/) (`phase1..11/`)                                         |
 | The papers behind it                                                                   | [`draft6.0/research/papers/`](draft6.0/research/papers/README.md)                        |
 | The whole project, cold, for an AI agent                                               | [`draft6.0/context.md`](draft6.0/context.md) · [`AGENTS.md`](AGENTS.md)                  |
 | How the architecture evolved (drafts 1 → 6)                                            | [`docs/draft/project-history.md`](docs/draft/project-history.md)                         |
@@ -433,7 +436,9 @@ And the side doors, for readers with a specific question:
   Ideal math first; analog / process realism added only once the ideal converges.
 - **Out of scope (for now):** SPICE, fabrication, and external-benchmark-chasing _as the claim_ — small tasks are
   fine as probes, but this is **not** a SOTA-accuracy project.
-- **Done:** the neocortex organ — both brains, characterized, validated, **frozen, and raced** across all ten phases
-  (Stage 1 = P1–6, Stage 2 = P7–10). The founding bet is **refined, not inflated.**
+- **Done:** the neocortex organ — both brains, characterized, validated, **frozen, and raced** (Stage 1 = P1–6,
+  Stage 2 = P7–10; S14). The founding bet is **refined, not inflated.** And then **validated on real data + scale**
+  — Phase 11, the limit map (S15): the frozen object across eight real arenas (real drift streams, cross-dataset,
+  scale sweeps), every cell win / tie / loss / **FLOOR** — the red-team "toy data" strike answered honestly.
 - **This is a chip-design bet, not an ML model or a digital ML accelerator** — that brain-like computation can be
   made the _cheap_ path on the right substrate.

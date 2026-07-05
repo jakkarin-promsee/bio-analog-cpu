@@ -14,7 +14,9 @@ live as analog charge on capacitors; the multiply-accumulate happens in a crossb
 **copy the brain's *function*, cheat the *implementation*.**
 
 **Status:** both brains are built, characterized, and validated across ten phases (Stage 1 = P1–6, Stage 2 =
-P7–10; verdict **S14** — a substrate-native continual learner). The live line is now the analog-realism (SPICE/PVT)
+P7–10; verdict **S14** — a substrate-native continual learner), then taken to **real data + scale** in **Phase 11**
+(the limit map, **S15** — 8 real arenas × 5 capability channels, every cell win / tie / loss / FLOOR: gas a genuine
+real-drift win, the identity holding and flooring honestly). The live line is now the analog-realism (SPICE/PVT)
 layer. Per-phase status lives in [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md).
 
 ## Where things are (the map)
@@ -23,7 +25,7 @@ layer. Per-phase status lives in [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md).
 | --- | --- |
 | The human overview | [`README.md`](README.md) |
 | The **live** work (draft 6.0 — SCFF + GD) | [`draft6.0/`](draft6.0/README.md) → its `CLAUDE.md` (operating) + `context.md` (cold-start) |
-| The **results** — the ten-phase arc | [`draft6.0/src/README.md`](draft6.0/src/README.md) → [`stage1-report.md`](draft6.0/src/stage1-report.md) (P1–6) · [`stage2-report.md`](draft6.0/src/stage2-report.md) (P7–10, verdict S14) |
+| The **results** — the eleven-phase arc | [`draft6.0/src/README.md`](draft6.0/src/README.md) → [`stage1-report.md`](draft6.0/src/stage1-report.md) (P1–6) · [`stage2-report.md`](draft6.0/src/stage2-report.md) (P7–10, S14) · [`phase11/phase11-report.md`](draft6.0/src/phase11/phase11-report.md) (P11 — the real-data limit map, S15) |
 | The whole model in one self-contained file | [`draft6.0/src/phase9-final-architecture.md`](draft6.0/src/phase9-final-architecture.md) |
 | Superseded history (draft 5 — attribution era) | [`draft5.0/`](draft5.0/README.md) |
 | The idea journey (drafts 1.0 → 5.1) | [`draft-journey/`](draft-journey/README.md) |

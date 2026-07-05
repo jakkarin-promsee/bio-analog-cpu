@@ -16,6 +16,17 @@
 > against the strongest fair opponent. Read this as the **closed Stage-2 arc.** (The discipline that made it honest:
 > *freeze in P9, judge in P10.*)
 >
+> **➕ Validated on real data (Phase 11, the limit map — S15).** After Stage 2 closed, the red team's one real
+> objection remained: *"the wins live on toy data."* **Phase 11 answered it** — it took the P9-frozen object,
+> untouched, off the synthetic bench and onto **eight real arenas** (MNIST/Fashion/CIFAR-gray, real drift streams
+> gas/HAR/electricity/covertype, a 30-way cross-dataset stream) and **scale** (width/depth/input-dim/class-count
+> sweeps), and drew the honest **LIMIT-MAP**: every cell win / tie / loss / FLOOR. The Stage-2 identity **holds on
+> real data** — it wins continual safety, order-invariance, real sensor-drift (**gas** beats a per-arena-tuned ER
+> *and* persistence), and every scaling read, while trailing static accuracy and flooring where data hits its
+> resolution/persistence limit. It is summarized in §3 below (Phase 11) and told in full in
+> [`phase11/phase11-report.md`](phase11/phase11-report.md). Phase 11 is *numbered outside* Stage 2 but is its
+> real-world validation capstone.
+>
 > The plan this executes: [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). The frozen cell it
 > builds on: [`phase6-final-architecture.md`](phase6-final-architecture.md). The
 > committed design record: [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md). Terms and metrics:
@@ -254,6 +265,40 @@ vs 0.533; ER still order-sensitive, 0.580 vs 0.675) — banked **supported-not-c
 confirming cut was mis-specified; a bulk-level component stays flagged).)* →
 [full Phase 10 report](phase10/phase10-report.md).
 
+### Phase 11 — the limit map → *the frozen object on real data + scale: wins, losses, and floors, all mapped* 🔥  **[DONE — S15]**
+
+Stage 2 closed on synthetic and small-natural data, and the author's own red team named the one gap that mattered:
+*the wins live on toy data.* Phase 11 is the answer — the **P9-frozen object measured untouched** (Arm A, forced
+through the committed 40-D porthole so every arena enters at the frozen width) and re-built to a **pre-registered
+scaling rule** (Arm B, D=min(native,160), W=⌈1.6·D⌉) — **nothing tuned in either arm**, while the opponent (ER-strong)
+was re-tuned *per arena* on a disjoint seed. The product is the **LIMIT-MAP**: 8 real arenas × 5 capability channels,
+every cell win / tie / loss / **FLOOR** (a FLOOR = uninformative, ceiling at the resolution/persistence limit — grey
+is honesty, not defeat). The verdict shapes were pinned **blind**.
+
+![Phase 11 in one figure — the limit map](phase11/exp9/figs_p11_9/LIMIT_MAP.png)
+*The money figure. Across 8 real arenas, the committed object's identity is unmistakable and honestly bounded.
+**Teal wins:** continual **safety** (worst-BWT) on every non-floor gauntlet (mnist −0.01/+0.18, fashion −0.02/+0.12
+vs a tuned ER), **retention** on mnist-long, **order-invariance** everywhere measured (|Δ| ≤ 0.043, even across data
+*types*), and the real-world headline — **gas accuracy 0.79**, the frozen recipe beating a per-arena-tuned ER (0.76)
+*and* persistence (0.61) on a famous sensor-drift benchmark. **Pink losses:** static accuracy on mnist/fashion
+(continual-not-static, P4/P10.5 again), retention on fashion-A and the 30-way stream (both recovered by Arm B).
+**Grey floors:** CIFAR-gray (resolution), HAR/electricity/covertype (the ELEC2 label-persistence trap — the field
+floors alongside OURS but leads ~0.07). The far and autocorrelated edges are grey, and grey is not parity.*
+
+**The three reviewer strikes, answered.** **(1) "Is it just SLDA?"** → decomposed, not deflected (P11.1): the SCFF
+**bulk is the nonlinear learner** (Δbulk **+0.417** where a linear head is at chance, and it beats a random 12-layer
+reservoir → *learned*, not just depth; correctly redundant on near-linear digits), and the continual **safety is the
+closed-form namer + gate + sleep** (a bulk-free projection forgets no more) — we measured which half does which job.
+**(2) "Toy data?"** → the identity **holds on real data**: MNIST safety/order-invariance survive (P11.2), **gas is a
+genuine win** (P11.3), the object generalizes across data *type* in a 30-way cross-dataset stream (P11.4, TYPE-ROBUST
+when scaled) — while the streaming canon (HAR/electricity/covertype) floors honestly under label-autocorrelation, a
+property of *those streams*, not our object. **(3) "Does it scale?"** → three reads (P11.5–7): the pinned GD-share
+economy shape is **confirmed** (the economy does not improve with width — the namer solve scales worst), the **analog
+substrate advantage *grows* with width** (5.4→7.4×, the chip's best sentence), the prototype+Gram namer
+**out-retains a byte-matched replay buffer by C=20** (replay dilutes to ≈0, the namer holds), and on gas the frozen
+recipe **out-throughputs** the retention-tuned ER. Delta **S15**; the object's limits are now mapped. →
+[full Phase 11 report](phase11/phase11-report.md) · [front door](phase11/README.md) · [numbers](phase11/RESULTS.md).
+
 ---
 
 ## 4 · The decision record (what Stage 2 has set, and what it owes)
@@ -285,6 +330,9 @@ frozen architecture snapshots.
 | The final SCFF:Namer ratio | assumed ~0.12–0.18 | **characterized at P10 close** | _**S14**: metered GD-share **0.107–0.178** ≤ 0.25 across difficulty (the gate rarely fires; the loop consolidates via sleep)_ |
 | The noise arc, on the assembled object | **S10** (scoped-YES) | **cashed at P10 close** | _**S14**: OURS ≫ BP on every held-out channel; the small directional/ADC residual **named → the analog-realism layer**_ |
 | SCFF carries a noise-aware objective | **S10** | Phase 6 (Stage-1 ext) | _done — the frozen cell already carries it_ |
+| "Is it just SLDA?" (the architecture attribution) | — (open strike) | **decomposed at P11.1** | _**S15**: the SCFF **bulk is the nonlinear learner** (Δbulk +0.417, beats a random reservoir → learned); the continual **safety is the closed-form namer + gate + sleep** (bulk-free forgets no more) — which half does which, measured_ |
+| The wins only live on toy data (the red-team strike) | — (the objection) | **answered at P11.3/4** | _**S15**: identity **holds on real data** — **gas WINS** (0.789 ≥ a per-arena-tuned ER, beats persistence), cross-dataset **TYPE-ROBUST** when scaled; HAR/electricity/covertype **FLOOR** honestly (ELEC2 label-persistence — data-difficulty, not the object)_ |
+| Does the recipe scale? (one W/D/dim/C shown) | — (open strike) | **measured at P11.5–7** | _**S15**: pinned **GD-share economy shape CONFIRMED** (does not improve with width); the **analog substrate factor GROWS 5.4→7.4×**; the prototype+Gram namer **out-retains byte-matched replay by C=20** (replay dilutes ≈0); gas throughput regime win (arena-dependent)_ |
 
 ---
 
@@ -333,10 +381,13 @@ collapse to ~0.3 and the cheaper SLDA edges it). What Phase 8/9 inherit:
   — the win is the substrate, reported plainly, never the contestable claim. The absolute-Joule + PVT layer is later.
 - **Behavioral simulation only** — numpy ideal floats plus Phase 6's behavioral analog-noise model; no SPICE, no device
   physics, no fabrication.
-- **Small, partly synthetic tasks** — the continual home, digits, CIFAR-flat, and P10's transformed-digit gauntlet.
-  Synthetic **overstates** static gaps both ways (P10.5's natural digits are the honest read — they *reveal* the ER edge
-  the hard synthetic home masked); the gauntlet depends on its domain set + order (the reversed-order control is
-  order-robust, AA Δ −0.014). The behavioral meter's analog factor is meter-structural, never the contestable claim.
+- **Small, partly synthetic tasks *within Stage 2*** — the continual home, digits, CIFAR-flat, and P10's
+  transformed-digit gauntlet. Synthetic **overstates** static gaps both ways (P10.5's natural digits are the honest
+  read — they *reveal* the ER edge the hard synthetic home masked); the gauntlet depends on its domain set + order
+  (the reversed-order control is order-robust, AA Δ −0.014). The behavioral meter's analog factor is meter-structural,
+  never the contestable claim. **Phase 11 discharged this scope** on the real-data axis — eight real arenas + scale,
+  the honest LIMIT-MAP (§3, Phase 11) — while raw-vision-at-scale (ImageNet/CORe50) and PVT/analog realism remain
+  future work.
 - **The maintenance loop is built, frozen, and validated.** What is committed is the *readout family* (P7) + the *economy*
   (P8: gate, trigger, cadence, deployed head, meter) + the *frozen neocortex maintenance loop* (P9) + its *honest Pareto
   verdict* (P10). The named residual (directional/ADC noise) hands to the analog-realism layer; the static-accuracy gap on
@@ -376,11 +427,17 @@ gap on easy natural data → a future draft (a convolutional / larger bulk); and
 runs thin-margined between sleeps) → the named capability target, a bulk that recovers the clean structure *itself*
 from an all-noisy stream. All future work, never a Stage-2 re-run.
 
-**What's next, beyond Stage 2:** the **analog-realism layer** (SPICE / PVT — the absolute-Joule and device-physics the
-behavioral meter cannot give, and the read-side noise residual it must reach); and, beyond the numbered phases, the
-recurrent, lifelong-learning prefrontal↔hippocampus **thinking loop** where *correctness is a self-generated feeling* —
-the north star. Stage 2 touched it only as a tie-break bias (a spine-clean cosine direction, a drift gate that is the
-*halt*), so the later brain can reuse these signals instead of tearing them out. *Simple intelligence first.*
+**What came next, first (already done):** **Phase 11 — the limit map (S15).** Before touching device physics, the
+frozen object was taken to real data and scale and the red team's "toy data" strike was answered head-on (§3, Phase
+11): the identity holds on real arenas, gas is a genuine real-drift win, it scales, and every loss and floor is
+mapped rather than hidden. That closes the *evidence* gap Stage 2 left open.
+
+**What's next, beyond Stage 2 and Phase 11:** the **analog-realism layer** (SPICE / PVT — the absolute-Joule and
+device-physics the behavioral meter cannot give, and the read-side noise residual it must reach — inheriting Phase
+11's named directional/ADC residual); and, beyond the numbered phases, the recurrent, lifelong-learning
+prefrontal↔hippocampus **thinking loop** where *correctness is a self-generated feeling* — the north star. Stage 2
+touched it only as a tie-break bias (a spine-clean cosine direction, a drift gate that is the *halt*), so the later
+brain can reuse these signals instead of tearing them out. *Simple intelligence first.*
 
 ---
 
@@ -391,11 +448,14 @@ self-contained account of the **complete two-brain neocortex, frozen** (both bra
 cheap-brain-only snapshot is [`phase6-final-architecture.md`](phase6-final-architecture.md)). **For the plan Stage 2
 executes:** [`stage2-design.md`](stage2-design.md) (the authoritative Stage-2 map). **For the closed result:** this file
 (the arc) → [Phase 7](phase7/README.md) → [Phase 8](phase8/README.md) → [Phase 9](phase9/README.md) →
-[Phase 10](phase10/README.md) front doors → the `phaseN/phaseN-report.md` deep stories (every figure) →
-`phaseN/RESULTS.md` (the scalar ledgers) → the `phaseN/expK/experiment-K.md` cards. **For the professor meeting:**
+[Phase 10](phase10/README.md) → [Phase 11 — the limit map](phase11/README.md) front doors → the
+`phaseN/phaseN-report.md` deep stories (every figure) → `phaseN/RESULTS.md` (the scalar ledgers) → the
+`phaseN/expK/experiment-K.md` cards. **For the real-data / red-team story:**
+[`phase11/phase11-report.md`](phase11/phase11-report.md). **For the professor meeting:**
 [`phase10/professor-brief.md`](phase10/professor-brief.md). Terms, metrics, and papers are defined in
-[`ref-report/`](ref-report/README.md); the committed decisions (through **S14**) in
+[`ref-report/`](ref-report/README.md); the committed decisions (through **S15**) in
 [`../idea/main.ideas.v1.md`](../idea/main.ideas.v1.md).
 
-*Prev:* [the Stage-1 arc](stage1-report.md) · *Up:* [draft 6.0 context](../CLAUDE.md) · *Next:* the analog-realism layer
-(SPICE / PVT), and beyond the numbered phases, the recurrent lifelong brain — the north star.
+*Prev:* [the Stage-1 arc](stage1-report.md) · *Up:* [draft 6.0 context](../CLAUDE.md) · *Real-data validation:*
+[Phase 11 — the limit map](phase11/README.md) (done, S15) · *Next:* the analog-realism layer (SPICE / PVT), and
+beyond the numbered phases, the recurrent lifelong brain — the north star.

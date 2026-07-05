@@ -5,7 +5,7 @@ description: Plan, write, or run a draft-6 phase experiment — the sim ladder, 
 
 # Running a draft-6 experiment
 
-**Where the work is:** `draft6.0/src/phaseN/` (one folder per phase, P1–P10 — all complete; the next work is the analog-realism / SPICE-PVT layer, not yet a numbered phase).
+**Where the work is:** `draft6.0/src/phaseN/` (one folder per phase, P1–P11 — all complete; P11 = the real-data + scale limit map; the next work is the analog-realism / SPICE-PVT layer, not yet a numbered phase).
 **Read first:** the target `phaseN/design.md` (the codeable spec + build plan) + `draft6.0/src/result-format.md` (house style). Prior-phase context = read that phase's `phaseN/README.md` **only** (the front-door synthesis), never its code.
 
 **Methodology (non-negotiable):**
