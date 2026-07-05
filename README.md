@@ -1,5 +1,7 @@
 # Bio-Analog CPU
 
+_Working title, deliberately unsettled — a placeholder I'll rename once the architecture is final (and not a claim about instruction-set CPUs). It's the least-decided thing in the repo, and out of scope until the work is done._
+
 The math model for a bio-inspired analog chip that learns on-chip — online, local, forward-only, with no backward pass that ever leaves it.
 
 ## The frame, up front
@@ -619,6 +621,13 @@ Where that road stands:
   (Phase 7). The research dossier for the loop:
   [`research/north-star/`](draft6.0/research/north-star/README.md).
 
+**How firmly to read this — a compass, not a roadmap.** The destination is fixed; the route is not. This section is
+here for **inspiration and rough research direction**, not a plan committed 1:1 — each organ gets built only if the
+experiments say it can be, and the loop especially is a **hypothesis, not a promise.** If the next stage — growing
+the hippocampus into a real learning organ — comes back saying the path is impossible, then the path changes,
+without apology. That is not hypothetical: the neocortex above only reached its final shape after the plan was
+re-cut more times than I can count. Read this as where the work is _pointed_, not what it is guaranteed to _ship_.
+
 On the fair question — _is the baby neocortex just known theories, composed?_ — the decomposition above is the
 answer: **partly, and the map measures which part is whose** (the continual safety is the closed-form loop; the
 learned bulk earns its keep where the data is nonlinear). What is not on a shelf is the composition under substrate
@@ -696,6 +705,22 @@ And the side doors, for readers with a specific question:
 | The whole project, cold, for an AI agent                                               | [`draft6.0/context.md`](draft6.0/context.md) · [`AGENTS.md`](AGENTS.md)                  |
 | How the architecture evolved (drafts 1 → 6)                                            | [`docs/draft/project-history.md`](docs/draft/project-history.md)                         |
 | The superseded draft-5 (attribution) era — _pre-pivot history, not the current design_ | [`draft5.0/`](draft5.0/CLAUDE.md)                                                        |
+
+---
+
+## How this is built — human + AI
+
+I build this in the open, and with a lot of help. The repo has a `.claude/` folder and a dozen-plus `CLAUDE.md`
+files sitting in plain sight — nothing hidden — so let me just say it: **this project is built in close
+collaboration with AI agents (Claude and others).** They help me **write the code, run down the research, and draft
+most of the reports.** I'm a solo undergraduate and I don't yet have deep expertise in half the fields this touches;
+the AI is how I cover that gap and move at the pace a solo evening allows.
+
+What the AI does **not** do is decide what is true. Every result, every number, every claim on this page I
+**re-derive, re-run, and re-read myself** before it stays — and I have thrown out plenty that did not survive that.
+The architecture decisions, the experiment designs, and the "does this actually hold up?" judgments are mine. So:
+**AI-assisted and human-verified — not vibe-coded.** I would rather state that plainly here than have anyone feel
+they have "caught" it.
 
 ---
 
