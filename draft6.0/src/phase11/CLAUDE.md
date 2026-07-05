@@ -1,11 +1,21 @@
 # Phase 11 — the limit map: real data + scale (signpost)
 
-You're in **Phase 11** of draft 6.0 — **🟢 DESIGNED, REVIEW-FOLDED, NOT YET RUN (spec finalized 2026-07-05).** The
-phase the red team asked for: the P10 instrument taken to **harder data, real-world streams, cross-dataset streams,
-and scale** — run honestly, expecting and welcoming losses. The product is the **LIMIT-MAP**: arenas × capability
-channels, every cell win / tie / loss / FLOOR with its number. Phase 10 stays closed (S14, measurement-only); this
-phase measures the frozen recipe (Arm A, porthole) and builds pre-registered scaled instances (Arm B) — nothing is
-tuned, in either arm.
+You're in **Phase 11** of draft 6.0 — **✅ RUN (2026-07-05, P11.0→P11.9; committed core + all three scaling
+extensions; S15 banked).** The phase the red team asked for: the P10 instrument taken to **harder data, real-world
+streams, cross-dataset streams, and scale** — run honestly, welcoming losses. The product is the **LIMIT-MAP**: 8
+arenas × 5 capability channels, every cell win / tie / loss / FLOOR with its number (`exp9/figs_p11_9/LIMIT_MAP.png`).
+Phase 10 stays closed (S14, measurement-only); this phase measured the frozen recipe (Arm A, porthole) and built
+pre-registered scaled instances (Arm B) — nothing tuned, in either arm.
+
+**Verdict (S15):** a substrate-native continual learner whose limits are now mapped. **Wins** — continual safety +
+order-invariance on the gauntlets, real sensor-drift (**gas** beats a tuned ER + persistence), and every scaling read
+(the pinned GD-share economy shape confirmed, the analog substrate factor *grows* 5.4→7.4× with width, the
+prototype+Gram namer out-retains byte-matched replay by C=20, gas throughput regime win). **Decomposition (the
+strike-1 answer):** the SCFF **bulk** is the nonlinear learner (Δbulk +0.417 on the nonlinear home, beats a random
+reservoir), the continual **safety** is the closed-form namer + gate + sleep — "is it just SLDA?" answered
+precisely. **Losses/floors (shipped):** static accuracy trails (continual-not-static), CIFAR-gray floors
+(resolution), HAR/electricity/covertype floor (the ELEC2 persistence trap, field leads ~0.07). Read: front door
+[`README.md`](README.md) · numbers [`RESULTS.md`](RESULTS.md) · deep story [`phase11-report.md`](phase11-report.md).
 
 - **The spec (read first, execute from):** [`design.md`](design.md) — the ladder P11.0 (bench) → P11.1
   (decomposition: "is it just SLDA?" — run pre-pitch) → P11.2 (MNIST rung) → P11.3 (real streams: gas headline,

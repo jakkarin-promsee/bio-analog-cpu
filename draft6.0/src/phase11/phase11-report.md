@@ -145,10 +145,64 @@ apparatus fix).
 
 ---
 
-## 5 · The LIMIT-MAP + what it means (P11.9)
+## 5 · Does it scale? (P11.5–P11.7) — the strike-3 trilogy
 
-_[The money figure: arenas × capability channels, win/tie/loss/FLOOR + numbers + the Δbulk overlay. The honest
-deployment envelope of the committed object, for the pitch and the analog layer.]_
+Strike 3 ("one width, one depth, one input dim, one class count") gets three answers.
+
+**Accuracy/hardness (P11.5 r2/r3).** Fashion (r2) holds the safety bet — OURS worst-BWT −0.021/−0.057 vs ER
+−0.146/−0.141 (≈2–7× less forgetting) while ER leads absolute accuracy (the continual-not-static identity, now on a
+harder recognizable dataset); Arm B recovers retention (0.401 > ER 0.380). CIFAR-gray (r3) is the honest **FLOOR** —
+the joint-BP ceiling itself is only 0.199, so grayscale-cropped CIFAR through a 40-D porthole is at the resolution
+floor and every channel there is grey, not a parity claim. The far edge of the map is where it should be.
+
+**Memory (P11.5 crossover).** The class-count read is the cleanest scaling result in the phase: at C=10 (Split-MNIST)
+a byte-matched ER out-retains OURS (0.423 vs 0.354), but at C=20 (MNIST+Fashion) ER's fixed replay buffer **dilutes
+to ≈0 retention (0.014)** while OURS's prototype+Gram namer holds (0.233) — a **+0.219** flip. The gradient-free
+namer keeps an exact per-class mean + a shared covariance, so per-class fidelity is C-independent; a fixed replay
+buffer splits its budget O(1/C) and collapses. The honest counterweight: on raw *bytes* the all-tap F×F covariance
+(F=768) is a large fixed cost, so the memory-byte crossover is beyond any realistic class count — the namer's win is
+retention fidelity per class, not byte compactness.
+
+**Economy (P11.6 capacity).** The pre-registered test lands: the **bench-pinned GD-share shape is CONFIRMED** —
+measured [0.17, 0.28, 0.45] tracks the meter-derived [0.21, 0.34, 0.53] as W ∈ {64,128,256}. The economy does *not*
+improve with scale (the SLDA solve ~O((L·W)³) makes the namer a growing energy fraction — the temp2 direction-guess
+refuted at the run, not just the formula). Capacity *does* buy the accuracy gap back (0.42→0.50 over W, 0.39→0.51
+over D), at that rising GD-share cost. And the **analog substrate advantage grows** with width (5.4→7.4×) — the
+crossbar prices the extra bulk MACs near-free, so the compute-in-memory edge *widens* at scale (the chip's best
+sentence); safety holds at every width and dim.
+
+**Real-time (P11.7 throughput).** On the gas stream the retention-tuned ER-strong (wide net + replay) costs more
+FLOPs/sample than the frozen D40 recipe, so at a shared budget ER drops 32%/31%/8% of the stream (raw-FLOP / digital
+/ analog) while OURS keeps up — **branch (i), the regime win.** Honesty demands the caveat: this *inverts* P10's
+synthetic-home measurement (where OURS used more FLOPs than a cheap ER), so the real-time economy is
+arena/opponent-dependent, not universal — and the map says so.
+
+---
+
+## 6 · The LIMIT-MAP + what it means (P11.9)
+
+The money figure (`exp9/figs_p11_9/LIMIT_MAP.png`) is 8 arenas × 5 capability channels, every cell win / tie / loss /
+FLOOR with its number. Read down the channels, the object's identity is unmistakable and honestly bounded:
+
+- **Wins (teal):** continual **safety** (worst-BWT) on every non-floor gauntlet arena (mnist, fashion); **retention**
+  on mnist-long; **order-invariance** everywhere it is measured (mnist, xdata, gas — |Δ| ≤ 0.043, even across data
+  *types*); **gas accuracy** (the real-world headline, beating a per-arena-tuned ER and persistence); and the
+  **scaling reads** (pinned economy shape, growing substrate factor, the C=20 retention crossover, the gas
+  throughput regime win) that live in the SCALING/CROSSOVER panels rather than the arena grid.
+- **Losses (pink):** static **accuracy** on mnist and fashion (continual-not-static — P4/P10.5 re-confirmed at
+  scale); **retention** on fashion (Arm A) and the 30-way xdata stream (recovered by Arm B in both cases). The object
+  is not a static-accuracy competitor and the map never pretends otherwise.
+- **Floors (grey):** CIFAR-gray (a native-resolution floor); HAR / electricity / covertype (the ELEC2
+  label-autocorrelation trap — persistence unbeatable, the field floors alongside OURS but leads by ~0.07). The far
+  and autocorrelated edges of the map are grey, and grey is not parity.
+
+The **Δbulk overlay** (P11.1) keys the whole map to a mechanism: the bulk earns its place where the data is nonlinear
+(the synthetic home +0.417, real sensors), and the continual *safety* is the closed-form namer + gate + sleep, not
+the bulk. So the honest deployment envelope for the pitch and the analog layer is: **a substrate-native continual
+learner that wins safety, noise-robustness, order-invariance, real information-bearing drift (gas), and every
+scaling read of the economy/substrate — while trailing on static accuracy and flooring where the data is at its
+resolution or persistence limit.** The wins are real; the losses and floors are mapped, not hidden. That was the
+deliverable.
 
 ---
 
@@ -158,8 +212,9 @@ deployment envelope of the committed object, for the pitch and the analog layer.
   bound how much, per arena).
 - **Anchor un-validated at raw-784** (owed); the noise retention *ratio* is clean-baseline-confounded (reported as
   absolute noisy accuracy).
-- **Descopes named, not faked:** Yearbook/BloodMNIST/CIFAR-100 (openml API down), P11.5–P11.8 (single-session
-  budget), the D=160 cross-dataset Arm B (the F5 GEMM apparatus fix). The meter is behavioral (relative-pJ,
+- **Descopes named, not faked:** Yearbook/BloodMNIST/CIFAR-100 (openml API down); **P11.8** the features arena (no
+  off-box precompute window); the D=160 cross-dataset Arm B (the F5 einsum→GEMM apparatus fix, descoped to D=80); the
+  raw-784 Split-MNIST anchor validation (owed — P11.2 ran it at porthole-40). The meter is behavioral (relative-pJ,
   ADC-centred, NOT SPICE).
 
 *Up:* [draft context](../../CLAUDE.md) · *front door:* [`README.md`](README.md) · *numbers:* [`RESULTS.md`](RESULTS.md).

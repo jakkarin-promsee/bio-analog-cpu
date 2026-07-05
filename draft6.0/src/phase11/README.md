@@ -1,18 +1,18 @@
 # Phase 11 — the limit map: the frozen recipe on real data and at scale (front door)
 
-> **Status: 🟢 COMMITTED CORE RUN (2026-07-05).** The phase the red team asked for — the P10 instrument taken to
-> **harder data, real-world streams, cross-dataset streams, and scale**, run honestly, expecting and welcoming
-> losses. The product is the **LIMIT-MAP**: arenas × capability channels, every cell win / tie / loss / FLOOR with
-> its number. The committed object (the P9-frozen two-brain neocortex, `freeze_content` bit-exact) was measured
-> untouched (Arm A, the frozen recipe through the 40-D porthole) and re-built to a pre-registered scaling rule
-> (Arm B); **nothing was tuned in either arm.** ER-strong was re-tuned per arena on the disjoint seed-7 stream —
-> the asymmetry runs *against* the home team.
+> **Status: 🟢 RUN — committed core + all three scaling extensions (2026-07-05).** The phase the red team asked for —
+> the P10 instrument taken to **harder data, real-world streams, cross-dataset streams, and scale**, run honestly,
+> expecting and welcoming losses. The product is the **LIMIT-MAP**: 8 arenas × 5 capability channels, every cell
+> win / tie / loss / FLOOR with its number. The committed object (the P9-frozen two-brain neocortex, `freeze_content`
+> bit-exact) was measured untouched (Arm A, the frozen recipe through the 40-D porthole) and re-built to a
+> pre-registered scaling rule (Arm B); **nothing was tuned in either arm.** ER-strong was re-tuned per arena on the
+> disjoint seed-7 stream — the asymmetry runs *against* the home team.
 >
-> **What ran:** P11.0 (bench, all green) · P11.1 (decomposition, the pre-pitch strike) · P11.2 (MNIST rung, both
-> arms) · P11.3 (real streams: gas · HAR · electricity · covertype) · P11.4 (cross-dataset MNIST→Fashion→CIFAR-gray,
-> class-IL 30-way). **What did not:** Yearbook / BloodMNIST / CIFAR-100 (openml API down on this box; optional
-> bonuses, out of the committed core), and P11.5–P11.8 extensions (scaling sweeps / features arena) — descoped for
-> the single-session budget, named not faked. The map ships the columns that exist.
+> **What ran:** P11.0 (bench) · P11.1 (decomposition) · P11.2 (MNIST rung) · P11.3 (real streams: gas · HAR ·
+> electricity · covertype) · P11.4 (cross-dataset 30-way) · **P11.5 (Fashion/CIFAR rungs + class-count crossover) ·
+> P11.6 (capacity scaling) · P11.7 (throughput)** · P11.9 (the LIMIT-MAP + close-out). **What did not:** Yearbook /
+> BloodMNIST / CIFAR-100 (openml API down; optional bonuses) and P11.8 (the features arena — no off-box precompute
+> window). The map ships the columns that exist.
 
 ---
 
@@ -29,7 +29,12 @@ data needs one it earns its place.* On real MNIST (P11.2) the frozen recipe wins
 forgetting than a tuned ER), **retention on long blocks**, and **order-invariance**, while static accuracy trails
 (continual-not-static, P4/P10.5 re-confirmed) — and **Arm B scales** (more input dim recovers porthole loss). On
 nature's own drift (P11.3, the real-world headline) and across data *types* (P11.4) the map is drawn honestly with
-its wins, its losses, and its FLOOR cells.
+its wins, its losses, and its FLOOR cells. **And it scales (P11.5–P11.7):** the pinned GD-share shape is confirmed
+(the economy does not improve with width — the namer solve is the thing that scales worst), the analog substrate
+advantage *grows* with width (5.4→7.4×), safety holds at every width/dim, the prototype+Gram namer out-retains a
+byte-matched replay buffer by C=20 (replay dilutes, the namer does not), and on gas the frozen recipe
+out-throughputs the retention-tuned ER. The honest counterweights — static accuracy trails on recognizable data,
+CIFAR-gray floors, the streaming canon floors under label-persistence — ship in the map beside the wins.
 
 ---
 
@@ -60,7 +65,22 @@ its wins, its losses, and its FLOOR cells.
   **TYPE-SCOPED at the porthole** (Arm A worst-ret 0.415 < ER 0.534) → **TYPE-ROBUST when scaled** (Arm B 0.581 ≥ ER
   0.551). Gram conditioning bounded (~1–2e8, no blow-up). → [`exp4/experiment-4.md`](exp4/experiment-4.md) ·
   `STREAM_xdata.png`.
-- **P11.9 — the LIMIT-MAP + close-out.** _[the money figure + the owed §7 deltas.]_ → [`RESULTS.md`](RESULTS.md).
+- **P11.5 — Fashion/CIFAR rungs + the class-count crossover.** Fashion (r2) **BET HOLDS** (safety win, worst-BWT
+  −0.021/−0.057 vs ER −0.146/−0.141; static AA trails, Arm B recovers retention); CIFAR-gray (r3) = **FLOOR** (joint
+  ceiling 0.199, the honest resolution floor). **The retention crossover is real by C=20** — OURS 0.354/ER 0.423 at
+  C=10 flips to OURS 0.233/ER **0.014** at C=20 (the fixed replay buffer dilutes to ≈0; prototype+Gram does not
+  dilute per-class). → [`exp5/experiment-5.md`](exp5/experiment-5.md) · `CROSSOVER.png`.
+- **P11.6 — capacity scaling.** The bench-**pinned GD-share shape CONFIRMED** (measured [0.17,0.28,0.45] tracks
+  pinned [0.21,0.34,0.53] — the economy does *not* improve with width); capacity buys the accuracy gap back
+  (0.42→0.50); the **substrate factor RISES** 5.4→7.4× (the analog advantage grows with scale — the chip's best
+  sentence); safety holds at every width/dim. → [`exp6/experiment-6.md`](exp6/experiment-6.md) · `SCALING.png`.
+- **P11.7 — throughput.** On gas, the retention-tuned ER costs more FLOPs/sample than the frozen recipe → **branch
+  (i) the regime win** (ER skips 32%/31%/8% raw/digital/analog at the demo rate; OURS keeps up). Honest caveat: this
+  *inverts* P10's synthetic-home FLOP inversion — arena/opponent-dependent, reported as such. →
+  [`exp7/experiment-7.md`](exp7/experiment-7.md).
+- **P11.9 — the LIMIT-MAP + close-out.** The money figure — 8 arenas × 5 channels, every cell win/tie/loss/FLOOR +
+  number ([`exp9/figs_p11_9/LIMIT_MAP.png`](exp9/figs_p11_9/LIMIT_MAP.png)); the owed §7 deltas banked to
+  `main.ideas` as **S15**. → [`RESULTS.md`](RESULTS.md) · [`phase11-report.md`](phase11-report.md).
 
 ---
 
@@ -69,9 +89,9 @@ its wins, its losses, and its FLOOR cells.
 - **No raw-vision-at-scale claim** (ImageNet/CORe50/CLEAR-raw untouched). **No PVT/analog realism** (behavioral
   meter throughout → the analog-realism layer). **No recurrence / north star.**
 - **Honest descopes (named, not faked):** Yearbook / BloodMNIST / CIFAR-100 did not fetch (openml API down);
-  P11.5–P11.8 (capacity/class-count/throughput/features sweeps) were not run this session; the raw-784 Split-MNIST
-  anchor validation is owed; the D=160 cross-dataset Arm B awaits the F5 GEMM apparatus fix. **Losses and floors
-  stay in the map** — that is the deliverable.
+  **P11.8** (the features arena) had no off-box precompute window; the raw-784 Split-MNIST anchor validation is owed
+  (P11.2 ran the anchor at porthole-40, a config note not an ER failure); the D=160 cross-dataset Arm B awaits the F5
+  einsum→GEMM apparatus fix (descoped to D=80). **Losses and floors stay in the map** — that is the deliverable.
 
 *Up:* [draft context](../../CLAUDE.md) · *prev:* [Phase 10 — validation](../phase10/README.md) (closed, S14) ·
 *spec:* [`design.md`](design.md) · *contract:* [`result-format.md`](result-format.md).
