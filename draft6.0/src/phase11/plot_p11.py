@@ -118,22 +118,71 @@ def fig_fight(run_dir, arena, learners, out=None):
 
 
 def fig_scaling(run_dir, out=None):
-    """SCALING (P11.6) — GD-share vs W (measured vs the bench-pinned meter-derived shape) + accuracy vs W."""
+    """SCALING (P11.6) — 3 panels: (1) GD-share vs W measured vs the bench-pinned meter-derived shape; (2) accuracy vs
+    W (capacity ablation @ D80) and vs D (recipe stretched); (3) substrate factor E(digital)/E(analog) vs W."""
     A = _load(run_dir)
     W = A.get("scale_W")
     if W is None:
         return None
-    fig, ax = plt.subplots(1, 2, figsize=(11, 4.2))
-    ax[0].plot(W, A["gdshare_measured"], "o-", color=STYLE["ours_a"], label="measured")
+    fig, ax = plt.subplots(1, 3, figsize=(15.5, 4.3))
+    # panel 1: GD-share vs W (measured vs pinned)
+    ax[0].plot(W, A["gdshare_measured"], "o-", color=STYLE["ours_a"], lw=2, label="measured (this run)")
     if "gdshare_pinned" in A:
-        ax[0].plot(W, A["gdshare_pinned"], "s--", color=STYLE["anchor"], label="bench-pinned (meter-derived)")
+        ax[0].plot(W, A["gdshare_pinned"], "s--", color=STYLE["anchor"], lw=2, label="bench-pinned (meter-derived, P11.0)")
     ax[0].axhline(0.25, ls=":", c="#b03060", label="GD-share cap 0.25")
-    ax[0].set_xlabel("width W"); ax[0].set_ylabel("GD-share"); ax[0].legend(fontsize=8)
-    ax[0].set_title("economy vs scale: GD-share RISES with W")
-    if "acc_vs_W" in A:
-        ax[1].plot(W, A["acc_vs_W"], "o-", color=STYLE["ours_a"])
-        ax[1].set_xlabel("width W"); ax[1].set_ylabel("accuracy"); ax[1].set_title("accuracy vs W")
+    ax[0].set_xlabel("width W (D=80 fixed)"); ax[0].set_ylabel("GD-share"); ax[0].legend(fontsize=8)
+    ax[0].set_title("economy vs scale: GD-share RISES with W\n(measured confirms the pinned shape)")
+    # panel 2: accuracy vs W and vs D
+    ax[1].plot(W, A["acc_vs_W"], "o-", color=STYLE["ours_a"], lw=2, label="acc vs W (@ D=80)")
+    if "scale_D" in A and "acc_vs_D" in A:
+        ax2 = ax[1].twiny()
+        ax2.plot(A["scale_D"], A["acc_vs_D"], "^--", color=STYLE["proj"], lw=2, label="acc vs D (recipe-W)")
+        ax2.set_xlabel("input dim D (recipe-W)", color=STYLE["proj"])
+        ax2.legend(fontsize=8, loc="lower right")
+    ax[1].set_xlabel("width W"); ax[1].set_ylabel("gauntlet accuracy"); ax[1].legend(fontsize=8, loc="upper left")
+    ax[1].set_title("accuracy vs capacity\n(does width buy the gap back?)")
+    # panel 3: substrate factor vs W
+    if "substrate_vs_W" in A:
+        ax[2].plot(W, A["substrate_vs_W"], "o-", color="#5a3d8a", lw=2)
+        ax[2].set_xlabel("width W"); ax[2].set_ylabel("substrate factor  E(digital)/E(analog)")
+        ax[2].set_title("the analog crossbar advantage vs scale\n(non-decreasing = the chip holds)")
+    fig.suptitle("P11.6 SCALING — capacity vs the economy/substrate (Fashion long gauntlet)", fontsize=12, y=1.03)
     fig.tight_layout(); out = out or os.path.join(run_dir, "SCALING.png")
+    fig.savefig(out, dpi=110, bbox_inches="tight"); plt.close(fig)
+    return out
+
+
+def fig_crossover(run_dir, out=None):
+    """CROSSOVER (P11.5) — analytic memory bytes-vs-C: a fixed-byte REPLAY buffer O(C) vs the PROTOTYPE+GRAM namer
+    O(C*F + F^2); the crossover C* where the namer is the more memory-efficient representation. + measured
+    worst-retention points at C=10/20 (OURS vs byte-matched ER — the dilution shows up as a widening gap)."""
+    A = _load(run_dir)
+    C = A.get("crossover_analytic_C")
+    if C is None:
+        return None
+    fig, ax = plt.subplots(1, 2, figsize=(11.5, 4.3))
+    rb = A["crossover_replay_bytes"]; pg = A["crossover_protogram_bytes"]
+    ax[0].plot(C, rb, "-", color=STYLE["er"], lw=2, label="fixed-rate replay  O(C·k·F)")
+    ax[0].plot(C, pg, "-", color=STYLE["ours_a"], lw=2, label="prototype+Gram  O(C·F + F²)")
+    cross = np.where(pg < rb)[0]
+    if len(cross):
+        cstar = C[cross[0]]
+        ax[0].axvline(cstar, ls=":", c="#333333", lw=1.2)
+        ax[0].annotate(f"crossover C*≈{int(cstar)}", (cstar, pg[cross[0]]), fontsize=9,
+                       xytext=(cstar + 6, pg[cross[0]] * 1.4), color="#333333")
+    ax[0].set_xlabel("number of classes C"); ax[0].set_ylabel("memory (floats)"); ax[0].set_yscale("log")
+    ax[0].legend(fontsize=8, loc="upper left")
+    ax[0].set_title("memory fairness: prototype+Gram beats\nbyte-matched replay past C*")
+    # measured retention
+    Cm = A.get("crossover_measured_C")
+    if Cm is not None:
+        ax[1].plot(Cm, A["crossover_measured_ours"], "o-", color=STYLE["ours_a"], lw=2, label="OURS (prototype+Gram)")
+        ax[1].plot(Cm, A["crossover_measured_er"], "s--", color=STYLE["er"], lw=2, label="byte-matched ER (replay)")
+        ax[1].set_xlabel("number of classes C"); ax[1].set_ylabel("worst-point retention")
+        ax[1].set_xticks(Cm); ax[1].legend(fontsize=8); ax[1].set_ylim(0, 1.02)
+        ax[1].set_title("measured retention vs C\n(replay dilutes as C grows)")
+    fig.suptitle("P11.5 CROSSOVER — the class-count memory read", fontsize=12, y=1.03)
+    fig.tight_layout(); out = out or os.path.join(run_dir, "CROSSOVER.png")
     fig.savefig(out, dpi=110, bbox_inches="tight"); plt.close(fig)
     return out
 
@@ -176,6 +225,8 @@ def regen(run_dir):
             outs.append(fig_stream(run_dir, arena))
     if "scale_W" in A:
         outs.append(fig_scaling(run_dir))
+    if "crossover_analytic_C" in A:
+        outs.append(fig_crossover(run_dir))
     return [o for o in outs if o]
 
 

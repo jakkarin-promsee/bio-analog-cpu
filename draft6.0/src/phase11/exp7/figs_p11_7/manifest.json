@@ -1,0 +1,68 @@
+{
+  "rung": "P11.7",
+  "git": "e90868e08504b223271b33a5c0ac6a40126ebadf",
+  "arena": "gas",
+  "er_cfg": {
+    "lr": 0.03,
+    "replay": 64,
+    "hidden": 128
+  },
+  "flops_per_sample": {
+    "ours": 92805.81818181818,
+    "er": 200448.0,
+    "ratio": 0.4629919888540578
+  },
+  "energy_per_sample": {
+    "ours_analog": 3814.893818181819,
+    "ours_digital": 19371.205636363637,
+    "er_analog": 4526.64,
+    "er_digital": 40228.8
+  },
+  "rows": {
+    "raw_flops": {
+      "cost_ours": 92805.81818181818,
+      "cost_er": 200448.0,
+      "ratio": 0.4629919888540578,
+      "lam_ours": 1.0775186508682841e-05,
+      "lam_er": 4.9888250319284805e-06,
+      "lam_demo": 7.331815612671598e-06,
+      "skip_ours": 0.0,
+      "skip_er": 0.3195648533077837
+    },
+    "energy_digital": {
+      "cost_ours": 19371.205636363637,
+      "cost_er": 40228.8,
+      "ratio": 0.48152581325725935,
+      "lam_ours": 5.1623012979780645e-05,
+      "lam_er": 2.485781330787893e-05,
+      "lam_demo": 3.58222726671773e-05,
+      "skip_ours": 0.0,
+      "skip_er": 0.30607938980221994
+    },
+    "energy_analog": {
+      "cost_ours": 3814.893818181819,
+      "cost_er": 4526.64,
+      "ratio": 0.8427650129415678,
+      "lam_ours": 0.000262130493707057,
+      "lam_er": 0.00022091440892140748,
+      "lam_demo": 0.0002406416486761409,
+      "skip_ours": 0.0,
+      "skip_er": 0.08197766206830892
+    }
+  },
+  "throughput_flops": {
+    "ours_g4": {
+      "flops": 92805.81818181818,
+      "rel_complexity": 0.9999999999998923,
+      "steps_behind_frac": 1.0769163338864018e-13
+    },
+    "er_strong": {
+      "flops": 200448.0,
+      "rel_complexity": 2.1598645852922256,
+      "steps_behind_frac": 0.5370080111459654
+    }
+  },
+  "verdict": "BRANCH (i) THE REGIME WIN \u2014 OURS's critical rate exceeds ER's (a rate exists where ER drops and OURS does not).",
+  "note": "derivation from metered FLOPs/sample (Ghunaim read); same-substrate rows + the analog row (R12); demo rate = geometric mean of the two critical rates. No wall-clock (a numpy artifact).",
+  "wall_s": 15.8
+}

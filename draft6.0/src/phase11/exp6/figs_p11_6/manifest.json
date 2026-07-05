@@ -1,0 +1,82 @@
+{
+  "rung": "P11.6",
+  "git": "e90868e08504b223271b33a5c0ac6a40126ebadf",
+  "seeds": [
+    42,
+    137,
+    271
+  ],
+  "arena": "fashion",
+  "regime": "long",
+  "W_sweep": {
+    "W": [
+      64,
+      128,
+      256
+    ],
+    "acc": [
+      0.42400000000000004,
+      0.47269999999999995,
+      0.5021
+    ],
+    "gdshare_measured": [
+      0.17264046099261887,
+      0.27842924542355924,
+      0.44955922322095215
+    ],
+    "gdshare_pinned": [
+      0.21007171948303663,
+      0.3407238683777385,
+      0.5312510313900527
+    ],
+    "substrate": [
+      5.386992467795676,
+      6.889247659382647,
+      7.249150721057468
+    ],
+    "worst_bwt": [
+      -0.024999999999999967,
+      -0.05700000000000005,
+      -0.061000000000000054
+    ]
+  },
+  "D_sweep": {
+    "D": [
+      40,
+      80,
+      160
+    ],
+    "W": [
+      64,
+      128,
+      256
+    ],
+    "acc": [
+      0.3899,
+      0.47269999999999995,
+      0.5097
+    ],
+    "gdshare": [
+      0.17480640119514046,
+      0.27842924542355924,
+      0.44545801454158473
+    ],
+    "substrate": [
+      5.203658269591089,
+      6.889247659382647,
+      7.365473312233414
+    ],
+    "worst_bwt": [
+      -0.02999999999999997,
+      -0.05700000000000005,
+      -0.033499999999999974
+    ]
+  },
+  "verdict": {
+    "shape_confirmed": true,
+    "capacity_buys": true,
+    "substrate_nondecreasing": true
+  },
+  "note": "W-sweep is a capacity ablation (W != recipe ceil(1.6D), stated); D-sweep is the recipe stretched. GD-share measured vs the bench-pinned meter shape (P11.0). substrate\u00d7 = E(digital)/E(analog), same op-counts.",
+  "wall_s": 851.2
+}

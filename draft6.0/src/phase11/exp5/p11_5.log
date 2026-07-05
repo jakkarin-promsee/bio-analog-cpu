@@ -1,0 +1,18 @@
+============================================================================== 
+P11.5 HARDNESS LADDER r2/r3 (Fashion, CIFAR-gray) + class-count CROSSOVER
+ ==============================================================================
+
+--- r2: fashion gauntlet (long regime, both arms) ---
+    [A] OURS aa 0.382 worstBWT -0.021 ret 0.354 | ER aa 0.507 worstBWT -0.146 ret 0.483 | ceiling 0.655 -> BET HOLDS (safety win)
+    [B] OURS aa 0.454 worstBWT -0.057 ret 0.401 | ER aa 0.530 worstBWT -0.141 ret 0.380 | ceiling 0.655 -> BET HOLDS (safety win)
+
+--- r3: cifar10gray gauntlet (long regime, both arms) ---
+    [A] OURS aa 0.123 worstBWT -0.017 ret 0.113 | ER aa 0.107 worstBWT -0.102 ret 0.095 | ceiling 0.199 -> FLOOR (ceiling 0.20)
+    [B] OURS aa 0.127 worstBWT -0.019 ret 0.112 | ER aa 0.098 worstBWT -0.095 ret 0.096 | ceiling 0.199 -> FLOOR (ceiling 0.20)
+
+--- class-count crossover (analytic bytes-vs-C + measured C=10/C=20) ---
+    F=768 k=2: prototype+Gram bytes < replay bytes for C >= None (the crossover; beyond it the namer is the more memory-efficient representation)
+    measured worst-retention: C=10  OURS 0.354 vs ER 0.423 | C=20  OURS 0.233 vs ER 0.014
+    -> as C grows the replay buffer dilutes; OURS retention gap vs ER: C10 -0.069 -> C20 +0.219
+
+  saved -> C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase11\exp5\figs_p11_5  (861.6s)

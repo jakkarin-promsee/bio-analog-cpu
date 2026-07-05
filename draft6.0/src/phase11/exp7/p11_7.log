@@ -1,0 +1,12 @@
+============================================================================== 
+P11.7 THROUGHPUT — the critical-rate derivation (gas), same-substrate + the analog row
+ ==============================================================================
+
+[derivation table — same-substrate rows]
+  [RAW FLOPs/sample] cost/sample OURS 9.28e+04 vs ER 2e+05 (ratio 0.46x) | crit-rate OURS 1.08e-05 vs ER 4.99e-06 | demo(geomean) 7.33e-06 -> skip@demo OURS 0.0% / ER 32.0%
+  [ENERGY/sample DIGITAL] cost/sample OURS 1.94e+04 vs ER 4.02e+04 (ratio 0.48x) | crit-rate OURS 5.16e-05 vs ER 2.49e-05 | demo(geomean) 3.58e-05 -> skip@demo OURS 0.0% / ER 30.6%
+  [ENERGY/sample ANALOG (the chip)] cost/sample OURS 3.81e+03 vs ER 4.53e+03 (ratio 0.84x) | crit-rate OURS 0.000262 vs ER 0.000221 | demo(geomean) 0.000241 -> skip@demo OURS 0.0% / ER 8.2%
+
+  VERDICT: BRANCH (i) THE REGIME WIN — OURS's critical rate exceeds ER's (a rate exists where ER drops and OURS does not).
+
+  saved -> C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase11\exp7\figs_p11_7  (15.8s)

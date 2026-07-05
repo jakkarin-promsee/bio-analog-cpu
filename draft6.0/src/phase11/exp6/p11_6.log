@@ -1,0 +1,21 @@
+============================================================================== 
+P11.6 CAPACITY SCALING — Fashion long-regime gauntlet (W-sweep @ D80, D-sweep @ recipe-W)
+ ==============================================================================
+
+[W-sweep @ fixed D=80]
+    [W W64] D=80 W=64 Fdim=768  AA 0.424  worstBWT -0.025  GD-share 0.173  substrate× 5.39
+    [W W128] D=80 W=128 Fdim=1536  AA 0.473  worstBWT -0.057  GD-share 0.278  substrate× 6.89
+    [W W256] D=80 W=256 Fdim=3072  AA 0.502  worstBWT -0.061  GD-share 0.450  substrate× 7.25
+    pinned GD-share shape (bench, meter-derived) = [np.float64(0.21), np.float64(0.341), np.float64(0.531)]
+
+[D-sweep @ recipe-W = ceil(1.6D)]
+    [D D40] D=40 W=64 Fdim=768  AA 0.390  worstBWT -0.030  GD-share 0.175  substrate× 5.20
+    [D D80] D=80 W=128 Fdim=1536  AA 0.473  worstBWT -0.057  GD-share 0.278  substrate× 6.89
+    [D D160] D=160 W=256 Fdim=3072  AA 0.510  worstBWT -0.033  GD-share 0.445  substrate× 7.37
+
+==============================================================================
+  GD-share vs W: measured [np.float64(0.173), np.float64(0.278), np.float64(0.45)] RISES | pinned RISES -> shape CONFIRMED
+  accuracy vs W: [np.float64(0.424), np.float64(0.473), np.float64(0.502)] -> capacity BUYS the gap back
+  substrate× vs W: [np.float64(5.39), np.float64(6.89), np.float64(7.25)] -> NON-DECREASING (the chip holds at scale)
+
+  saved -> C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU\draft6.0\src\phase11\exp6\figs_p11_6  (852.1s)

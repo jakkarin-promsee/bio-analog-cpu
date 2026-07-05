@@ -1,0 +1,78 @@
+{
+  "rung": "P11.5",
+  "git": "e90868e08504b223271b33a5c0ac6a40126ebadf",
+  "seeds": [
+    42,
+    137,
+    271,
+    314,
+    1729
+  ],
+  "table": {
+    "r2_A": {
+      "arena": "fashion",
+      "ours_aa": 0.38170000000000004,
+      "ours_bwt": -0.02100000000000002,
+      "ours_ret": 0.354,
+      "er_aa": 0.5075,
+      "er_bwt": -0.14550000000000007,
+      "er_ret": 0.483,
+      "ceiling": 0.6554,
+      "floor": false,
+      "verdict": "BET HOLDS (safety win)"
+    },
+    "r2_B": {
+      "arena": "fashion",
+      "ours_aa": 0.45380000000000004,
+      "ours_bwt": -0.05700000000000005,
+      "ours_ret": 0.401,
+      "er_aa": 0.5304,
+      "er_bwt": -0.14050000000000007,
+      "er_ret": 0.38,
+      "ceiling": 0.6554,
+      "floor": false,
+      "verdict": "BET HOLDS (safety win)"
+    },
+    "r3_A": {
+      "arena": "cifar10gray",
+      "ours_aa": 0.1232,
+      "ours_bwt": -0.0165,
+      "ours_ret": 0.1125,
+      "er_aa": 0.10710000000000001,
+      "er_bwt": -0.1015,
+      "er_ret": 0.095,
+      "ceiling": 0.1994,
+      "floor": true,
+      "verdict": "FLOOR (ceiling 0.20)"
+    },
+    "r3_B": {
+      "arena": "cifar10gray",
+      "ours_aa": 0.1271,
+      "ours_bwt": -0.018500000000000003,
+      "ours_ret": 0.1115,
+      "er_aa": 0.0984,
+      "er_bwt": -0.0945,
+      "er_ret": 0.0955,
+      "ceiling": 0.1994,
+      "floor": true,
+      "verdict": "FLOOR (ceiling 0.20)"
+    }
+  },
+  "crossover": {
+    "F": 768,
+    "k": 2,
+    "Cstar": null,
+    "measured": {
+      "C10": [
+        0.3544973544973545,
+        0.42328042328042326
+      ],
+      "C20": [
+        0.23309608540925267,
+        0.014084507042253521
+      ]
+    }
+  },
+  "note": "r2/r3 gauntlet long-regime both arms vs per-arm-tuned ER; FLOOR by joint-BP ceiling. crossover analytic bytes-vs-C (replay O(C) vs prototype+Gram O(C*F+F^2)) + measured worst-retention C=10/20.",
+  "wall_s": 861.0
+}
