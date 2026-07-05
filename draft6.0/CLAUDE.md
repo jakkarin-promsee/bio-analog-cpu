@@ -60,7 +60,7 @@ beyond the numbered phases, the recurrent lifelong brain (the north star).** One
 
 ## The decision record
 
-The live record is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (N1–N3 approved + S1–S14 supporting); the full
+The live record is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (N1–N3 approved + S1–S15 supporting); the full
 derivation (story form) is [`idea/ideas1.md`](idea/ideas1.md); the folder index + decision timeline is [`idea/README.md`](idea/README.md). **6.0 is young** — the spine is committed but treat
 decisions as *settling*, not frozen the way draft-5.1's "14 locked decisions" were presented; the open knobs are
 listed there and the sims set them. What carried forward from the old world *in spirit*: the two-timescale
@@ -87,9 +87,9 @@ draft6.0/
   README.md        the pivot story (why 5.x died, what 6.0 is)
   context.md       ★ full cold-start dump (what / why / how / the person)
   idea/            the design (index: idea/README.md)
-    README.md          the idea index + decision timeline (ideas1 → P1-6 → gd-replan → P7-10)
+    README.md          the idea index + decision timeline (ideas1 → P1-6 → gd-replan → P7-11)
     ideas1.md          the origin blueprint (full derivation, story form)
-    main.ideas.v1.md   the decision record (N1–N3 + S1–S14) — the committed plan
+    main.ideas.v1.md   the decision record (N1–N3 + S1–S15) — the committed plan
     phase4-opinion.md · phase4-problem.md · gd-replan/   the GD-era development of ideas1
   research/        the reading, by role:
     survey/        learning-rule survey (the options considered)

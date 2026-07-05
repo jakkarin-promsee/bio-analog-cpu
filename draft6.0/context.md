@@ -157,7 +157,7 @@ The canonical decisions live in `idea/main.ideas.v1.md` (snapshot v1). The spine
 - **N2 — the middle layer = stability + coordination, split.** Plasticity-gradient slowdown (mirror LLRD) + DF-O overlap; EMA-view (BYOL) as the de-risked upgrade.
 - **N3 — GD = residual boosting blocks.** Boosting in the GD checkpoints; SCFF feature work inside the residual stream.
 
-**Supporting structure (S1–S8, as first committed):** S1 path-diversity-from-depth-not-width · S2 mono-forward dual-rail · S3 GD reads via taps · S4 two GD organs · S5 mandatory inter-layer norm · S6 threshold gating (ε-floor) · S7 sleep consolidation · S8 LUT prototype memory. *(The ten phases extended this record to **S14** and overturned several of Parts 3–4's day-one calls above — energy-goodness → contrast, N2 struck, boosting dropped, the namer is closed-form **not** GD (S11), the gate is a **safety** mechanism (S12), the grid-4 lifelong cadence (S13). The committed state is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) S1–S14 — read Parts 3–4 as the day-one plan, not the final design.)*
+**Supporting structure (S1–S8, as first committed):** S1 path-diversity-from-depth-not-width · S2 mono-forward dual-rail · S3 GD reads via taps · S4 two GD organs · S5 mandatory inter-layer norm · S6 threshold gating (ε-floor) · S7 sleep consolidation · S8 LUT prototype memory. *(The eleven phases extended this record to **S15** and overturned several of Parts 3–4's day-one calls above — energy-goodness → contrast, N2 struck, boosting dropped, the namer is closed-form **not** GD (S11), the gate is a **safety** mechanism (S12), the grid-4 lifelong cadence (S13), the honest-race verdict (S14), the real-data limit map (S15). The committed state is [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) S1–S15 — read Parts 3–4 as the day-one plan, not the final design.)*
 
 **Open knobs (the sims decide):** front:back plasticity ratio; gate threshold (absolute vs plateau-slope); sleep cadence (couples to cluster-churn and EMA τ); how little history sleep needs; LUT vigilance threshold; margin vs log-loss; two-sided vs pure-contrast objective; how many chained blocks before direction-chaining strains; tied-from-start vs converge-to-tied first layer.
 
@@ -281,7 +281,7 @@ draft6.0/
   idea/                — the design (index: idea/README.md):
     README.md          — the idea index + decision timeline (ideas1 → P1-6 → gd-replan → P7-10)
     ideas1.md          — the origin blueprint (full derivation, story form)
-    main.ideas.v1.md   — the decision record (N1–N3 + S1–S14)  ← the committed plan
+    main.ideas.v1.md   — the decision record (N1–N3 + S1–S15)  ← the committed plan
     phase4-opinion.md · phase4-problem.md · gd-replan/  — the GD-era development of ideas1
   research/            — all the reading, by role:
     survey/            — the learning-rule survey (SCFF, SGR, EqProp, predictive coding, … .detail.md)

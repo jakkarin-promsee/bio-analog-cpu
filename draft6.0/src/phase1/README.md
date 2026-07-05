@@ -9,7 +9,7 @@
 > a periodic **sleep** recovers what online backprop catastrophically forgets. It is **not** a deep static-accuracy
 > competitor — *and that's the point.*
 >
-> *↑ In the arc:* **Phase 1** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 1** of the eleven-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

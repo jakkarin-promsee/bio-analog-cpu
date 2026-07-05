@@ -277,31 +277,32 @@ map:
 
 | Path (`draft6.0/…`) | Type | One-line |
 | --- | --- | --- |
-| `README.md` | Story | the pivot — why 5.x died, what 6.0 is, the ten-phase arc |
+| `README.md` | Story | the pivot — why 5.x died, what 6.0 is, the eleven-phase arc |
 | `context.md` | Context dump | the whole picture for a cold agent (what / why / how / the person) |
 | `CLAUDE.md` | Agent | the draft's operating context + the live status ladder (P1–P10) |
 | `idea/README.md` | Index | the idea folder's front door + the decision timeline |
 | `idea/ideas1.md` | Design | the origin blueprint — the nine-chapter plan, committed *before* a sim ran |
-| `idea/main.ideas.v1.md` | Decision record | **N1–N3 + S1–S14**, one line per committed call (the draft-6 equivalent of the old §22 protected list) |
+| `idea/main.ideas.v1.md` | Decision record | **N1–N3 + S1–S15**, one line per committed call (the draft-6 equivalent of the old §22 protected list) |
 | `idea/phase4-opinion.md` · `phase4-problem.md` | Development | the prescient GD-era reflection + the depth-decay problem statement |
 | `idea/gd-replan/` | Development | the depth-readout research hinge that opened Stage 2 |
 | `research/` | Reading | `survey/` (learning-rule options) · `papers/` (paper stories, per phase) · `north-star/` (beyond-the-phases dossier) |
 | `src/README.md` | Index | the results front door — the arc map + the document-system key |
 | `src/stage1-report.md` · `stage2-report.md` · `validation-report.md` | Report | the three executive volumes (Stage 1 = P1–6 · Stage 2 build = P7–9 · the validation = P10–11) |
-| `src/phase{1..10}/` | Phase | per phase: `README.md` (front door) · `phaseN-report.md` (deep) · `RESULTS.md` · `design.md` · `expK/` cards · `pNlib.py` + figures |
+| `src/phase{1..11}/` | Phase | per phase: `README.md` (front door) · `phaseN-report.md` (deep) · `RESULTS.md` · `design.md` · `expK/` cards · `pNlib.py` + figures |
 | `src/phase9-final-architecture.md` | Snapshot | the whole **frozen** two-brain model in one self-contained file (v2.0.0) |
 | `src/ref-report/` | Glossary | methods · metrics · papers the reports cite (one pinned definition each) |
 
-**The ten-phase arc** is draft 6's version-history (the old drafts iterated `.md` files; draft 6 iterates *phases*):
+**The eleven-phase arc** is draft 6's version-history (the old drafts iterated `.md` files; draft 6 iterates *phases*):
 **Stage 1** — P1 structure → P2 depth-round-1 → P3 the objective reframe (contrast supersedes energy-goodness) →
 P4 characterization → P5 the SCFF close-out (depth solved) → P6 noise-hardening — built the cheap brain; **Stage 2**
 — P7 the readout (*not* gradient descent) → P8 the economy → P9 the freeze → P10 the honest race — built the namer
-and validated the whole object (verdict **S14**: a substrate-native continual learner, refined not inflated). The
+and validated the whole object (verdict **S14**: a substrate-native continual learner, refined not inflated) — then **P11 the limit map** took the frozen object to real data + scale (verdict
+**S15**: wins, losses, and floors all mapped). The
 narrative is [`project-history.md`](project-history.md) (Part II); the front-door synthesis is
 [`../../draft6.0/src/README.md`](../../draft6.0/src/README.md).
 
 **Naming note:** draft 6 dropped the `draftX.Y.md` single-file convention. Its "versions" are the numbered **phases**
-(P1–P10) and the **decision-record deltas** (N1–S14), not new filenames — because the rebuild is a project, not a
+(P1–P11) and the **decision-record deltas** (N1–S15), not new filenames — because the rebuild is a project, not a
 document.
 
 ---

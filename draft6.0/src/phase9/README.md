@@ -8,7 +8,7 @@
 > against *internal* signals, then LOCKS the object** for Phase 10 to race. Ran 2026-07-02, P9.0→P9.5, single-thread
 > CPU/float64, seeds `[42,137,271,314,1729]`, all nine guards bit-exact. Discipline: **freeze in P9, judge in P10.**
 >
-> *↑ In the arc:* **Phase 9** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 9** of the eleven-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

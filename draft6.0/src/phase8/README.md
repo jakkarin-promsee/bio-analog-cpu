@@ -9,7 +9,7 @@
 > single-thread CPU/float64, seeds `[42,137,271,314,1729]`, all seven guards bit-exact. **P8.7 (the "why analog" substrate
 > ablation) added 2026-07-02** — the full 2×2 {OURS, GD+replay} × {analog, digital} for the professor brief.
 >
-> *↑ In the arc:* **Phase 8** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 8** of the eleven-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

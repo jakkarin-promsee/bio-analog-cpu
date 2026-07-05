@@ -6,7 +6,7 @@
 > namer (Stage 2), because a frozen head cannot manufacture backbone robustness (LP-FT). Ran 2026-07-01, P6.0→P6.8,
 > single-thread, seeds `[42,137,271,314,1729]`, all guards pass.
 >
-> *↑ In the arc:* **Phase 6** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 6** of the eleven-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

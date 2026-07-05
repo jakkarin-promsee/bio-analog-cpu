@@ -7,7 +7,7 @@
 > reads taps, never writes; the P2.5 envelope held). Ran 2026-07-02, P7.0→P7.6, single-thread, seeds
 > `[42,137,271,314,1729]`, all guards pass.
 >
-> *↑ In the arc:* **Phase 7** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 7** of the eleven-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

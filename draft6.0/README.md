@@ -1,7 +1,7 @@
 # Draft 6.0
 
 > _The post-pivot line (June–July 2026). This is the **story of the whole build** — why draft 5.x died, what 6.0
-> turned out to be, and what ten phases of simulation actually said (some of it overruling the plan, in my favour).
+> turned out to be, and what eleven phases of simulation actually said (some of it overruling the plan, in my favour).
 > The **soul** under all of it — the origin, the collapse, the return, the person — is
 > [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md); this page is the **technical** companion. The
 > results in full are in [`src/`](src/README.md); the committed design is [`idea/`](idea/README.md); the acronym
@@ -178,7 +178,7 @@ intelligence first. That horizon is [`docs/essence/the-essence2.md` §J](../docs
 | --- | --- |
 | [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md) | **the soul** — origin, collapse, return, the spine, the person (the *why*). Start here if you want the human story. |
 | [`context.md`](context.md) | the full **cold-start context dump** (what / why / how / the person) — for an agent picking this up cold. |
-| [`idea/`](idea/README.md) | **the design** — [`ideas1.md`](idea/ideas1.md) (the origin blueprint) · [`main.ideas.v1.md`](idea/main.ideas.v1.md) (the N1–S14 decision record) · [`gd-replan/`](idea/gd-replan/README.md) (the depth-readout hinge into Stage 2). |
+| [`idea/`](idea/README.md) | **the design** — [`ideas1.md`](idea/ideas1.md) (the origin blueprint) · [`main.ideas.v1.md`](idea/main.ideas.v1.md) (the N1–S15 decision record) · [`gd-replan/`](idea/gd-replan/README.md) (the depth-readout hinge into Stage 2). |
 | [`src/`](src/README.md) | **the results.** [`README.md`](src/README.md) (the src front door) · the three volumes — `stage1-report.md` (P1–6, the cheap brain) · `stage2-report.md` (P7–9, the namer + the freeze) · `validation-report.md` (P10–11, the frozen object on trial: the fair race + the limit map) · `phase{1..11}/` (per phase: `README` front door · `phaseN-report` story · `RESULTS` ledger · cards + figures) · `phase9-final-architecture.md` (the whole model in one file) · `ref-report/` (the glossary). |
 | [`research/survey/`](research/survey/README.md) | the learning-rule survey — the *options* considered (attribution here is draft-5.1 history). |
 | [`research/papers/`](research/papers/README.md) | paper stories behind the adopted design — Phase 1–2, Phase 3, Phase 5. |

@@ -4,7 +4,7 @@
 > here through *"What's locked, what's open"*) is the **attribution era** — drafts 1 → 5.1, the architecture that
 > **collapsed in June 2026** on a missing sign (the loss carried magnitude but never direction). It is
 > **historical / superseded** — read it for *why* the old decisions were made. **Part II — Draft 6.0** (near the
-> end) is the **current** architecture: the SCFF + gradient-descent rebuild, validated across ten phases of
+> end) is the **current** architecture: the SCFF + gradient-descent rebuild, validated across eleven phases of
 > simulation. Where Part I contradicts draft 6.0, **6.0 wins**; the live plan is
 > [`draft6.0/`](../../draft6.0/context.md).
 
@@ -32,7 +32,7 @@ If you are a future AI picking this up: the spec is in `draft5.0/draft5.1-1.md` 
 - **Phase 11** — Draft 5.1: final polish, bio narrative, XOR bug
 - **Mind Stones** — the reasons ideas mutated (the _why_ behind each pivot)
 - **What's locked, what's open** — the state at the end of the attribution era
-- **Part II — Draft 6.0** — the collapse, the return, and the SCFF + gradient-descent rebuild; the ten phases that validated it (June–July 2026)
+- **Part II — Draft 6.0** — the collapse, the return, and the SCFF + gradient-descent rebuild; the eleven phases that validated it (June–July 2026)
 
 ---
 
@@ -1083,10 +1083,10 @@ only rule that is all four at once) and ~20 % **gradient descent** to put real l
 that, the machinery: a middle layer to smooth the seam, residual **boosting blocks** to chain direction,
 **threshold-gated** learning (cheap SCFF most steps, expensive GD only when the cheap path stalls), and **sleep + a
 hippocampus LUT** so the gated GD doesn't only track what it recently saw. The full derivation — committed *before a
-single simulation ran* — is [`draft6.0/idea/`](../../draft6.0/idea/README.md); the running decision record (N1–S14)
+single simulation ran* — is [`draft6.0/idea/`](../../draft6.0/idea/README.md); the running decision record (N1–S15)
 is [`main.ideas.v1.md`](../../draft6.0/idea/main.ideas.v1.md).
 
-### The ten phases — what the simulations actually said
+### The eleven phases — what the simulations actually said
 
 The rule was the old §20.2 unchanged: **failures are data — never tune until it passes.** But this time the sims
 didn't just confirm the plan; they *overturned* it, repeatedly, in the author's favour. Each phase picked up the
@@ -1117,7 +1117,7 @@ wound the last one left. (The full write-up: [`draft6.0/src/README.md`](../../dr
   forward-only noise-augmented objective that *improves* clean accuracy and keeps the continual win. The dangerous
   enemy turned out **directional** (density ≠ class, a sixth time).
 
-**Stage 2 — the precise namer (Phases 7–10):**
+**Stage 2 — the precise namer (Phases 7–9):**
 
 - **Phase 7 — the readout is NOT gradient descent.** A bake-off of "namers" was won by a **closed-form** analytic
   head (RanPAC, later SLDA) — no gradient. *The "20 % GD" is a role, not a method: the committed chip contains no
@@ -1127,10 +1127,19 @@ wound the last one left. (The full write-up: [`draft6.0/src/README.md`](../../dr
   of backprop-with-replay.
 - **Phase 9 — freeze.** The founding assumption, finally *measured*: the cheap brain **rotates but does not forget**,
   so sleep stays cheap. The lifelong loop was tuned on internal signals only, then **locked at a commit hash.**
+
+**The validation — the frozen object on trial (Phases 10–11):**
+
 - **Phase 10 — the honest race.** The frozen object raced a fair, budgeted, tuned experience-replay backprop
   learner, verdicts pinned **blind**: it **ties** on the hard home, **trails** on natural digits, **wins** continual
   safety (≈10× less forgetting) and noise. On a same-substrate energy Pareto a small tuned baseline dominates it —
   reported plainly, next to the axes it wins.
+- **Phase 11 — the limit map.** The same frozen object taken to **real data + scale**: eight real arenas, five
+  capability channels, every cell win / tie / loss / FLOOR. The “is it just SLDA?” strike decomposed (the bulk is
+  the nonlinear learner; the safety is the closed-form loop); **gas** a genuine real-drift win over a
+  per-arena-tuned opponent; the safety signature surviving real MNIST and cross-dataset streams; the analog
+  substrate advantage *growing* with width — and the autocorrelated streams flooring honestly. The red-team “toy
+  data” strike, answered. (S15.)
 
 ### Draft-6 mind stones
 
@@ -1153,14 +1162,15 @@ wound the last one left. (The full write-up: [`draft6.0/src/README.md`](../../dr
 ### Where it stands (and the most recent work)
 
 The neocortex organ — both brains — is **done and validated honestly** (S14): a substrate-native continual learner,
-refined not inflated. The substrate vision is intact; only the learning rule was reborn. What carried forward *in
+refined not inflated — and then validated on **real data + scale** (S15, the Phase-11 limit map). The substrate vision is intact; only the learning rule was reborn. What carried forward *in
 spirit* from the attribution era: residual connections (now boosting theory), the two-timescale Cortex / Hippocampus
 (now sleep + the LUT), path-diversity thinking (now "depth not width"), and resident-weight / sign-as-digital / the
 Scap (substrate-level, unchanged).
 
-The most recent work (July 2026) was **not** more architecture. It was **assembling the soul**
+The July-2026 work after the race was **assembling the soul**
 ([`the-essence2.md`](../essence/the-essence2.md) — the grown spine after ten phases) and **refactoring the whole
-documentation** so the project reads as one connected story pointing at that spine. Next is the analog-realism
+documentation** so the project reads as one connected story pointing at that spine — then **Phase 11, the limit map** (S15):
+the frozen object taken to real data + scale, its wins, losses, and floors drawn on one map. Next is the analog-realism
 (SPICE / PVT) layer; beyond the numbered phases, the recurrent lifelong "thinking" brain remains the north star —
 but *simple intelligence first.*
 

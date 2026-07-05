@@ -9,7 +9,7 @@
 > ensembles of shallow SCFF blocks with tiny GD readouts** (`read`, never `write`) — ~85% of GD accuracy at ~1/6
 > the backward cost — and that recipe **preserves the continual win.**
 >
-> *↑ In the arc:* **Phase 2** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 2** of the eleven-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

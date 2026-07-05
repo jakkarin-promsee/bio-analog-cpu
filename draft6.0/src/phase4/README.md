@@ -8,7 +8,7 @@
 > **Verdict in one line:** a gap-to-*genuinely-tuned*-backprop map across seven controlled axes says it plainly —
 > **a substrate-native continual learner, not a static-accuracy competitor.** No algorithm bug hid in the breadth.
 >
-> *↑ In the arc:* **Phase 4** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 4** of the eleven-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

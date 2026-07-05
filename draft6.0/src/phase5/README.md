@@ -13,7 +13,7 @@
 > null-but-safe on the no-depth CIFAR-flat wall). Next: **Phase 6** hardens this finished cell against noise (the last
 > Stage-1 step), then **Stage 2** (Phases 7–10) builds the GD namer.
 >
-> *↑ In the arc:* **Phase 5** of the ten-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 5** of the eleven-phase story ([map](../README.md) · [Stage 1](../stage1-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 

@@ -9,7 +9,7 @@
 > A continuous-time analog substrate with on-chip, online learning.
 > Architecture spec + behavioral-simulation plan.
 
-**Status:** Rebuilt at **draft 6.0** (June 2026) after the previous learning rule collapsed. The substrate vision is intact; the learning rule was rebuilt from zero as the **two-brain SCFF + namer** design. Draft 6.0 has since run all **ten phases** (Stage 1 = P1–6, Stage 2 = P7–10) — verdict **S14**, a substrate-native continual learner; this draft-5 folder stays historical.
+**Status:** Rebuilt at **draft 6.0** (June 2026) after the previous learning rule collapsed. The substrate vision is intact; the learning rule was rebuilt from zero as the **two-brain SCFF + namer** design. Draft 6.0 has since run all **eleven phases** (Stage 1 = P1–6 · Stage 2 = P7–9 · the validation P10–11) — verdicts **S14 + S15**, a substrate-native continual learner validated on real data + scale; this draft-5 folder stays historical.
 
 > [!NOTE]
 > Solo independent research project, evenings/weekends. The live plan lives in [`draft6.0/`](../draft6.0/). Drafts 1 → 5.1 (the *attribution era*) are kept as reference for how the project worked before the pivot — see [Project history](#project-history--the-attribution-era-draft-1--51) below.
