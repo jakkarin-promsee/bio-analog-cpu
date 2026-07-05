@@ -127,7 +127,8 @@ Stage 2.
 ## What the simulations said — Stage 2: the namer (Phases 7–10)
 
 Stage 2 builds the precise ~20% that puts our names on the frozen cheap brain — read-only, never re-writing SCFF.
-The arc is [`src/stage2-report.md`](src/stage2-report.md); the discipline was *freeze in P9, judge in P10.*
+The build arc (P7–9) is [`src/stage2-report.md`](src/stage2-report.md); the trial of the frozen object (P10–11) is
+[`src/validation-report.md`](src/validation-report.md); the discipline was *freeze in P9, judge in P10.*
 
 - **Phase 7 — the readout is NOT gradient descent.** I raced a taxonomy of namers, and the winner is **RanPAC** — a
   closed-form random-projection + running-Gram ridge head — with a class-balanced-reservoir guard. **No gradient.**
@@ -178,7 +179,7 @@ intelligence first. That horizon is [`docs/essence/the-essence2.md` §J](../docs
 | [`../docs/essence/the-essence2.md`](../docs/essence/the-essence2.md) | **the soul** — origin, collapse, return, the spine, the person (the *why*). Start here if you want the human story. |
 | [`context.md`](context.md) | the full **cold-start context dump** (what / why / how / the person) — for an agent picking this up cold. |
 | [`idea/`](idea/README.md) | **the design** — [`ideas1.md`](idea/ideas1.md) (the origin blueprint) · [`main.ideas.v1.md`](idea/main.ideas.v1.md) (the N1–S14 decision record) · [`gd-replan/`](idea/gd-replan/README.md) (the depth-readout hinge into Stage 2). |
-| [`src/`](src/README.md) | **the results.** [`README.md`](src/README.md) (the src front door) · `stage1-report.md` + `stage2-report.md` (the two arcs; the Stage-2 arc carries the Phase 11 real-data validation) · `phase{1..11}/` (per phase: `README` front door · `phaseN-report` story · `RESULTS` ledger · cards + figures; `phase11/` = the real-data + scale limit map) · `phase9-final-architecture.md` (the whole model in one file) · `ref-report/` (the glossary). |
+| [`src/`](src/README.md) | **the results.** [`README.md`](src/README.md) (the src front door) · the three volumes — `stage1-report.md` (P1–6, the cheap brain) · `stage2-report.md` (P7–9, the namer + the freeze) · `validation-report.md` (P10–11, the frozen object on trial: the fair race + the limit map) · `phase{1..11}/` (per phase: `README` front door · `phaseN-report` story · `RESULTS` ledger · cards + figures) · `phase9-final-architecture.md` (the whole model in one file) · `ref-report/` (the glossary). |
 | [`research/survey/`](research/survey/README.md) | the learning-rule survey — the *options* considered (attribution here is draft-5.1 history). |
 | [`research/papers/`](research/papers/README.md) | paper stories behind the adopted design — Phase 1–2, Phase 3, Phase 5. |
 | [`research/north-star/`](research/north-star/README.md) | the **north-star** dossier (beyond the numbered phases) — free-time reading, *not* the line to walk now. |

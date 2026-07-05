@@ -36,5 +36,6 @@ precisely. **Losses/floors (shipped):** static accuracy trails (continual-not-st
 - **Session handoff (cold-start context for the run sessions):** [`../../../temp/handoff6.md`](../../../temp/handoff6.md).
 - **Read-budget:** execute from `design.md` + `result-format.md`; open P10 code only to import; the P10 front door
   ([`../phase10/README.md`](../phase10/README.md)) is the verdict being extended, not re-opened.
-- **Up:** draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · prev → [Phase 10 — validation](../phase10/README.md)
+- **Up:** the validation volume → [`../validation-report.md`](../validation-report.md) (P10 + P11 as one arc) ·
+  draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · prev → [Phase 10 — validation](../phase10/README.md)
   (closed, S14) · next after this phase → the analog-realism (SPICE/PVT) layer.

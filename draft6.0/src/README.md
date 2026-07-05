@@ -2,8 +2,10 @@
 
 > **What this is.** The behavioral-simulation record of draft 6.0 — the eleven-phase arc that built the two-brain
 > neocortex, characterized it, validated it honestly, and mapped its limits on real data + scale. This page is the
-> **map**: the arc in order, what every document type is for, and where to start. The **story** is told in [`stage1-report.md`](stage1-report.md) +
-> [`stage2-report.md`](stage2-report.md); the **soul** (why any of this exists) is
+> **map**: the arc in order, what every document type is for, and where to start. The **story** is told in three
+> volumes — [`stage1-report.md`](stage1-report.md) (the cheap brain) → [`stage2-report.md`](stage2-report.md) (the
+> namer, frozen) → [`validation-report.md`](validation-report.md) (the frozen object on trial); the **soul** (why any
+> of this exists) is
 > [`../../docs/essence/the-essence2.md`](../../docs/essence/the-essence2.md); the **design** (what we committed and
 > why) is [`../idea/`](../idea/README.md); the **pivot story** (why 5.x died, what 6.0 is) is
 > [`../README.md`](../README.md).
@@ -14,8 +16,9 @@
 
 Every phase picks up the wound the last one left. Read them in order and it's one story — a cheap brain built, made
 deep, characterized, closed out, hardened, then named — and finally **taken to real data + scale** to have its limits
-mapped. **Stage 1** = the ~80% cheap SCFF brain (Phases 1–6); **Stage 2** = the ~20% precise namer (Phases 7–10);
-**Phase 11** = the real-data validation of the whole frozen object (the limit map).
+mapped. **Stage 1** = the ~80% cheap SCFF brain (Phases 1–6); **Stage 2** = the ~20% precise namer, built and frozen
+(Phases 7–9); **the validation** = the frozen object on trial (Phase 10, the fair race; Phase 11, the real-data limit
+map).
 
 | Phase | The one-line verdict | Front door |
 | --- | --- | --- |
@@ -31,11 +34,12 @@ mapped. **Stage 1** = the ~80% cheap SCFF brain (Phases 1–6); **Stage 2** = th
 | **10 · validation** | Raced a fair backprop baseline: **ties** home, **trails** natural digits, **wins** safety + noise. Refined. | [phase10/](phase10/README.md) |
 | **11 · the limit map** | Real data + scale: **gas wins**, MNIST/Fashion safety + order-invariance hold, autocorrelated streams **floor** honestly. The red-team answer. | [phase11/](phase11/README.md) |
 
-**The two arcs, deep:** [`stage1-report.md`](stage1-report.md) (Phases 1–6) · [`stage2-report.md`](stage2-report.md)
-(Phases 7–10; the Stage-2 arc also folds in the **Phase 11** real-data validation —
-[`phase11/phase11-report.md`](phase11/phase11-report.md), the figure-rich limit-map story). **The whole frozen model
-in one file:** [`phase9-final-architecture.md`](phase9-final-architecture.md) (v2.0.0 — an outside researcher can
-understand the entire chip from that one file).
+**The three volumes, deep:** [`stage1-report.md`](stage1-report.md) (Phases 1–6 — the cheap brain, built and
+hardened) · [`stage2-report.md`](stage2-report.md) (Phases 7–9 — the namer, the economy, the freeze; every section
+ends in a decision) · [`validation-report.md`](validation-report.md) (Phases 10–11 — the frozen object on trial:
+nothing decided, everything measured — the fair race + the limit map). **The whole frozen model in one file:**
+[`phase9-final-architecture.md`](phase9-final-architecture.md) (v2.0.0 — an outside researcher can understand the
+entire chip from that one file).
 
 ---
 
@@ -48,7 +52,7 @@ need, and every doc links up (to its front door + the soul) and down (to the nex
 | --- | --- | --- | --- |
 | **`phaseN/README.md`** | everyone | the phase **synthesis** — verdict → problem → what we did → what we found → decisions → validated → read-next | you want a phase's gist fast |
 | **`phaseN/phaseN-report.md`** | researcher / future-me | the **full narrative** — every figure + table inline, glossary-linked; *understand everything without opening code or a figure* | you're validating a claim |
-| **`stage{1,2}-report.md`** | outsider / future-me | the **executive arc** across a stage — the spine connecting the phase reports | you want the whole story, not one phase |
+| **`stage{1,2}-report.md` · `validation-report.md`** | outsider / future-me | the **executive arcs** — self-sufficient volumes (build Stage 1 → build Stage 2 → judge); each phase's full story with figures, so phase reports are for *auditing* | you want the whole story, not one phase |
 | **`phaseN-final-architecture.md`** | outside researcher | the **whole model in one self-contained file** at a milestone (v1.0.0 / v1.1.0 / v2.0.0) | you want the chip, not the journey |
 | **`phaseN/CLAUDE.md`** | agent (Claude) | a thin **signpost** — verdict + pointers + read-budget + up-links | you're an agent orienting in a phase |
 | **`ref-report/`** | everyone | the **glossary** every report cites (methods · metrics · papers) — one definition, cited everywhere | a term is unfamiliar |
@@ -62,8 +66,8 @@ need, and every doc links up (to its front door + the soul) and down (to the nex
 ## Where to start
 
 - **Outsider / researcher / professor** → [`../README.md`](../README.md) (the pivot story — what the chip is, in one
-  page) → [`stage1-report.md`](stage1-report.md) + [`stage2-report.md`](stage2-report.md) (the results) → any
-  `phaseN/phaseN-report.md` to validate a claim. For the fastest professor-facing read, the one-pager
+  page) → the three volumes — [`stage1-report.md`](stage1-report.md) → [`stage2-report.md`](stage2-report.md) →
+  [`validation-report.md`](validation-report.md) (the results) → any `phaseN/phaseN-report.md` to validate a claim. For the fastest professor-facing read, the one-pager
   [`phase10/professor-brief.md`](phase10/professor-brief.md); for the person and the *why*,
   [`../../docs/essence/the-essence2.md`](../../docs/essence/the-essence2.md) (the soul — a personal milestone, not a
   pitch; read it when you want the human story). **You never need to open a `.py` or a raw figure.**

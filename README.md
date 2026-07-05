@@ -410,7 +410,7 @@ each one links down to the next. Descend only as far as you care to.
 | ----- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | **0** | this README                                                                                               | the result + the shape of the whole project                                    |
 | **1** | [`draft6.0/README.md`](draft6.0/README.md)                                                                | the draft's whole story — why draft 5 died, what 6.0 is, what eleven phases found |
-| **2** | [`stage1-report.md`](draft6.0/src/stage1-report.md) · [`stage2-report.md`](draft6.0/src/stage2-report.md) | the executive arc of each stage — every phase transition and why               |
+| **2** | [`stage1-report.md`](draft6.0/src/stage1-report.md) · [`stage2-report.md`](draft6.0/src/stage2-report.md) · [`validation-report.md`](draft6.0/src/validation-report.md) | the three executive volumes — the cheap brain built (P1–6) · the namer built + frozen (P7–9) · the frozen object on trial (P10–11); each phase's full story, self-sufficient |
 | **3** | [`phaseN/README.md`](draft6.0/src/README.md) → `phaseN/phaseN-report.md`                                  | one phase's verdict at a glance → the deep narrative with every figure         |
 | **4** | `phaseN/expK/experiment-K.md` · `RESULTS.md`                                                              | the raw per-experiment record — every number, no narrative                     |
 

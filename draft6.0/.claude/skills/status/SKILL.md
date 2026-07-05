@@ -26,7 +26,7 @@ description: The live state of draft 6.0 — the phase ladder (P1–P11 DONE), t
 
 **Solid vs open:** the neocortex is closed (both brains built, characterized, frozen, raced against a fair opponent, **and validated on real data + scale in Phase 11**). Open = the analog-realism layer (SPICE / PVT / device noise — everything so far is ideal floats + behavioral noise/energy models), and beyond the numbered phases the recurrent lifelong brain (the north star).
 
-**The whole model in one self-contained file:** `draft6.0/src/phase9-final-architecture.md`. **The live decision record:** `draft6.0/idea/main.ideas.v1.md` (committed N1–N3 + S1–S15). **The executive arcs:** `src/stage1-report.md` (P1–6) · `src/stage2-report.md` (P7–10, + the Phase 11 real-data validation) · the real-data deep story `src/phase11/phase11-report.md` (P11, the limit map).
+**The whole model in one self-contained file:** `draft6.0/src/phase9-final-architecture.md`. **The live decision record:** `draft6.0/idea/main.ideas.v1.md` (committed N1–N3 + S1–S15). **The report volumes:** `src/stage1-report.md` (P1–6, the cheap brain) · `src/stage2-report.md` (P7–9, the namer build + freeze) · `src/validation-report.md` (P10–11, the frozen object on trial — the fair race + the limit map).
 
 **Off-limits:** the recurrent lifelong "thinking" brain is the north star, *beyond* the numbered phases — deliberately not specced. Hold as direction (`research/north-star/`, `docs/essence/`), not a task.
 

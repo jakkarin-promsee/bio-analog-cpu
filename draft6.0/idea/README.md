@@ -51,7 +51,7 @@ ideas1.md   ─►   Phases 1–6      ─►   gd-replan/        ─►   Phase
 | **The soul — why any of this exists** | [`../../docs/essence/the-essence2.md`](../../docs/essence/the-essence2.md) (the grown spine) · [`the-essence.md`](../../docs/essence/the-essence.md) (the seed) |
 | The committed design in one breath + the N1–S14 record | [`main.ideas.v1.md`](main.ideas.v1.md) |
 | The origin blueprint, as a story | [`ideas1.md`](ideas1.md) |
-| What the simulations actually said (the results) | [`../src/stage1-report.md`](../src/stage1-report.md) · [`../src/stage2-report.md`](../src/stage2-report.md) → `../src/phaseN/README.md` |
+| What the simulations actually said (the results) | [`../src/stage1-report.md`](../src/stage1-report.md) · [`../src/stage2-report.md`](../src/stage2-report.md) · [`../src/validation-report.md`](../src/validation-report.md) → `../src/phaseN/README.md` |
 | The whole model in one file (frozen) | [`../src/phase9-final-architecture.md`](../src/phase9-final-architecture.md) |
 | The papers behind the design | [`../research/papers/`](../research/papers/README.md) |
 | Cold-start context for an agent | [`../context.md`](../context.md) · [`../CLAUDE.md`](../CLAUDE.md) |

@@ -444,8 +444,9 @@ not inflated** — the honest-science outcome the project's whole method is buil
   reviewer tests first (*the analog factor is a meter-structural floor; the load-bearing energy win is same-substrate*).
 - **→ the decision record ([`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md)):** the **S14** close-out delta,
   banked the way S10–S13 were.
-- **→ the Stage-2 close-out ([`../stage2-report.md`](../stage2-report.md)):** rewritten from "living / in-progress" to a
-  closed Stage-2 arc.
+- **→ the validation volume ([`../validation-report.md`](../validation-report.md)):** Phase 10 is its first trial (the
+  honest race); Phase 11 (the limit map) is its second. The Stage-2 build arc it judges:
+  [`../stage2-report.md`](../stage2-report.md).
 - **→ the north star (deliberately not specced):** the cosine spine-pure head (P7) and the better-than-confidence exit
   (P5) survive as a *tie-break bias* only; P10 adds no recurrence. Simple intelligence first.
 
@@ -491,5 +492,6 @@ whole model in one file, [`../phase9-final-architecture.md`](../phase9-final-arc
 from saved data: `python plot_p10.py <run-dir>` reads `arrays.npz` and redraws — a figure you can't regenerate is a
 screenshot, not a result.
 
-*Up:* [the Stage-2 arc](../stage2-report.md) · *prev:* [Phase 9 — close & freeze](../phase9/README.md) · *next:* the
-analog-realism (SPICE / PVT) layer, and beyond the numbered phases, the recurrent lifelong brain — the north star.
+*Up:* [the validation volume](../validation-report.md) · *prev:* [Phase 9 — close & freeze](../phase9/README.md) ·
+*next:* [Phase 11 — the limit map](../phase11/README.md), then the analog-realism (SPICE / PVT) layer, and beyond the
+numbered phases, the recurrent lifelong brain — the north star.

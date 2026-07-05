@@ -87,8 +87,10 @@ then withdrawn — within noise.)
   bet's economics & accuracy halves banked separately; the cadence cost-frontier `{4,5,6,8,16}` (grid-4 headline, no swap);
   the characterized SCFF:Namer ratio; the Phase-6 noise arc cashed + the residual named → the analog layer; the **noise-first
   thin-margin limit** named → the next capability (recover clean structure from an all-noisy stream); the **Stage-2
-  close-out** (the neocortex brain is done). The Stage-2 report is rewritten from "living" → closed: [`../stage2-report.md`](../stage2-report.md).
+  close-out** (the neocortex brain is done). The verdict volume: [`../validation-report.md`](../validation-report.md)
+  (P10 + the P11 limit map as one arc); the Stage-2 build arc it judges: [`../stage2-report.md`](../stage2-report.md).
 - **Read-budget:** for the verdict read `README.md`; for numbers `RESULTS.md`. Open cards/code only to modify.
-- **Up:** draft context → [`../../CLAUDE.md`](../../CLAUDE.md) · prev → [Phase 9 — freeze](../phase9/README.md) · next →
-  the Stage-2 close-out ([`../stage2-report.md`](../stage2-report.md)) → the analog-realism (SPICE/PVT) layer, and beyond
+- **Up:** the validation volume → [`../validation-report.md`](../validation-report.md) · draft context →
+  [`../../CLAUDE.md`](../../CLAUDE.md) · prev → [Phase 9 — freeze](../phase9/README.md) · next →
+  [Phase 11 — the limit map](../phase11/README.md) → the analog-realism (SPICE/PVT) layer, and beyond
   the numbered phases, the recurrent lifelong brain (the north star).

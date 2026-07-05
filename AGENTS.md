@@ -25,7 +25,7 @@ layer. Per-phase status lives in [`draft6.0/CLAUDE.md`](draft6.0/CLAUDE.md).
 | --- | --- |
 | The human overview | [`README.md`](README.md) |
 | The **live** work (draft 6.0 — SCFF + GD) | [`draft6.0/`](draft6.0/README.md) → its `CLAUDE.md` (operating) + `context.md` (cold-start) |
-| The **results** — the eleven-phase arc | [`draft6.0/src/README.md`](draft6.0/src/README.md) → [`stage1-report.md`](draft6.0/src/stage1-report.md) (P1–6) · [`stage2-report.md`](draft6.0/src/stage2-report.md) (P7–10, S14) · [`phase11/phase11-report.md`](draft6.0/src/phase11/phase11-report.md) (P11 — the real-data limit map, S15) |
+| The **results** — the eleven-phase arc | [`draft6.0/src/README.md`](draft6.0/src/README.md) → [`stage1-report.md`](draft6.0/src/stage1-report.md) (P1–6) · [`stage2-report.md`](draft6.0/src/stage2-report.md) (P7–9, the build + freeze) · [`validation-report.md`](draft6.0/src/validation-report.md) (P10–11, the trial — S14 + S15) |
 | The whole model in one self-contained file | [`draft6.0/src/phase9-final-architecture.md`](draft6.0/src/phase9-final-architecture.md) |
 | Superseded history (draft 5 — attribution era) | [`draft5.0/`](draft5.0/README.md) |
 | The idea journey (drafts 1.0 → 5.1) | [`draft-journey/`](draft-journey/README.md) |

@@ -365,5 +365,5 @@ The wins are real; the losses and floors are *mapped, not hidden.* That map was 
 
 ---
 
-*Up:* [draft context](../../CLAUDE.md) · *front door:* [`README.md`](README.md) · *numbers:* [`RESULTS.md`](RESULTS.md)
-· *the Stage-2 arc this validates:* [`../stage2-report.md`](../stage2-report.md).
+*Up:* [the validation volume](../validation-report.md) (P10 + P11 as one arc) · *front door:* [`README.md`](README.md) ·
+*numbers:* [`RESULTS.md`](RESULTS.md) · *the Stage-2 build this validates:* [`../stage2-report.md`](../stage2-report.md).

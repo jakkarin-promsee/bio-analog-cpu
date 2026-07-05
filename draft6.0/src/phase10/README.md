@@ -24,7 +24,7 @@
 > Read this for the verdict; numbers in [`RESULTS.md`](RESULTS.md); per-rung stories in [`expK/experiment-K.md`](exp0/experiment-0.md); the
 > spec in [`design.md`](design.md) (§10 = the extension's pre-run record); the contract in [`result-format.md`](result-format.md).
 >
-> *↑ In the arc:* **Phase 10** of the ten-phase story ([map](../README.md) · [Stage 2](../stage2-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
+> *↑ In the arc:* **Phase 10** of the eleven-phase story ([map](../README.md) · [the validation volume](../validation-report.md)) — the spine under all of it: [`the-essence2`](../../../docs/essence/the-essence2.md).
 
 ---
 
@@ -121,5 +121,5 @@ lifelong stability + noise-survival + the analog energy floor, not a static-accu
 
 *Deep story + every figure:* [`phase10-report.md`](phase10-report.md). *Numbers:* [`RESULTS.md`](RESULTS.md). *The
 professor pack:* [`professor-brief.md`](professor-brief.md). *Up:* [Stage-2 map](../stage2-design.md) · *prev:*
-[Phase 9 — freeze](../phase9/README.md) · *next:* the Stage-2 close-out ([`../stage2-report.md`](../stage2-report.md)) →
-the analog-realism layer, and beyond the numbered phases, the north star.
+[Phase 9 — freeze](../phase9/README.md) · *next:* the validation volume ([`../validation-report.md`](../validation-report.md),
+P10 + the P11 limit map) → the analog-realism layer, and beyond the numbered phases, the north star.

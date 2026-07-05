@@ -287,7 +287,7 @@ map:
 | `idea/gd-replan/` | Development | the depth-readout research hinge that opened Stage 2 |
 | `research/` | Reading | `survey/` (learning-rule options) · `papers/` (paper stories, per phase) · `north-star/` (beyond-the-phases dossier) |
 | `src/README.md` | Index | the results front door — the arc map + the document-system key |
-| `src/stage1-report.md` · `stage2-report.md` | Report | the two executive arcs (Stage 1 = P1–6 · Stage 2 = P7–10) |
+| `src/stage1-report.md` · `stage2-report.md` · `validation-report.md` | Report | the three executive volumes (Stage 1 = P1–6 · Stage 2 build = P7–9 · the validation = P10–11) |
 | `src/phase{1..10}/` | Phase | per phase: `README.md` (front door) · `phaseN-report.md` (deep) · `RESULTS.md` · `design.md` · `expK/` cards · `pNlib.py` + figures |
 | `src/phase9-final-architecture.md` | Snapshot | the whole **frozen** two-brain model in one self-contained file (v2.0.0) |
 | `src/ref-report/` | Glossary | methods · metrics · papers the reports cite (one pinned definition each) |

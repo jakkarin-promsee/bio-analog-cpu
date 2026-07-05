@@ -5,7 +5,7 @@
 > budgeted, tuned BP+replay baseline: the verdict (**S14**) is a **substrate-native continual learner** — it ties the
 > fair baseline on the continual home, trails on natural digits (continual, not static), and **wins** continual
 > safety (≈10× less forgetting) + noise (every held-out channel); the energy edge over conventional GD is
-> substrate-realized. The verdict lives in [`stage2-report.md`](stage2-report.md) + [`phase10/README.md`](phase10/README.md);
+> substrate-realized. The verdict lives in [`validation-report.md`](validation-report.md) + [`phase10/README.md`](phase10/README.md);
 > this file is left **period-correct** — the "still owed → Phase 10" notes below reflect its freeze state.
 >
 > **What this is.** The single, self-contained account of the model we built across **nine** phases of draft 6.0 — the
@@ -634,6 +634,6 @@ SCFF (Nature Comms 2025) · Greedy InfoMax (NeurIPS 2019) / CLAPP (NeurIPS 2021)
 (2024) · DeeperForward (ICLR 2025) · BoostResNet (ICML 2018) · BYOL (2020) · Mono-Forward (2025) · AIHWKit / Rasch
 (2023) · Bishop (1995) · Noise2Noise (2018) · LP-FT (Kumar 2022) — the full per-paper ledger is §7. The arc behind every
 claim:
-[`stage1-report.md`](stage1-report.md) · [`stage2-report.md`](stage2-report.md) and each `phaseN/README.md`. The decision
+[`stage1-report.md`](stage1-report.md) · [`stage2-report.md`](stage2-report.md) · [`validation-report.md`](validation-report.md) and each `phaseN/README.md`. The decision
 record: [`idea/main.ideas.v1.md`](../idea/main.ideas.v1.md) (N1–N3 + S1–S13). The cheap-brain snapshot this builds on:
 [`phase6-final-architecture.md`](phase6-final-architecture.md) (v1.1.0). The frozen loop: commit `59d2720`.

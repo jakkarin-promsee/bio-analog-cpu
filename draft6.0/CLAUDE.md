@@ -100,8 +100,9 @@ draft6.0/
     phase9-final-architecture.md  the v2.0.0 WHOLE neocortex in one file (both brains, frozen — validated by P10)
     phase6-final-architecture.md  the v1.1.0 cheap-brain-only snapshot (SCFF alone, noise-hardened)
     phase5-final-architecture.md  the v1.0.0 ideal-data snapshot (kept as the pre-noise base)
-    stage1-report.md   the six-phase executive arc (P1–6, the cheap brain built + hardened)
-    stage2-report.md   the four-phase executive arc (P7–10, the namer, validated)
+    stage1-report.md   volume 1 — the six-phase executive arc (P1–6, the cheap brain built + hardened)
+    stage2-report.md   volume 2 — the build arc of the namer (P7–9: readout · economy · freeze; decisions only)
+    validation-report.md  volume 3 — the frozen object on trial (P10 fair race + P11 limit map; measurements only)
     result-format.md   the canonical house style (figures · metrics · the 6-slot template)
     ref-report/        glossary the reports cite (methods · metrics · papers)
     phaseN/            per phase: README.md (front door / synthesis) · design.md (the pre-run design) ·
@@ -116,7 +117,7 @@ draft6.0/
 | --- | --- |
 | **The whole model in one file (v2.0.0, current head)** | [`src/phase9-final-architecture.md`](src/phase9-final-architecture.md) — the self-contained account of the **complete two-brain neocortex, frozen** (both brains + the maintenance loop); understand the model + the 9-phase arc without opening any phase report. *(v1.1.0 cheap-brain-only snapshot, kept: [`src/phase6-final-architecture.md`](src/phase6-final-architecture.md); v1.0.0 ideal-data base: [`src/phase5-final-architecture.md`](src/phase5-final-architecture.md).)* |
 | The plan / what we're doing now | [`idea/main.ideas.v1.md`](idea/main.ideas.v1.md) (decisions) + [`idea/ideas1.md`](idea/ideas1.md) (the story) |
-| The written results / the Stage-1 & Stage-2 story | [`src/stage1-report.md`](src/stage1-report.md) · [`src/stage2-report.md`](src/stage2-report.md) → `src/phaseN/phaseN-report.md` (figures inline) → [`src/ref-report/`](src/ref-report/README.md) (glossary) |
+| The written results / the report volumes | [`src/stage1-report.md`](src/stage1-report.md) (P1–6) · [`src/stage2-report.md`](src/stage2-report.md) (P7–9) · [`src/validation-report.md`](src/validation-report.md) (P10–11, the trial) → `src/phaseN/phaseN-report.md` (the audit depth) → [`src/ref-report/`](src/ref-report/README.md) (glossary) |
 | What did Phase N find? | `src/phaseN/README.md` (front-door synthesis) + `RESULTS.md` (the scalar ledger) |
 | Code / read a Phase-N experiment | `src/phaseN/` — start *in* that folder to load only its context; `expK/experiment-K.md` cards; `pNlib.py` apparatus |
 | Draw a figure / write up a result | [`src/result-format.md`](src/result-format.md) (canonical house style + base figure catalog; per-phase additions in `src/phaseN/result-format.md`) |

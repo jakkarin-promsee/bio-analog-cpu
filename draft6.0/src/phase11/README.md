@@ -97,5 +97,6 @@ CIFAR-gray floors, the streaming canon floors under label-persistence — ship i
   (P11.2 ran the anchor at porthole-40, a config note not an ER failure); the D=160 cross-dataset Arm B awaits the F5
   einsum→GEMM apparatus fix (descoped to D=80). **Losses and floors stay in the map** — that is the deliverable.
 
-*Up:* [draft context](../../CLAUDE.md) · *prev:* [Phase 10 — validation](../phase10/README.md) (closed, S14) ·
+*Up:* [the validation volume](../validation-report.md) (P10 + P11 as one arc) ·
+[draft context](../../CLAUDE.md) · *prev:* [Phase 10 — validation](../phase10/README.md) (closed, S14) ·
 *spec:* [`design.md`](design.md) · *contract:* [`result-format.md`](result-format.md).
