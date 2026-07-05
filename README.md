@@ -30,10 +30,11 @@ You pay for direction **once**, where it counts, and get everything else cheaply
 delivered: the committed chip's namer turned out to need **no gradient descent at all** — it is closed-form. More
 below.)_
 
-Ten phases of behavioral simulation later, the architecture is **finished, frozen, and raced.** The whole benchmark
-is below — the wins, the mechanism behind them, and the losses, stated just as plainly. **Stop at the end of the
-showcase and you have the shape of the project; or descend the reading ladder at the bottom, layer by layer, as
-deep as you want.**
+Eleven phases of behavioral simulation later, the architecture is **finished, frozen, raced — and taken to the real
+world to have its limits mapped.** The whole benchmark is below — the wins, the mechanism behind them, and the
+losses, stated just as plainly: first **the showcase** (the frozen chip vs tuned backprop, from every angle), then
+**the limit** (the same frozen chip on real data and scale). **Stop at the end of the limit map and you have the
+shape of the project; or descend the reading ladder at the bottom, layer by layer, as deep as you want.**
 
 ---
 
@@ -243,14 +244,177 @@ plunges past grid-6, accuracy cliffs at grid-16
 - **Behavioral simulation only** — numpy, ideal floats, an honest analog-noise and analog-energy model
   (ADC-centred, literature-calibrated), but **no SPICE and no silicon yet**. That layer is next.
 
-_That's the result. Below: what the chip is, how ten phases got it there, and where to read deeper — stop here and
-you have the shape of it, or descend._
+---
+
+## The limit — the same frozen chip, on the real world
+
+Everything above is honest — and all of it is measured on data **we built.** That is the one strike a serious
+reviewer has left, and this project's own red team threw it first: _"the wins live on toy data."_ Three specific
+objections crystallize out of it: **(1)** the namer (SLDA) is off-the-shelf literature — _isn't this whole thing
+just SLDA in a costume?_ **(2)** synthetic drift is _ours_ — _show me nature's._ **(3)** one width, one depth, one
+input size, ten classes — _does anything here scale?_ Phase 11 answers all three with measurements, under one
+posture: **if everything fails, let them attack the math, not the missing evidence.** The deliverable is not a
+win — it is a **map**, with the losses and the dead zones drawn in.
+
+The rules stay as attackable as the showcase's — with the asymmetry pushed _further against_ the home team:
+
+- **Arm A — the frozen recipe.** The committed object, **bit-for-bit** (a guard verifies it reproduces the freeze
+  arrays exactly), forced through a **40-dimensional random porthole** so every arena — an 8-D electricity stream
+  or a 784-D image — enters at the exact width the object was frozen at. Nothing tuned. _Does the thing we
+  actually committed survive contact with real data?_
+- **Arm B — the scaling rule.** The same architecture rebuilt to one **pre-registered size law** (input
+  D = min(native, 160), width 1.6·D, depth 12) — declared _before any run_, fitted to nothing. _How much of the
+  porthole loss comes back at native scale?_
+- **The opponent** — the same ER-strong, now **re-tuned separately for every arena** on a held-out seed, while
+  OURS stays frozen. Our recipe is fixed; theirs is fitted to each world. When the frozen recipe still wins, it
+  counts.
+- **The verdict grid** — every (arena × capability) cell is **win / tie / loss / FLOOR**, thresholds pinned
+  **blind**. A **FLOOR** marks a cell where _nobody_ — us or the field — can beat the trivial baseline, so the
+  cell is uninformative. **Grey is honesty, not defeat — and grey is not parity.**
+
+### Strike 1 — "isn't this just SLDA?" — measured, not argued
+
+![The decomposition — the learned bulk is the nonlinear learner; the continual safety is the closed-form loop](draft6.0/src/phase11/exp1/figs_p11_1/DECOMP.png)
+
+The test: feed the _same_ closed-form namer either the learned 12-layer bulk's features or a plain random
+projection of the raw input, and measure the difference (**Δbulk**) across arenas from linear-easy to
+nonlinear-hard — with a **random-frozen 12-layer stack** (a reservoir) as the control that separates "learned
+structure" from "12 nonlinear layers merely exist."
+
+- **Where a linear head is at chance, the learned bulk is decisive:** it lifts the namer from 0.172 to 0.589
+  (**Δbulk +0.417**) — and it clears the random reservoir (0.389) by a wide margin, so the lift is **learned**,
+  not depth-as-such. On noise, at matched clean accuracy, the bulk adds +0.086/+0.215 — the noise-augmented
+  training paying off through a channel a random projection can't reach.
+- **Where a linear head already saturates** (easy digits, raw-SLDA 0.950), the bulk is correctly **redundant**
+  (−0.014). It steps aside when it isn't needed — that is what "the map is honest" looks like at the mechanism level.
+- **And the safety channel flips the attribution:** a namer with _no bulk at all_ forgets no more than the full
+  object — so the continual safety this chip is famous for lives in the **closed-form namer + gate + sleep**, not
+  in the bulk.
+
+So the answer to the strike is sharper than a defensive "no": _the safety largely **is** the closed-form loop —
+we measured that ourselves and say so — and the **bulk is the nonlinear feature learner**, decisive exactly where
+the data needs one and provably learned rather than lucky depth._ The reviewer gets told which half of the machine
+does which job, with numbers.
+
+### Strike 2a — nature's own drift: the headline win
+
+The four real streams are worlds where the drift is not injected by anyone — sensors age, subjects change,
+prices move, terrain shifts. The read is **prequential accuracy** (predict every batch _before_ training on it —
+the honest online read), and every learner races the brutal **no-change** baseline: just predict the previous label.
+
+![The gas-sensor stream — the untouched frozen recipe beats a per-arena-tuned ER and persistence on a famous real drift benchmark](draft6.0/src/phase11/exp3/figs_p11_3/STREAM_gas.png)
+
+**On gas-sensor drift — a famous real benchmark where sensors chemically age over months — the frozen recipe,
+untouched, through the porthole, is the strongest online learner in the room: 0.789 vs the per-arena-tuned ER's
+0.756, both far above persistence (0.605).** And it pulls ahead exactly where it should: in the late stream, where
+the sensors have aged most. Sensor aging is a coherent covariate shift — precisely the drift the unsupervised bulk
++ sleep re-anchoring was built to ride while the closed-form namer never catastrophically forgets. The scaled
+Arm B lifts it to **0.856**. The volatility bands overlap — ER's line swings as wide as ours — so the swings are
+the _data's_ difficulty, not our sleep loop.
+
+### Strike 2b — and the honest floor, drawn just as plainly
+
+![The HAR stream — an honest FLOOR: the no-change baseline sits above every learner, and inside the floor the field leads](draft6.0/src/phase11/exp3/figs_p11_3/STREAM_har.png)
+
+On the other three streams (activity recognition, electricity, forest cover) **nobody wins — not us, not the
+tuned ER, not anything that reads the features** — because their labels barely change between consecutive samples,
+so "predict the previous label" scores 0.65–0.95 and sits _above every model_. This is a documented property of
+these benchmark streams (the ELEC2 autocorrelation trap), not of our object — and the map calls those cells
+**FLOOR** rather than claiming a tie. Two honest lines inside the grey: the field leads us by ~0.07 within the
+floor (the anti-hype guard is not an anti-loss shield), and **the synthetic gauntlet's near-zero forgetting does
+not carry to continuous natural drift** — nature drifts between every sleep, not in tidy blocks, so the namer's
+frame goes genuinely stale mid-stream (gas worst-point forgetting −0.333). Reported, not hidden — and it is why
+prequential accuracy, not worst-BWT, is the pinned headline read on real streams.
+
+The separation this buys is the strike's real answer: **drift-difficulty vs data-difficulty.** Where the drift
+carries information (gas), the design pays off and the frozen recipe wins. Where the difficulty is the labels'
+autocorrelation, everyone floors together — and we say so instead of quietly dropping those datasets.
+
+### Strike 2c — the safety signature survives real data
+
+![The MNIST domain stream — ER climbs higher inside each world and crashes at every switch; OURS rides flatter and never collapses](draft6.0/src/phase11/exp2/figs_p11_2/STREAM_mnist.png)
+
+The showcase gauntlet, rebuilt on real MNIST: same shape, real pixels. **ER rides higher _inside_ each stationary
+world — and crashes toward ~0.1 at every switch; OURS rides lower but far flatter and never collapses at a
+switch.** Across every cell of the rung the frozen object forgets **~4–16× less** than the per-arena-tuned ER at
+its worst moment, wins retention on long blocks, and is order-invariant (|forward − reversed| ≤ 0.011). Static
+accuracy trails — the 40-D porthole throws away most of MNIST's spatial structure, and this was never a
+static-accuracy competitor — but the **pre-registered scaling rule recovers it on schedule**: doubling the porthole
+lifts accuracy 0.284 → 0.421 and retention 0.223 → 0.314 _with the safety intact_. The identity that defined the
+object on synthetic data is not an artifact of synthetic data.
+
+### Strike 2d — change the _kind_ of data mid-stream
+
+![The cross-dataset stream — ER collapses to ≈0 at each data-type switch; OURS degrades gracefully and keeps all three types alive](draft6.0/src/phase11/exp4/figs_p11_4/STREAM_xdata.png)
+
+The most aggressive test in the phase: **MNIST → Fashion → CIFAR-gray as ONE 30-class stream**, through a front
+end fitted only on the first source — the object never gets to re-fit anything when the very _kind_ of data
+changes. ER learns the first block to a higher accuracy than OURS — then **catastrophically collapses to ≈0 at
+each data-type switch** (its trained head has never seen the new classes and its replay buffer is shaped by the
+old world). OURS **degrades gracefully**, rides _above_ ER through the entire second block, and keeps **all three
+data types alive** to the end — even the weakest (CIFAR-gray) holds ~4× chance while the label space grows to
+30-way. Order-invariance survives even across data *types* (|Δ| ≤ 0.007) — a direct consequence of the closed-form
+namer: there is **no gradient path an ordering can bias.** The one pink cell is stated with its cure: at the frozen
+porthole width, worst-point retention trails ER (0.415 vs 0.534); the pre-registered scaled instance flips it
+(**0.581 ≥ 0.551**).
+
+### Strike 3 — does it scale? Three reads, one against ourselves
+
+![The class-count crossover — on raw bytes the namer never beats a replay buffer; on retention it crosses hard at C=20](draft6.0/src/phase11/exp5/figs_p11_5/CROSSOVER.png)
+
+- **Memory, both halves.** On raw bytes the closed-form namer **never** beats a replay buffer — it carries a large
+  fixed cost (per-class means + a shared covariance), and the left panel says so. But on the metric that matters —
+  worst-point retention as classes accumulate — it **crosses hard at C = 20**: the byte-matched replay buffer
+  splits its budget 1/C per class and **dilutes to ≈0 retention (0.014)** while the namer holds (0.233), because an
+  exact running mean does not dilute. A replay buffer forgets by _crowding_; a prototype memory doesn't.
+
+![The scaling reads — the economy does not improve with width (our own guess, refuted); the analog substrate advantage grows](draft6.0/src/phase11/exp6/figs_p11_6/SCALING.png)
+
+- **The economy — a pre-registered guess, refuted in public.** The plan guessed the 80/20 energy split would
+  _improve_ with width. The meter's own algebra said the opposite before a single run (the closed-form solve is
+  the worst-scaling term), and the runs confirmed it: GD-share **rises** with width, crossing the 0.25 cap. The
+  refutation ships on the map with the same font as the wins — that is what pre-registration is for.
+- **The substrate — the chip's best sentence.** The analog-vs-digital energy advantage **grows with width:
+  5.4× → 7.4×** across the sweep — the crossbar prices the extra bulk MACs near zero exactly where a digital
+  machine pays the most for them. The bigger the model, the more the chip is the right substrate. Capacity itself
+  behaves (accuracy climbs 0.42 → 0.50 over width, 0.39 → 0.51 over input size, safety intact at every point).
+- **Real time, scoped.** On the gas stream, at a shared compute budget, the retention-tuned ER must **drop ~31 %
+  of the stream** to keep up while the frozen recipe processes everything — a regime win, stated with its scope:
+  it _inverts_ on the synthetic home where OURS is the heavier model, so the throughput economy is
+  arena-dependent, not universal.
+
+### The limit map — the deliverable
+
+![The limit map — 8 real arenas × 5 capability channels, every cell win / tie / loss / FLOOR with its number](draft6.0/src/phase11/exp9/figs_p11_9/LIMIT_MAP.png)
+
+Everything above collapses into the one picture the phase was for — **8 arenas × 5 channels, every cell scored,
+nothing omitted:**
+
+- **The wins (teal):** continual **safety** on every non-floor arena · **order-invariance** everywhere it is
+  measured, even across data types · **gas** — a real-drift accuracy win over a per-arena-tuned opponent · and
+  every scaling read (the substrate factor that grows, the C=20 retention crossover, the gas throughput regime).
+- **The losses (pink):** static accuracy on MNIST and Fashion (a continual learner, not a static one — the same
+  loss the showcase already reported, reproduced at scale) · retention on two arenas at the frozen porthole width
+  (both recovered by the pre-registered Arm B).
+- **The floors (grey):** CIFAR-gray (a native-resolution floor — the joint-training _ceiling_ there is 0.199, so
+  no learner can be read) · the three autocorrelated streams (the persistence trap — the field floors alongside us
+  and leads ~0.07 inside it).
+
+**What the showcase claimed, the limit map bounds: the wins are real off the toy bench — real drift, real pixels,
+real type-shifts, growing scale — and every place the object loses or the data goes dark is drawn on the same
+sheet, in pink and grey, next to the teal.** A reader who wants to attack this now knows exactly where to aim —
+which is the point. The full narrative, rung by rung:
+[`draft6.0/src/phase11/phase11-report.md`](draft6.0/src/phase11/phase11-report.md); the two trials (the race + the
+map) as one arc: [`draft6.0/src/validation-report.md`](draft6.0/src/validation-report.md).
+
+_That's the result. Below: what the chip is, how eleven phases got it there, and where to read deeper — stop here
+and you have the shape of it, or descend._
 
 > **What this is, honestly.** A solo research project (evenings and weekends) that rebuilt a small piece of a field
-> from the substrate up. The current architecture — **draft 6.0** — is validated across **ten phases of behavioral
-> simulation** (~60 controlled experiments, 5 seeds each, every figure regenerable from saved arrays). What follows
-> is the whole story, told with the same discipline as the benchmark above: failures are data, scope is part of the
-> claim.
+> from the substrate up. The current architecture — **draft 6.0** — is validated across **eleven phases of
+> behavioral simulation** (~70 controlled experiments, 5 seeds each, every figure regenerable from saved arrays).
+> What follows is the whole story, told with the same discipline as the benchmark above: failures are data, scope
+> is part of the claim.
 
 ---
 
@@ -284,11 +448,12 @@ The committed object, part by part — every one of these was _chosen by an expe
 _The whole model — every part, every equation, every decision that chose it — in one self-contained file:_
 [`draft6.0/src/phase9-final-architecture.md`](draft6.0/src/phase9-final-architecture.md).
 
-## What we built, and what it found — ten phases
+## What we built, and what it found — eleven phases
 
 Draft 6.0 was walked down a simulation ladder one rung at a time, under one rule: **failures are data — never tune
-until it passes.** Every phase picks up the wound the last one left, so the ten read as one story. **Stage 1** built
-and hardened the cheap brain; **Stage 2** built the precise namer and raced the whole object against a fair opponent.
+until it passes.** Every phase picks up the wound the last one left, so the eleven read as one story. **Stage 1**
+built and hardened the cheap brain; **Stage 2** built the precise namer and froze the whole object; **the
+validation** raced the frozen object against a fair opponent, then took it to the real world.
 
 ![The capability map — the cheap brain vs a genuinely-tuned backprop across seven controlled axes](draft6.0/src/phase4/figs_summary/CAPABILITY_MAP.png)
 
@@ -314,7 +479,7 @@ trailing on raw static accuracy, with one honest negative it owns rather than hi
 6. **Noise-hardening.** Before handing it on, the cheap brain is hardened against the noise it will meet on silicon
    — a forward-only, noise-augmented objective that _improves_ clean accuracy and keeps the continual win.
 
-**Stage 2 — the precise namer (Phases 7–10):**
+**Stage 2 — the precise namer (Phases 7–9):**
 
 7. **The readout — it is NOT gradient descent.** A bake-off of "namers" was won by a **closed-form** analytic head
    (RanPAC / SLDA) — no gradient, no backward pass. So the "20 % GD" is a _role_, not a _method_: **the committed
@@ -327,10 +492,17 @@ trailing on raw static accuracy, with one honest negative it owns rather than hi
 9. **Freeze.** The founding assumption, finally _measured_: the cheap brain **rotates but does not forget**, so
    sleep stays cheap. The lifelong maintenance loop was tuned on internal signals only, then **locked at a commit
    hash** for the final race.
+
+**The validation — the frozen object on trial (Phases 10–11):**
+
 10. **The honest race.** Everything in the showcase above — the frozen object vs a fair, budgeted, _tuned_
     experience-replay backprop, verdicts pinned **blind**. It **ties** on the hard continual home, **trails** on
     natural digits, and **wins** continual safety (≈10× less forgetting), the gauntlet, and noise (every held-out
     channel).
+11. **The limit map.** Everything in _The limit_ above — the same frozen object on eight real arenas and scale:
+    the "just SLDA?" strike decomposed, **gas** a genuine real-drift win over a per-arena-tuned opponent, the
+    safety signature surviving real MNIST and cross-dataset streams, the substrate advantage **growing** with
+    width — and every loss and floor drawn on the same map. The red-team answer.
 
 ## The verdict, honestly
 
@@ -384,9 +556,9 @@ Bio-AnalogCPU/
 ├── draft6.0/              ★ the live line — the validated architecture
 │   ├── README.md          the draft's whole story (why 5 died, what 6.0 is)
 │   ├── context.md         the cold-start dump for an agent
-│   ├── idea/              the design + the N1–S14 decision record
+│   ├── idea/              the design + the N1–S15 decision record
 │   ├── research/          the papers behind it (+ the north-star dossier)
-│   └── src/               ★ the results: stage{1,2} reports · phase1..11/ · phase9-final-architecture.md
+│   └── src/               ★ the results: the three report volumes (stage1 · stage2 · validation) · phase1..11/ · phase9-final-architecture.md
 ├── draft5.0/              the superseded attribution era (pre-pivot history)
 ├── draft-journey/         every earlier draft (1.0 → 5.1) in full
 └── post/                  build-in-public writeups
