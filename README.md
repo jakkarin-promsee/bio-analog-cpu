@@ -1,31 +1,19 @@
 # Bio-Analog CPU
 
-**The math model for a bio-inspired analog chip that learns on-chip — online, local, forward-only, with no backward
-pass that ever leaves it. Validated end-to-end in behavioral simulation (eleven phases, ~70 controlled experiments).
-No circuit is drawn here and none is promised — the chip is the constraint-giver and the destination, not the
-deliverable.**
+The math model for a bio-inspired analog chip that learns on-chip — online, local, forward-only, with no backward pass that ever leaves it.
 
-Almost every neural network today runs on digital hardware that shuttles weights through an ALU and learns with a
-global backward pass. This project asks a different question: **what if the chip itself were built so that
-brain-like computation is the _cheap_ path?** The picture the whole project is built around: weights live as analog
-charge on capacitors; the multiply-accumulate happens as physical current in a crossbar of those capacitors; and
-learning happens **on the chip, while it runs, without a backward pass that ever leaves it.**
+## The frame, up front
 
-**Read that picture as a design constraint, not a fabrication plan.** Nobody here is taping out silicon or drawing
-op-amp schematics — solo evenings don't buy a cleanroom, and the project never needed one. The work is the
-**learning architecture that would survive that substrate**: weights that never leave their cells, no global
-backward pass, noise as a fact of life, energy priced by physics. Every analog reference in this repo exists to
-import a *constraint* into the math — the dream is proven **in simulation first**, before anyone melts sand.
-
-The guiding method is one line: **copy the brain's _function_, cheat the _implementation_.** You can't simulate a
-real neuron one-to-one — so don't. Reproduce _what it does_, and pay for each principle with whatever is cheap on
-this substrate: analog physics where physics is cheaper, modern ML math where math is cheaper.
+We are **not building a real analog chip** — no silicon, no circuits, no fabrication. The analog substrate is the
+**constraint that shapes all the math**: weights that never leave their cells, learning that runs forward-only, noise
+and energy priced by physics. The whole architecture is designed to survive that substrate, and is proven in
+**behavioral simulation first** — eleven phases, ~70 controlled experiments. The idea it chases: build the chip so that
+brain-like computation is the _cheap_ path. _(The full frame — what the constraint buys and what it deliberately leaves
+out — is [below the results](#the-analog-frame).)_
 
 ## The bet
 
-**Direction is the one genuinely expensive thing in learning.** Working out _how much_ a weight matters (the
-magnitude) is cheap — the substrate measures it as physical current, for free. Working out _which way_ it should
-move (the sign) is what costs a backward pass, a transpose, a chain of dependencies. So draft 6.0 splits the brain
+**Direction is the one genuinely expensive thing in learning.** Working out _how much_ a weight matters (the magnitude) is cheap — the substrate measures it as physical current, for free. Working out _which way_ it should move (the sign) is what costs a backward pass, a transpose, a chain of dependencies. So draft 6.0 splits the brain
 by cost — **two brains on one substrate:**
 
 - ~**80 % — the cheap brain (SCFF).** _Self-Contrastive Forward-Forward_ ([the paper lineage behind every borrowed
@@ -35,23 +23,34 @@ by cost — **two brains on one substrate:**
 - ~**20 % — the precise brain (the "namer").** A small module that puts _our_ labels on the structure the cheap
   brain found.
 
-You pay for direction **once**, where it counts, and get everything else cheaply. _(The twist the experiments
-delivered: the committed chip's namer turned out to need **no gradient descent at all** — it is closed-form. More
+You pay for direction **once**, where it counts, and get everything else cheaply. _(The twist the experiments delivered: the committed chip's namer turned out to need **no gradient descent at all** — it is closed-form. More
 below.)_
 
-Eleven phases of behavioral simulation later, the architecture is **finished, frozen, raced, and taken to real
-data to have its limits mapped.** The whole benchmark is below — the wins, the mechanism behind them, and the
-losses, described the same way: first **the showcase** (the frozen model vs tuned backprop, from several angles),
-then **the limit** (the same frozen model on real data and scale). **Stop at the end of the limit map and you have
-the shape of the project; or descend the reading ladder at the bottom, layer by layer, as deep as you want.**
+## How to read this
 
-**For the reader who wants the finished work first.** Everything below is the tour. The complete record is **three
-self-sufficient volumes** — every phase's full story, figures, numbers, and revised hypotheses, written to be read
-without opening anything deeper:
+The tour below runs in order — each part stands on its own and links deeper if you want it:
 
-1. [**Stage 1 — the cheap brain, built and hardened** (Phases 1–6)](draft6.0/src/stage1-report.md)
-2. [**Stage 2 — the namer, the economy, the freeze** (Phases 7–9)](draft6.0/src/stage2-report.md)
-3. [**The validation — the frozen object on trial: the race + the limit map** (Phases 10–11)](draft6.0/src/validation-report.md)
+1. [**The showcase**](#the-showcase--one-frozen-model-vs-tuned-backprop-from-several-angles) — one frozen model vs a tuned backprop baseline, read from five angles.
+2. [**The limit**](#the-limit--the-same-frozen-model-on-real-data) — the same frozen model on real data and at scale: where it wins, where it loses, and where the data itself is uninformative.
+3. [**The analog frame**](#the-analog-frame) — what the constraint buys, and what it deliberately leaves out.
+4. [**Eleven phases**](#what-we-built-and-what-it-found--eleven-phases) — how the object was built, one wound at a time.
+5. [**The north star**](#the-north-star--what-this-is-building-toward) — the one organ this is, and the thinking-loop it is building toward.
+
+And two maps for navigating the rest:
+
+- [**The project in one look**](#the-project-in-one-look) — the folder tree, and the eleven-phase arc in one line.
+- [**The reading ladder**](#start-here--the-reading-ladder) — every layer from this page down to the raw
+  per-experiment records, each a valid stopping point.
+
+Stop at the limit and you have the shape of the project. The complete record is **three self-sufficient volumes** —
+each phase's full story, figures, numbers, and revised hypotheses, readable without opening anything deeper — walked
+**build → freeze → judge:**
+
+- [**Stage 1** — the cheap brain, built and hardened (Phases 1–6)](draft6.0/src/stage1-report.md)
+- [**Stage 2** — the namer, the economy, the freeze (Phases 7–9)](draft6.0/src/stage2-report.md)
+- [**The validation** — the frozen object on trial: the race + the limit map (Phases 10–11)](draft6.0/src/validation-report.md)
+
+_And the whole model in one self-contained file:_ [**Phase9 final architecture (Freeze before validation)**](draft6.0/src/phase9-final-architecture.md).
 
 ---
 
@@ -84,20 +83,20 @@ each overwriting the last. The learner has to keep _all five_, without re-storin
 All five are the **same ten handwritten digits** (scikit-learn's 8×8 `digits` set, pixels scaled to [0, 1]) — what changes is the lens
 the world is seen through. Per image `x`:
 
-| # | World | Transform | What it does to the learner |
-| --- | --- | --- | --- |
-| 1 | **identity** | `x′ = x` | the clean world — the pure digit shapes, undistorted |
-| 2 | **permuted** | `x′[i] = x[π(i)]` — one frozen random shuffle `π` of the 64 pixel positions | every spatial neighborhood destroyed; the information is all still there, the *layout* is alien |
-| 3 | **rotated** | `x′ = rot90(x)` — the 8×8 image turned 90° | the same shapes in a new orientation |
-| 4 | **covariate** | `x′ = 3·x + 4` | a global gain + offset (a lighting / sensor shift); per-sample normalization removes it by construction — a raw net has to learn around it |
-| 5 | **noised** | `x′ = x + 0.6·ε`, `ε ~ N(0, 1)` per pixel | iid Gaussian at RMS 0.6 against a [0, 1] signal — the digit drowned in noise as large as itself |
+| #   | World         | Transform                                                                   | What it does to the learner                                                                                                                |
+| --- | ------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **identity**  | `x′ = x`                                                                    | the clean world — the pure digit shapes, undistorted                                                                                       |
+| 2   | **permuted**  | `x′[i] = x[π(i)]` — one frozen random shuffle `π` of the 64 pixel positions | every spatial neighborhood destroyed; the information is all still there, the _layout_ is alien                                            |
+| 3   | **rotated**   | `x′ = rot90(x)` — the 8×8 image turned 90°                                  | the same shapes in a new orientation                                                                                                       |
+| 4   | **covariate** | `x′ = 3·x + 4`                                                              | a global gain + offset (a lighting / sensor shift); per-sample normalization removes it by construction — a raw net has to learn around it |
+| 5   | **noised**    | `x′ = x + 0.6·ε`, `ε ~ N(0, 1)` per pixel                                   | iid Gaussian at RMS 0.6 against a [0, 1] signal — the digit drowned in noise as large as itself                                            |
 
 _(Every domain then passes through the same frozen random projection to the bulk's 40-D input, and the ten class
 labels never change — true domain-incremental learning: one shared head, five lenses.)_
 
 This table is the key to reading the forward and reversed graphs below. **Forward** is the merciful curriculum:
 learn the clean `x′ = x` world first, then meet each distortion as a variation on shapes already learned.
-**Reversed** is the hard one: build the *first* representation inside the noise-drowned world 5, then walk toward
+**Reversed** is the hard one: build the _first_ representation inside the noise-drowned world 5, then walk toward
 data never seen clean. Testing both orders separates a learner that memorized a curriculum from one that extracts
 structure from whatever arrives.
 
@@ -176,7 +175,7 @@ reversed-long layout tests it directly (2–3 sleeps now land inside every world
 Mid-domain sleeps recover the sag in **5/5 seeds** (median jump +0.052 at each sleep tick), the floors between
 sleeps _climb_ rather than run down, and the model is order-invariant at the long scale too (0.527 vs 0.533). The
 result is banked as **supported rather than confirmed**: one confirming sub-cut was mis-specified (equal inter-sleep
-segments measure rotation *rate*, not cumulative run-down), and a small bulk-level decay component remains flagged.
+segments measure rotation _rate_, not cumulative run-down), and a small bulk-level decay component remains flagged.
 ER stays order-sensitive even at length (0.580 reversed vs 0.675 forward).
 
 The reversed runs also identify **a limit of the model's own representation.** When it never sees the pure world
@@ -219,7 +218,7 @@ training-era battery (a confirmation at new levels rather than a structurally no
 ![The noise showcase — the model holds 0.92–1.10 retention on every held-out channel while BP+replay collapses](draft6.0/src/phase10/exp4/figs_p10_4/NOISE_SHOWCASE.png)
 
 The model holds **0.92–1.10 retention on every channel** (retention here = accuracy under noise ÷ clean accuracy;
-above 1.0 means the noise *helps*) — it _improves_ under iid noise, a side-effect of the noise-augmented training
+above 1.0 means the noise _helps_) — it _improves_ under iid noise, a side-effect of the noise-augmented training
 objective — while the same BP+replay opponent collapses to **0.23–0.61**. A small residual on the directional/ADC
 channels remains; it is the first work item of the future device-physics (SPICE/PVT) layer.
 
@@ -251,17 +250,17 @@ past grid-16
 
 ### The scorecard
 
-| Axis                                      | Model (grid-4)           | Best fair opponent             | Verdict                            |
-| ----------------------------------------- | ------------------------ | ------------------------------ | ---------------------------------- |
-| Final accuracy — continual home           | 0.494                    | ER-strong 0.498                | **tie** (inside δ)                 |
+| Axis                                      | Model (grid-4)           | Best fair opponent             | Verdict                                 |
+| ----------------------------------------- | ------------------------ | ------------------------------ | --------------------------------------- |
+| Final accuracy — continual home           | 0.494                    | ER-strong 0.498                | **tie** (inside δ)                      |
 | Anytime accuracy — continual home         | 0.392                    | ER-strong 0.503                | **loss** (the sparse-sleep anytime tax) |
-| Worst-case forgetting — lifelong          | **−0.028**               | ER-strong −0.272               | **win** (≈10× safer)               |
-| Worst-point retention — 5-domain gauntlet | **0.490**                | ER-strong 0.350                | **win** (rapid-switch regime)      |
-| Order-robustness — reversed gauntlet      | **0.494** (vs 0.490 fwd) | ER-strong 0.343 (vs 0.504 fwd) | **win** (order-invariant)          |
-| Noise retention — held-out battery        | **0.92–1.10**            | BP+replay 0.23–0.61            | **win** (every channel)            |
-| Final accuracy — easy natural digits      | 0.879                    | ER-strong 0.950                | **loss** (not a static competitor) |
-| Energy — same digital substrate           | 3.46e8 pJ                | ER-strong 2.25e8 pJ            | **loss** (1.5×, the deep bulk)     |
-| Energy — chip vs conventional GD          | **6.70e7 pJ (analog)**   | ER-on-digital 2.25e8 pJ        | **win** (3.4×, substrate-realized) |
+| Worst-case forgetting — lifelong          | **−0.028**               | ER-strong −0.272               | **win** (≈10× safer)                    |
+| Worst-point retention — 5-domain gauntlet | **0.490**                | ER-strong 0.350                | **win** (rapid-switch regime)           |
+| Order-robustness — reversed gauntlet      | **0.494** (vs 0.490 fwd) | ER-strong 0.343 (vs 0.504 fwd) | **win** (order-invariant)               |
+| Noise retention — held-out battery        | **0.92–1.10**            | BP+replay 0.23–0.61            | **win** (every channel)                 |
+| Final accuracy — easy natural digits      | 0.879                    | ER-strong 0.950                | **loss** (not a static competitor)      |
+| Energy — same digital substrate           | 3.46e8 pJ                | ER-strong 2.25e8 pJ            | **loss** (1.5×, the deep bulk)          |
+| Energy — chip vs conventional GD          | **6.70e7 pJ (analog)**   | ER-on-digital 2.25e8 pJ        | **win** (3.4×, substrate-realized)      |
 
 **What the model does _not_ claim** — the scope is part of the characterization:
 
@@ -383,7 +382,7 @@ fitted only on the first source, so the object never re-fits when the _kind_ of 
 block to a higher accuracy than the model, then **collapses to ≈0 at each data-type switch** — its trained head has
 never seen the new classes and its replay buffer is shaped by the old world. The model **degrades gracefully**, rides
 _above_ ER through the entire second block, and keeps **all three data types alive** to the end — even the weakest
-(CIFAR-gray) holds ~4× chance while the label space grows to 30-way. Order-invariance holds even across data *types*
+(CIFAR-gray) holds ~4× chance while the label space grows to 30-way. Order-invariance holds even across data _types_
 (|Δ| ≤ 0.007), a direct consequence of the closed-form namer: there is no gradient path an ordering can bias. One
 cell is a loss with a known cure: at the frozen porthole width, worst-point retention trails ER (0.415 vs 0.534); the
 pre-registered scaled instance reverses it (**0.581 ≥ 0.551**).
@@ -448,6 +447,25 @@ and you have the shape of it, or descend._
 
 ---
 
+## The analog frame
+
+Everything above is behavioral simulation — numpy, ideal floats, an ADC-centred noise-and-energy model, no SPICE and
+no silicon. This is the frame it all sits in, stated in full.
+
+We are not taping out silicon or drawing op-amp schematics; solo evenings don't buy a cleanroom, and the project
+doesn't need one. The analog chip is the **constraint-giver and the destination, not the deliverable.** What we build
+is the learning architecture that _would survive that substrate_: weights that never leave their cells, no global
+backward pass, noise treated as a fact of life, energy priced by physics. Every analog reference in this repo exists
+to import a **constraint** into the math — the question is "if we wanted this on a chip, what should the model be?",
+answered in simulation first, in plain binary, before anyone melts sand.
+
+The method underneath is one line: **copy the brain's _function_, cheat the _implementation_.** You can't simulate a
+real neuron one-to-one, so don't — reproduce _what it does_, and pay for each principle with whatever is cheap here:
+analog physics where physics is cheaper, modern ML math where math is cheaper.
+
+The physical picture whose constraints the math honors — the capacitor weights, the crossbar, the single forward
+sweep — is the substrate just below.
+
 ## The substrate (the chip)
 
 - **The atom — the Scap.** One synapse's weight: **magnitude as analog charge on a capacitor, sign as one SRAM
@@ -466,6 +484,8 @@ and you have the shape of it, or descend._
   [the frozen architecture file](draft6.0/src/phase9-final-architecture.md); they are the first work items of the
   analog-constraint (SPICE-grade, simulation-only) pass, and no result on this page depends on ignoring them (noise
   is already modeled behaviorally — see the noise showcase above).
+
+---
 
 ## The machine that ran the race
 
@@ -549,21 +569,7 @@ On a same-substrate energy-vs-accuracy Pareto a small tuned baseline _dominates_
 the axes it _does_ win. Every result is reported with its scope, its confounds, and what it does _not_ show, because
 that is how the project reaches conclusions it can trust.
 
-## Why it's more than a result
-
-This got here the hard way. The previous architecture (drafts 1 → 5) spent months on a learning rule that
-distributed loss _magnitude_ but never _direction_ — the sign — and so quietly never converged. Catching that meant
-a collapse and a rebuild from zero; **draft 6.0 is what came back, and it is stronger for it.** The recurring
-pattern underneath is the interesting part: the author keeps **re-deriving published results from the circuit side
-before knowing their names** — boosting, InfoNCE, the tunnel effect, complementary learning systems, energy-based
-learning all arrived from physical intuition first (the receipts, with dates, are in
-[the essence](docs/essence/the-essence2.md)). The project is large because it didn't _apply_ a field; it
-_rebuilt_ one from the substrate up, alone, through many collapses.
-
-- **The soul — origin, collapse, and return:** [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md) (the
-  grown spine, after ten phases) · [`the-essence.md`](docs/essence/the-essence.md) (the seed).
-- **Prior hardware:** **ChronoForge** — a pure-FPGA 2D game engine running 640×480 @ 60 Hz in ~18k LUTs, no CPU, no
-  OS. The "can this person build hardware-shaped things?" question, already answered once.
+---
 
 ## The north star — what this is building toward
 
@@ -571,21 +577,21 @@ Everything above is **one organ.** Placed on its own, the benchmark can read as 
 built from known parts. The destination is what makes it a program, and it is stated here in the words the project
 started from ([the essence](docs/essence/the-essence2.md), where it is told in full):
 
-> Underneath the chip is a question I sat with from 1 a.m. to 8 a.m. on milk and no sleep: **how do I know I'm
+> Underneath the chip is a question I sat with from 1 a.m. to 8 a.m: **how do I know I'm
 > right?** Not how a network classifies — how **I** know. When I work out what I owe, when I'm sure 1+1=2 — nobody
-> hands me a label. There's a *feeling*. An "I get it," sitting in the same place as tired or sad. And I wasn't
+> hands me a label. There's a _feeling_. An "I get it," sitting in the same place as tired or sad. And I wasn't
 > born with it; I learned what correct feels like from my mother and father, the way I learned hot soup is hot.
 > **Correctness is a feeling, and the feeling is taught.** And a mind isn't a lookup — it's a loop. Ask me whether
 > a car is orange and I don't calculate: an apple surfaces first — held against the car — no, not that red; the
-> next pass carries *and not apple-red*, and searches again, until *orange fruit* surfaces and something quietly
-> says *yes.* Not certain — just close enough. **Hold a little in front of you, call the rest from memory,
+> next pass carries _and not apple-red_, and searches again, until _orange fruit_ surfaces and something quietly
+> says _yes._ Not certain — just close enough. **Hold a little in front of you, call the rest from memory,
 > compare, reject, search again, until the feeling says stop.** That loop, kept running for a whole life, never
 > frozen, is the thing I'm actually building toward.
 
 Stated as architecture: an **unsupervised recurrent network that thinks to itself** — heterogeneous brain parts on
 one loop. A cortex that organizes the world without labels. A hippocampus that stores, replays, and talks back. A
 recurrent thread that holds the current thought and interrogates memory with it, halting on a **self-generated
-feeling of correctness** — a feeling a teacher *taught* it, without a single label. In that picture, everything
+feeling of correctness** — a feeling a teacher _taught_ it, without a single label. In that picture, everything
 "supervised" is just the **translation brain** at the boundary: the small organ that converts between our labels
 and the loop's internal structure. **The intelligence is unsupervised; supervision is I/O.** _(And far beyond the
 current mental model — a body in a physics world, where the only label is natural law — named once here, and left
@@ -596,15 +602,15 @@ Where that road stands:
 - **The neocortex — built.** The organ this whole page validates: unsupervised bulk + drift-gated closed-form
   namer + sleep. Eleven phases, limits mapped.
 - **The hippocampus — next.** Today it is deliberately a stand-in: a pure prototype LUT that stores, evicts, and
-  replays but does not *learn*. Growing it into a real organ — one that consolidates, generalizes, and talks back
+  replays but does not _learn_. Growing it into a real organ — one that consolidates, generalizes, and talks back
   to the cortex — is the next build.
 - **The loop — after the organs.** Not specced yet (**simple intelligence first**), but its seeds are already
-  inside the frozen object on purpose: the drift gate is a *halt* that fires on a direction, never a confidence
+  inside the frozen object on purpose: the drift gate is a _halt_ that fires on a direction, never a confidence
   magnitude (Phase 8), and the spine-clean cosine margin survives as the candidate for the feeling itself
   (Phase 7). The research dossier for the loop:
   [`research/north-star/`](draft6.0/research/north-star/README.md).
 
-On the fair question — *is the baby neocortex just known theories, composed?* — the decomposition above is the
+On the fair question — _is the baby neocortex just known theories, composed?_ — the decomposition above is the
 answer: **partly, and the map measures which part is whose** (the continual safety is the closed-form loop; the
 learned bulk earns its keep where the data is nonlinear). What is not on a shelf is the composition under substrate
 constraints, its measured identity, and this organ's place in the loop.
@@ -657,13 +663,13 @@ _freeze in P9, judge in P10._
 Every layer is written to be a valid stopping point: each one gives a true, complete picture at its own depth, and
 each one links down to the next. Descend only as far as you care to.
 
-| Depth | Read                                                                                                      | What you get                                                                   |
-| ----- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| **0** | this README                                                                                               | the result + the shape of the whole project                                    |
-| **1** | [`draft6.0/README.md`](draft6.0/README.md)                                                                | the draft's whole story — why draft 5 died, what 6.0 is, what eleven phases found |
+| Depth | Read                                                                                                                                                                    | What you get                                                                                                                                                                 |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **0** | this README                                                                                                                                                             | the result + the shape of the whole project                                                                                                                                  |
+| **1** | [`draft6.0/README.md`](draft6.0/README.md)                                                                                                                              | the draft's whole story — why draft 5 died, what 6.0 is, what eleven phases found                                                                                            |
 | **2** | [`stage1-report.md`](draft6.0/src/stage1-report.md) · [`stage2-report.md`](draft6.0/src/stage2-report.md) · [`validation-report.md`](draft6.0/src/validation-report.md) | the three executive volumes — the cheap brain built (P1–6) · the namer built + frozen (P7–9) · the frozen object on trial (P10–11); each phase's full story, self-sufficient |
-| **3** | [`phaseN/README.md`](draft6.0/src/README.md) → `phaseN/phaseN-report.md`                                  | one phase's verdict at a glance → the deep narrative with every figure         |
-| **4** | `phaseN/expK/experiment-K.md` · `RESULTS.md`                                                              | the raw per-experiment record — every number, no narrative                     |
+| **3** | [`phaseN/README.md`](draft6.0/src/README.md) → `phaseN/phaseN-report.md`                                                                                                | one phase's verdict at a glance → the deep narrative with every figure                                                                                                       |
+| **4** | `phaseN/expK/experiment-K.md` · `RESULTS.md`                                                                                                                            | the raw per-experiment record — every number, no narrative                                                                                                                   |
 
 **Reproduce:** every figure regenerates from saved arrays — each phase ships a `plot_pN.py` with a
 `regen <run-dir>` mode (numpy stack; see any `draft6.0/src/phaseN/` folder).
@@ -688,13 +694,13 @@ And the side doors, for readers with a specific question:
 ## Scope & status
 
 - **What this is:** the **math model** for an analog learning chip — a learning architecture designed and
-  validated *under the chip's constraints* (resident weights, forward-only, per-sample, noise as a given, energy
+  validated _under the chip's constraints_ (resident weights, forward-only, per-sample, noise as a given, energy
   priced by physics), in numpy behavioral simulation on small classification / statistics tasks.
 - **What this is not (by choice, not omission):** circuit design, computer architecture, ALU/ISA work, SPICE
   decks, or fabrication. Every analog reference in this repo imports a **constraint** into the math; none of them
-  promises silicon. Also not SOTA-benchmark-chasing — small tasks are probes, not claims. *(The repo keeps its
+  promises silicon. Also not SOTA-benchmark-chasing — small tasks are probes, not claims. _(The repo keeps its
   original working title — the object is a compute-substrate design target, not a CPU in the instruction-stream
-  sense.)*
+  sense.)_
 - **Done:** the neocortex organ — both brains, characterized, validated, **frozen, and raced** (Stage 1 build =
   P1–6, Stage 2 build = P7–9; the validation = P10–11, _freeze in P9, judge in P10_; S14). The founding bet is
   **refined, not inflated.** And then **validated on real data + scale** — Phase 11, the limit map (S15): the
