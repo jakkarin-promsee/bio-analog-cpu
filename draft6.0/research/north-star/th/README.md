@@ -31,6 +31,8 @@
 
 และเส้นด้ายที่ลึกที่สุด — **"ความถูกต้องคือความรู้สึก"** — ร้อยอยู่ใน [`4-signal.md`](4-signal.md) (สัญญาณเรียนรู้/หยุดที่สร้างขึ้นเอง) และ [`5-continual.md`](5-continual.md) (จะไม่หยุดเรียนรู้โดยไม่เน่าได้อย่างไร)
 
+> **เมล็ดที่เพาะไว้แล้ว (สร้างแล้ว ยังไม่ deploy).** เฟส 8 สร้างและ validate สัญญาณ gate แบบ **class-direction tap-drift** — *halt ที่ยิงบนทิศทาง ไม่ใช่ confidence magnitude* — แต่ frozen loop deploy gate แบบ DDM/error-EMA ที่ง่ายกว่า (เฟส 1–11 แช่แข็งแล้ว) จอดไว้ใน [`4-signal.md`](4-signal.md) เป็น **experiment แยกในอนาคต** สำหรับ recurrent gate คู่กับ cosine spine-pure head (P7) เมล็ดเพาะแล้ว การทดสอบเลื่อนไป
+
 ---
 
 ## ไฟล์ทั้งหมด — สองชั้น

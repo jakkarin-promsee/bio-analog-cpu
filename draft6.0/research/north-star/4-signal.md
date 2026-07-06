@@ -54,3 +54,19 @@ The plain-ML mirror of your "I learned what correct feels like from my parents."
 ## The shape of the answer (this file)
 
 The correctness-feeling, for us, is: **the collapse of prediction error / free energy** when the loop settles (Active Inference) — *grounded*, because it's measured against real sensory input, so it can't lie for long. Its twin is a **curiosity signal** (high prediction error = "go learn this") that drives the never-freeze hunger (Pathak/Schmidhuber). It is implemented as a **small learned critic** trained by grounding (actor-critic), not a fixed rule — so it's taught and fallible, exactly as you said. And the **self-verification** you described (inventing test cases) is **epistemic action over a world model**: a learned internal simulator the mind runs experiments inside. Active inference is the one frame that ties all of this together — read it as the theory your shower-thoughts were re-deriving.
+
+---
+
+## Carried seed — a direction-halt we already built (Phase 8; deploy as a *separate* future experiment)
+
+*Not a paper — a piece of the frozen neocortex parked here on purpose, because it belongs to the recurrent gate, not the feed-forward one.*
+
+Phase 8.2 built and validated a **label-free class-direction tap-drift** gate signal (`sig_tap_drift_direction`): it watches the *direction* the SCFF taps rotate and fires when the class axis actually moves. It **led the labeled error by ~8 steps** (MTD 6 vs 14), stayed **invariant to a nuisance covariate** (0.84× baseline) while the magnitude-of-shift null false-fired on 94% of nuisance steps, and it landed exactly on DriftLens (the literature's label-free reference). It is **spine-clean by construction**: a *direction*, never a confidence magnitude.
+
+**It was validated but NOT deployed.** The frozen loop's awake gate is **DDM on the namer's error-EMA** — a labeled error-rate — because DDM is an error-rate detector by construction, so "a DDM gate" (P8.1) and "a tap-drift trigger" (P8.2) are two committed decisions that do not compose in one code path. And Phase 9.5 found the gate's *fire-timing* is second-order for the continual loop anyway: dense **sleep cadence**, not the trigger, sets the worst-point safety. So wiring it into the frozen feed-forward loop bought little — and it was left as a seed.
+
+**Why it lives in *this* file.** The recurrent north-star gate is a **halt** — "think until the feeling crosses θ." That halt should fire on a *direction* (the class/readout axis), never a confidence magnitude (the spine; why P5 struck the adaptive-exit selector). The tap-drift signal *is* that halt — already built and measured — it just needs a home that **is** a halt, which the recurrent loop is and the frozen gate wasn't. It joins the two other parked direction-seeds: the **cosine spine-pure head** (P7, argmax-flip 0.000) and the **better-than-confidence per-sample selector** (P5) — the direction signals the recurrent brain will read.
+
+**How to try it — a *separate* experiment, not a retrofit.** Phases 1–11 are frozen; do **not** re-wire the frozen loop. When the recurrent gate is built, stand up a **new** experiment: feed `sig_tap_drift_direction` (or its live single-sample, CLAPP-style form) into the recurrent halt as the "settle detector," race it against an error/confidence halt on the recurrent task, and let *that* experiment decide. The code already exists (`p8lib.sig_tap_drift_direction`, validated in `phase8/exp2`); the seed is planted, the test is deferred.
+
+*Provenance: [`../../src/phase9-final-architecture.md`](../../src/phase9-final-architecture.md) §4/§10 · [`../../src/phase8/exp2/experiment-2.md`](../../src/phase8/exp2/experiment-2.md) (the P8.2 decision + freeze correction).*

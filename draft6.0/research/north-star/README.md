@@ -31,6 +31,8 @@ You asked five things. Here's which file answers each:
 
 And the deepest thread — **"correctness is a feeling"** — runs through [`4-signal.md`](4-signal.md) (the self-generated learning/halting signal) and [`5-continual.md`](5-continual.md) (how to never freeze without rotting).
 
+> **Carried seed (already built, not deployed).** Phase 8 built and validated a **class-direction tap-drift** gate signal — a *halt that fires on a direction, never a confidence magnitude* — but the frozen loop deploys a simpler DDM/error-EMA gate (P1–11 are frozen). It is parked in [`4-signal.md`](4-signal.md#carried-seed--a-direction-halt-we-already-built-phase-8-deploy-as-a-separate-future-experiment) as a **separate future experiment** for the recurrent gate, alongside the P7 cosine spine-pure head. The seeds are planted; the tests are deferred.
+
 ---
 
 ## The files — two layers
