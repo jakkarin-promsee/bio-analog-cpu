@@ -39,10 +39,11 @@ namer, a drift-gated awake/sleep economy — and ran it live. Four results, all 
   floor** — it holds at ≥2.7× even under the most generous (arithmetic-only) digital assumption and grows to ~50× once
   the memory wall is counted. **The 80/20 itself is substrate-independent** (GD-share 0.11–0.16 on either substrate).
 
-**The spine, demonstrated cleanly.** The committed trigger fires on the **class direction** in the SCFF taps, not on a
-magnitude. Run against a nuisance covariate shift (`g·x + α·1`, removed to ~ε by SCFF's input layernorm), the direction
-signal is **invariant** (0.84× baseline) while the magnitude-of-shift null **spikes 10×** and false-fires on 94% of
-nuisance steps — density ≠ class, wearing its 8th coat, and the gate reads the right side of it.
+**The spine, measured — but not deployed at the gate.** Phase 8.2 *validated* a class-direction tap-drift signal in the
+SCFF taps, not a magnitude. Run against a nuisance covariate shift (`g·x + α·1`, removed to ~ε by SCFF's input layernorm),
+the direction signal is **invariant** (0.84× baseline) while the magnitude-of-shift null **spikes 10×** and false-fires on
+94% of nuisance steps — density ≠ class, wearing its 8th coat. But the **deployed** gate rides the namer's error-EMA (DDM
+consumes an error rate); the direction trigger is the validated north-star upgrade, not the shipped signal.
 
 **Two design guesses the sims overturned (the honest science):**
 - **The imbalance guard is buffer-side, and it is what makes always-pay's forgetting a *design choice*, not fate.** The
@@ -60,7 +61,7 @@ nuisance steps — density ≠ class, wearing its 8th coat, and the gate reads t
 | --- | --- | --- |
 | **deployed head** | **SLDA** (tied-covariance analytic) | 69× cheaper than RanPAC, AA ties/beats live (P8.4 → resolves S11) |
 | **awake gate** | **DDM** (two-threshold error) | AA at oracle, FAR 0.000, f ≈ 0.003 (P8.1) |
-| **trigger** | **class-direction tap-drift** | leads error (MTD 6 < 14), excess-FAR 0.000, spine-clean (P8.2) |
+| **trigger (deployed)** | **error-EMA** (DDM's input) | the shipped gate reads the error rate; a class-direction tap-drift signal was *validated* (leads error MTD 6 < 14, excess-FAR 0.000, spine-clean, P8.2) but **not shipped** — the north-star upgrade |
 | **sleep cadence** | **grid-8, full LUT history, λ_ema 1.0** | cheapest holding A6; full history load-bearing (P8.3) |
 | **imbalance guard** | **cbrs** (class-balanced reservoir) | keeps class balance → worst-BWT 0.000 vs always-pay −0.137 (P8.6) |
 | **envelope** | GD reads taps, never writes SCFF | the P2.5 forward-leak wall, unbroken |
@@ -163,8 +164,9 @@ meter, Horowitz + NeuroSim/ISAAC anchors in the manifest.)*
 
 ## Decision-record deltas (flagged at close; never retro-editing frozen arch files)
 
-- **S6** (threshold-gated learning) → **resolved**: committed awake gate = **DDM**, trigger = **class-direction
-  tap-drift** (spine-clean; magnitude-of-shift is the false-fire null).
+- **S6** (threshold-gated learning) → **resolved**: committed awake gate = **DDM** on the namer's **error-EMA**; a
+  **class-direction tap-drift** trigger was *validated* (spine-clean; magnitude-of-shift is the false-fire null) but not
+  shipped — DDM consumes an error rate, so it is the north-star gate upgrade.
 - **S11** (RanPAC ~200× cost caveat) → **resolved**: metered E-ratio 69× → **commit SLDA** as the deployed namer (RanPAC
   kept as the P7 accuracy/spine reference, not deployed).
 - **The metered 80/20** → **replaces every "80/20 (proxy)" tag** where the meter ran (GD-share 0.121; bp_ratio 0.501).

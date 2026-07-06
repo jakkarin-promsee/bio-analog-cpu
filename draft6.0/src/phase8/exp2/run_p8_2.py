@@ -3,7 +3,7 @@ P8.2 — the trigger signal (orthogonal to the detector; design.md sec 3 P8.2). 
 class onsets) + nuisance (covariate) drift, race the SIGNAL feeding a COMMON detection rule (threshold-crossing
 calibrated on the stationary interior -- so the only variable is the signal):
   error_ema  = the LABELED reference (precise, lags; a labeled magnitude, NOT spine-clean)
-  tap_dir    = the committed candidate: MMD drift ALONG post-norm/class structure (spine-clean, nuisance-invariant)
+  tap_dir    = the P8.2-preferred candidate (validated, NOT deployed -- the frozen loop gates on error_ema): MMD drift ALONG post-norm/class structure (spine-clean, nuisance-invariant)
   tap_mag    = the false-fire NULL: MMD on the RAW input (a magnitude-of-shift; fires on nuisance by construction)
   driftlens  = the label-free reference: post-norm embedding-distance MMD (nuisance-invariant)
   studd      = the conservative arm: student mimic-loss (fewer alarms, slower)

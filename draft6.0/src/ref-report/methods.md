@@ -113,8 +113,8 @@ nearly as well as full history at a third of the store.
 ### Threshold gate (Ch7)
 The planned mechanism that pays for expensive GD only when the cheap local path stalls: below a loss (or loss-slope)
 threshold, update SCFF only; above it, spend the expensive update. **Status: resolved at Phase 8 (S6 → S12)** — the
-committed awake gate is **DDM** on a class-direction tap-drift trigger (see
-[DDM awake gate](#ddm-awake-gate--class-direction-tap-drift-trigger)), and Phase 8 found the gate is a *safety*
+committed awake gate is **DDM** on the namer's error-EMA — a class-direction tap-drift trigger was validated but not
+shipped (see [DDM awake gate](#ddm-awake-gate--class-direction-tap-drift-trigger)) — and Phase 8 found the gate is a *safety*
 mechanism, not just a cost saver.
 - **Onward:** [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S6 → S12) · [DDM awake gate](#ddm-awake-gate--class-direction-tap-drift-trigger)
 - **Used in:** named as an open knob in Phases 1–7; committed in Phase 8
@@ -187,9 +187,11 @@ also the bounded-LUT **eviction** policy (best-bounded; the cap grows with #clas
 - **Used in:** Phase 7 (chosen), 8 (the safety mechanism), 9 (eviction)
 
 ### DDM awake gate + class-direction tap-drift trigger
-The Phase-8 economy: a **DDM** (two-threshold error) awake gate decides *when* the namer fires; it fires on a
-**class-direction tap-drift** trigger — the direction the SCFF taps move — which is invariant to a nuisance covariate
-(spine-clean) while the magnitude-of-shift null false-fires. The gate turns out to be a **safety** mechanism
+The Phase-8 economy: a **DDM** (two-threshold error) awake gate decides *when* the namer fires; the **deployed** gate reads
+the namer's **error-EMA**. Phase 8.2 separately *validated* a **class-direction tap-drift** trigger — the direction the
+SCFF taps move — which is invariant to a nuisance covariate (spine-clean) while the magnitude-of-shift null false-fires; it
+leads the error but was **not shipped** (DDM consumes an error rate), so it is the north-star gate upgrade. The gate turns
+out to be a **safety** mechanism
 (always-pay forgets more), not just a cost-saver.
 - **Onward:** [`../phase8/README.md`](../phase8/README.md) · [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md) (S6 / S12)
 - **Used in:** Phase 8 (committed), 9, 10

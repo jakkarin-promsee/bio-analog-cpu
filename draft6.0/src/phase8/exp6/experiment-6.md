@@ -1,7 +1,7 @@
 # P8.6 — The assembled economy, run LIVE: does the two-brain loop keep the A6 win?
 
-**Question.** The un-skippable existential check. With every knob committed — SLDA head (P8.4), DDM awake gate (P8.1),
-class-direction trigger (P8.2), grid-8/full-history sleep (P8.3), cbrs guard — run the whole economy **live** on the
+**Question.** The un-skippable existential check. With every knob committed — SLDA head (P8.4), DDM awake gate on the
+namer's error-EMA (P8.1; the class-direction trigger of P8.2 was validated but not deployed), grid-8/full-history sleep (P8.3), cbrs guard — run the whole economy **live** on the
 CI+nuisance stream and ask: does the co-adapting loop keep the A6 continual win **at the awake gate's worst mid-stream
 point (pre-sleep)**? Verdict LIVE-SAFE iff the committed loop's worst-point BWT is **not** more-negative than the oracle
 in ≥4/5 paired seeds (veto) **and** live AA is within δ_acc of the reference. If the live mechanism forgets, that is the

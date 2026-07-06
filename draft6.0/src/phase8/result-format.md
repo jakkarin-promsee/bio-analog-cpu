@@ -46,7 +46,7 @@
 | **DDM** (two-threshold error) | `#d9690a` (orange) | solid, circle | error-based, two-threshold |
 | **ADWIN** (two-window error) | `#2c6fbf` (blue) | solid, square | error-based, self-tuning |
 | **error-EMA trigger** | `#d9690a` (orange) | dotted | the **labeled reference** trigger (precise, lags; a labeled magnitude — NOT spine-clean) |
-| **tap-drift-direction** (label-free) | `#0b8f6a` (teal) | solid, triangle | ⭐ the committed candidate — drift **along the class/readout directions** (spine-clean) |
+| **tap-drift-direction** (label-free) | `#0b8f6a` (teal) | solid, triangle | the P8.2-preferred candidate (validated, NOT deployed — the frozen loop gates on error-EMA) — drift **along the class/readout directions** (spine-clean) |
 | **tap-drift-magnitude** (label-free null) | `#111111` (black) | **dashed**, x | the **false-fire null** — raw mean-shift/MMD (a magnitude-of-shift; ADWIN-U-style input moments) |
 | **DriftLens** (label-free reference) | `#0b8f6a` (teal) | **dashed**, triangle | the purpose-built embedding-distance detector (the reference the home-grown signal is checked against) |
 | **STUDD** (label-free, conservative) | `#0b8f6a` (teal) | dotted, triangle | student-teacher mimic-loss (fewer false alarms, slower) |

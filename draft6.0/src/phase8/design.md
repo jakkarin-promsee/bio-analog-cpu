@@ -187,7 +187,7 @@ they lag on gradual creep, which is exactly what representation drift is.)*
 
 **The trigger bake-off (P8.2 — orthogonal to the detector):**
 - **error/loss-EMA** — the **labeled reference** (precise, lags; a labeled magnitude, not spine-clean).
-- **class-direction tap-drift** — the **committed candidate**: drift measured *along the class/readout directions* of the
+- **class-direction tap-drift** — the **P8.2-preferred candidate** (validated, not deployed — the frozen loop gates on error-EMA): drift measured *along the class/readout directions* of the
   taps (spine-clean; fires when the class direction moves, not when the distribution merely shifts).
 - **magnitude-of-shift tap-drift** — the **null/control**: a raw mean-shift / MMD / input-moment statistic (the
   ADWIN-U-style signal). Predicted to false-fire on nuisance (§1); carried to *demonstrate* the spine point, not to ship.
@@ -408,8 +408,9 @@ is the gate trigger, measured as FAR-on-nuisance.)*
   Keeps P8.1/P8.2 tractable. **Guard:** an arm with **non-trivial fire + sleep events** via `awake_sleep_loop` ≡ its cached
   replay, bit-for-bit (not a no-op arm — else the guard passes vacuously).
 - **Detectors:** `abs_theta`, `ddm`, `adwin` (error) · `budget_gate` (learned, reads a drift feature, FD-guarded) ·
-  (conditional) `hddm`/`rddm` (gradual). **Triggers:** `error_ema` (labeled ref) · `tap_drift_direction` (**drift along the
-  class/readout directions — the committed candidate**) · `tap_drift_magnitude` (mean-shift/MMD — the false-fire null) ·
+  (conditional) `hddm`/`rddm` (gradual). **Triggers:** `error_ema` (labeled ref — the *planned* fallback, and the trigger the frozen loop ultimately deployed) ·
+  `tap_drift_direction` (**drift along the class/readout directions — the P8.2-preferred candidate, validated not
+  deployed**) · `tap_drift_magnitude` (mean-shift/MMD — the false-fire null) ·
   `driftlens` (embedding-distance vs reference window — the label-free reference) · `studd_signal` (student-teacher mimic
   loss, conservative). Each ~20–40 lines numpy (**no River/sklearn** for compute).
 - **`hardware_cost_meter(...)`** — the behavioral ADC-centred energy model (§2.3); the **BP+replay energy model** (matched
@@ -463,7 +464,7 @@ SOUND-WITH-ADDITIONS.** Blockers + concerns and their resolution (all folded abo
 | B1 | repo-fit | heads have **no incremental accumulate**; op (c) + running-Gram framing not expressible | **build `partial_fit`** (running `G,M` + `λ_ema`) as the new primitive + its equivalence guard (§0.1, §2.1, §6) |
 | B2 | red-team | inherited harness trains SCFF in **per-task blocks**, not a stream → boundary drift the oracle knows | **dual-mode `awake_sleep_loop`**; streaming mode is the real regime; **P8.0 pins the streaming schedule** (§2.1, §3) |
 | B3 | red-team | P8.6 measured **post-sleep** → the awake gate's forgetting is invisible | **measure BWT at the worst mid-stream point (pre-sleep)** (§2.4, §3-P8.6, §4) |
-| B4 | red-team | **`tap_drift` as MMD/mean-shift = magnitude-of-shift** → false-fires on nuisance (density≠class) | committed trigger = **class-direction tap-drift**; magnitude version = the false-fire **null** (§1, §2.2, §6) |
+| B4 | red-team | **`tap_drift` as MMD/mean-shift = magnitude-of-shift** → false-fires on nuisance (density≠class) | *planned* trigger = **class-direction tap-drift**; magnitude version = the false-fire **null** (§1, §2.2, §6) — *[built: the frozen loop deploys DDM on the namer's error-EMA; tap-drift validated, not shipped]* |
 | B5 | red-team | metered 80/20 vs a **naive BP** that forgets = strawman | BP model = **BP+replay at matched retention, same substrate table** (§2.3, §3-P8.5) |
 | B6 | repo-fit | `gate_off ≡ continual_safety_heads` needs a **block mode cloning the RNG choreography** | block mode spec'd; **`live_path_anchor_guard`** anchors the live path (§6) |
 | B7 | repo-fit | "frozen ≡ P7" ambiguous — only the **static** bake-off was frozen | `scff_static_frozen_guard` pinned to P7.0/P7.1 static numbers (§6) |

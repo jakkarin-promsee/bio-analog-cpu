@@ -2,7 +2,8 @@
 p9lib — the Phase-9 apparatus: CLOSE & FREEZE the maintenance loop. A CHIP NETLIST, not normal Python: every reuse is
 a *tested* primitive carried forward unchanged from p8lib (which re-exports p7/p6/p5…), and every genuinely-new organ
 ships with its own equivalence/behaviour guard. Phase 9 tunes the FINE machinery AROUND P8's committed loop (SLDA +
-DDM gate + class-direction trigger + grid-8/full-history sleep) against INTERNAL signals only, then freezes the object.
+DDM gate on the namer's error-EMA — the class-direction trigger was validated but NOT deployed — + grid-8/full-history
+sleep) against INTERNAL signals only, then freezes the object.
 
 The five things P9 closes (design §0.0): (P9.0) the measured bulk-drift rate + the rotation/staleness/DESTRUCTION split;
 (P9.1) N2 read-side/rate-only; (P9.2) sleep consolidation DEPTH; (P9.3) bounded-LUT eviction; (P9.4, conditional) the

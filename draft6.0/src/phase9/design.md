@@ -29,7 +29,7 @@ decisions, not experiments*) and rule 5 warns against (*don't tune until it work
 
 What is genuinely still open is the **lifelong maintenance loop** *around* the frozen head — the machinery that keeps the
 namer tracking a drifting bulk over a stream that runs forever. Phase 8 built the loop and set its **coarse** knobs (DDM
-gate, class-direction trigger, grid-8 sleep) but flagged five things as **measured-not-tuned** or **assumed**:
+gate on the namer's error-EMA — the class-direction trigger was validated but not deployed — grid-8 sleep) but flagged five things as **measured-not-tuned** or **assumed**:
 
 - the SCFF **bulk-drift rate** the whole "the bulk doesn't forget → sleep is cheap" story rests on (assumed, not measured);
 - **N2** — the last un-resolved decision-record knob (EMA-view / late-layer drift-slowdown) — still on *standby*;
@@ -106,7 +106,7 @@ policies, the read-side re-fit) ships with its own equivalence/behaviour guard. 
 ### 2.1 What the loop performs, and what P9 tunes on top of P8
 
 Phase 8 committed the live loop's **coarse** shape (per stream step, awake): SCFF forward+local-update *always* (op a);
-namer forward *always* (op b); namer `partial_fit` *gated* by DDM on the class-direction trigger (op c); periodic **sleep**
+namer forward *always* (op b); namer `partial_fit` *gated* by DDM on the class-direction trigger (op c) — *[built: the assembled loop deploys DDM on the namer's **error-EMA**; the class-direction trigger was validated but not shipped]* — periodic **sleep**
 = re-forward the raw LUT → rebuild the running Gram `(G,M)` → re-solve (op d). Phase 9 tunes the **fine** machinery **around**
 that fixed shape — it changes *what the namer reads* (N2), *what depth sleep re-fits* (P9.2), *which prototypes the LUT
 keeps* (P9.3), and *whether a read-side calibration defends the noise residual* (P9.4) — **never** the head, the objective,
@@ -252,7 +252,7 @@ policy, a skipped P9.4) is a card with its mechanism — a result, logged and mo
   analog layer.* (Scalar temperature scaling is a *diagnostic only* — ineffective under shift. P9.4 tunes on the home
   residual only; P10's showcase uses a held-out battery.)
 - **P9.5 — assemble + FREEZE (the integration + the lock).** Every committed knob live at once — `NoiseAugContrast` bulk +
-  SLDA + DDM gate + class-direction trigger + the P9-tuned cadence/depth + the committed eviction policy (+ N2 if P9.1
+  SLDA + DDM gate on the namer's error-EMA (class-direction trigger validated, not deployed) + the P9-tuned cadence/depth + the committed eviction policy (+ N2 if P9.1
   adopted, + read-side if P9.4 earned). Re-run the **P8.6 live-safety gate** on the *fully-tuned* loop, 5 seeds, paired-sign
   veto, BWT at the worst mid-stream point; one integration figure (the complete neocortex loop). **Read:** *the assembled
   loop holds A6 + accuracy at the metered economy → **commit + freeze** (the hash Phase 10 races) / a knob interaction
@@ -323,7 +323,7 @@ reference **and the only path with a *growing* full-history buffer — the evict
 `cache_replay_guard`, `fd_budget_gate_guard`). **Direct from `p6lib` — NOT re-exported by `p8lib`, so `p9lib` must
 `sys.path.insert` the `../phase6` dir (as `p8lib` does for `../phase7`):** `bulk_drift` (the P9.0 drift cosine — computed
 *inline* in `build_cache`, not imported from `p8lib`) and `NoiseModel`/`infer_noisy` (the P9.4 residual channel). The
-committed economy config is frozen in `p8cfg` (SLDA + DDM + class-direction trigger + grid-8/full/λ1.0).
+committed economy config is frozen in `p8cfg` (SLDA + DDM on the namer's error-EMA — the class-direction trigger was validated but not deployed — + grid-8/full/λ1.0).
 
 **NEW to build for Phase 9** *(folds the lab-manager review — §8; each item names the finding it closes):*
 - **`make_lifelong_stream(...)`** — the **long/repeating** stream (many cycles of the CI tasks + re-visits) so drift

@@ -121,7 +121,7 @@ read-side defense (dormant on a clean stream, active under the channel). Fig: RE
 
 ## P9.5 — assemble + FREEZE *(integration — all committed knobs live; the lock)*
 
-*Controls: the assembled loop = NoiseAugContrast bulk · SLDA · DDM/error-EMA gate · tap-drift-direction trigger · N2-struck ·
+*Controls: the assembled loop = NoiseAugContrast bulk · SLDA · DDM-on-error-EMA gate (tap-drift-direction validated, not deployed) · N2-struck ·
 all-tap · CBRS · proto-reanchor, on the lifelong stream, 5 seeds. Three freeze cuts, all vs INTERNAL references: worst-BWT
 paired-sign veto vs the oracle; AA within δ_acc of the P8.6 shipped loop; GD-share ≤ 0.25.*
 

@@ -44,9 +44,13 @@ judged against each signal's own **stationary-segment** floor (excess-FAR). Figu
    really shift, so tap_dir's invariance is a real property, not a weak injector. (c) The direction trigger sidesteps
    calibration-under-shift (it reads geometry, not a confidence magnitude). (d) MTD IQR is wide (5–40 for error) because
    some seeds' onsets are detected only at the segment edge — the median lead is nonetheless sign-consistent.
-6. *Decision* — sets the **committed trigger = class-direction tap-drift** (earns-early, excess-FAR 0.000; DriftLens is
+6. *Decision* — selects **class-direction tap-drift** as the spine-clean trigger (earns-early, excess-FAR 0.000; DriftLens is
    its validated label-free twin). The magnitude-of-shift signal is retained only as the documented false-fire **null**.
-   Together with P8.1's DDM this fixes the gate as a *direction*-triggered error detector at two timescales.
+   **[Freeze correction (added on the final red-team pass):** the assembled loop (P8.6 → P9.5 → frozen) actually deploys
+   **DDM on the namer's error-EMA**, *not* this signal — DDM is an error-rate detector by construction, so "a DDM gate" and
+   "a tap-drift trigger" are two committed P8 decisions that do not compose in one code path. This signal is *validated
+   here* but carried as the **north-star gate upgrade**, not the shipped trigger. Every headline number (GD-share, worst-BWT)
+   was produced by the error-EMA gate.**]**
 7. *Economy-honesty* — FAR reported beside MTD for every arm; the magnitude null's high FAR (0.938) is reported as the
    *expected* spine demonstration, not hidden. No energy on this rung (P8.4).
 8. *Live-safety / namer* — the trigger choice is spine-clean (direction, not magnitude), satisfying the north-star

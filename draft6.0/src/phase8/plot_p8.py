@@ -5,8 +5,9 @@ path (a figure you can't regen from saved data is a screenshot, not a result). N
 
 Gate / trigger / head encoding (result-format sec A, fixed forever): green-dashed = always-pay (cost ceiling);
 black dash-dot = oracle-cadence (THE reference the detector must approach); grey = absolute-theta; orange = DDM /
-error-EMA (error-based / labeled); blue = ADWIN / SLDA; teal = tap-drift-direction / DriftLens / STUDD / RanPAC
-(label-free / committed); black-dashed-x = tap-drift-magnitude (the false-fire NULL); purple = budget-gate (learned,
+error-EMA (error-based / labeled — the DEPLOYED gate trigger); blue = ADWIN / SLDA; teal = tap-drift-direction /
+DriftLens / STUDD / RanPAC (label-free; P8.2-preferred signal, validated NOT deployed); black-dashed-x =
+tap-drift-magnitude (the false-fire NULL); purple = budget-gate (learned,
 spine-flagged); magenta = BP energy model. The GATE-BAKEOFF frontier orders arms by MEASURED GD-fire-fraction; arms
 failing the accuracy-held cut are greyed.
 """

@@ -60,7 +60,8 @@ bit-exact — the analog path is unchanged by the digital switch).
 | DriftLens (label-free ref) | 6.000 [5.00–11.00] | 0.021 [0.00–0.042] | 0.000 | — | matches tap-dir |
 | STUDD (conservative) | 0.000 [0.00–0.00] | 0.896 [0.854–0.917] | 0.896 | — | degenerate (always-fires) |
 
-*Committed trigger = **class-direction tap-drift** (MTD 6 < error 14, excess-FAR 0.000). Magnitude null FAR 0.938 = the
+*Deployed trigger = the namer's **error-EMA** (DDM's input). A **class-direction tap-drift** signal was *validated* here
+(MTD 6 < error 14, excess-FAR 0.000) but **not shipped** — the north-star gate upgrade. Magnitude null FAR 0.938 = the
 spine demonstration.*
 
 ---

@@ -7,8 +7,9 @@ only dial that moves is the declared cadence cost axis — grid ∈ {4,5,6,8,12,
 grid-12 = the §10 post-close home-only gap-filler).
 
 The frozen object it races (design §2.1): NoiseAugContrast SCFF bulk (L12/w64, InfoNCE τ0.2/w2, per-sample L2,
-one iid-noise view σ1.0, no residual) · SLDA namer · DDM awake gate on the class-direction tap-drift (code
-`trigger="error_ema"`) · all-tap sleep · CBRS eviction · proto-reanchor read-side · grid-4 cadence · envelope
+one iid-noise view σ1.0, no residual) · SLDA namer · DDM awake gate on the namer's error-EMA (code
+`trigger="error_ema"`; the class-direction tap-drift signal was validated in P8.2 but NOT deployed) · all-tap sleep ·
+CBRS eviction · proto-reanchor read-side · grid-4 cadence · envelope
 GD-reads-taps-never-writes. Reproduced bit-for-bit via `{**COMMITTED_LOOP, cadence_every: 4}` (Trap 1: override the
 baked-in 8) — the `freeze_content_guard` asserts the content manifest + grid-4 bit-exact vs figs_p9_5_cadence.
 

@@ -17,7 +17,7 @@ description: The live state of draft 6.0 — the phase ladder (P1–P11 DONE), t
 
 **Stage 2 — the namer (P7–10):**
 - **P7 ✓ the namer is NOT gradient descent** — a closed-form streaming head (**RanPAC** / **SLDA** committed, cbrs guard) ties a tuned MLP and passes the A6 gate; the spine bends (magnitude-wins). *The 20% is a role, not a method.* **(S11.)** → `src/phase7/README.md`
-- **P8 ✓ the economy, run LIVE** — both brains live; a **DDM** gate on a **class-direction** trigger meters the 80/20 real (GD-share 0.121), OURS ≈ ½ BP+replay, and **firing more forgets more** (the gate is safety). Why-analog: 15.4× = 5.4× substrate × 2.9× algorithm. **(S12.)** → `src/phase8/README.md`
+- **P8 ✓ the economy, run LIVE** — both brains live; a **DDM** gate on the namer's **error-EMA** (a class-direction trigger validated but not shipped) meters the 80/20 real (GD-share 0.121), OURS ≈ ½ BP+replay, and **firing more forgets more** (the gate is safety). Why-analog: 15.4× = 5.4× substrate × 2.9× algorithm. **(S12.)** → `src/phase8/README.md`
 - **P9 ✓ freeze the maintenance loop** — the bulk **rotates but does not forget** (measured); N2 struck, all-tap kept, **CBRS** committed, the read-side residual defended by **proto-reanchor**; the freeze caught the drift-conditional cadence (grid-8→**grid-4**), **locked at `59d2720`**. **(S13.)** → `src/phase9/README.md`
 - **P10 ✓ the honest race** — the frozen object raced a fair, budgeted, tuned BP+replay baseline (verdicts pinned blind). **S14:** ties the continual home (0.494 vs 0.498), trails natural digits (continual, not static), **wins** continual safety (worst-BWT −0.028 vs −0.272, ≈10× safer) + noise (every held-out channel); the energy edge is substrate-realized. → `src/phase10/README.md`
 

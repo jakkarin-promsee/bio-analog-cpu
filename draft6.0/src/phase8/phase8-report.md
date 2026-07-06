@@ -108,8 +108,10 @@ without false-firing? Yes, decisively:
 
 The mechanism is the spine's crown: SCFF's *representation* drifts before the readout's *error* rises, so a direction
 watcher sees the onset first. And density ≠ class (8th coat): the magnitude watcher fires on nuisance because a covariate
-shift is a big magnitude with no class content. Committed trigger = **class-direction tap-drift**; together with DDM this
-fixes the gate as a *direction*-triggered error detector at two timescales.
+shift is a big magnitude with no class content. **But the shipped gate rides the namer's error-EMA:** DDM consumes an
+error rate, so the frozen loop fires on the labeled error, not the tap-drift signal (two committed P8 decisions — a DDM
+gate, a direction trigger — that do not compose in one code path). The class-direction tap-drift signal is validated and
+carried as the north-star gate upgrade.
 
 ![P8.2 TRIGGER — the class-direction tap leads error without false-firing](exp2/figs_p8_2/TRIGGER.png)
 *MTD × FAR: tap-drift-direction leads error at low FAR; magnitude null far-right (FAR 0.938); DriftLens confirms.
@@ -182,7 +184,7 @@ win unquantified, deferred to Stage 2" caveat, as a behavioral number.)*
 
 ## 6 · The existential check: the live loop keeps the A6 win — and firing more forgets more (P8.6)
 
-Every knob committed — SLDA head, DDM awake gate, class-direction trigger, grid-8/full sleep, cbrs — both brains live, 5
+Every knob committed — SLDA head, DDM awake gate on the namer's error-EMA (class-direction trigger validated, not shipped), grid-8/full sleep, cbrs — both brains live, 5
 seeds, BWT measured **pre-sleep at the worst mid-stream point** (post-sleep would hide the awake gate's forgetting). The
 verdict is **LIVE-SAFE**, and the mechanism inverts the naive expectation:
 
@@ -270,13 +272,13 @@ that would be incomparable to a behavioral analog model; the fair comparison is 
 
 ## 8 · What Phase 8 sets, and what it leaves owed
 
-**Committed (the economy):** deployed head **SLDA** · awake gate **DDM** · trigger **class-direction tap-drift** · sleep
-cadence **grid-8 / full history / λ_ema 1.0** · imbalance guard **cbrs** · envelope unchanged (GD reads taps, never writes
-SCFF). **Metered 80/20: GD-share 0.121; bp_ratio 0.501. Why-analog (P8.7): 15.4× cheaper than conventional GD-on-digital
+**Committed (the economy):** deployed head **SLDA** · awake gate **DDM** on the namer's **error-EMA** (a class-direction
+tap-drift trigger validated but not shipped) · sleep cadence **grid-8 / full history / λ_ema 1.0** · imbalance guard
+**cbrs** · envelope unchanged (GD reads taps, never writes SCFF). **Metered 80/20: GD-share 0.121; bp_ratio 0.501. Why-analog (P8.7): 15.4× cheaper than conventional GD-on-digital
 = 5.4× substrate × 2.9× algorithm.**
 
 **Decision-record deltas (flagged, banked to `idea/main.ideas.v1.md`, never retro-editing frozen arch files):**
-- **S6** → resolved (DDM gate + class-direction trigger; magnitude-of-shift is the false-fire null).
+- **S6** → resolved (DDM gate on the namer's error-EMA; a class-direction trigger validated but not shipped; magnitude-of-shift is the false-fire null).
 - **S11** → resolved (metered 69× → commit SLDA; RanPAC kept as reference).
 - **the metered 80/20** → replaces the proxy tags where the meter ran.
 - **S7** → extended (grid-8 / full history / λ_ema 1.0 detector-driven cadence).

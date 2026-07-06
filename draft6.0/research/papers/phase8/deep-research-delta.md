@@ -44,7 +44,7 @@ are now in hand. No topic overturned the rough direction; two sharpened it mater
   it runs ADWIN on **unsupervised higher-order *input*-distribution moments (std / skew / kurtosis)** — so it is *most*
   sensitive to exactly the covariate/nuisance shift we want to **ignore**. So we do NOT call our tap arm "ADWIN-U"; the
   raw-moment/magnitude-of-shift detector is carried as the **predicted-to-false-fire null** (the spine demonstration), and
-  the committed candidate reads drift **along the class direction** (design §1/§2.2).
+  the P8.2-preferred candidate reads drift **along the class direction** (design §1/§2.2) — though the frozen loop ultimately deployed the labeled error-EMA on DDM; the direction trigger is validated, not shipped.
 - **ABCD** (autoencoder-based) tops feature-permutation drift — an option if the tap-drift signal needs a learned
   compressor, but heavier; note it, don't default to it (our taps are already a learned compression).
 - **Gradual drift is the likely regime, and DDM/ADWIN are abrupt-biased** — SCFF's representation *creep* is slow, and the
@@ -55,7 +55,7 @@ are now in hand. No topic overturned the rough direction; two sharpened it mater
   false-alarm cost is under-reported. Cite it as the *why* behind making FAR a first-class axis.
 
 **Verdict:** keep DDM + ADWIN + abs-θ + learned-budget from the rough plan; label-free triggers = **class-direction
-tap-drift** (committed candidate) · **DriftLens** (reference) · **STUDD** (conservative) · **magnitude-of-shift**
+tap-drift** (P8.2-preferred candidate — validated but the frozen loop deployed DDM-on-error-EMA) · **DriftLens** (reference) · **STUDD** (conservative) · **magnitude-of-shift**
 (the false-fire null); conditional **HDDM/RDDM** if drift is gradual. DNI stays the *don't*.
 
 ## 2 · The evaluation vocabulary — the rough pass had NO metric for "false-fire" (now fixed)

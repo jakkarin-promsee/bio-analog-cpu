@@ -58,7 +58,7 @@ tied CBRS it was a **buffer-spine null** (density ≈ class at the buffer on thi
 | --- | --- | --- | --- |
 | **bulk** | `NoiseAugContrast` σ_aug=1.0 (SCFFContrastOverlap temp0.2/w2, L12) | P5/P6 (inherited) | the frozen cheap brain |
 | **namer** | **SLDA** (tied-covariance analytic; RanPAC the reference) | P7/P8 (inherited) | 69× cheaper, ties live |
-| **awake gate / trigger** | **DDM** on the **class-direction tap-drift** | P8 (inherited, not reopened) | spine-clean drift detection |
+| **awake gate / trigger** | **DDM** on the namer's **error-EMA** (tap-drift validated, not deployed) | P8 (inherited, not reopened) | error-drift detection; direction trigger = north-star upgrade |
 | **N2** (drift-slowdown) | **struck** | P9.1 | drift is rotation-only → no lever to grip |
 | **consolidation depth** | **all-tap** | P9.2 | truncated readers forget more under lifelong drift |
 | **bounded-LUT eviction** | **CBRS** | P9.3 | best-bounded; spans class directions; cap scales with #classes |

@@ -308,5 +308,6 @@ The Stage-1 methodology governs every Stage-2 rung: **one variable per experimen
 median + IQR · controlled variables explicit · invariants every run (convergence, dead-fraction, drift / cluster-churn,
 and now **BWT / gate-fire-rate / flatness**) · **failures are data** · defer fallbacks until baseline is characterized ·
 **architecture changes are decisions, not experiments.** And the spine, above all: **preserve and read the class
-*direction*, never a magnitude** — it is now *in the readout* (cosine/SLDA), *in the gate* (direction trigger), and *in
+*direction*, never a magnitude** — it is now *in the readout* (cosine/SLDA), *in the gate* (the validated direction
+trigger — north-star seed; the shipped gate reads the error-EMA), and *in
 the noise test* (directional mismatch attacks the class axis). Density ≠ class, a sixth time, all the way down. 🗿

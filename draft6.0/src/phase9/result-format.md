@@ -35,7 +35,7 @@
 `plot_p9.STYLE = {**plot_p8.STYLE, **P9_NEW}`. **dpi 300 · figsize {single (6.0,4.0) · wide/frontier (7.5,4.0) ·
 panel-strip (10,2.2)} · DejaVu Sans 10pt · transparent bg · median line + IQR α0.18 / median bar + IQR whisker · light-grey
 grid** — all inherited, never re-stated in code. The P8 gate/trigger/head/substrate colour encoding is inherited verbatim
-(the committed loop uses SLDA + DDM + tap-drift-direction + the oracle/always-pay references — same colours). **P9-new
+(the committed loop uses SLDA + DDM on error-EMA [tap-drift-direction validated, not deployed] + the oracle/always-pay references — same colours). **P9-new
 entities (colour · style — fixed forever):**
 
 | entity | colour (hex) | line / marker | role |
@@ -248,7 +248,7 @@ one-line skip-card naming the gate-test that closed it.
 within δ_acc of the unbounded oracle — and does eviction re-import forgetting?
 
 **Setup.** Swept variable = eviction policy ∈ {unbounded-oracle, CBRS, reservoir, recency, herding}; controls locked (live
-NoiseAugContrast bulk, committed SLDA+DDM+tap-drift-direction economy, the P9.2 consolidation depth, bounded-LUT cap=C,
+NoiseAugContrast bulk, committed SLDA + DDM-on-error-EMA economy (tap-drift-direction validated, not deployed), the P9.2 consolidation depth, bounded-LUT cap=C,
 CI+nuisance stream, seeds [42,137,271,314,1729]). EVICT + INV. Apparatus: p9lib StreamingLUT + awake_sleep_loop; guards
 passed (partial-fit-equiv; live-path-anchor; evict-equiv ≡ block-mode full-history at cap=∞ + finite-cap FIFO check; n2-readside; meter-proxy;
 detector-FAR; cache-replay). Internal-signals-only affirmed: no P10 BP+replay number consulted.

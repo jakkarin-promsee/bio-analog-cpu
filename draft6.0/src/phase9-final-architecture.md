@@ -55,7 +55,7 @@
 | **probe vs readout / namer** | a **linear probe** is a frozen-features *diagnostic* of separability (never deployed). A **readout / namer** is the deployed head. Never blended. |
 | **BWT / AA / worst-BWT** | continual metrics: **Backward Transfer** (forgetting; 0 = none, negative = worse), **Average Accuracy**, and **worst-BWT** = the most-negative BWT at the awake gate's **worst mid-stream point (pre-sleep)** — the live-safety read. |
 | **the economy / the 80/20 (metered)** | the fraction of total **substrate energy** spent on the namer. Phase 8 makes it a *measured* number (`GD-share`) on a behavioral ADC-centred meter — **not** an op-count proxy, **not** SPICE. Design target ≤ 0.25. |
-| **the gate / the trigger** | the **awake learning-gate** (Phase 8): run cheap SCFF every step; fire an expensive namer update only when a **drift trigger** says the cheap path has stalled. Committed gate = **DDM**; trigger = **class-direction tap-drift** (a *direction*, not a magnitude). |
+| **the gate / the trigger** | the **awake learning-gate** (Phase 8): run cheap SCFF every step; fire an expensive namer update only when a **drift trigger** says the cheap path has stalled. Committed gate = **DDM on the namer's error-EMA** (a labeled error-rate). A label-free **class-direction tap-drift** signal was *validated* (P8.2 — leads the error, spine-clean) but is **not the deployed trigger** — the north-star upgrade, not the shipped one (§4). |
 | **sleep / the LUT** | periodic **consolidation**: re-forward a raw-prototype store (the **Hippocampus LUT**) through the *current* SCFF map, rebuild the running Gram, re-solve the namer. The LUT is a bounded, evicting store (§5.4). |
 | **the frozen / oracle reference** | an *internal* reference that **cheats with hidden task boundaries** (sleeps/fires exactly at onsets). Matching it is the *win*; it is never a deployable path. Every Phase-9 verdict is measured against it, **never** against the Phase-10 backprop baseline. |
 | **rotation vs forgetting** | the SCFF map **rotates** (a fixed head goes stale) but does not **forget** (an optimal probe *re-fit* on the current bulk still decodes the old classes). Phase 9 measured this; it is why cheap sleep suffices (§5.1). |
@@ -299,8 +299,8 @@ first time** (SCFF learns forward-only on every input; the namer tracks the drif
 
 **The awake gate (a drift-detection economy).** Every step: SCFF forward + local update (**always**, op a); the namer
 forward (**always**, op b); the namer's `partial_fit` (**gated**, op c) — fired only when an **awake gate** decides the
-cheap path has stalled. The committed gate is **DDM** (Drift Detection Method, a two-threshold error detector) reading a
-**class-direction tap-drift** trigger (the drift of the tap features *along the class axis* — a direction). Periodically,
+cheap path has stalled. The committed gate is **DDM** (Drift Detection Method, a two-threshold detector) on the namer's
+own **error-EMA** — a labeled error-rate (the frozen manifest is `gate="ddm", trigger="error_ema"`). Periodically,
 a **sleep** (op d) re-forwards the raw LUT prototypes through the current SCFF map, rebuilds the Gram, and re-solves.
 
 **The metered 80/20 is real — and the gate *creates* it.** With the committed gate on, the namer is **12.1% of total
@@ -311,10 +311,13 @@ And **OURS ≈ half the energy of backprop-plus-replay** at matched retention on
 **The crux inversion — the gate is *safety*, not just thrift.** The assembled economy holds worst-point (pre-sleep) BWT at
 **0.000** on the Phase-8 stream (0/5 seeds regress vs the boundary oracle). The profligate **always-pay** loop — namer
 every step — *forgets* (worst-BWT −0.137) by chasing the recency-skewed stream. **Firing more forgets more.** So the gate
-is a continual-**safety** mechanism the way a good sleep schedule is, not merely a cost saver. **The spine, demonstrated
-cleanly:** the trigger fires on the class **direction** (invariant to a nuisance covariate, 0.84× baseline) not on a
-**magnitude** (the magnitude-of-shift null spikes 10× and false-fires on 94% of nuisance steps — density ≠ class, and the
-gate reads the right side of it).
+is a continual-**safety** mechanism the way a good sleep schedule is, not merely a cost saver. **The spine here was
+*measured*, not *deployed* at the gate.** Phase 8.2 validated a label-free **class-direction tap-drift** signal — it leads
+the labeled error by ~8 steps (MTD 6 vs 14) and stays invariant to a nuisance covariate (0.84× baseline), while the
+magnitude-of-shift null spikes 10× and false-fires on 94% of nuisance steps (density ≠ class, made a measurement). But the
+**deployed** gate rides the error-EMA — a *performance magnitude*, not the direction — because DDM consumes an error rate
+by construction; the direction trigger is carried as the **validated north-star upgrade** (§10), not the frozen object's
+shipped signal.
 
 **Why analog — the substrate decomposition (the professor's 2×2).** Priced against the *conventional* approach (real
 backprop+replay on a digital von-Neumann/GPU-class accelerator), the chip is **~15.4× cheaper** in energy, and the win
@@ -421,7 +424,7 @@ under-consolidated under revisits, and Phase 9 restored the near-flat continual-
                      ▼
      [ the namer: SLDA (deployed) / RanPAC (reference) — closed-form, streaming, NO gradient ]
                      │   op b: namer forward, ALWAYS
-                     │   op c: partial_fit, GATED by DDM on the class-direction tap-drift trigger   (the ~metered 12–18%)
+                     │   op c: partial_fit, GATED by DDM on the namer's error-EMA   (the ~metered 12–18%)
                      │   op d: SLEEP — re-forward the bounded CBRS LUT through the CURRENT bulk → rebuild Gram → re-solve
                      │           cadence grid-4 (lifelong) · all-tap consolidation · proto-reanchor under a read-side shift
                      ▼
@@ -476,9 +479,10 @@ backprop fight is Phase 10:
   multimodal mixture).
 
 **DDM / ADWIN (Gama 2004 / Bifet & Gavaldà 2007)** *(the awake gate)*
-- *Kept:* an **error-drift detector** as the online learning-gate trigger.
-- *Changed / extended:* the detector reads a **class-direction tap-drift** signal (a *direction*, spine-clean), not raw
-  error — and the gate's value turned out to be **continual safety, not just cost** (firing more forgets more, §4).
+- *Kept:* the **error-drift detector** — DDM on the namer's error-EMA — as the online learning-gate, **deployed as-is.**
+- *Measured / extended:* Phase 8.2 validated a **class-direction tap-drift** signal (a *direction*, spine-clean) that
+  *leads* the raw error — carried as the north-star upgrade but **not the deployed trigger** (DDM consumes an error rate) —
+  and the gate's value turned out to be **continual safety, not just cost** (firing more forgets more, §4).
 
 **CBRS (Chrysakis & Moens, ICML 2020) & herding (iCaRL, CVPR 2017)** *(bounded-buffer eviction)*
 - *Kept:* **class-balanced reservoir sampling** as the bounded-store policy; **herding** (keep the class mean) as the
@@ -523,7 +527,7 @@ backprop fight is Phase 10:
 | **Noise2Noise · LP-FT** | clean-from-only-noisy (zero-mean) · a head can't manufacture backbone robustness | **Door B** (direction from an all-noisy stream) · the **ordering** (noise fixed in SCFF first) |
 | **RanPAC** | random-projection + running-Gram ridge, gradient-free | on SCFF features; spine rubric; cbrs guard; SLDA deployed as the cheaper twin |
 | **Deep SLDA** | streaming means + tied covariance, closed-form | the **deployed namer** (69× cheaper, ties live); streaming `partial_fit`; the anisotropy fix |
-| **DDM / ADWIN** | error-drift detector as a gate | reads a **class-direction** trigger; the gate is **safety**, not just cost |
+| **DDM / ADWIN** | error-drift detector as a gate | deployed on the namer's **error-EMA**; a class-direction trigger *validated* (P8.2) but **not shipped**; the gate is **safety**, not just cost |
 | **CBRS / herding** | class-balanced reservoir / mean-keeping | spine framing (direction-span vs mean = null); cap × #classes scaling law |
 | **Latent Replay** | replay-depth consolidation | tested; **all-tap kept** (capacity is the margin under live drift) |
 | **Davari 2022** | re-fit probe = true forgetting (rotation out) | the P9.0 rotation-vs-forgetting split — the founding assumption, measured |
@@ -555,8 +559,9 @@ tuning. The connective tissue is one recurring fault, **density ≠ class.**
    channel forward-only, keeps the continual win, names the input-transducer residual → Stage 2. **Scoped-YES.**
 7. **P7 — the namer is NOT gradient descent.** A closed-form streaming head (**RanPAC** / **SLDA** committed, cbrs guard)
    ties a tuned MLP and passes the A6 gate; the spine bends (magnitude-wins). *The 20% is a role, not a method.* **(S11.)**
-8. **P8 — the economy, run LIVE.** Both brains live; a **DDM** gate on a **class-direction** trigger meters the 80/20 real
-   (GD-share 0.121), OURS ≈ ½ backprop+replay, and **firing more forgets more** (the gate is safety). Why-analog: 15.4× =
+8. **P8 — the economy, run LIVE.** Both brains live; a **DDM** gate on the namer's **error-EMA** meters the 80/20 real
+   (GD-share 0.121) — a label-free class-direction tap-drift signal validated as the spine-clean upgrade but not deployed —
+   OURS ≈ ½ backprop+replay, and **firing more forgets more** (the gate is safety). Why-analog: 15.4× =
    5.4× substrate × 2.9× algorithm. **(S12.)**
 9. **P9 — close & *freeze* the maintenance loop (this).** The bulk **rotates but does not forget** (measured); N2 struck,
    all-tap kept, **CBRS** committed, the read-side residual defended by **proto-reanchor**; the freeze caught the
@@ -568,7 +573,7 @@ tuning. The connective tissue is one recurring fault, **density ≠ class.**
 
 **The frozen neocortex loop (exact config).** `NoiseAugContrast` SCFF bulk (L12/w64, InfoNCE `τ=0.2`/`w=2`, per-sample L2
 norm, one noise-aug view `σ_aug=1.0`, no residual) · deployed namer **SLDA** (RanPAC the reference), gradient-free/streaming
-`partial_fit` · awake gate **DDM** on the **class-direction tap-drift** trigger · **all-tap** sleep consolidation · **CBRS**
+`partial_fit` · awake gate **DDM on the namer's error-EMA** (class-direction tap-drift validated, not deployed — §4) · **all-tap** sleep consolidation · **CBRS**
 bounded-LUT eviction · **proto-reanchor** read-side defense · **grid-4** lifelong sleep cadence · envelope: **GD reads taps,
 never writes SCFF.** Live-safety: worst-BWT −0.028 (ties oracle, 0/5 regress), AA 0.494, GD-share 0.178. Locked at commit
 `59d2720`. Methodology throughout: seeds `[42,137,271,314,1729]`, median [IQR], a difference "real" only if IQR-disjoint
@@ -614,7 +619,9 @@ it must be *shown*.
 self-generated feeling* — the organs re-wired to run recurrently at inference (SCFF goodness → the feeling; the LUT → the
 queried memory; the gate → think-until-the-feeling-crosses-θ). The **cosine spine-pure head** benched in Phase 7 and the
 better-than-confidence per-sample selector parked in Phase 5 both come home here — the direction signals the recurrent
-brain will read. After Phase 10, the analog-realism layer (SPICE / PVT) opens. *Simple intelligence first.*
+brain will read; so does the **class-direction tap-drift** gate signal validated in Phase 8 but not deployed on the frozen
+error-EMA gate — the recurrent *halt* that fires on a direction, never a confidence magnitude. After Phase 10, the
+analog-realism layer (SPICE / PVT) opens. *Simple intelligence first.*
 
 ---
 

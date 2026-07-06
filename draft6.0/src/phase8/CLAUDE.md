@@ -15,11 +15,13 @@ honest hardware cost number** on the founding 80/20.
   chasing the recency-skewed stream; the disciplined economy (rare gated fires + cbrs + full-LUT sleep) does not (0.000).
   The gate is a **safety** mechanism, not just a cost saver.
 - **The committed economy:** deployed head **SLDA** (P8.4: 69× cheaper than RanPAC, AA ties/beats live → resolves S11) ·
-  awake gate **DDM** (P8.1: AA at oracle, FAR 0.000, f≈0.003) · trigger **class-direction tap-drift** (P8.2: MTD 6 < error
-  14, excess-FAR 0.000, spine-clean) · sleep **grid-8 / full LUT history / λ_ema 1.0** (P8.3: cheapest holding A6) · guard
-  **cbrs** · envelope unchanged (GD reads taps, never writes SCFF).
-- **The spine, demonstrated:** the trigger fires on class **direction** (invariant to a nuisance covariate, 0.84×) not
-  **magnitude** (the null spikes 10× and false-fires on 94% of nuisance steps) — density≠class, 8th coat.
+  awake gate **DDM** on the namer's **error-EMA** (P8.1: AA at oracle, FAR 0.000, f≈0.003) · a **class-direction tap-drift**
+  trigger *validated* (P8.2: MTD 6 < error 14, excess-FAR 0.000, spine-clean) but **not deployed** — DDM consumes an error
+  rate, so it is the north-star upgrade, not the shipped trigger · sleep **grid-8 / full LUT history / λ_ema 1.0** (P8.3:
+  cheapest holding A6) · guard **cbrs** · envelope unchanged (GD reads taps, never writes SCFF).
+- **The spine, measured (not deployed at the gate):** the *validated* tap-drift signal fires on class **direction**
+  (invariant to a nuisance covariate, 0.84×) not **magnitude** (the null spikes 10× and false-fires on 94% of nuisance
+  steps) — density≠class, 8th coat — but the frozen gate rides the error-EMA; this coat is demonstrated, not shipped.
 - **WHY ANALOG (P8.7 extension, for the professor brief):** re-metered the exact committed loop + the fair BP+replay
   baseline on a **digital** (von-Neumann/GPU-class) substrate → the full **2×2**. The chip is **15.4× cheaper** than
   conventional GD-on-digital, factoring into **5.4× substrate** (compute-in-memory: the ~8e8 near-free crossbar MACs vs
@@ -40,7 +42,7 @@ honest hardware cost number** on the founding 80/20.
   [`expK/experiment-K.md`](exp0/experiment-0.md). **Spec:** [`design.md`](design.md); contract
   [`result-format.md`](result-format.md). **Apparatus:** `p8lib.py` (+ `p8cfg.py`, `p8run.py`, `plot_p8.py`).
 - **Owed deltas (flagged, banked to [`../../idea/main.ideas.v1.md`](../../idea/main.ideas.v1.md)):** **S6** resolved (DDM
-  gate + direction trigger), **S11** resolved (commit SLDA), the **metered 80/20** replaces the proxy tags, **S7**
+  gate on error-EMA; the direction trigger validated but not shipped), **S11** resolved (commit SLDA), the **metered 80/20** replaces the proxy tags, **S7**
   extended (grid-8/full/λ1.0 cadence), a **new supporting decision** (the live two-brain economy is continual-safe; the
   gate is a safety mechanism), **N2** stays Phase 9's.
 - **Read-budget:** for the verdict read `README.md`; for numbers `RESULTS.md`. Open cards/code only to modify.

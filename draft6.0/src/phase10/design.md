@@ -44,7 +44,7 @@ Phase 10 is the **thesis defense.** It *measures*; it does not tune. Deliverable
 The kickoff decision that shapes the phase: **do it like a frontier — make it rich.** Rather than racing a single point, we
 present the model as a **family of 5 operating points along its one runtime cost dial — the sleep cadence** (`grid-N` = sleep
 every N segments). This is the *same frozen object*; **every *learned* part is frozen** (SCFF bulk config, SLDA namer, DDM
-gate, class-direction trigger, CBRS eviction, all-tap depth, proto-reanchor) — only the sleep **interval** changes. Phase 9
+gate on the namer's error-EMA, CBRS eviction, all-tap depth, proto-reanchor) — only the sleep **interval** changes. Phase 9
 already characterized this exact frontier internally (the P9.5 `{2,4,5,6,8,16}` cadence re-confirm); Phase 10 races it against
 the **external** BP baseline for the scaling story. The two tiers, straight from Phase 9's freeze:
 
@@ -141,8 +141,8 @@ noise arms are the declared exception**, where the substrate axis *is* the noise
 ### 2.1 What the object is, the family, and the substrate race
 
 **The frozen object (races at grid-4).** `NoiseAugContrast` SCFF bulk (L12/w64, InfoNCE τ0.2/w2, per-sample L2 norm, one
-noise-aug view σ1.0, no residual) · **SLDA** namer (RanPAC the reference) · **DDM** awake gate on the **class-direction
-tap-drift** trigger · **all-tap** sleep consolidation · **CBRS** bounded-LUT eviction · **proto-reanchor** read-side defense ·
+noise-aug view σ1.0, no residual) · **SLDA** namer (RanPAC the reference) · **DDM** awake gate on the namer's **error-EMA** (the validated class-direction
+tap-drift trigger was not deployed) · **all-tap** sleep consolidation · **CBRS** bounded-LUT eviction · **proto-reanchor** read-side defense ·
 **grid-4** sleep cadence · envelope GD-reads-taps-never-writes. Both brains run **live** on the stream (SCFF learns
 forward-only every step; the namer tracks the drift via the gate + sleep).
 

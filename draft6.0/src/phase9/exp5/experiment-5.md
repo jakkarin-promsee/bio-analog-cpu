@@ -1,7 +1,7 @@
 # P9.5 — Assemble + FREEZE: does the fully-tuned neocortex loop hold A6 at the metered economy, and lock?
 
-**Inheriting** every knob the ladder resolved — the committed P8.6 loop (NoiseAugContrast bulk · SLDA namer · DDM/error-EMA
-awake gate · class-direction tap-drift trigger · cbrs) plus **N2 struck** (P9.1), **all-tap** consolidation (P9.2), **CBRS**
+**Inheriting** every knob the ladder resolved — the committed P8.6 loop (NoiseAugContrast bulk · SLDA namer · DDM-on-error-EMA
+awake gate, with the class-direction tap-drift trigger validated but not deployed · cbrs) plus **N2 struck** (P9.1), **all-tap** consolidation (P9.2), **CBRS**
 eviction (P9.3), and **proto-reanchor** read-side defense (P9.4, earned) — P9.5 turns them all on at once, re-runs the P8.6
 live-safety gate on the *assembled* loop, and (on pass) locks the object at a commit hash for Phase 10 to race. **Nothing new
 is tuned against the P10 baseline; every cut is internal.**
@@ -70,7 +70,7 @@ veto passes, but the load-bearing read is the assembled worst-BWT, not a "ties-o
   - **INV**: all nine guards green.
 
 **Read (8 slots).**
-1. *Claim* — the fully-assembled maintenance loop (SLDA · DDM · tap-drift-direction · N2-struck · all-tap · CBRS ·
+1. *Claim* — the fully-assembled maintenance loop (SLDA · DDM-on-error-EMA [tap-drift-direction validated, not deployed] · N2-struck · all-tap · CBRS ·
    proto-reanchor · **grid-4 lifelong cadence**) holds worst-point A6-BWT at the boundary-oracle level (−0.028, 0/5 more-neg)
    at held accuracy and GD-share ≤ 0.25 → the object **freezes**.
 2. *Headline* — assembled worst-BWT **−0.028 [−0.039,−0.022]** = oracle −0.028 (veto 0/5), AA 0.494 = shipped 0.494, GD-share
@@ -88,8 +88,8 @@ veto passes, but the load-bearing read is the assembled worst-BWT, not a "ties-o
    ADC-centred model (params logged). (d) the freeze passing required re-confirming a P8 knob (cadence) on the harder stream —
    reported openly (the grid-8 first-attempt failure is a first-class result, not hidden). Rule-1: the freeze is an
    integration (all knobs on); the cadence re-confirm swept one variable (cadence) as a separate sub-table.
-6. *Decision* — **the object is frozen.** The committed neocortex loop = NoiseAugContrast bulk · SLDA · DDM/error-EMA gate ·
-   class-direction tap-drift trigger · N2-struck · all-tap consolidation · CBRS eviction · proto-reanchor read-side ·
+6. *Decision* — **the object is frozen.** The committed neocortex loop = NoiseAugContrast bulk · SLDA · DDM-on-error-EMA gate
+   (class-direction tap-drift validated, not deployed) · N2-struck · all-tap consolidation · CBRS eviction · proto-reanchor read-side ·
    **grid-4 lifelong sleep cadence**. S7 is extended again (the P8 grid-8 cadence, tuned on a single pass, is re-confirmed to
    grid-4 for the lifelong revisit regime). Phase 10 races this object; it touches no knob.
 7. *Freeze-honesty* — **internal-signals-only affirmed** (the veto, AA-held, and GD-share cuts referenced only the oracle, the

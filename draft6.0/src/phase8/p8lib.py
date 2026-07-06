@@ -37,8 +37,9 @@ NEW here (Phase 8) — design 6:
   awake_sleep_loop : the dual-mode wrapper. block mode == continual_safety_heads bit-for-bit (the guard + the oracle
       reference); streaming mode == build_cache + run_economy (the real regime).
   detectors : AbsTheta, DDM, ADWIN (error) ; BudgetGate (learned, reads a drift feature, FD-guarded).
-  triggers  : sig_error_ema (labeled ref) ; sig_tap_drift_direction (drift ALONG the class/readout directions -- the
-      committed candidate, spine-clean) ; sig_tap_drift_magnitude (raw input-moment mean-shift -- the false-fire
+  triggers  : sig_error_ema (labeled ref -- the DEPLOYED gate trigger) ; sig_tap_drift_direction (drift ALONG the
+      class/readout directions -- the P8.2-preferred candidate, validated NOT deployed, spine-clean) ;
+      sig_tap_drift_magnitude (raw input-moment mean-shift -- the false-fire
       NULL) ; sig_driftlens (post-norm embedding-distance -- the label-free reference) ; sig_studd (student mimic).
   hardware_cost_meter / bp_replay_energy : the behavioral ADC-centred energy model (design 2.3) + the BP+replay
       energy model at matched retention (same substrate table). readout_cost == the MAC+solve unit-energy special case.
@@ -511,7 +512,8 @@ def sig_error_ema(err_series, beta):
 
 
 def sig_tap_drift_direction(cache):
-    """The committed candidate: 1 - mean_c cos(class-direction_t, class-direction_ref) on the FIXED probe (post-norm
+    """The P8.2-preferred candidate (validated, NOT deployed — the frozen loop gates on error_ema): 1 - mean_c
+    cos(class-direction_t, class-direction_ref) on the FIXED probe (post-norm
     -> nuisance-invariant). Fires when the class DIRECTIONS rotate (real drift), not when the cloud translates/scales."""
     return cache["sig"]["tap_dir"].copy()
 

@@ -86,9 +86,10 @@ tempting move was a magnitude and the honest move was to measure which one actua
   on the frozen bulk; the committed namer reads a magnitude yet is recency-robust **because it has no trained softmax
   weights to inflate.** Recency-robustness ≠ direction-reading. The spine bent, numerically, and we named the tension
   rather than resolving it silently toward accuracy.
-- **P8 (8th coat):** the drift *trigger* is the spine's crown — the class-**direction** tap-drift signal leads the
+- **P8 (8th coat) — measured, not deployed:** the drift *signal* that watches the class **direction** leads the
   labeled error by ~8 steps and stays invariant to a nuisance covariate, while the magnitude-of-shift null false-fires
-  on 94% of nuisance steps. Here direction *wins*, measurably.
+  on 94% of nuisance steps. Here direction *wins*, measurably — but the frozen gate ships on the error-EMA (DDM
+  consumes an error rate), so this coat is *validated*, not deployed; it becomes the north-star gate seed.
 - **P9 (9th coat):** eviction keeps class *directions* (CBRS) not the dense mean; the read-side calibration re-anchors
   a *direction* (prototypes re-forwarded under shift), never an entropy/confidence magnitude.
 
@@ -229,9 +230,11 @@ steps — at excess-FAR **0.000** (DriftLens, the literature's label-free refere
 shift means reading the nuisance; reading the class direction sees real drift early and ignores it. (n=5.)*
 
 SCFF's *representation* drifts before the readout's *error* rises, so a direction watcher sees the onset first —
-density ≠ class, made a measurement. **Committed: DDM gate on the class-direction tap-drift trigger** — a
-*direction*-triggered error detector at two timescales. (This is also the north-star seed built for real: the gate is
-the *halt*, and it is a direction, never a confidence magnitude — a confidence gate would be torn out later.)
+density ≠ class, made a measurement. **But the committed gate ships on the namer's error-EMA:** the deployed DDM
+detector consumes an error rate, so the frozen loop rides the labeled error, not the tap-drift signal — two committed
+P8 decisions (a DDM gate, a direction trigger) that do not compose in one code path. The direction signal is carried
+instead as the **north-star seed built for real**: the recurrent gate's *halt* fires on a direction, never a confidence
+magnitude — a confidence gate would be torn out later.
 
 **The cadence (P8.3).** Sleep re-forwards the raw-prototype LUT through the *current* SCFF and re-solves on fresh,
 consistent features. Three findings: **full history is load-bearing** (truncate to a quarter and AA collapses
@@ -281,8 +284,9 @@ Two honesty checks: the 80/20 is **substrate-independent** (GD-share 0.11–0.16
 of the op-schedule, not the physics), and the analog advantage is a **floor, not a knife-edge** (≥2.7× even below
 Horowitz arithmetic-only; grows past 50× once the memory wall is counted).
 
-**Committed (the economy):** deployed head **SLDA** · awake gate **DDM** · trigger **class-direction tap-drift** ·
-sleep **grid-8 / full history / λ_ema 1.0** · guard **cbrs** · envelope unchanged (GD reads taps, never writes SCFF).
+**Committed (the economy):** deployed head **SLDA** · awake gate **DDM on the namer's error-EMA** (a class-direction
+tap-drift trigger validated but not shipped — DDM consumes an error rate) · sleep **grid-8 / full history / λ_ema 1.0**
+· guard **cbrs** · envelope unchanged (GD reads taps, never writes SCFF).
 Deltas: **S6 resolved** (the gate), **S11's cost caveat resolved** (SLDA), the **metered 80/20** replaces every proxy
 tag, **S7 extended** (the cadence), plus the new supporting decision — *the live two-brain economy is continual-safe,
 and the gate is a safety mechanism.* **(S12.)** → [full Phase 8 report](phase8/phase8-report.md) ·
@@ -372,7 +376,7 @@ failures fall on *different* axes — grid-8 fails the *veto* (sparse-sleep trou
 the shipped grid-8 loop on the lifelong stream.
 
 **The object is FROZEN** (commit `59d2720`): `NoiseAugContrast` bulk (temp0.2/w2, L12) · **SLDA** namer ·
-**DDM / error-EMA** gate on the **class-direction tap-drift** trigger · **N2 struck** · **all-tap** consolidation ·
+**DDM on the namer's error-EMA** gate (class-direction tap-drift validated, not deployed) · **N2 struck** · **all-tap** consolidation ·
 **CBRS** eviction · **proto-reanchor** read-side defense · **grid-4** lifelong cadence · envelope unchanged (GD reads
 taps, never writes SCFF). Deltas: N2 resolved (struck), S7 extended, the bulk-drift assumption *measured*, eviction =
 CBRS, the residual resolved. **(S13.)** → [full Phase 9 report](phase9/phase9-report.md) ·
@@ -393,7 +397,7 @@ frozen architecture snapshots. *(The trial deltas — **S14** from Phase 10 and 
 | Two GD organs (interface / output) | **S4** | collapsed at P7 close | _**S11**: collapses to **one** — the namer (Interface-GD retired with the blocks)_ |
 | Readout = fixed short-stack placement | **S9** | extended at P7 close | _**S11**: extended with the committed *head* (**RanPAC**, analytic), not just the placement_ |
 | The namer is a *method* (gradient descent) | — (implicit) | overturned at P7 | _**S11 new supporting decision**: the namer is a **closed-form/streaming analytic head** — "20% GD" is a role, not a method_ |
-| Threshold-gated learning (Ch7 gate) | **S6** | **resolved at P8 close** | _**S12**: the awake gate is **DDM** on a **class-direction tap-drift** trigger (magnitude-of-shift is the false-fire null)_ |
+| Threshold-gated learning (Ch7 gate) | **S6** | **resolved at P8 close** | _**S12**: the awake gate is **DDM** on the namer's **error-EMA**; a class-direction tap-drift trigger was validated (P8.2, magnitude-of-shift is the false-fire null) but not shipped (DDM consumes an error rate) — the north-star gate seed_ |
 | The committed head's cost | **S11 caveat** | **resolved at P8 close** | _**S12**: metered E-ratio 69× → **commit SLDA** as the deployed namer (RanPAC kept as the accuracy/spine reference)_ |
 | Sleep consolidation cadence | **S7** | **extended at P8, re-confirmed at P9** | _**S12/S13**: grid-8 (single-pass) → **grid-4** (lifelong revisit; the freeze caught it); full LUT history load-bearing; λ_ema 1.0_ |
 | The "80/20" cost number | proxy (Stage-1) | **metered at P8 close** | _**S12**: real — GD-share **0.121** with the gate on (0.778 off); bp_ratio 0.501 vs BP+replay_ |
@@ -416,9 +420,9 @@ The committed neocortex loop, locked at `59d2720`:
   (P9.0, measured).
 - **The namer (20%):** **SLDA** — closed-form, streaming (`partial_fit` running Gram), no gradient, no backward
   pass. Reads all taps; never writes SCFF.
-- **The economy:** the **DDM** awake gate on the **class-direction tap-drift** trigger (label-free, leads the error,
-  nuisance-invariant); metered GD-share **0.121–0.178 ≤ 0.25** — and the gate is a *safety* mechanism (always-pay
-  forgets, −0.137).
+- **The economy:** the **DDM** awake gate on the namer's **error-EMA** (a class-direction tap-drift trigger was
+  validated — label-free, leads the error, nuisance-invariant — but not shipped, the north-star upgrade); metered
+  GD-share **0.121–0.178 ≤ 0.25** — and the gate is a *safety* mechanism (always-pay forgets, −0.137).
 - **The maintenance loop:** **grid-4** sleep over a bounded **CBRS** prototype LUT (full history, all-tap re-fit)
   + **proto-reanchor** as the read-side noise defense. Worst-point BWT **−0.028** (ties the boundary oracle) at AA
   0.494 on the lifelong home.
@@ -464,10 +468,10 @@ not a confidence magnitude) is *the feeling.* Phase 7 sharpened this honestly: t
 **magnitude**, and the direction-pure cosine head is sub-competitive as a *classifier* — so the "feeling" is **not**
 the deployed head. But the cosine margin survives as an **available, perfectly spine-clean direction signal**
 (argmax-flip 0), decoupled from the classifier: the recurrent brain can read the *angle* for its self-generated
-confidence even while the *names* come from the magnitude head. The gate half of the seed was **built exactly as
-seeded** in Phase 8: the committed trigger is a class-direction tap-drift signal, never a confidence magnitude (why
-P5 struck the adaptive exit) — and the sims confirmed it both *leads* the error and stays nuisance-invariant while
-the magnitude null false-fires. Light touch, held to a tie-break — **simple intelligence first.**
+confidence even while the *names* come from the magnitude head. The gate half of the seed was **validated
+in Phase 8** (not yet wired into the frozen gate, which ships the error-EMA): a class-direction tap-drift signal, never
+a confidence magnitude (why P5 struck the adaptive exit) — the sims confirmed it both *leads* the error and stays
+nuisance-invariant while the magnitude null false-fires — waiting to be the recurrent gate's *halt*. Light touch, held to a tie-break — **simple intelligence first.**
 
 ---
 

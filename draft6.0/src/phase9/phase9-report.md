@@ -113,7 +113,7 @@ Stage-2 read-side" debt is discharged.
 
 ## 6 · P9.5 — assemble + FREEZE: the freeze caught the cadence
 
-Every committed knob live at once — NoiseAugContrast bulk · SLDA · DDM/error-EMA gate · class-direction tap-drift trigger ·
+Every committed knob live at once — NoiseAugContrast bulk · SLDA · DDM-on-error-EMA gate (class-direction tap-drift validated, not deployed) ·
 N2-struck · all-tap · CBRS · proto-reanchor. Four of five knobs resolved to *keep* the committed loop, so the assembled loop is
 the P8.6 shipped object bit-for-bit.
 
@@ -161,8 +161,7 @@ parent `1fb11b3`; every knob enumerated in the committed-knob block).
 
 ## 7 · The frozen object, and the seam to Phase 10
 
-**The committed neocortex loop:** `NoiseAugContrast` bulk (temp0.2/w2, L12) · **SLDA** namer · **DDM/error-EMA** awake gate on
-the **class-direction tap-drift** trigger · **N2 struck** · **all-tap** consolidation · **CBRS** eviction · **proto-reanchor**
+**The committed neocortex loop:** `NoiseAugContrast` bulk (temp0.2/w2, L12) · **SLDA** namer · **DDM on the namer's error-EMA** awake gate (class-direction tap-drift validated, not deployed) · **N2 struck** · **all-tap** consolidation · **CBRS** eviction · **proto-reanchor**
 read-side defense · **grid-4** lifelong sleep cadence · envelope unchanged (GD reads taps, never writes SCFF). Frozen at
 worst-BWT −0.028 / AA 0.494 / GD-share 0.178.
 
