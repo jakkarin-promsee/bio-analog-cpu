@@ -47,6 +47,27 @@ that hasn't loaded — run `/memory` to see what's in scope.)*
 | The idea journey (drafts 1.0 → 5.1) | [`draft-journey/`](draft-journey/README.md) |
 | Why the project exists / the person | [`docs/essence/the-essence2.md`](docs/essence/the-essence2.md) · [`docs/draft/project-personal.md`](docs/draft/project-personal.md) |
 | Why an old (5.1-era) decision was made | [`docs/draft/project-history.md`](docs/draft/project-history.md) |
+| **The whole research wiring** (thought → experiment → result → decision) | [`graphify-out/graph.html`](graphify-out/graph.html) · [`GRAPH_REPORT.md`](graphify-out/GRAPH_REPORT.md) · how-to: [`docs/notes/graphify.md`](docs/notes/graphify.md) |
+
+---
+
+## Research knowledge graph (graphify)
+
+This repo has a **persistent graphify map** in [`graphify-out/`](graphify-out/) — a navigable knowledge graph over
+the full corpus (markdown decision chains, experiment cards, code structure, north-star papers). It exists because
+this project has **no linear flag for decisions**: everything wires through `.md` text; graphify is the cross-draft
+index for *why* a pivot happened, *what* experiment proved it, and *where* the next decision lives.
+
+**Agents — use the graph first for corpus questions.** If `graphify-out/graph.json` exists and the user asks how X
+relates to Y, why a phase pivoted, or where a concept first appeared: run `graphify query "…"` (or `path` / `explain`)
+— do **not** re-read dozens of phase files into context. Full operator guide: [`docs/notes/graphify.md`](docs/notes/graphify.md).
+Global skill: **`graphify`** (installed Cursor/Claude Code skill — `/graphify` or ask in plain words).
+
+**Humans — open [`graphify-out/graph.html`](graphify-out/graph.html) in a browser** for the community map; read
+[`graphify-out/GRAPH_REPORT.md`](graphify-out/GRAPH_REPORT.md) for god nodes, surprising cross-era bridges, and
+suggested questions. After adding substantial docs or finishing a phase, **incremental update** — see the notes file.
+
+Scan excludes: `.obsidian/`, `post/`, `temp/`, `temp2/` (scratch, not research record).
 
 ---
 

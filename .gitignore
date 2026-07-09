@@ -41,3 +41,18 @@ temp/
 
 # Temporary notes space
 temp2/
+
+# graphify rebuild intermediates (regenerated; durable outputs tracked — see docs/notes/graphify.md)
+graphify-out/.graphify_ast.json
+graphify-out/.graphify_extract.json
+graphify-out/.graphify_semantic.json
+graphify-out/.graphify_detect.json
+graphify-out/.graphify_analysis.json
+graphify-out/.graphify_cached.json
+graphify-out/.graphify_semantic_new.json
+graphify-out/.graphify_chunk_*.json
+graphify-out/.graphify_chunkmap.json
+graphify-out/.graphify_extended_chunkmap.json
+graphify-out/.graphify_image_chunkmap.json
+graphify-out/.graphify_uncached.txt
+graphify-out/cache/ast/
