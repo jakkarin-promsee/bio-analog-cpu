@@ -64,7 +64,11 @@ Agents should query the graph instead of reading 50 markdown files.
 | --- | --- | --- |
 | **Semantic (docs)** | All `.md` in scope | Concepts, decisions, experiment verdicts, `rationale` on *why* |
 | **AST (code)** | `.py` under the repo | Imports, calls, class/function structure |
-| **Images (partial)** | `.png` experiment figures | Chart metrics + links back to experiment cards |
+| **Figures (structural)** | `.png` under `draft*/src/` | Linked from parent `experiment-*.md`, `phase-report` embeds, `plot_*.py` `savefig`, `manifest.json` — **no vision** |
+
+**Experiment PNGs are not read with vision in this repo.** Every figure is 100% Python-emitted and already
+described in its parent experiment card (plus often embedded in the phase report). Structural linking is
+cheaper, consistent, and matches how you actually work. Tool: [`tools/graphify_link_figures.py`](../../tools/graphify_link_figures.py).
 
 **Excluded from scan** (on purpose — not research record):
 
@@ -216,10 +220,50 @@ wiring → **`graphify query` first**, then read specific files only where the g
 
 ---
 
+## Experiment figures — link without reading PNGs
+
+Your `.png` files are **outputs of `plot_*.py`**, living next to:
+
+- **`experiment-*.md`** — full question / setup / result / decision; often a bullet per figure (`F4_goodness.png`)
+- **`phaseN-report.md`** — markdown embeds like `![F4 goodness](exp0/figs_exp0/F4_goodness.png)`
+- **`figs_*/manifest.json`** — run config + median metrics
+- **`plot_*.py`** — `savefig("F4_goodness.png")` (AST also sees this)
+
+That is enough context. **Do not run vision on these PNGs** unless a figure has no parent doc (rare here).
+
+### One command (structural link pass)
+
+```powershell
+cd C:\Users\BTCOM\Desktop\0_Project\Bio-AnalogCPU
+
+# Build figure nodes + edges from parent docs/code only
+python tools/graphify_link_figures.py
+
+# Optional: append to semantic layer, then ask agent to rebuild graph.json
+python tools/graphify_link_figures.py --merge
+```
+
+Each image node gets:
+
+- **Label** from the phase-report embed caption (if present)
+- **Rationale** from the experiment card bullet + manifest one-liner
+- **EXTRACTED edges** → experiment card, phase report, emitting `plot_*.py`
+
+After `--merge`, tell the agent: *"rebuild graphify graph from extract"* (or run the merge/build steps in
+[`docs/notes/graphify.md`](graphify.md) § incremental update).
+
+### When vision *would* matter
+
+Only if you add figures **outside** the experiment tree (screenshots, whiteboard photos, external papers).
+Those stay in graphify's normal image path. Everything under `draft5.0/src/**/figs_*` and
+`draft6.0/src/**/figs_*` should use structural linking.
+
+---
+
 ## What's not done yet
 
-- **~250 experiment PNGs** (phases 3–11, draft5) — not all linked as image nodes yet; verdicts already live in
-  markdown. Ask for *"graphify image extraction phase N figures"* to add a batch.
+- **Structural figure pass** — run `python tools/graphify_link_figures.py` once, merge, rebuild graph (replaces
+  the slow vision subagent batches for PNGs). Phase 1–2 vision chunks in the graph can stay or be superseded.
 - **1 PDF** in corpus — minor; papers are mostly `.md` summaries.
 
 When those land, incremental update merges them without redoing the whole corpus.

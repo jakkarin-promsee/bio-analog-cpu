@@ -69,6 +69,10 @@ suggested questions. After adding substantial docs or finishing a phase, **incre
 
 Scan excludes: `.obsidian/`, `post/`, `temp/`, `temp2/` (scratch, not research record).
 
+**Experiment PNGs:** do not vision-read — link structurally from parent `experiment-*.md`, phase reports, and
+`plot_*.py` via [`tools/graphify_link_figures.py`](tools/graphify_link_figures.py) (see
+[`docs/notes/graphify.md`](docs/notes/graphify.md) § Experiment figures).
+
 ---
 
 ## Read these once before non-trivial work
