@@ -1395,9 +1395,9 @@
     "semantic_hash": "52c4f1dfd419346a1721c8449bfdc693"
   },
   "CLAUDE.md": {
-    "mtime": 1783554851.2394116,
-    "ast_hash": "03e0bb48924512aff2d5c965ebad5ee2",
-    "semantic_hash": "03e0bb48924512aff2d5c965ebad5ee2"
+    "mtime": 1783619392.353711,
+    "ast_hash": "05f5dfc8cf7d0c9b3f28e496b229a2b1",
+    "semantic_hash": "05f5dfc8cf7d0c9b3f28e496b229a2b1"
   },
   "README.md": {
     "mtime": 1783550592.5679016,
@@ -4468,5 +4468,1305 @@
     "mtime": 1783092964.7414787,
     "ast_hash": "327a0e5ce4c3f12e0f7d5e13baefd379",
     "semantic_hash": "327a0e5ce4c3f12e0f7d5e13baefd379"
+  },
+  "tools/graphify_link_figures.py": {
+    "mtime": 1783619387.7580867,
+    "ast_hash": "7aebb8d22b912ebfd7a58defb0e4f0af",
+    "semantic_hash": "7aebb8d22b912ebfd7a58defb0e4f0af"
+  },
+  "auto-research/BACKLOG.md": {
+    "mtime": 1783828234.2696493,
+    "ast_hash": "f05cb21f541a3e5c1d73480bdf8ca664",
+    "semantic_hash": "f05cb21f541a3e5c1d73480bdf8ca664"
+  },
+  "auto-research/INDEX.md": {
+    "mtime": 1783828150.2424123,
+    "ast_hash": "480e0ab3a20bdffe44015bb1c900ac73",
+    "semantic_hash": "480e0ab3a20bdffe44015bb1c900ac73"
+  },
+  "auto-research/README.md": {
+    "mtime": 1783828375.3237538,
+    "ast_hash": "7d4d4da63ec14c049a12682f13cc2c57",
+    "semantic_hash": "7d4d4da63ec14c049a12682f13cc2c57"
+  },
+  "auto-research/_SWEEP-SYNTHESIS.md": {
+    "mtime": 1783828338.004055,
+    "ast_hash": "60c13df17df40c4332f6b7d3038bcd86",
+    "semantic_hash": "60c13df17df40c4332f6b7d3038bcd86"
+  },
+  "auto-research/tier1-nearest-neighbors/README.md": {
+    "mtime": 1783666342.0643198,
+    "ast_hash": "354ff9c3b01cfa1599791ab72186d2e9",
+    "semantic_hash": "354ff9c3b01cfa1599791ab72186d2e9"
+  },
+  "auto-research/tier1-nearest-neighbors/_TIER1-SYNTHESIS.md": {
+    "mtime": 1783698727.3339596,
+    "ast_hash": "1aef752bb43acbd3193f657b6a738dca",
+    "semantic_hash": "1aef752bb43acbd3193f657b6a738dca"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/_SYNTHESIS.md": {
+    "mtime": 1783667909.4577863,
+    "ast_hash": "76ff000c46e78c2c10e101b8202a8c08",
+    "semantic_hash": "76ff000c46e78c2c10e101b8202a8c08"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/hayes-2020-deep-slda.md": {
+    "mtime": 1783667645.3199162,
+    "ast_hash": "029cef8de703cbb892100336be6e4cbc",
+    "semantic_hash": "029cef8de703cbb892100336be6e4cbc"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/peng-2025-loranpac.md": {
+    "mtime": 1783667846.8431299,
+    "ast_hash": "57a5d3ad07c479379419decbe576064c",
+    "semantic_hash": "57a5d3ad07c479379419decbe576064c"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/prabhu-2024-randumb.md": {
+    "mtime": 1783667784.240124,
+    "ast_hash": "32b8484fe01934b399111193c49cd6b1",
+    "semantic_hash": "32b8484fe01934b399111193c49cd6b1"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/rypesc-2024-adagauss.md": {
+    "mtime": 1783667815.5410857,
+    "ast_hash": "7373026f741db9d1e7606e8617610476",
+    "semantic_hash": "7373026f741db9d1e7606e8617610476"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/zhuang-2022-acil.md": {
+    "mtime": 1783667618.2732449,
+    "ast_hash": "011f6f283fd9d71f69daa2074d9f788a",
+    "semantic_hash": "011f6f283fd9d71f69daa2074d9f788a"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/zhuang-2024-dsal.md": {
+    "mtime": 1783667672.5801077,
+    "ast_hash": "7993f1bd9d58f06ed7bfa6828e4e1d19",
+    "semantic_hash": "7993f1bd9d58f06ed7bfa6828e4e1d19"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/zhuang-2024-foal.md": {
+    "mtime": 1783667731.5626423,
+    "ast_hash": "e2afee8fe5fe1da95d16aab14b2fd6a1",
+    "semantic_hash": "e2afee8fe5fe1da95d16aab14b2fd6a1"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/zhuang-2024-gacl.md": {
+    "mtime": 1783667699.913278,
+    "ast_hash": "981f4d6bfd3a8c7be67f40b28ca96218",
+    "semantic_hash": "981f4d6bfd3a8c7be67f40b28ca96218"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/_SYNTHESIS.md": {
+    "mtime": 1783672208.4120848,
+    "ast_hash": "5fe92365b1346cb40a2c251f7ab379f6",
+    "semantic_hash": "5fe92365b1346cb40a2c251f7ab379f6"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/arani-2022-cls-er.md": {
+    "mtime": 1783671988.5329592,
+    "ast_hash": "320faf12f8f8ba98e9a9999a9410ee1e",
+    "semantic_hash": "320faf12f8f8ba98e9a9999a9410ee1e"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/sarfraz-2023-esmer.md": {
+    "mtime": 1783672058.6587856,
+    "ast_hash": "57037e2e0b9388bb208a01c5b3cfa254",
+    "semantic_hash": "57037e2e0b9388bb208a01c5b3cfa254"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/vijayan-2023-trire.md": {
+    "mtime": 1783672088.313193,
+    "ast_hash": "7a3df8c6dc62b38fc278c3cd6a4303b5",
+    "semantic_hash": "7a3df8c6dc62b38fc278c3cd6a4303b5"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/_SYNTHESIS.md": {
+    "mtime": 1783673798.2434201,
+    "ast_hash": "b5a376dcda2ae2dbd52c6b24dc2a1e0c",
+    "semantic_hash": "b5a376dcda2ae2dbd52c6b24dc2a1e0c"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/filipovich-2022-photonic-dfa.md": {
+    "mtime": 1783673673.6495972,
+    "ast_hash": "4499638cc162d9fbb17ed69eba903cdf",
+    "semantic_hash": "4499638cc162d9fbb17ed69eba903cdf"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/frenkel-2021-drtp.md": {
+    "mtime": 1783673705.7185879,
+    "ast_hash": "3f08fb9c60af59cbe22fe54f2e57ceca",
+    "semantic_hash": "3f08fb9c60af59cbe22fe54f2e57ceca"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/launay-2020-dfa-scales-modern.md": {
+    "mtime": 1783673608.2115202,
+    "ast_hash": "2c76247a35640c9aedbdf63b29c33a24",
+    "semantic_hash": "2c76247a35640c9aedbdf63b29c33a24"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/lee-2015-difference-target-propagation.md": {
+    "mtime": 1783673734.0894861,
+    "ast_hash": "0330085c4dc84dea5bdbefa932d160aa",
+    "semantic_hash": "0330085c4dc84dea5bdbefa932d160aa"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/lillicrap-2016-feedback-alignment.md": {
+    "mtime": 1783673519.3359604,
+    "ast_hash": "3de2f163b459c428acc37d459a24e5e1",
+    "semantic_hash": "3de2f163b459c428acc37d459a24e5e1"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/refinetti-2021-align-then-memorise.md": {
+    "mtime": 1783673638.2494755,
+    "ast_hash": "ef6f4f7b609d63e2d8cdeff3b3fa3b34",
+    "semantic_hash": "ef6f4f7b609d63e2d8cdeff3b3fa3b34"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/_SYNTHESIS.md": {
+    "mtime": 1783667145.8658252,
+    "ast_hash": "dcae42047d30b9a586f2391d5758307c",
+    "semantic_hash": "dcae42047d30b9a586f2391d5758307c"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/dellaferrera-2022-pepita.md": {
+    "mtime": 1783666958.9053466,
+    "ast_hash": "aae4170652c036dec6f36630199f9e1b",
+    "semantic_hash": "aae4170652c036dec6f36630199f9e1b"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/gong-2025-adaptive-spatial-goodness.md": {
+    "mtime": 1783667051.5722282,
+    "ast_hash": "f47dbbecccaf2956ebe47ae51d248ab4",
+    "semantic_hash": "f47dbbecccaf2956ebe47ae51d248ab4"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/hinton-2022-forward-forward.md": {
+    "mtime": 1783666937.1429439,
+    "ast_hash": "1fdc34d572922d5f979716510ec5f582",
+    "semantic_hash": "1fdc34d572922d5f979716510ec5f582"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/kohan-2022-sigprop.md": {
+    "mtime": 1783666972.7907314,
+    "ast_hash": "2e42f4f5716d96a7a81d09cd61afeed3",
+    "semantic_hash": "2e42f4f5716d96a7a81d09cd61afeed3"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/lee-2023-symba.md": {
+    "mtime": 1783667030.8224638,
+    "ast_hash": "1d2c4df5af9dbc20d1f182bfbf03692e",
+    "semantic_hash": "1d2c4df5af9dbc20d1f182bfbf03692e"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/ororbia-2023-predictive-forward-forward.md": {
+    "mtime": 1783667013.2424343,
+    "ast_hash": "8a9209e58cdcce3b26aa470aa18760bc",
+    "semantic_hash": "8a9209e58cdcce3b26aa470aa18760bc"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/zhao-2023-cascaded-forward.md": {
+    "mtime": 1783666995.2444098,
+    "ast_hash": "24a698d83738543cc0e507d774c2af81",
+    "semantic_hash": "24a698d83738543cc0e507d774c2af81"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/_SYNTHESIS.md": {
+    "mtime": 1783673037.4903338,
+    "ast_hash": "00a273c3e227e8e33e5cb8f28de9ef6b",
+    "semantic_hash": "00a273c3e227e8e33e5cb8f28de9ef6b"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/janson-2022-simple-baseline-ncm.md": {
+    "mtime": 1783672714.6237984,
+    "ast_hash": "1e746cfb176f44257830b82ef86b26ca",
+    "semantic_hash": "1e746cfb176f44257830b82ef86b26ca"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/liang-2024-inflora.md": {
+    "mtime": 1783672942.003204,
+    "ast_hash": "87295da4d9d1a19df300b29464304739",
+    "semantic_hash": "87295da4d9d1a19df300b29464304739"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/panos-2023-fsa.md": {
+    "mtime": 1783672783.02183,
+    "ast_hash": "10bf900f82b2f0094faf5f8bc949bde8",
+    "semantic_hash": "10bf900f82b2f0094faf5f8bc949bde8"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/smith-2023-coda-prompt.md": {
+    "mtime": 1783672684.937902,
+    "ast_hash": "4a76c4e6c2e46e82b9a7dcb2e81e0adf",
+    "semantic_hash": "4a76c4e6c2e46e82b9a7dcb2e81e0adf"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/wang-2022-l2p.md": {
+    "mtime": 1783672656.1427147,
+    "ast_hash": "285554382b9af9a6f5616a0977ce1754",
+    "semantic_hash": "285554382b9af9a6f5616a0977ce1754"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/zhang-2023-slca.md": {
+    "mtime": 1783672877.1151667,
+    "ast_hash": "2eccc5e9d327c01b2b9ae67334dc0592",
+    "semantic_hash": "2eccc5e9d327c01b2b9ae67334dc0592"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/zhou-2023-simplecil-aper.md": {
+    "mtime": 1783672750.1948552,
+    "ast_hash": "d5c21dc189defee0929de1735310dfd7",
+    "semantic_hash": "d5c21dc189defee0929de1735310dfd7"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/zhou-2024-ease.md": {
+    "mtime": 1783672910.5670817,
+    "ast_hash": "c3127399bd2646571d7ecdcf11959ba6",
+    "semantic_hash": "c3127399bd2646571d7ecdcf11959ba6"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/_SYNTHESIS.md": {
+    "mtime": 1783668729.9705806,
+    "ast_hash": "1d1de4bfe473bf1cfe7a713215c96989",
+    "semantic_hash": "1d1de4bfe473bf1cfe7a713215c96989"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/bhardwaj-2022-ekya.md": {
+    "mtime": 1783668636.3457105,
+    "ast_hash": "c6c3d22090a1a90d409f287a6c67f4de",
+    "semantic_hash": "c6c3d22090a1a90d409f287a6c67f4de"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/ghunaim-2023-realtime-ocl.md": {
+    "mtime": 1783668572.2642674,
+    "ast_hash": "d61f7c720ac4d36014abd4761298670d",
+    "semantic_hash": "d61f7c720ac4d36014abd4761298670d"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/harun-2023-siesta.md": {
+    "mtime": 1783668403.556775,
+    "ast_hash": "81c7fa36c2d89507d3c2839088f05250",
+    "semantic_hash": "81c7fa36c2d89507d3c2839088f05250"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/hayes-2022-embedded-ocl.md": {
+    "mtime": 1783668429.9946916,
+    "ast_hash": "58ce454e912ea608e406abfc742429a4",
+    "semantic_hash": "58ce454e912ea608e406abfc742429a4"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/lin-2022-ondevice-256kb.md": {
+    "mtime": 1783668513.6482563,
+    "ast_hash": "f5a7c83ad44a30866a82f8c60d5b3cc2",
+    "semantic_hash": "f5a7c83ad44a30866a82f8c60d5b3cc2"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/pellegrini-2020-latent-replay.md": {
+    "mtime": 1783668458.4530032,
+    "ast_hash": "d496bf706bd96caa5e31b6924155e7c8",
+    "semantic_hash": "d496bf706bd96caa5e31b6924155e7c8"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/prabhu-2023-budgeted-cl.md": {
+    "mtime": 1783668543.7452493,
+    "ast_hash": "85a8895868d63609694462d6f7b8e8e1",
+    "semantic_hash": "85a8895868d63609694462d6f7b8e8e1"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/ravaglia-2021-tinyml-quantized-latent-replay.md": {
+    "mtime": 1783668487.4107718,
+    "ast_hash": "8c19bcdce3dbb21e7fff4500be7685b0",
+    "semantic_hash": "8c19bcdce3dbb21e7fff4500be7685b0"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/seo-2025-budgeted-ocl-layer-freezing.md": {
+    "mtime": 1783668667.4171848,
+    "ast_hash": "04b5e6eff6fd0ba701d7437d6e1d7115",
+    "semantic_hash": "04b5e6eff6fd0ba701d7437d6e1d7115"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/_SYNTHESIS.md": {
+    "mtime": 1783698545.4604135,
+    "ast_hash": "40c17983b099a44e2ee5a52c7370973d",
+    "semantic_hash": "40c17983b099a44e2ee5a52c7370973d"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/davari-2022-probing-representation-forgetting.md": {
+    "mtime": 1783674411.7591786,
+    "ast_hash": "2dcc9b6617ba108b942288b080cf4919",
+    "semantic_hash": "2dcc9b6617ba108b942288b080cf4919"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/gallardo-2021-ssl-enhances-ocl.md": {
+    "mtime": 1783674444.283024,
+    "ast_hash": "ed44b63cadf27b02117a86dbec1a0e57",
+    "semantic_hash": "ed44b63cadf27b02117a86dbec1a0e57"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/gomez-villa-2024-pocon.md": {
+    "mtime": 1783674595.273532,
+    "ast_hash": "ccf938f21113773274d8f9f22c76fecb",
+    "semantic_hash": "ccf938f21113773274d8f9f22c76fecb"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/madaan-2022-lump-ucl.md": {
+    "mtime": 1783674383.238526,
+    "ast_hash": "bb924baeadabab2cf1f6df105f0fd145",
+    "semantic_hash": "bb924baeadabab2cf1f6df105f0fd145"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/purushwalkam-2022-continuous-ssl-challenges.md": {
+    "mtime": 1783674474.862139,
+    "ast_hash": "5e933c658847b34ed7f10e6c70715e64",
+    "semantic_hash": "5e933c658847b34ed7f10e6c70715e64"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/zhang-2024-osiris.md": {
+    "mtime": 1783674627.049811,
+    "ast_hash": "3f0fc387e64c94fa7a2d87bb923cb825",
+    "semantic_hash": "3f0fc387e64c94fa7a2d87bb923cb825"
+  },
+  "auto-research/tier2-component-optimization/README.md": {
+    "mtime": 1783666343.5756235,
+    "ast_hash": "6b4fab7f0349b696576765e3f798cd73",
+    "semantic_hash": "6b4fab7f0349b696576765e3f798cd73"
+  },
+  "auto-research/tier2-component-optimization/_TIER2-SYNTHESIS.md": {
+    "mtime": 1783756166.481779,
+    "ast_hash": "088821b54fc7d1c00915cdab4f90567e",
+    "semantic_hash": "088821b54fc7d1c00915cdab4f90567e"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/_SYNTHESIS.md": {
+    "mtime": 1783700514.5241015,
+    "ast_hash": "8b4a90c921ddab99f0a9c0e052fca38a",
+    "semantic_hash": "8b4a90c921ddab99f0a9c0e052fca38a"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/bateni-2020-simple-cnaps.md": {
+    "mtime": 1783700420.7423658,
+    "ast_hash": "935186b2928bd103d7c181fd2596d980",
+    "semantic_hash": "935186b2928bd103d7c181fd2596d980"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/chen-2010-oas-shrinkage.md": {
+    "mtime": 1783700261.6307292,
+    "ast_hash": "e56feecc1c5c9e523ed689e30989bf1a",
+    "semantic_hash": "e56feecc1c5c9e523ed689e30989bf1a"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/friedman-1989-rda.md": {
+    "mtime": 1783700291.098854,
+    "ast_hash": "098205e7c5f50820d32ac2784a5f1c6b",
+    "semantic_hash": "098205e7c5f50820d32ac2784a5f1c6b"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/ledoit-wolf-2004-shrinkage.md": {
+    "mtime": 1783700134.7479746,
+    "ast_hash": "629e40ec91597ea1d47d37ecd9c08649",
+    "semantic_hash": "629e40ec91597ea1d47d37ecd9c08649"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/momeni-2025-klda.md": {
+    "mtime": 1783700322.889855,
+    "ast_hash": "779fc2acadde71e89d59ee1092a68c09",
+    "semantic_hash": "779fc2acadde71e89d59ee1092a68c09"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/_SYNTHESIS.md": {
+    "mtime": 1783726104.718198,
+    "ast_hash": "deedb585c208da803b0e6272e7937d08",
+    "semantic_hash": "deedb585c208da803b0e6272e7937d08"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/baier-2021-uncertainty-drift-detection.md": {
+    "mtime": 1783725893.249858,
+    "ast_hash": "36d545791230537ba7c99048b0ca6ba6",
+    "semantic_hash": "36d545791230537ba7c99048b0ca6ba6"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/gozuacik-2019-d3.md": {
+    "mtime": 1783726018.1937997,
+    "ast_hash": "55bbda845a38647f86451ed94ce0a090",
+    "semantic_hash": "55bbda845a38647f86451ed94ce0a090"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/greco-2024-driftlens.md": {
+    "mtime": 1783725817.133966,
+    "ast_hash": "cc0c7dbe8d4302a93f3787ad3bc90c43",
+    "semantic_hash": "cc0c7dbe8d4302a93f3787ad3bc90c43"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/raab-2020-kswin.md": {
+    "mtime": 1783726038.820289,
+    "ast_hash": "f756c48d67996aeac190a094b2ad70d8",
+    "semantic_hash": "f756c48d67996aeac190a094b2ad70d8"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/regol-2025-when-to-retrain.md": {
+    "mtime": 1783725971.000213,
+    "ast_hash": "668109f86a7793118c6c9afd24b020c7",
+    "semantic_hash": "668109f86a7793118c6c9afd24b020c7"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/wan-2024-mcd-dd.md": {
+    "mtime": 1783725920.0326264,
+    "ast_hash": "3c4f166979cc6382425c26383410da9e",
+    "semantic_hash": "3c4f166979cc6382425c26383410da9e"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/_SYNTHESIS.md": {
+    "mtime": 1783756032.1560264,
+    "ast_hash": "3580a64992bd86a4812c9e6fb9385223",
+    "semantic_hash": "3580a64992bd86a4812c9e6fb9385223"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/ajroldi-2025-when-where-why-average.md": {
+    "mtime": 1783755904.9247563,
+    "ast_hash": "b98087296814fe129caf70988d3d7852",
+    "semantic_hash": "b98087296814fe129caf70988d3d7852"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/arsigny-2006-log-euclidean.md": {
+    "mtime": 1783755935.066612,
+    "ast_hash": "b16dc1e225193bd9c97ef6acb53a5a02",
+    "semantic_hash": "b16dc1e225193bd9c97ef6acb53a5a02"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/busbridge-2023-how-to-scale-your-ema.md": {
+    "mtime": 1783755858.7469573,
+    "ast_hash": "3e38de690930188f1735a6cb6141a791",
+    "semantic_hash": "3e38de690930188f1735a6cb6141a791"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/congedo-2013-riemannian-bci.md": {
+    "mtime": 1783755959.959102,
+    "ast_hash": "5d04ee4c0c95522764153b37b4cac6ef",
+    "semantic_hash": "5d04ee4c0c95522764153b37b4cac6ef"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/izmailov-2018-swa.md": {
+    "mtime": 1783755769.9623911,
+    "ast_hash": "5beb481d695efebea2b80a6378fcd422",
+    "semantic_hash": "5beb481d695efebea2b80a6378fcd422"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/morales-brotons-2024-ema-dynamics.md": {
+    "mtime": 1783755883.8339026,
+    "ast_hash": "45c0c88f6f560c243ae35757a1c65b3a",
+    "semantic_hash": "45c0c88f6f560c243ae35757a1c65b3a"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/polyak-juditsky-1992-averaging.md": {
+    "mtime": 1783755748.357107,
+    "ast_hash": "c45d1185158f11dbd907d819fc1f370f",
+    "semantic_hash": "c45d1185158f11dbd907d819fc1f370f"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/tarvainen-2017-mean-teacher.md": {
+    "mtime": 1783755813.5188067,
+    "ast_hash": "56d883a94df3ac0cac88348c02533d65",
+    "semantic_hash": "56d883a94df3ac0cac88348c02533d65"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/wortsman-2022-model-soups.md": {
+    "mtime": 1783755789.636949,
+    "ast_hash": "2ef0461c3ccd51d2d94ad9bd2173c72b",
+    "semantic_hash": "2ef0461c3ccd51d2d94ad9bd2173c72b"
+  },
+  "auto-research/tier2-component-optimization/ema-stable-namer/zhang-2019-lookahead.md": {
+    "mtime": 1783755834.8008146,
+    "ast_hash": "a0cf3415f366584b55b8a145ada2272b",
+    "semantic_hash": "a0cf3415f366584b55b8a145ada2272b"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/_SYNTHESIS.md": {
+    "mtime": 1783726892.5303047,
+    "ast_hash": "9c346b34ebdaa0c6aa66dc3bee919496",
+    "semantic_hash": "9c346b34ebdaa0c6aa66dc3bee919496"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/boudiaf-2022-lame.md": {
+    "mtime": 1783726568.3360124,
+    "ast_hash": "d3f3c46506b6a7cc6a005777f8ce6db6",
+    "semantic_hash": "d3f3c46506b6a7cc6a005777f8ce6db6"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/gao-2023-dda.md": {
+    "mtime": 1783726721.1055448,
+    "ast_hash": "78b64b1ea090d26b2da781c8c2de2ee3",
+    "semantic_hash": "78b64b1ea090d26b2da781c8c2de2ee3"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/iwasawa-2021-t3a.md": {
+    "mtime": 1783726546.5755563,
+    "ast_hash": "e3414f9278964f3dd87d22cb72850180",
+    "semantic_hash": "e3414f9278964f3dd87d22cb72850180"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/kim-2021-self-purified-replay.md": {
+    "mtime": 1783726754.1846373,
+    "ast_hash": "e742123cad07e901752b36eec230803d",
+    "semantic_hash": "e742123cad07e901752b36eec230803d"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/mirza-2023-actmad.md": {
+    "mtime": 1783726622.3909678,
+    "ast_hash": "9a5d2c1001130fc578137ed67f69222b",
+    "semantic_hash": "9a5d2c1001130fc578137ed67f69222b"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/niu-2024-foa.md": {
+    "mtime": 1783726647.3110826,
+    "ast_hash": "5103da9bbdded2267d12d7395aa5a0b4",
+    "semantic_hash": "5103da9bbdded2267d12d7395aa5a0b4"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/schneider-2020-bn-covariate-shift.md": {
+    "mtime": 1783726600.3788438,
+    "ast_hash": "0290087f7967aab72897f08165532e66",
+    "semantic_hash": "0290087f7967aab72897f08165532e66"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/wang-2021-tent.md": {
+    "mtime": 1783726525.3996627,
+    "ast_hash": "968de35b3bc8d856b603c3863188e6ea",
+    "semantic_hash": "968de35b3bc8d856b603c3863188e6ea"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/zhang-2025-adapt.md": {
+    "mtime": 1783726677.1878915,
+    "ast_hash": "4ab23803c4bd9d84ca8d2f5a885be952",
+    "semantic_hash": "4ab23803c4bd9d84ca8d2f5a885be952"
+  },
+  "auto-research/tier2-component-optimization/prototype-drift-compensation/_SYNTHESIS.md": {
+    "mtime": 1783755235.94108,
+    "ast_hash": "7420825a0854c65404cd8f27cdd9b551",
+    "semantic_hash": "7420825a0854c65404cd8f27cdd9b551"
+  },
+  "auto-research/tier2-component-optimization/prototype-drift-compensation/gomez-villa-2024-ldc.md": {
+    "mtime": 1783727366.981377,
+    "ast_hash": "5aa6f876dab71b50d321a4168c463c56",
+    "semantic_hash": "5aa6f876dab71b50d321a4168c463c56"
+  },
+  "auto-research/tier2-component-optimization/prototype-drift-compensation/goswami-2024-adc.md": {
+    "mtime": 1783727394.5603118,
+    "ast_hash": "f829607b5739510069c84fdecc3ad189",
+    "semantic_hash": "f829607b5739510069c84fdecc3ad189"
+  },
+  "auto-research/tier2-component-optimization/prototype-drift-compensation/magistri-2024-efc.md": {
+    "mtime": 1783727454.8129673,
+    "ast_hash": "908c0380ceea9e088b88de948f0811ad",
+    "semantic_hash": "908c0380ceea9e088b88de948f0811ad"
+  },
+  "auto-research/tier2-component-optimization/prototype-drift-compensation/petit-2023-fetril.md": {
+    "mtime": 1783727424.3272395,
+    "ast_hash": "cbcff6eade87c474edfc11c3a0a59394",
+    "semantic_hash": "cbcff6eade87c474edfc11c3a0a59394"
+  },
+  "auto-research/tier2-component-optimization/prototype-drift-compensation/yu-2020-sdc.md": {
+    "mtime": 1783727336.7693708,
+    "ast_hash": "5abc5341f5a59b0051af3b473d766c54",
+    "semantic_hash": "5abc5341f5a59b0051af3b473d766c54"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/_SYNTHESIS.md": {
+    "mtime": 1783701136.1991594,
+    "ast_hash": "18905f7feee83ef723f1caf7cd71fecf",
+    "semantic_hash": "18905f7feee83ef723f1caf7cd71fecf"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/aljundi-2019-gss.md": {
+    "mtime": 1783700919.4651656,
+    "ast_hash": "c25bc980f890fdfb1429c054b147d8fe",
+    "semantic_hash": "c25bc980f890fdfb1429c054b147d8fe"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/delange-2023-stability-gap.md": {
+    "mtime": 1783700984.6442988,
+    "ast_hash": "b06dc7dcfe8290ddf8f82ed29dcbb687",
+    "semantic_hash": "b06dc7dcfe8290ddf8f82ed29dcbb687"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/harun-2023-overcoming-stability-gap.md": {
+    "mtime": 1783701008.230991,
+    "ast_hash": "132f6aa9b8e5d5f9af1d17ea759be033",
+    "semantic_hash": "132f6aa9b8e5d5f9af1d17ea759be033"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/harun-2024-grasp.md": {
+    "mtime": 1783701026.8226495,
+    "ast_hash": "d063c7d0cf9640b10d7566838bdc0616",
+    "semantic_hash": "d063c7d0cf9640b10d7566838bdc0616"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/rebuffi-2017-icarl-herding.md": {
+    "mtime": 1783701074.951392,
+    "ast_hash": "80284251e6741cd47d1a070741644249",
+    "semantic_hash": "80284251e6741cd47d1a070741644249"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/sun-2022-inforss.md": {
+    "mtime": 1783701054.9122798,
+    "ast_hash": "0fa0294a3685db772a86a1e6f8c4ade7",
+    "semantic_hash": "0fa0294a3685db772a86a1e6f8c4ade7"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/tiwari-2022-gcr.md": {
+    "mtime": 1783700959.7576623,
+    "ast_hash": "ad0856c27b4ddbb8640f654713721315",
+    "semantic_hash": "ad0856c27b4ddbb8640f654713721315"
+  },
+  "auto-research/tier2-component-optimization/replay-sleep-consolidation/yoon-2022-ocs.md": {
+    "mtime": 1783700938.9901466,
+    "ast_hash": "6698c9a3862f79b6e7e339a63ea7ff51",
+    "semantic_hash": "6698c9a3862f79b6e7e339a63ea7ff51"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/_SYNTHESIS.md": {
+    "mtime": 1783699430.6624055,
+    "ast_hash": "783c851b6dec50bd3ad337423177b5a3",
+    "semantic_hash": "783c851b6dec50bd3ad337423177b5a3"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/datta-2025-layerwise-vicreg.md": {
+    "mtime": 1783699223.2431705,
+    "ast_hash": "f505e1bddd62dd7f9774d0fd58873bf3",
+    "semantic_hash": "f505e1bddd62dd7f9774d0fd58873bf3"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/kim-2025-temperature-free-infonce.md": {
+    "mtime": 1783699281.2905507,
+    "ast_hash": "8c1287ac6f049f8f66e5d3f2ca7ba0ec",
+    "semantic_hash": "8c1287ac6f049f8f66e5d3f2ca7ba0ec"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/papachristodoulou-2024-cwcomp.md": {
+    "mtime": 1783699251.8504512,
+    "ast_hash": "5ac7a2aa68964a02cfdf0c773e736355",
+    "semantic_hash": "5ac7a2aa68964a02cfdf0c773e736355"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/robinson-2021-hard-negatives.md": {
+    "mtime": 1783699312.8362079,
+    "ast_hash": "7e180fb7dc9a7a4b66e21a45fdf409a3",
+    "semantic_hash": "7e180fb7dc9a7a4b66e21a45fdf409a3"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/sarode-2026-hyperspherical-ff-prototypes.md": {
+    "mtime": 1783699371.7266748,
+    "ast_hash": "5129993bac27fecf2f6fba0fa8905e9b",
+    "semantic_hash": "5129993bac27fecf2f6fba0fa8905e9b"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/shah-2025-goodness-benchmark.md": {
+    "mtime": 1783699163.1636899,
+    "ast_hash": "2f9b521a01bf2e2cf7293fe8b68e9e1e",
+    "semantic_hash": "2f9b521a01bf2e2cf7293fe8b68e9e1e"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/yousefiramandi-2026-cumulative-goodness-freeriding.md": {
+    "mtime": 1783699189.5276093,
+    "ast_hash": "7eb4b617eb97b570cdb7c18cd4858ff1",
+    "semantic_hash": "7eb4b617eb97b570cdb7c18cd4858ff1"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/zhu-2025-stochastic-ff-dimensionality.md": {
+    "mtime": 1783699343.4913108,
+    "ast_hash": "bd3db6d8ab7c32e1fb2c5abfe63321af",
+    "semantic_hash": "bd3db6d8ab7c32e1fb2c5abfe63321af"
+  },
+  "auto-research/tier3-north-star/README.md": {
+    "mtime": 1783666345.323228,
+    "ast_hash": "e69ad873117bf6e77cd012fa6ae8e4e0",
+    "semantic_hash": "e69ad873117bf6e77cd012fa6ae8e4e0"
+  },
+  "auto-research/tier3-north-star/_TIER3-SYNTHESIS.md": {
+    "mtime": 1783788331.6748464,
+    "ast_hash": "dc65929c37a0770873a28c87284d21d1",
+    "semantic_hash": "dc65929c37a0770873a28c87284d21d1"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/_SYNTHESIS.md": {
+    "mtime": 1783787711.509098,
+    "ast_hash": "01795f3c341299a81b1c2736c17f3fa0",
+    "semantic_hash": "01795f3c341299a81b1c2736c17f3fa0"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/banino-2021-pondernet.md": {
+    "mtime": 1783787507.375656,
+    "ast_hash": "e740b61a79e518825807bc690ebcd173",
+    "semantic_hash": "e740b61a79e518825807bc690ebcd173"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/farquhar-2024-semantic-entropy.md": {
+    "mtime": 1783787398.186654,
+    "ast_hash": "24022aa52600f631ddd2c5d74edb4590",
+    "semantic_hash": "24022aa52600f631ddd2c5d74edb4590"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/gao-2022-reward-model-overoptimization.md": {
+    "mtime": 1783787362.8663974,
+    "ast_hash": "77e6cb697f6f7ac0fe1bdbd0293d05f4",
+    "semantic_hash": "77e6cb697f6f7ac0fe1bdbd0293d05f4"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/kadavath-2022-know-what-they-know.md": {
+    "mtime": 1783787577.55477,
+    "ast_hash": "efcb9138be980557f8dc85945578aa25",
+    "semantic_hash": "efcb9138be980557f8dc85945578aa25"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/lightman-2023-lets-verify-step-by-step.md": {
+    "mtime": 1783787608.4903984,
+    "ast_hash": "474267beefbd7b707ce8f027c65f2b39",
+    "semantic_hash": "474267beefbd7b707ce8f027c65f2b39"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/schuster-2022-calm.md": {
+    "mtime": 1783787330.5808284,
+    "ast_hash": "6dc25c9fd4322edf323f164910bf6512",
+    "semantic_hash": "6dc25c9fd4322edf323f164910bf6512"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/sekar-2020-plan2explore.md": {
+    "mtime": 1783787547.318493,
+    "ast_hash": "d03ec308fb40355dea452d46642724e5",
+    "semantic_hash": "d03ec308fb40355dea452d46642724e5"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/wang-2023-math-shepherd.md": {
+    "mtime": 1783787433.944391,
+    "ast_hash": "0c6bf7829586316254dc70c9648f8846",
+    "semantic_hash": "0c6bf7829586316254dc70c9648f8846"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/zheng-2025-prm-survey.md": {
+    "mtime": 1783787642.0236688,
+    "ast_hash": "d2e79368f9ca9979746f01cf7d9dcb97",
+    "semantic_hash": "d2e79368f9ca9979746f01cf7d9dcb97"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/_SYNTHESIS.md": {
+    "mtime": 1783756662.4690928,
+    "ast_hash": "fefaedf4b33ccdf1dda486f5a7ab807a",
+    "semantic_hash": "fefaedf4b33ccdf1dda486f5a7ab807a"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/behrouz-2025-titans.md": {
+    "mtime": 1783756472.1541438,
+    "ast_hash": "8938691a9cb5842529592513178a5845",
+    "semantic_hash": "8938691a9cb5842529592513178a5845"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/berges-2024-memory-layers-at-scale.md": {
+    "mtime": 1783756535.3304832,
+    "ast_hash": "2f6d943b50329ba60e1d37b96fd7e674",
+    "semantic_hash": "2f6d943b50329ba60e1d37b96fd7e674"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/das-2024-larimar.md": {
+    "mtime": 1783756600.43829,
+    "ast_hash": "1fc9a6e019cafcdaa0286195a3cfc299",
+    "semantic_hash": "1fc9a6e019cafcdaa0286195a3cfc299"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/li-2020-analog-cam-memristors.md": {
+    "mtime": 1783756408.3841708,
+    "ast_hash": "ed1c20495df22c43ca9aaa3ee26f77fe",
+    "semantic_hash": "ed1c20495df22c43ca9aaa3ee26f77fe"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/schlag-2021-fast-weight-programmers.md": {
+    "mtime": 1783756436.8867693,
+    "ast_hash": "7b483de8827866c5e1369534690087f9",
+    "semantic_hash": "7b483de8827866c5e1369534690087f9"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/sun-2024-ttt-layers.md": {
+    "mtime": 1783756500.1477244,
+    "ast_hash": "be3b32a06d563abe1d135024ca3e81db",
+    "semantic_hash": "be3b32a06d563abe1d135024ca3e81db"
+  },
+  "auto-research/tier3-north-star/hippocampus-organ/wang-2025-test-time-regression.md": {
+    "mtime": 1783756564.7209227,
+    "ast_hash": "36c587af1b6066b51375cbe3f0da9532",
+    "semantic_hash": "36c587af1b6066b51375cbe3f0da9532"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/_SYNTHESIS.md": {
+    "mtime": 1783788218.1761692,
+    "ast_hash": "1358414f7f8a6b07fec7219b581af182",
+    "semantic_hash": "1358414f7f8a6b07fec7219b581af182"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/bulatov-2022-recurrent-memory-transformer.md": {
+    "mtime": 1783788142.4392323,
+    "ast_hash": "c45188d41fcda1df9845c49512665a13",
+    "semantic_hash": "c45188d41fcda1df9845c49512665a13"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/devillers-2024-global-workspace-frozen-modules.md": {
+    "mtime": 1783788121.674344,
+    "ast_hash": "38ab3d0fc0f02bd7a720c5cc6c6b9f0a",
+    "semantic_hash": "38ab3d0fc0f02bd7a720c5cc6c6b9f0a"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/goyal-2019-rims.md": {
+    "mtime": 1783788038.9705524,
+    "ast_hash": "1a176dce423e91b8719f89f317de255b",
+    "semantic_hash": "1a176dce423e91b8719f89f317de255b"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/goyal-2022-shared-global-workspace.md": {
+    "mtime": 1783788027.1081202,
+    "ast_hash": "a667034fc8620b45170c2f910ee72c00",
+    "semantic_hash": "a667034fc8620b45170c2f910ee72c00"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/jaegle-2022-perceiver-io.md": {
+    "mtime": 1783788066.3273475,
+    "ast_hash": "881c3f36a9255b711406c7c8b01c6cfc",
+    "semantic_hash": "881c3f36a9255b711406c7c8b01c6cfc"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/pfeiffer-2023-modular-deep-learning.md": {
+    "mtime": 1783788159.9205306,
+    "ast_hash": "92970add817893ced39ddaadd4806ed7",
+    "semantic_hash": "92970add817893ced39ddaadd4806ed7"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/puigcerver-2024-soft-moe.md": {
+    "mtime": 1783788083.1283581,
+    "ast_hash": "c1c6b7300991575c9abf608971803bee",
+    "semantic_hash": "c1c6b7300991575c9abf608971803bee"
+  },
+  "auto-research/tier3-north-star/prefrontal-controller/zhou-2022-expert-choice-routing.md": {
+    "mtime": 1783788102.381521,
+    "ast_hash": "a33df9dff4eb23168e376f9fcd390a82",
+    "semantic_hash": "a33df9dff4eb23168e376f9fcd390a82"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/_SYNTHESIS.md": {
+    "mtime": 1783757412.5822115,
+    "ast_hash": "a3245c4db449ed5711c31cbf640a822f",
+    "semantic_hash": "a3245c4db449ed5711c31cbf640a822f"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/du-2024-ired-energy-diffusion.md": {
+    "mtime": 1783757241.7764308,
+    "ast_hash": "071d8d466b658023405ca1757288e42d",
+    "semantic_hash": "071d8d466b658023405ca1757288e42d"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/geiping-2025-recurrent-depth.md": {
+    "mtime": 1783757119.5656123,
+    "ast_hash": "f1dd61a840d19a071ccb17460d1a67d4",
+    "semantic_hash": "f1dd61a840d19a071ccb17460d1a67d4"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/gladstone-2025-energy-based-transformers.md": {
+    "mtime": 1783757207.3296242,
+    "ast_hash": "7cd383806850e43e9b85fe0d9e61b799",
+    "semantic_hash": "7cd383806850e43e9b85fe0d9e61b799"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/hao-2024-coconut.md": {
+    "mtime": 1783757176.0402853,
+    "ast_hash": "ed3e89f54617ac4d7e682aef190ce182",
+    "semantic_hash": "ed3e89f54617ac4d7e682aef190ce182"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/jolicoeur-martineau-2025-tiny-recursion.md": {
+    "mtime": 1783757310.385956,
+    "ast_hash": "022ae7aa8618f357148ca03b98a5be9a",
+    "semantic_hash": "022ae7aa8618f357148ca03b98a5be9a"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/laydevant-2024-ising-eqprop.md": {
+    "mtime": 1783757346.779205,
+    "ast_hash": "fb47a57e133f46b72b0ddb490a8a8077",
+    "semantic_hash": "fb47a57e133f46b72b0ddb490a8a8077"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/saunshi-2025-looped-transformers.md": {
+    "mtime": 1783757148.6303697,
+    "ast_hash": "db24fd1331f602265847275891422eab",
+    "semantic_hash": "db24fd1331f602265847275891422eab"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/winston-2020-monotone-equilibrium.md": {
+    "mtime": 1783757089.5701683,
+    "ast_hash": "a67c1102bb827e0e70373a4933f76f6a",
+    "semantic_hash": "a67c1102bb827e0e70373a4933f76f6a"
+  },
+  "auto-research/tier3-north-star/recurrent-thinking/yang-2024-gated-deltanet.md": {
+    "mtime": 1783757275.5065112,
+    "ast_hash": "1eb0cf00f132537e52d7108806a39494",
+    "semantic_hash": "1eb0cf00f132537e52d7108806a39494"
+  },
+  "auto-research/tier4-adjacent-wildcards/README.md": {
+    "mtime": 1783666348.330175,
+    "ast_hash": "f6471de3dd85c00184931a41839c30ba",
+    "semantic_hash": "f6471de3dd85c00184931a41839c30ba"
+  },
+  "auto-research/tier4-adjacent-wildcards/_TIER4-SYNTHESIS.md": {
+    "mtime": 1783807101.6822453,
+    "ast_hash": "77492988e1cb25c69f7ed425a4c743fe",
+    "semantic_hash": "77492988e1cb25c69f7ed425a4c743fe"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/_SYNTHESIS.md": {
+    "mtime": 1783789220.3184333,
+    "ast_hash": "da6c0b297e0429a5333fc56b914dcbc7",
+    "semantic_hash": "da6c0b297e0429a5333fc56b914dcbc7"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/ambrogio-2018-equivalent-accuracy-training.md": {
+    "mtime": 1783788919.6430147,
+    "ast_hash": "73892e4185fd3b60899d51f4517b2049",
+    "semantic_hash": "73892e4185fd3b60899d51f4517b2049"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/gokmen-2016-rpu-design-considerations.md": {
+    "mtime": 1783788852.2909653,
+    "ast_hash": "1acc3948345bd5e4edff4e149482ac98",
+    "semantic_hash": "1acc3948345bd5e4edff4e149482ac98"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/gokmen-2020-tiki-taka.md": {
+    "mtime": 1783788953.1718197,
+    "ast_hash": "f489b49e8b9d44cb1bde387012f49658",
+    "semantic_hash": "f489b49e8b9d44cb1bde387012f49658"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/jiang-2026-high-accuracy-cim-review.md": {
+    "mtime": 1783789155.0699835,
+    "ast_hash": "7f127c7c94f8c687b6a9abdff79aaed2",
+    "semantic_hash": "7f127c7c94f8c687b6a9abdff79aaed2"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/legallo-2023-hermes-64core.md": {
+    "mtime": 1783789086.2393005,
+    "ast_hash": "e1e3da6f51cbba59548f16ef645f139e",
+    "semantic_hash": "e1e3da6f51cbba59548f16ef645f139e"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/li-2018-capacitor-crosspoint.md": {
+    "mtime": 1783788886.2554176,
+    "ast_hash": "07fdb09af7f5bf7cf3a608a119d9f6a4",
+    "semantic_hash": "07fdb09af7f5bf7cf3a608a119d9f6a4"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/nandakumar-2020-mixed-precision-training.md": {
+    "mtime": 1783789018.1505935,
+    "ast_hash": "271a2142938e0c65c99dd1d2ef50262b",
+    "semantic_hash": "271a2142938e0c65c99dd1d2ef50262b"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/rasch-2024-cttv2-agad.md": {
+    "mtime": 1783788986.7805183,
+    "ast_hash": "8a04100648e7e08dde63f408fe30d9e5",
+    "semantic_hash": "8a04100648e7e08dde63f408fe30d9e5"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/zhang-2023-stellar-edge-learning.md": {
+    "mtime": 1783789051.3190503,
+    "ast_hash": "be2059e2b8f3e7e9a316da66285ff4b2",
+    "semantic_hash": "be2059e2b8f3e7e9a316da66285ff4b2"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/_SYNTHESIS.md": {
+    "mtime": 1783806979.4413342,
+    "ast_hash": "9ffe1ef5c3969ec6085f740b7db1b764",
+    "semantic_hash": "9ffe1ef5c3969ec6085f740b7db1b764"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/dehghani-2022-efficiency-misnomer.md": {
+    "mtime": 1783806735.4649284,
+    "ast_hash": "ee901a898a515937479114cde1515a06",
+    "semantic_hash": "ee901a898a515937479114cde1515a06"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/dodge-2022-carbon-intensity-cloud.md": {
+    "mtime": 1783806888.5061789,
+    "ast_hash": "8827dee55395643cdb40a16a8d9e2ccb",
+    "semantic_hash": "8827dee55395643cdb40a16a8d9e2ccb"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/gholami-2024-ai-and-memory-wall.md": {
+    "mtime": 1783806837.572175,
+    "ast_hash": "af96c404cfde93d6ef57d425e0acaf19",
+    "semantic_hash": "af96c404cfde93d6ef57d425e0acaf19"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/henderson-2020-systematic-reporting.md": {
+    "mtime": 1783806786.683386,
+    "ast_hash": "ef63d62d635954d4e70f7ae9e1230432",
+    "semantic_hash": "ef63d62d635954d4e70f7ae9e1230432"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/horowitz-2014-computings-energy-problem.md": {
+    "mtime": 1783806814.6426332,
+    "ast_hash": "8860ff7aa102004daab2b3789660ba60",
+    "semantic_hash": "8860ff7aa102004daab2b3789660ba60"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/schwartz-2020-green-ai.md": {
+    "mtime": 1783806762.5932717,
+    "ast_hash": "0d7253bd66147b08cc43fc9d03eeeb79",
+    "semantic_hash": "0d7253bd66147b08cc43fc9d03eeeb79"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/strubell-2019-energy-policy-nlp.md": {
+    "mtime": 1783806919.5214038,
+    "ast_hash": "eb219b4eca76895bf83d9dc058e05fcb",
+    "semantic_hash": "eb219b4eca76895bf83d9dc058e05fcb"
+  },
+  "auto-research/tier4-adjacent-wildcards/energy-benchmarking-protocol/tschand-2024-mlperf-power.md": {
+    "mtime": 1783806866.061697,
+    "ast_hash": "42d6c77d135350aa26d6ef03553736e0",
+    "semantic_hash": "42d6c77d135350aa26d6ef03553736e0"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/_SYNTHESIS.md": {
+    "mtime": 1783805245.483057,
+    "ast_hash": "bc1e818975a04ee4edc3b07231f49cb3",
+    "semantic_hash": "bc1e818975a04ee4edc3b07231f49cb3"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/dillavou-2024-nonlinear-analog-learning.md": {
+    "mtime": 1783805062.8180804,
+    "ast_hash": "10a5cc29c114696d5cef715575b72e23",
+    "semantic_hash": "10a5cc29c114696d5cef715575b72e23"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/laborieux-2022-holomorphic-eqprop.md": {
+    "mtime": 1783804981.5177271,
+    "ast_hash": "b39edeb626a33b33661f37cd5062b84c",
+    "semantic_hash": "b39edeb626a33b33661f37cd5062b84c"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/laydevant-2024-ising-machine-eqprop.md": {
+    "mtime": 1783805038.0909743,
+    "ast_hash": "c8bd00cfc68377fd0fdd7c5fffc20d14",
+    "semantic_hash": "c8bd00cfc68377fd0fdd7c5fffc20d14"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/yi-2023-memristor-activity-difference.md": {
+    "mtime": 1783805002.4167378,
+    "ast_hash": "64ad4f9045886b46dfbaa01a0d5d74f5",
+    "semantic_hash": "64ad4f9045886b46dfbaa01a0d5d74f5"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/_SYNTHESIS.md": {
+    "mtime": 1783805814.1640472,
+    "ast_hash": "3d5513cfa87016fcda62334d704d1616",
+    "semantic_hash": "3d5513cfa87016fcda62334d704d1616"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/apolinario-2025-s-tllr.md": {
+    "mtime": 1783805702.0488124,
+    "ast_hash": "491e53b3b5bc050f436b43979b27fcb7",
+    "semantic_hash": "491e53b3b5bc050f436b43979b27fcb7"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/bellec-2020-eprop.md": {
+    "mtime": 1783805568.0758643,
+    "ast_hash": "e339f70b516003081ccbd87e86ef23ff",
+    "semantic_hash": "e339f70b516003081ccbd87e86ef23ff"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/bohnstingl-2022-ostl.md": {
+    "mtime": 1783805672.745273,
+    "ast_hash": "7db8d47398fde0b68ff38ba933e24844",
+    "semantic_hash": "7db8d47398fde0b68ff38ba933e24844"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/fremaux-gerstner-2016-three-factor.md": {
+    "mtime": 1783805596.7737145,
+    "ast_hash": "d5631bf2d4c2e43b35edb20600512829",
+    "semantic_hash": "d5631bf2d4c2e43b35edb20600512829"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/hajizada-2025-clp-snn-loihi2.md": {
+    "mtime": 1783805755.5159304,
+    "ast_hash": "6ce08558d1b7400d53ac744ffb914a8e",
+    "semantic_hash": "6ce08558d1b7400d53ac744ffb914a8e"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/meng-2023-sltt.md": {
+    "mtime": 1783805650.4776945,
+    "ast_hash": "f455d6d946059420e5b80fb46e3ed4a7",
+    "semantic_hash": "f455d6d946059420e5b80fb46e3ed4a7"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/quintana-2024-etlp.md": {
+    "mtime": 1783805727.6252463,
+    "ast_hash": "d67ee324f6b1306887dfa75efa2f3998",
+    "semantic_hash": "d67ee324f6b1306887dfa75efa2f3998"
+  },
+  "auto-research/tier4-adjacent-wildcards/neuromorphic-spiking/xiao-2022-ottt.md": {
+    "mtime": 1783805631.8962493,
+    "ast_hash": "48606be167d9b918fb670d38c5816916",
+    "semantic_hash": "48606be167d9b918fb670d38c5816916"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/_SYNTHESIS.md": {
+    "mtime": 1783806394.9402654,
+    "ast_hash": "78a23a59a940492a2a891559ad90fa4c",
+    "semantic_hash": "78a23a59a940492a2a891559ad90fa4c"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/gu-2021-s4-structured-state-spaces.md": {
+    "mtime": 1783806208.240597,
+    "ast_hash": "f62053cf2d6fca02ea6ddeb7524a2a38",
+    "semantic_hash": "f62053cf2d6fca02ea6ddeb7524a2a38"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/gu-dao-2023-mamba.md": {
+    "mtime": 1783806230.1049805,
+    "ast_hash": "a8ef0a46a0062cb92abd8fe5c3c71ec4",
+    "semantic_hash": "a8ef0a46a0062cb92abd8fe5c3c71ec4"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/hasani-2022-cfc-closed-form.md": {
+    "mtime": 1783806156.168175,
+    "ast_hash": "2a77c41b1ad80002bf9a4ccbad147400",
+    "semantic_hash": "2a77c41b1ad80002bf9a4ccbad147400"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/hasani-2022-liquid-s4.md": {
+    "mtime": 1783806277.2799559,
+    "ast_hash": "9a9fa7ce1915e72a0882771cc23ae25f",
+    "semantic_hash": "9a9fa7ce1915e72a0882771cc23ae25f"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/smith-2022-s5.md": {
+    "mtime": 1783806256.6144223,
+    "ast_hash": "e9fea7d183f13340685b4e60c4dadb44",
+    "semantic_hash": "e9fea7d183f13340685b4e60c4dadb44"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/yang-2024-gated-deltanet.md": {
+    "mtime": 1783806306.94762,
+    "ast_hash": "1d0acbfe1cf60b3589ad5879bb4c72c4",
+    "semantic_hash": "1d0acbfe1cf60b3589ad5879bb4c72c4"
+  },
+  "auto-research/tier5-open-exploration/README.md": {
+    "mtime": 1783666351.098565,
+    "ast_hash": "b012a8f13b60885717d6892365b144a2",
+    "semantic_hash": "b012a8f13b60885717d6892365b144a2"
+  },
+  "auto-research/tier5-open-exploration/_TIER5-SYNTHESIS.md": {
+    "mtime": 1783828254.1987858,
+    "ast_hash": "47bff32ae41a394e2ca024da4672b7a4",
+    "semantic_hash": "47bff32ae41a394e2ca024da4672b7a4"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/_SYNTHESIS.md": {
+    "mtime": 1783827525.6359985,
+    "ast_hash": "87c309f12f42212d74ae698f3d2b7b45",
+    "semantic_hash": "87c309f12f42212d74ae698f3d2b7b45"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/aifer-2023-thermodynamic-linear-algebra.md": {
+    "mtime": 1783827440.449374,
+    "ast_hash": "4e17c1fdf8410757c38120648843acf2",
+    "semantic_hash": "4e17c1fdf8410757c38120648843acf2"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/coles-2023-thermodynamic-ai-fluctuation-frontier.md": {
+    "mtime": 1783827417.5672302,
+    "ast_hash": "db4a8ac48c3518e554e94b374acf4214",
+    "semantic_hash": "db4a8ac48c3518e554e94b374acf4214"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/hoover-2023-energy-transformer.md": {
+    "mtime": 1783827347.1270294,
+    "ast_hash": "c1b4706448234530b929da26958fbd5b",
+    "semantic_hash": "c1b4706448234530b929da26958fbd5b"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/landauer-1961-irreversibility-heat-generation.md": {
+    "mtime": 1783827395.0690894,
+    "ast_hash": "afb02ae5d51132653c02d39535e144f6",
+    "semantic_hash": "afb02ae5d51132653c02d39535e144f6"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/lecun-2006-energy-based-learning-tutorial.md": {
+    "mtime": 1783827254.390867,
+    "ast_hash": "452985d6dcdfac7d3b0ce8a8d23ea6b7",
+    "semantic_hash": "452985d6dcdfac7d3b0ce8a8d23ea6b7"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/melanson-2025-thermodynamic-computing-system.md": {
+    "mtime": 1783827469.2572064,
+    "ast_hash": "d7f17c0e206ce39bb2e5ed11c94edae3",
+    "semantic_hash": "d7f17c0e206ce39bb2e5ed11c94edae3"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/millidge-2020-predictive-coding-approximates-backprop.md": {
+    "mtime": 1783827297.6051645,
+    "ast_hash": "0f9c34ba3ce3682d8d46d6a4a450a61d",
+    "semantic_hash": "0f9c34ba3ce3682d8d46d6a4a450a61d"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/ramsauer-2020-hopfield-networks-all-you-need.md": {
+    "mtime": 1783827324.6162307,
+    "ast_hash": "8e67aeea3c8e4cb1484a1554a75a35f9",
+    "semantic_hash": "8e67aeea3c8e4cb1484a1554a75a35f9"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/song-ermon-2019-score-based-generative.md": {
+    "mtime": 1783827368.053564,
+    "ast_hash": "c58d66da83d27dae03ab915f271daf0c",
+    "semantic_hash": "c58d66da83d27dae03ab915f271daf0c"
+  },
+  "auto-research/tier5-open-exploration/energy-based-learning/song-kingma-2021-how-to-train-ebms.md": {
+    "mtime": 1783827274.8352969,
+    "ast_hash": "293a31840e1cb9af194d32b49c959272",
+    "semantic_hash": "293a31840e1cb9af194d32b49c959272"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/_SYNTHESIS.md": {
+    "mtime": 1783828119.2473478,
+    "ast_hash": "62b6495cfd612501185edaaf9f9deca0",
+    "semantic_hash": "62b6495cfd612501185edaaf9f9deca0"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/blier-2018-description-length-deep-learning.md": {
+    "mtime": 1783827995.2569988,
+    "ast_hash": "13d22240221f2b845f89f121acb3a0b7",
+    "semantic_hash": "13d22240221f2b845f89f121acb3a0b7"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/elhage-2022-toy-models-superposition.md": {
+    "mtime": 1783827872.1307173,
+    "ast_hash": "3e9bab0415283e1b793881f6d6c6ea46",
+    "semantic_hash": "3e9bab0415283e1b793881f6d6c6ea46"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/frankle-2019-lottery-ticket.md": {
+    "mtime": 1783827941.591588,
+    "ast_hash": "b1544c7bef3c7d04d4178bb908cba501",
+    "semantic_hash": "b1544c7bef3c7d04d4178bb908cba501"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/henighan-2023-superposition-memorization-double-descent.md": {
+    "mtime": 1783827893.548562,
+    "ast_hash": "848b3ec83a412ffb802dcc176d4e6a20",
+    "semantic_hash": "848b3ec83a412ffb802dcc176d4e6a20"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/huh-2024-platonic-representation-hypothesis.md": {
+    "mtime": 1783828072.0840456,
+    "ast_hash": "5dfb2966b557564144ec7845df04407e",
+    "semantic_hash": "5dfb2966b557564144ec7845df04407e"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/nakkiran-2019-deep-double-descent.md": {
+    "mtime": 1783827967.1056323,
+    "ast_hash": "bc497df46404b01913e8d891753a36c5",
+    "semantic_hash": "bc497df46404b01913e8d891753a36c5"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/nanda-2023-progress-measures-grokking.md": {
+    "mtime": 1783828044.3422973,
+    "ast_hash": "d5de2054bb38246c58ec07d94f6f342e",
+    "semantic_hash": "d5de2054bb38246c58ec07d94f6f342e"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/power-2022-grokking.md": {
+    "mtime": 1783828021.6860929,
+    "ast_hash": "39d80b2947f8daec120e3575effffd24",
+    "semantic_hash": "39d80b2947f8daec120e3575effffd24"
+  },
+  "auto-research/tier5-open-exploration/learning-as-compression/templeton-2024-scaling-monosemanticity.md": {
+    "mtime": 1783827920.9792335,
+    "ast_hash": "0b56421140982280f58cfc744c0aa87d",
+    "semantic_hash": "0b56421140982280f58cfc744c0aa87d"
+  },
+  "docs/notes/graphify.md": {
+    "mtime": 1783619391.751122,
+    "ast_hash": "33dba14b862a4ba4bd0afb94205a545f",
+    "semantic_hash": "33dba14b862a4ba4bd0afb94205a545f"
+  },
+  "auto-research/_protocol/subagent-brief-template.md": {
+    "mtime": 1783666673.6401057,
+    "ast_hash": "abe29b75d3b51ec209a918c092eb0cde",
+    "semantic_hash": "abe29b75d3b51ec209a918c092eb0cde"
+  },
+  "auto-research/tier1-nearest-neighbors/analytic-continual-learning/fang-2024-air.md": {
+    "mtime": 1783667757.6010773,
+    "ast_hash": "b4cd2be2cf9146ed479444ae33ef49ba",
+    "semantic_hash": "b4cd2be2cf9146ed479444ae33ef49ba"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/elgorrim-2025-fsc-net.md": {
+    "mtime": 1783672124.412175,
+    "ast_hash": "83b988ad868045e3669c7acae1fda1e8",
+    "semantic_hash": "83b988ad868045e3669c7acae1fda1e8"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/kamra-2017-dgdmn.md": {
+    "mtime": 1783672150.974015,
+    "ast_hash": "7e9fd4b543d2faaaa879d48f81bc96f8",
+    "semantic_hash": "7e9fd4b543d2faaaa879d48f81bc96f8"
+  },
+  "auto-research/tier1-nearest-neighbors/complementary-dual-memory/pham-2021-dualnet.md": {
+    "mtime": 1783672019.278107,
+    "ast_hash": "45687fdf0ff2e49d0a17d810a1f4ac8e",
+    "semantic_hash": "45687fdf0ff2e49d0a17d810a1f4ac8e"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/bartunov-2018-scalability-bio-deep-learning.md": {
+    "mtime": 1783673579.8099625,
+    "ast_hash": "7fcb900e01303905ae024db4e75a5fa6",
+    "semantic_hash": "7fcb900e01303905ae024db4e75a5fa6"
+  },
+  "auto-research/tier1-nearest-neighbors/feedback-alignment-dfa/nokland-2016-direct-feedback-alignment.md": {
+    "mtime": 1783673552.2107296,
+    "ast_hash": "ca9d76cd2f1807dde5daeb6b9b8eabc1",
+    "semantic_hash": "ca9d76cd2f1807dde5daeb6b9b8eabc1"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/chen-2026-synthetic-benchmarks-overstate-ff.md": {
+    "mtime": 1783667091.519354,
+    "ast_hash": "2e32d6f65ca6802242b324d75c57e2c7",
+    "semantic_hash": "2e32d6f65ca6802242b324d75c57e2c7"
+  },
+  "auto-research/tier1-nearest-neighbors/forward-only-family/spyra-2025-energy-efficient-forward-only-eval.md": {
+    "mtime": 1783667073.602198,
+    "ast_hash": "3fb7ac0732a0764903afbd50723fb150",
+    "semantic_hash": "3fb7ac0732a0764903afbd50723fb150"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/mehta-2023-role-of-pretraining.md": {
+    "mtime": 1783672844.6451848,
+    "ast_hash": "7a20953b7449aec643e9f1beb2929916",
+    "semantic_hash": "7a20953b7449aec643e9f1beb2929916"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/tang-2023-apg-weak-pretraining.md": {
+    "mtime": 1783672813.4874897,
+    "ast_hash": "5c028359388876ba11aa0565003bead1",
+    "semantic_hash": "5c028359388876ba11aa0565003bead1"
+  },
+  "auto-research/tier1-nearest-neighbors/frozen-backbone-cheap-head/zhou-2024-ptm-cl-survey.md": {
+    "mtime": 1783672975.0427763,
+    "ast_hash": "91b7d03e9ee26aeb2860b84659119744",
+    "semantic_hash": "91b7d03e9ee26aeb2860b84659119744"
+  },
+  "auto-research/tier1-nearest-neighbors/on-device-online-learning/ma-2023-miro.md": {
+    "mtime": 1783668603.8894403,
+    "ast_hash": "dfdb35af3526e96f4c62ed581d93939b",
+    "semantic_hash": "dfdb35af3526e96f4c62ed581d93939b"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/cossu-2024-continual-pretraining.md": {
+    "mtime": 1783674565.2455688,
+    "ast_hash": "9446eb0b44e996e35cdafba524666663",
+    "semantic_hash": "9446eb0b44e996e35cdafba524666663"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/fini-2022-cassle.md": {
+    "mtime": 1783674355.6542523,
+    "ast_hash": "f5ed1dca12ff03a1e2f2c1e484895680",
+    "semantic_hash": "f5ed1dca12ff03a1e2f2c1e484895680"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/marczak-2024-revisiting-supervision.md": {
+    "mtime": 1783674536.2638557,
+    "ast_hash": "21300e44bdae2d584e0b8160a278e331",
+    "semantic_hash": "21300e44bdae2d584e0b8160a278e331"
+  },
+  "auto-research/tier1-nearest-neighbors/ssl-backbones-for-cl/ostapenko-2022-foundation-latent-replay.md": {
+    "mtime": 1783674503.9262383,
+    "ast_hash": "d31f9a000e1d811ee0f222cb3df6967a",
+    "semantic_hash": "d31f9a000e1d811ee0f222cb3df6967a"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/goswami-2023-fecam.md": {
+    "mtime": 1783700105.91757,
+    "ast_hash": "3f1a4c9e050b24b2224cfde0ebbd7544",
+    "semantic_hash": "3f1a4c9e050b24b2224cfde0ebbd7544"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/yang-2022-etf-fixed-classifier.md": {
+    "mtime": 1783700357.2837422,
+    "ast_hash": "0d1ec8f30a74852db333871557eeac38",
+    "semantic_hash": "0d1ec8f30a74852db333871557eeac38"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/yang-2023-neural-collapse-terminus.md": {
+    "mtime": 1783700387.5940979,
+    "ast_hash": "54b585d1fd81cccc046be3674924bc5a",
+    "semantic_hash": "54b585d1fd81cccc046be3674924bc5a"
+  },
+  "auto-research/tier2-component-optimization/closed-form-classifier/zhang-2025-scl-pnc.md": {
+    "mtime": 1783700453.179808,
+    "ast_hash": "b4bfce3a4776605ffcad52b9da967397",
+    "semantic_hash": "b4bfce3a4776605ffcad52b9da967397"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/cerqueira-2023-studd.md": {
+    "mtime": 1783725838.2739873,
+    "ast_hash": "e78b857b1b333d009977f66ee536db04",
+    "semantic_hash": "e78b857b1b333d009977f66ee536db04"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/hinder-2024-one-or-two-things.md": {
+    "mtime": 1783725871.7376146,
+    "ast_hash": "fa2d3152a535d42e35fa3e81baef9789",
+    "semantic_hash": "fa2d3152a535d42e35fa3e81baef9789"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/mahadevan-2023-cara-cost-aware-retraining.md": {
+    "mtime": 1783725943.5835495,
+    "ast_hash": "45cfc514386ba85773c3c1bbc9a71a32",
+    "semantic_hash": "45cfc514386ba85773c3c1bbc9a71a32"
+  },
+  "auto-research/tier2-component-optimization/drift-detection-gate/webb-2016-characterizing-drift.md": {
+    "mtime": 1783725991.128168,
+    "ast_hash": "9b9d9ab298c31e8c8c572850be9965cd",
+    "semantic_hash": "9b9d9ab298c31e8c8c572850be9965cd"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/huang-2026-pta.md": {
+    "mtime": 1783726698.0456543,
+    "ast_hash": "51521ee6bdc6ac4e30de9ce49865dbfd",
+    "semantic_hash": "51521ee6bdc6ac4e30de9ce49865dbfd"
+  },
+  "auto-research/tier2-component-optimization/noise-robust-representation/wang-2024-otta-survey.md": {
+    "mtime": 1783726776.2790067,
+    "ast_hash": "e171e1393ddb12c545284975e9ba201c",
+    "semantic_hash": "e171e1393ddb12c545284975e9ba201c"
+  },
+  "auto-research/tier2-component-optimization/scff-negatives-and-goodness/wu-2024-distance-forward.md": {
+    "mtime": 1783699133.1834095,
+    "ast_hash": "808be8cad3b4c8ec05c8e6235df2779d",
+    "semantic_hash": "808be8cad3b4c8ec05c8e6235df2779d"
+  },
+  "auto-research/tier3-north-star/correctness-as-feeling/huang-2023-llms-cannot-self-correct.md": {
+    "mtime": 1783787472.933614,
+    "ast_hash": "641de2e42fce94b30489af142e0da481",
+    "semantic_hash": "641de2e42fce94b30489af142e0da481"
+  },
+  "auto-research/tier4-adjacent-wildcards/analog-in-memory-compute/cai-2020-memristor-hopfield.md": {
+    "mtime": 1783789119.1516438,
+    "ast_hash": "057cc61007675ecbb89585c75fc75d53",
+    "semantic_hash": "057cc61007675ecbb89585c75fc75d53"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/scellier-2023-energy-based-comparative.md": {
+    "mtime": 1783804958.8731322,
+    "ast_hash": "625bdf5ce8d81f7516444a6424d8c219",
+    "semantic_hash": "625bdf5ce8d81f7516444a6424d8c219"
+  },
+  "auto-research/tier4-adjacent-wildcards/equilibrium-physics-learning/stern-2023-learning-without-neurons.md": {
+    "mtime": 1783805085.3936117,
+    "ast_hash": "a703d88ed0b448f5c53a81673e50117f",
+    "semantic_hash": "a703d88ed0b448f5c53a81673e50117f"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/siegel-2024-imssa-memristive-ssm.md": {
+    "mtime": 1783806328.4617152,
+    "ast_hash": "0f70c37924d87a8ce9aba8d1b6fdfb79",
+    "semantic_hash": "0f70c37924d87a8ce9aba8d1b6fdfb79"
+  },
+  "auto-research/tier4-adjacent-wildcards/state-space-liquid-atoms/zhang-2025-cim-ssm-event.md": {
+    "mtime": 1783806181.14476,
+    "ast_hash": "e2c639acf8527cd9c43483292520ec9a",
+    "semantic_hash": "e2c639acf8527cd9c43483292520ec9a"
   }
 }
