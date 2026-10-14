@@ -436,3 +436,7 @@ What the AI does **not** do is decide what is true. Every result, every number, 
 - **What this is not (by choice, not omission):** circuit design, computer architecture, ALU/ISA work, SPICE decks, or fabrication. Every analog reference in this repo imports a **constraint** into the math; none of them promises silicon. Also not SOTA-benchmark-chasing — small tasks are probes, not claims. _(The repo keeps its original working title — the object is a compute-substrate design target, not a CPU in the instruction-stream sense.)_
 - **Done:** the neocortex organ — both brains, characterized, validated, **frozen, and raced** (Stage 1 build = P1–6, Stage 2 build = P7–9; the validation = P10–11, _freeze in P9, judge in P10_; S14). The founding bet is **refined, not inflated.** And then **validated on real data + scale** — Phase 11, the limit map (S15): the frozen object across eight real arenas (real drift streams, cross-dataset, scale sweeps), every cell win / tie / loss / **FLOOR**.
 - **The bet stays chip-shaped, not chip-promised:** that brain-like computation can be made the _cheap_ path on the right substrate — proven first where it can be proven: in simulation, in binary, before anyone melts sand. **Next build: the hippocampus organ** (the north star, above).
+
+## License
+
+Original code and documentation authored by Jakkarin Promsee are licensed under the [MIT License](LICENSE). Third-party code, assets, datasets, and other materials are not covered by this license; their original terms apply.
